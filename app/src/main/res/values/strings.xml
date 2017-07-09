@@ -57,6 +57,7 @@
     <string name="zbch">足不出户</string>
     <string name="ynwcns">也能完成年审</string>
     <string name="cellnews">社区新闻</string>
+    <string name="newsdetail">新闻详情</string>
     <string name="getdatafailed">数据获取失败</string>
 
     <string name="userregister">用户注册</string>
