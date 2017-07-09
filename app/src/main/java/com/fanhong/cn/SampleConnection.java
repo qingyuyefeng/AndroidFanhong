@@ -357,7 +357,7 @@ public class SampleConnection extends Application{
 				//使用JSONObject给response转换编码
 				//JSONObject jsonObject = new JSONObject(response);
 				//responseText.setText(jsonObject.toString());
-				Log.e("hu","*3*****post recv:"+response);
+//				Log.e("hu","*3*****post recv:"+response);
 				handlerConnectSuccess(response.trim());
 				//} catch (JSONException e) {
 				//	e.printStackTrace();
@@ -373,10 +373,8 @@ public class SampleConnection extends Application{
 			@Override
 			protected Map<String, String> getParams() throws AuthFailureError {
 				Map<String,String> map2 = new HashMap<>();
-				Log.e("hu","*1*****post**********");
 				for (String key : map1.keySet()) {
-					map2.put(key, (String) map1.get(key));
-					Log.e("hu","*2*****key="+key+" value="+(String) map1.get(key));
+					map2.put(key,  map1.get(key).toString());
 				}
 				return map2;
 			}
@@ -490,12 +488,12 @@ public class SampleConnection extends Application{
 					try {
 						httpRes = URLDecoder.decode(httpRes, "UTF-8");
 					} catch (Exception e) {
-						Log.e("hu","*****e="+e.toString());
+//						Log.e("hu","*****e="+e.toString());
 					}
-					Log.i(TAG, "Connection>>>"+"httpResponse="+httpRes);
+//					Log.i(TAG, "Connection>>>"+"httpResponse="+httpRes);
 					try {
 						JSONObject json = new JSONObject(httpRes);
-						Log.e("hu","******post get:  json="+json.toString());
+//						Log.e("hu","******post get:  json="+json.toString());
 						if (connection.mSamplePreferenceActivity != null) {
 							connection.mSamplePreferenceActivity.connectSuccess(json, connection.mType);
 						} else {

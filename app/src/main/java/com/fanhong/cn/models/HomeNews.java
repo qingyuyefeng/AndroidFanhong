@@ -5,7 +5,20 @@ package com.fanhong.cn.models;
  */
 
 public class HomeNews {
-    private String newsImage,newsTitle,newsWhere,newsTime;
+    private String newsImage;
+    private String newsTitle;
+    private String newsWhere;
+    private String newsTime;
+
+    public String getNewsUrl() {
+        return newsUrl;
+    }
+
+    public void setNewsUrl(String newsUrl) {
+        this.newsUrl = newsUrl;
+    }
+
+    private String newsUrl;
 
     public String getNewsImage() {
         return newsImage;

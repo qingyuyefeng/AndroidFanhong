@@ -510,13 +510,6 @@
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/more_news"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:text="@string/moremore"
-                    android:textColor="#ffb23b" />
             </LinearLayout>
 
             <View
@@ -525,14 +518,22 @@
                 android:layout_marginTop="5dp"
                 android:background="@color/xuxian" />
 
-            <ListView
-                android:id="@+id/home_news"
+            <LinearLayout
+                android:id="@+id/home_news_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="3dp"
-                android:divider="@drawable/xuxian" />
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/home_news"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="3dp"
+                    android:dividerHeight="3dp"
+                    android:divider="@drawable/xuxian" />
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -583,12 +584,12 @@
                 </LinearLayout>
 
                 <!--<ListView-->
-                    <!--android:id="@+id/jcht_listview"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginTop="3dp"-->
-                    <!--android:divider="@color/white"-->
-                    <!--android:dividerHeight="3dp" />-->
+                <!--android:id="@+id/jcht_listview"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="3dp"-->
+                <!--android:divider="@color/white"-->
+                <!--android:dividerHeight="3dp" />-->
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

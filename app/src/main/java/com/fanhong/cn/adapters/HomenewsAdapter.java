@@ -12,6 +12,9 @@ import com.fanhong.cn.R;
 import com.fanhong.cn.models.HomeNews;
 import com.fanhong.cn.synctaskpicture.LoadImage;
 
+import org.xutils.image.ImageOptions;
+import org.xutils.x;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,10 +61,12 @@ public class HomenewsAdapter extends BaseAdapter{
             viewHolder = (ViewHolder) convertView.getTag();
         }
         HomeNews homeNews = newsList.get(position);
-//        LoadImage.Load(viewHolder.newsPic,homeNews.getNewsImage(),context);
-//        viewHolder.newsTitle.setText(homeNews.getNewsTitle());
-//        viewHolder.newsPlace.setText(homeNews.getNewsWhere());
-//        viewHolder.newsTime.setText(homeNews.getNewsTime());
+        ImageOptions options = new ImageOptions.Builder().setLoadingDrawableId(R.mipmap.pictureloading)
+                .setFailureDrawableId(R.mipmap.picturefailedloading).setUseMemCache(true).build();
+        x.image().bind(viewHolder.newsPic,homeNews.getNewsImage(),options);
+        viewHolder.newsTitle.setText(homeNews.getNewsTitle());
+        viewHolder.newsPlace.setText(homeNews.getNewsWhere());
+        viewHolder.newsTime.setText(homeNews.getNewsTime());
         return convertView;
     }
 

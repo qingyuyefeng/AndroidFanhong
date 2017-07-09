@@ -109,10 +109,6 @@ public class FragmentMainActivity extends SampleActivity {
             }
         }, 3000);
     }
-    private void getNewsData(){
-        Map<String,Object> map = new HashMap<>();
-        map.put("cmd","");
-    }
 
     private void initViews() {
         bottomRadioGroup = (RadioGroup) findViewById(R.id.bottom_radiogroup);
@@ -314,7 +310,6 @@ public class FragmentMainActivity extends SampleActivity {
             return;
         }
         if (cmd == 6 && result == 0) {
-            Log.i("xq", "登录成功====>" + json.toString());
             SampleConnection.USER = name;
             SampleConnection.ALIAS = nick;
             SampleConnection.USER_STATE = 1;
@@ -331,11 +326,15 @@ public class FragmentMainActivity extends SampleActivity {
             } else {
                 Toast.makeText(this, "门禁钥匙数据异常", Toast.LENGTH_SHORT).show();
             }
-        } else {
-            connectFail(type);
+        }else if(cmd == 34){
+            mTab01.setFragment(33,json.toString());
+        }else if(cmd == 50){
+            mTab01.setFragment(49,json.toString());
+        }else if(cmd == 44){
+            mTab01.setFragment(43,json.toString());
         }
-        if(type == 37){
-            mTab01.setFragment(37,json.toString());
+        else {
+            connectFail(type);
         }
     }
 
@@ -403,7 +402,6 @@ public class FragmentMainActivity extends SampleActivity {
                         mSettingPref.edit().putString("gardenId", id).commit();
                         mSettingPref.edit().putString("gardenProperty", property).commit();
                         mTab01.setFragment(11, name);
-                        mTab03.setFragment(11, name);
                         mTab05.setFragment(name);
                     }
                 }
@@ -414,7 +412,6 @@ public class FragmentMainActivity extends SampleActivity {
             case 555:        //注销登录的回调
                 mTab01.setFragment(11, mSettingPref.getString("gardenName", ""));
                 mTab02.setFragment(21, "");
-                mTab03.setFragment(11, mSettingPref.getString("gardenName", ""));
                 mTab04.setFragment(1, 0);
         }
     }

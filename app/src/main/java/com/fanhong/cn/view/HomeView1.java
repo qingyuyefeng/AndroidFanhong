@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -34,6 +35,7 @@ import com.fanhong.cn.NoticeActivity;
 import com.fanhong.cn.R;
 import com.fanhong.cn.SampleConnection;
 import com.fanhong.cn.StoreActivity;
+import com.fanhong.cn.WebViewActivity;
 import com.fanhong.cn.adapters.HomenewsAdapter;
 import com.fanhong.cn.adapters.JchtAdapter;
 import com.fanhong.cn.models.HomeNews;
@@ -67,16 +69,15 @@ public class HomeView1 extends BaseFragment {
     private RadioGroup radioGroup;
     private List<RadioButton> btnLists = new ArrayList<>();
     private List<Integer> images = new ArrayList<>();
-    private TextView moreNotice, showCellName,moreEsgoods,moreNews;
+    private TextView moreNotice, showCellName, moreEsgoods;
     private TextView[] textViews = new TextView[4];
     private RelativeLayout repairLayout, kuaidiLayout, jiazhengLayout, storeLayout, daibanLayout;
-//    private ListView jchtListView;
+    //    private ListView jchtListView;
 //    private JchtAdapter jchtAdapter;
 //    private List<JchtModel> jchtModelList = new ArrayList<>();
-    private String[] strings = new String[]{"2020年中国实现5G商用，2025年用户将破4亿",
-            "直击茅台10万年薪招工体测：没人能躺着把钱赚了", "杭州7旬老太要把毕生积蓄送给警察 称比儿子还好"};
+    private List<String> strings = new ArrayList<>();
 
-    private LinearLayout myGallery;
+    private LinearLayout myGallery,homenewsLayout;
     private LayoutInflater inflater;
 
     private ListView newsListview;
@@ -108,10 +109,6 @@ public class HomeView1 extends BaseFragment {
         }
 
         moreNotice = (TextView) view.findViewById(R.id.show_notice);
-        moreNotice.setText(strings[0]);
-        //公告内容动画显示
-        translateImpl(moreNotice);
-
         moreNotice.setOnClickListener(ocl);
         viewFlipper = (ViewFlipper) view.findViewById(R.id.my_flipper);
         radioGroup = (RadioGroup) view.findViewById(R.id.radio_group);
@@ -165,18 +162,27 @@ public class HomeView1 extends BaseFragment {
 
         moreEsgoods = (TextView) view.findViewById(R.id.more_esgoods);
         moreEsgoods.setOnClickListener(ocl);
-        moreNews = (TextView) view.findViewById(R.id.more_news);
-        moreNews.setOnClickListener(ocl);
+
 
 //        jchtListView = (ListView) view.findViewById(R.id.jcht_listview);
         newsListview = (ListView) view.findViewById(R.id.home_news);
+
         initData();
+
 //        jchtAdapter = new JchtAdapter(getActivity(), jchtModelList);
 //        jchtListView.setAdapter(jchtAdapter);
         newsAdapter = new HomenewsAdapter(getActivity(), newsList);
         newsListview.setAdapter(newsAdapter);
+        newsListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String url = newsList.get(position).getNewsUrl();
+                Intent intent = new Intent(HomeView1.this.getActivity(), WebViewActivity.class);
+                intent.putExtra("url",url);
+                startActivityForResult(intent,1);
+            }
+        });
 //        getBaseActivity().setListViewHeight(jchtListView);
-        getBaseActivity().setListViewHeight(newsListview);
 
 
         repairLayout = (RelativeLayout) view.findViewById(R.id.repair_layout);
@@ -191,78 +197,81 @@ public class HomeView1 extends BaseFragment {
         daibanLayout.setOnClickListener(ocl);
 
         myGallery = (LinearLayout) view.findViewById(R.id.my_gallery);
+        homenewsLayout = (LinearLayout) view.findViewById(R.id.home_news_layout);
         inflater = LayoutInflater.from(getActivity());
     }
-    private void initData(){
+
+    private void initData() {
 //        for (int i = 0; i < 2; i++) {
 //            JchtModel jchtModel = new JchtModel();
 //            jchtModelList.add(jchtModel);
 //        }
-        for(int i = 0;i<2;i++){
-            HomeNews homeNews = new HomeNews();
-            newsList.add(homeNews);
-        }
-        Message msg = handler.obtainMessage();
-        msg.what = 0;
-        handler.sendMessage(msg);
-
+        getGonggaoData();
+        getEsGoodsDatas();
+        getNewsDatas();
+    }
+    private void getGonggaoData(){
         Map<String,Object> map = new HashMap<>();
-//        String uid = mSharedPref.getString("UserId","");
-        map.put("cmd","33");
+        map.put("cmd",43);
         if(mSample == null){
-            mSample = new SampleConnection(getBaseActivity(),37);
+            mSample = new SampleConnection(getBaseActivity(),43);
         }
         mSample.connectService1(map);
     }
-    private void getGoodsData(String str){
-        Log.i("xq","es===>json："+str);
+
+    private void setGoodsData(String str) {
+        Log.i("xq", "es===>json：" + str);
         try {
             JSONObject jsonObject = new JSONObject(str);
             JSONArray jsonArray = jsonObject.optJSONArray("data");
-            for(int i=0;i<jsonArray.length();i++){
-                JSONObject object = jsonArray.getJSONObject(i);
+//            if (jsonArray.length() == 0) {
+//                myGallery.setBackgroundResource(R.drawable.nodatas);
+//            } else {
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject object = jsonArray.getJSONObject(i);
 
-                final JSONObject object1 = object;
-                View view = inflater.inflate(R.layout.myhorizontallistview_item,null);
-                view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(HomeView1.this.getActivity(), CommStoreDetailsActivity.class);
-                        Bundle bundle=new Bundle();
-                        bundle.putString("title",(object1.optString("name")));
-                        bundle.putString("img",(object1.optString("tupian")));
-                        bundle.putString("detail",object1.optString("ms"));
-                        bundle.putString("user",(object1.optString("user")));
-                        bundle.putString("phone",(object1.optString("dh")));
-                        bundle.putString("price",object1.optString("jg"));
-                        bundle.putString("id",(object1.optInt("id")+""));
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                    }
-                });
-                ImageView imageView = (ImageView) view.findViewById(R.id.myitempic);
+                    final JSONObject object1 = object;
+                    View view = inflater.inflate(R.layout.myhorizontallistview_item, null);
+                    view.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(HomeView1.this.getActivity(), CommStoreDetailsActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("title", (object1.optString("name")));
+                            bundle.putString("img", (object1.optString("tupian")));
+                            bundle.putString("detail", object1.optString("ms"));
+                            bundle.putString("user", (object1.optString("user")));
+                            bundle.putString("phone", (object1.optString("dh")));
+                            bundle.putString("price", object1.optString("jg"));
+                            bundle.putString("id", (object1.optInt("id") + ""));
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                        }
+                    });
+                    ImageView imageView = (ImageView) view.findViewById(R.id.myitempic);
 //                LoadImage.Load(imageView,object.optString("tupian",""),getActivity());
-                ImageOptions options = new ImageOptions.Builder().setLoadingDrawableId(R.mipmap.pictureloading)
-                        .setFailureDrawableId(R.mipmap.picturefailedloading).setUseMemCache(true).build();
-                x.image().bind(imageView,object.optString("tupian",""),options);
-                TextView textView = (TextView) view.findViewById(R.id.myitemtext);
-                textView.setText(object.optString("name",""));
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(getWidth()/3-20,-1);
-                params.setMargins(10,0,10,0);
-                view.setLayoutParams(params);
-                LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(getWidth()/3-80,
-                        getWidth()/3-80);
-                params1.setMargins(0,20,0,0);
-                imageView.setLayoutParams(params1);
-                myGallery.addView(view);
-            }
+                    ImageOptions options = new ImageOptions.Builder().setLoadingDrawableId(R.mipmap.pictureloading)
+                            .setFailureDrawableId(R.mipmap.picturefailedloading).setUseMemCache(true).build();
+                    x.image().bind(imageView, object.optString("tupian", ""), options);
+                    TextView textView = (TextView) view.findViewById(R.id.myitemtext);
+                    textView.setText(object.optString("name", ""));
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(getWidth() / 3 - 20, -1);
+                    params.setMargins(10, 0, 10, 0);
+                    view.setLayoutParams(params);
+                    LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(getWidth() / 3 - 80,
+                            getWidth() / 3 - 80);
+                    params1.setMargins(0, 20, 0, 0);
+                    imageView.setLayoutParams(params1);
+                    myGallery.addView(view);
+                }
+//            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
     //获取屏幕宽度
-    private int getWidth(){
+    private int getWidth() {
         WindowManager wm = HomeView1.this.getActivity().getWindowManager();
         return wm.getDefaultDisplay().getWidth();
     }
@@ -287,9 +296,9 @@ public class HomeView1 extends BaseFragment {
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-                tv.setText(strings[i]);
+                tv.setText(strings.get(i));
                 i++;
-                if (i > strings.length - 1) {
+                if (i > strings.size() - 1) {
                     i = 0;
                 }
             }
@@ -324,8 +333,9 @@ public class HomeView1 extends BaseFragment {
             Intent intent = new Intent();
             switch (v.getId()) {
                 case R.id.show_notice:
-                    intent.setClass(HomeView1.this.getActivity(), NoticeActivity.class);
-                    startActivity(intent);
+//                    intent.setClass(HomeView1.this.getActivity(), NoticeActivity.class);
+//                    startActivity(intent);
+                    getBaseActivity().setRadioButtonsChecked(3);
                     break;
                 case R.id.image_choosecell:
                     if (isLogined() == 1) {
@@ -376,9 +386,6 @@ public class HomeView1 extends BaseFragment {
                     intent.setClass(HomeView1.this.getActivity(), ShopActivity.class);
                     startActivity(intent);
                     break;
-                case R.id.more_news:
-                    getBaseActivity().setRadioButtonsChecked(3);
-                    break;
             }
         }
     };
@@ -420,23 +427,68 @@ public class HomeView1 extends BaseFragment {
             case 11:
                 showCellName.setText(str);
                 break;
-            case 37:
+            case 33:
                 myGallery.removeAllViews();
-                getGoodsData(str);
+                setGoodsData(str);
+                break;
+            case 49:
+                newsList.clear();
+                setnewsList(str);
+                break;
+            case 43:
+                Log.i("xq","首页最新公告==>"+str);
+                try {
+                    JSONObject jsonObject = new JSONObject(str);
+                    String string = jsonObject.optString("data").replace("[","").replace("]","").replace("\"","");
+                    String[] strs = string.split(",");
+                    if(strs.length>0){
+                        for(int i=0;i<strs.length;i++){
+                            strings.add(strs[i]);
+                        }
+                        moreNotice.setText(strings.get(0));
+                        //公告内容动画显示
+                        translateImpl(moreNotice);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 break;
         }
+    }
+
+    private void setnewsList(String str) {
+        Log.i("xq", "首页新闻data==>" + str);
+        try {
+            JSONObject jsonObject = new JSONObject(str);
+            JSONArray jsonArray = jsonObject.optJSONArray("data1");
+//            if(jsonArray.length() == 0){
+//                homenewsLayout.setBackgroundResource(R.drawable.nodatas);
+//            }else {
+                for(int i=0;i<jsonArray.length();i++){
+                    JSONObject object = jsonArray.getJSONObject(i);
+                    HomeNews homeNews = new HomeNews();
+                    homeNews.setNewsImage(object.optString("logo"));
+                    homeNews.setNewsTitle(object.optString("bt"));
+                    homeNews.setNewsWhere(object.optString("zz"));
+                    homeNews.setNewsTime(object.optString("time"));
+                    homeNews.setNewsUrl(object.optString("url"));
+                    newsList.add(homeNews);
+                }
+                handler.sendEmptyMessage(0);
+//            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
-            switch (msg.what) {
-                case 0:
-//                    jchtAdapter.notifyDataSetChanged();
-                    newsAdapter.notifyDataSetChanged();
-                    break;
-            }
+//          jchtAdapter.notifyDataSetChanged();
+            newsAdapter.notifyDataSetChanged();
+            getBaseActivity().setListViewHeight(newsListview);
             return true;
         }
     });
@@ -452,11 +504,25 @@ public class HomeView1 extends BaseFragment {
         } catch (Exception e) {
         }
 
-        Map<String,Object> map = new HashMap<>();
-//        String uid = mSharedPref.getString("UserId","");
-        map.put("cmd","33");
-        if(mSample == null){
-            mSample = new SampleConnection(getBaseActivity(),37);
+        getEsGoodsDatas();
+        getNewsDatas();
+
+    }
+
+    private void getEsGoodsDatas() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("cmd", "33");
+        if (mSample == null) {
+            mSample = new SampleConnection(getBaseActivity(), 33);
+        }
+        mSample.connectService1(map);
+    }
+
+    private void getNewsDatas() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("cmd", "49");
+        if (mSample == null) {
+            mSample = new SampleConnection(getBaseActivity(), 49);
         }
         mSample.connectService1(map);
     }
