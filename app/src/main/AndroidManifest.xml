@@ -91,12 +91,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".CommStoreActivity" />
-        <activity android:name=".CommStoreDetailsActivity"
+        <activity
+            android:name=".CommStoreDetailsActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar"/>
-        <activity android:name=".WelcomeActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity
+            android:name=".WelcomeActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar"/>
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
             android:name=".NoticeActivity"
             android:screenOrientation="portrait"
@@ -255,11 +257,15 @@
             android:name=".applydoors.ChooseLouActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
-        <activity android:name=".applydoors.OpenDoorActivity"
+        <activity
+            android:name=".applydoors.OpenDoorActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
 
-
+        <activity
+            android:name=".NewsDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
         <!-- alipay sdk end -->
 
 

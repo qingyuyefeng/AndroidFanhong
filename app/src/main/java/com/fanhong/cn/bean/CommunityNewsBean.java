@@ -10,6 +10,19 @@ public class CommunityNewsBean {
     private String tv_news_title = "";
     private String tv_news_from = "";
     private String tv_news_time = "";
+    private String newsId = "";
+    public static int TYPE_NEWS = 1;
+    public static int TYPE_INFORM = 2;
+    public static int TYPE_NOTICE = 3;
+    public static int TYPE_ACTIVE = 4;
+
+    public String getNewsId() {
+        return newsId;
+    }
+
+    public void setNewsId(String newsId) {
+        this.newsId = newsId;
+    }
 
     public CommunityNewsBean() {
     }
@@ -36,6 +49,17 @@ public class CommunityNewsBean {
 
     public void setNews_flag(String news_flag) {
         this.news_flag = news_flag;
+    }
+
+    public void setNews_flag(int type) {
+        if (type == TYPE_NEWS)
+            this.news_flag = "新闻";
+        if (type == TYPE_INFORM)
+            this.news_flag = "通知";
+        if (type == TYPE_NOTICE)
+            this.news_flag = "公告";
+        if (type == TYPE_ACTIVE)
+            this.news_flag = "活动";
     }
 
     public String getTv_news_title() {
