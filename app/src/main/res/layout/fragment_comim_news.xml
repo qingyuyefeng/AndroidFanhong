@@ -23,8 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fastScrollEnabled="true"
-
-            ></com.fanhong.cn.listviews.RealhightListView>
+            android:minHeight="200px" />
 
         <TextView
             android:layout_width="wrap_content"

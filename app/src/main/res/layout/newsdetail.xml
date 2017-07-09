@@ -32,39 +32,48 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="15px"
-            android:paddingRight="15px">
+            android:paddingLeft="28px"
+            android:paddingRight="28px">
             <TextView
                 android:id="@+id/news_detail_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="55px"
                 android:text="news title"
-                android:textSize="30px"
+                android:textSize="40px"
+                android:lineSpacingExtra="40px"
                 android:textColor="#333"
                 android:textStyle="bold"/>
             <TextView
                 android:id="@+id/news_detail_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30px"
-                android:textSize="16px"
+                android:layout_marginTop="40px"
+                android:textSize="20px"
                 android:text="news time"
                 android:textColor="#999"/>
             <TextView
                 android:id="@+id/news_detail_place"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30px"
-                android:textSize="16px"
+                android:layout_marginTop="40px"
+                android:textSize="20px"
                 android:text="news place"
                 android:textColor="#999"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="24px"
+                android:background="@color/press_color"/>
             <TextView
                 android:id="@+id/new_detail_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="news content"
-                android:layout_marginTop="40px"
+                android:layout_marginTop="62px"
                 android:layout_marginBottom="40px"
+                android:lineSpacingExtra="40px"
+                android:textSize="30px"
                 android:textColor="#666"/>
         </com.zhy.autolayout.AutoLinearLayout>
     </ScrollView>
