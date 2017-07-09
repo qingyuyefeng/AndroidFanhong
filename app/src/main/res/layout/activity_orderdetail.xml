@@ -221,15 +221,20 @@
 				android:layout_marginLeft="10.0dip"
 				android:layout_marginRight="10.0dip"
 				android:background="@drawable/btn_check" 
-				android:enabled="false" 
+				android:enabled="false"
             	android:button="@null"  />
-			<ImageView 
+
+			<ImageView
+				android:id="@+id/imageView"
 				android:layout_width="26dp"
 				android:layout_height="26dp"
-				android:layout_marginRight="2dp"
-				android:focusable="false"
 				android:background="@drawable/wx"
-				/>		
+				android:focusable="false" />
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:gravity="center_vertical"
+				android:text="(暂不支持)"/>
 		</LinearLayout>
 		<LinearLayout
   			android:layout_width="fill_parent"
@@ -313,7 +318,8 @@
 				       android:singleLine="true"
 				       android:layout_marginRight="10dp"
 				       android:gravity="center"
-				       android:text="¥100.8"
+					   android:drawableLeft="@drawable/rmb"
+				       android:text="100.8"
 				       android:textColor="@color/textred"
 				       android:textStyle="bold"
 				       android:textSize="18.0sp" />

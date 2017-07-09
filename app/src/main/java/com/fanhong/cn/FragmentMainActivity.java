@@ -109,6 +109,10 @@ public class FragmentMainActivity extends SampleActivity {
             }
         }, 3000);
     }
+    private void getNewsData(){
+        Map<String,Object> map = new HashMap<>();
+        map.put("cmd","");
+    }
 
     private void initViews() {
         bottomRadioGroup = (RadioGroup) findViewById(R.id.bottom_radiogroup);
