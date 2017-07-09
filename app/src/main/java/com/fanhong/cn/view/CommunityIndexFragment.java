@@ -90,4 +90,5 @@ public class CommunityIndexFragment extends BaseFragment {
     public void setFragment(String communityName){
         tv_communityName.setText(communityName);
     }
+
 }

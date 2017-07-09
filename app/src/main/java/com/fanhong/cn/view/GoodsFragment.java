@@ -165,7 +165,7 @@ public class GoodsFragment extends BaseFragment implements OnItemClickListener, 
 				JSONObject obj = array.getJSONObject(i);
 				String name = obj.getString("name");
 				String describe = obj.getString("describe");
-				String price = "￥"+obj.getString("jg");
+				String price = obj.getString("jg");
 				String logo_url = obj.getString("logo");
 				String id2 = obj.getString("id");
 				lv_carlist.addItem(name ,describe,price,logo_url,id2);
