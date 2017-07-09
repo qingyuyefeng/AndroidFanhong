@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+	<LinearLayout
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:background="@color/skyblue"
+    	>
+    	<RelativeLayout
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="48dp"    	       
+			android:layout_marginTop="4.0dip" 
+	    	>		     	
+			<TextView
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				android:singleLine="true"
+				android:gravity="center"
+				android:text="@string/tab_home"
+				android:textColor="@color/white"
+				android:textSize="21.0sp" />			
+		</RelativeLayout>
+	</LinearLayout>
+	<LinearLayout
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:background="@color/bg1">
+    
+	<RelativeLayout 
+	    android:id="@+id/rlclient"
+	    android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:layout_below="@+id/rltitle"
+		android:background="@color/white">
+		
+			<WebView android:id="@+id/webView" 
+			    android:layout_width="match_parent"
+			    android:layout_height="match_parent"/>
+	</RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

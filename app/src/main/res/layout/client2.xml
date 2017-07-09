@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+<RelativeLayout
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="48dp"    	       
+			android:layout_marginTop="0.0dip" 
+			android:background="@color/skyblue"
+	    	>
+	    	<LinearLayout
+			    android:layout_alignParentLeft="true"
+	     		android:layout_centerInParent="true"
+	     		android:gravity="center"
+	     		android:layout_width="wrap_content"   
+		        android:layout_height="fill_parent">	
+		    	<Button
+					android:id="@+id/btn_back"
+					android:background="@drawable/style_button_back_gray"					
+			        android:layout_width="28dp"   
+			        android:layout_height="28dp" 
+			        android:layout_marginLeft="10dp"
+			        /> 	 
+	        </LinearLayout>	    	   	
+			<TextView
+			    android:id="@+id/tv_title"
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				android:singleLine="true"
+				android:gravity="center"
+				android:text="蓝牙"
+				android:textColor="@color/white"
+				android:textSize="19.0sp" />			
+		</RelativeLayout>
+	<TextView
+		android:id="@+id/clientServersText"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="5dip"
+		android:layout_marginBottom="5dip"
+	></TextView>
+
+	<EditText
+		android:id="@+id/clientChatEditText"
+		android:layout_width="fill_parent"
+		android:layout_height="200dip"
+		android:singleLine="false"
+		android:gravity="top"
+		android:editable="false"
+		android:cursorVisible="false"
+		android:background="#aaa"
+		android:layout_margin="5dip"
+	></EditText>
+	
+	
+
+<LinearLayout
+        android:id="@+id/buttonLayout" 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="2dp"
+        android:orientation="horizontal">
+        <Button 
+            android:id="@+id/clientSendMsgBtn"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_weight="1"
+        	android:text="指令1"/>
+       
+
+         <Button 
+            android:id="@+id/fileSendBtn"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_weight="1"
+        	android:text="指令2"/>
+    </LinearLayout>
+</LinearLayout>

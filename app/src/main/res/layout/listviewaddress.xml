@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:orientation="vertical"
+  android:gravity="center_vertical|left"
+  >
+	<LinearLayout
+  		android:layout_width="fill_parent"
+  		android:layout_height="wrap_content"
+  		android:orientation="vertical"
+  		android:layout_marginLeft="10dp"
+	    android:layout_marginRight="10dp"
+  		android:background="@drawable/gjjl_bg"
+  		android:gravity="center_vertical|left"  		
+  		>
+  		
+	    <LinearLayout
+  			android:layout_width="fill_parent"
+  			android:layout_height="wrap_content"
+  			android:layout_marginTop="10dp"
+  			android:layout_marginLeft="0dp"
+  			android:layout_marginRight="0dp"
+  			android:orientation="horizontal">
+			<TextView 
+				android:layout_height="wrap_content" 
+				android:layout_width="wrap_content"					
+				android:textSize="15sp"
+				android:textColor="@color/textgray2"
+				android:text="联系人："
+				android:focusable="false"
+				android:ellipsize="end" />
+			<TextView 
+			    android:id="@+id/tv_person"
+			    android:layout_height="wrap_content" 
+				android:layout_width="84dp"	
+				android:background="@null" 
+				android:textColor="@color/textgray2"			
+				android:textSize="15sp"/>
+			<TextView 
+				android:layout_height="wrap_content" 
+				android:layout_width="wrap_content"					
+				android:textSize="15sp"
+				android:textColor="@color/textgray2"
+				android:layout_marginLeft="10dp"
+				android:text="联系电话："
+				android:focusable="false"
+				android:ellipsize="end" />
+			<TextView 
+			    android:id="@+id/tv_phone"
+			    android:layout_height="wrap_content" 
+				android:layout_width="100dp"	
+				android:background="@null" 
+				android:textColor="@color/textgray2"			
+				android:textSize="15sp"/>
+	    </LinearLayout>
+		<LinearLayout
+  			android:layout_width="fill_parent"
+  			android:layout_height="wrap_content"
+  			android:layout_marginTop="10dp"
+  			android:layout_marginLeft="0dp"
+  			android:layout_marginRight="0dp"
+  			android:orientation="horizontal">
+			<TextView 
+				android:layout_height="wrap_content" 
+				android:layout_width="wrap_content"					
+				android:textSize="15sp"
+				android:textColor="@color/textgray2"
+				android:text="选择小区："
+				android:focusable="false"
+				android:ellipsize="end" />
+			<TextView 
+			    android:id="@+id/tv_cell"
+			    android:layout_height="wrap_content" 
+				android:layout_width="wrap_content"	
+				android:background="@null" 
+				android:textColor="@color/textgray2"			
+				android:textSize="15sp"/>
+		</LinearLayout>
+		<LinearLayout
+  			android:layout_width="fill_parent"
+  			android:layout_height="wrap_content"
+  			android:layout_marginTop="10dp"
+  			android:layout_marginBottom="10dp"
+  			android:layout_marginLeft="0dp"
+  			android:layout_marginRight="0dp"
+  			android:orientation="horizontal">
+			<TextView 
+				android:layout_height="wrap_content" 
+				android:layout_width="wrap_content"					
+				android:textSize="15sp"
+				android:textColor="@color/textgray2"
+				android:text="联系地址："
+				android:focusable="false"
+				android:ellipsize="end" />
+			<TextView 
+			    android:id="@+id/tv_address"
+			    android:layout_height="wrap_content" 
+				android:layout_width="fill_parent"	
+				android:background="@null"
+				android:layout_marginRight="10dp"	
+				android:textColor="@color/textgray2"		
+				android:textSize="15sp"/>
+		</LinearLayout>
+	    
+	    					
+  	</LinearLayout>  				 
+</LinearLayout>

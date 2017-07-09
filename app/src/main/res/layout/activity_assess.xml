@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:id="@+id/mainLayout"
+	android:orientation="vertical" >
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="50dp"
+		android:layout_alignParentTop="true"
+		android:background="@color/skyblue">
+	</LinearLayout>
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="50dp"
+		android:layout_alignParentBottom="true"
+		android:background="@color/black">
+	</LinearLayout>
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:fitsSystemWindows="true"
+		android:clipToPadding="true"
+		android:orientation="vertical" >
+		<RelativeLayout
+			android:layout_width="fill_parent"
+			android:layout_height="48dp"
+			android:layout_marginTop="4.0dip"
+			android:background="@color/skyblue"
+			>
+			<LinearLayout
+				android:layout_alignParentLeft="true"
+				android:layout_centerInParent="true"
+				android:gravity="center"
+				android:layout_width="wrap_content"
+				android:layout_height="fill_parent">
+				<Button
+					android:id="@+id/btn_back"
+					android:background="@drawable/style_button_back_gray"
+					android:layout_width="28dp"
+					android:layout_height="28dp"
+					android:layout_marginLeft="10dp"
+					/>
+			</LinearLayout>
+			<TextView
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				android:singleLine="true"
+				android:gravity="center"
+				android:text="@string/assess"
+				android:textColor="@color/white"
+				android:textSize="19.0sp" />
+
+		</RelativeLayout>
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:fillViewport="true"
+			android:background="@color/bg1">
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:orientation="vertical" >
+				<TextView
+					android:id="@+id/tv_good"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="10dp"
+					android:layout_marginTop="10dp"
+					android:text="我有话要说:"
+					android:textColor="@color/textblack"
+					android:textSize="14sp" />
+				<EditText
+					android:id="@+id/et_comment_content"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="0dp"
+					android:layout_marginTop="10dp"
+					android:layout_marginLeft="6dp"
+					android:layout_marginRight="6dp"
+					android:background="@drawable/shape"
+					android:lineSpacingExtra="3dp"
+					android:lines="6"
+					android:gravity="top"
+					android:hint="@string/assesshit"
+					android:textColor="@color/textgray"
+					android:textColorHint="#adadad"
+					android:textSize="14sp" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="10dp"
+					android:layout_marginTop="10dp"
+					android:text="晒图更真实哦~"
+					android:textColor="@color/textgray2"
+					android:textSize="14sp" />
+
+				<com.zhy.autolayout.AutoLinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:paddingBottom="34px"
+					android:paddingTop="45px">
+
+					<HorizontalScrollView
+						android:id="@+id/hsv_comment_imgs"
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent"
+						android:scrollbars="none" />
+
+					<ImageView
+						android:id="@+id/iv_choose_goods_pic"
+						android:layout_width="150px"
+						android:layout_height="150px"
+						android:layout_marginLeft="25px"
+						android:background="@drawable/selector_comment_choose_bg"
+						android:clickable="true"
+						android:scaleType="fitXY"
+						android:src="@drawable/icon_choose_pic" />
+				</com.zhy.autolayout.AutoLinearLayout>
+
+
+				<LinearLayout
+					android:orientation="horizontal"
+					android:layout_marginTop="24dp"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					>
+					<Button
+						android:id="@+id/btn_submit"
+						android:layout_width="0dp"
+						android:layout_height="46dp"
+						android:layout_weight="3"
+						android:text="@string/submit"
+						android:textSize="18.0sp"
+						android:textColor="@color/white"
+						android:background="@drawable/denglu_selector" >
+					</Button>
+				</LinearLayout>
+			</LinearLayout>
+		</LinearLayout>
+	</LinearLayout>
+</RelativeLayout>

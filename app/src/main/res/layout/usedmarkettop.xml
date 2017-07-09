@@ -1,0 +1,712 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:id="@+id/ershopmainLayout">
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/skyblue"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/usedmarket_back_btn"
+            android:layout_width="50px"
+            android:layout_height="50px"
+            android:layout_marginLeft="5px"
+            android:src="@drawable/style_button_back_gray" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <RadioGroup
+            android:id="@+id/radio_usedmarket"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/radioback"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="3dp">
+
+            <RadioButton
+                android:id="@+id/radio_usedmarket_first"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/radiobutton_change"
+                android:button="@null"
+                android:checked="true"
+                android:padding="3dp"
+                android:text="物品买卖"
+                android:textColor="@color/skyblue" />
+
+            <RadioButton
+                android:id="@+id/radio_usedmarket_second"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/radiobutton_change"
+                android:button="@null"
+                android:padding="3dp"
+                android:text="物品发布"
+                android:textColor="@color/white" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/select_mygoods"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="2dp"
+            android:padding="3dp"
+            android:src="@drawable/login_user" />
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <com.zhy.autolayout.AutoFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/goods_listview_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/darkgray">
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/layout_ms_top"
+                android:layout_width="match_parent"
+                android:layout_height="100px"
+                android:background="@color/white"
+                android:gravity="center">
+
+                <com.zhy.autolayout.AutoRelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <RadioButton
+                        android:id="@+id/rb_ms_sort"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:button="@null"
+                        android:drawableRight="@drawable/comm_top_arrow_selector"
+                        android:gravity="center"
+                        android:text="智能排序"
+                        android:textColor="@drawable/comm_top_text_color_selector"
+                        android:textSize="30px" />
+                </com.zhy.autolayout.AutoRelativeLayout>
+
+                <com.zhy.autolayout.AutoRelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <RadioButton
+                        android:id="@+id/rb_ms_classify"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:button="@null"
+                        android:drawableRight="@drawable/comm_top_arrow_selector"
+                        android:gravity="center"
+                        android:text="物品分类"
+                        android:textColor="@drawable/comm_top_text_color_selector"
+                        android:textSize="30px" />
+                </com.zhy.autolayout.AutoRelativeLayout>
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <ListView
+                android:id="@+id/lv_ms_goods"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/layout_ms_top"
+                android:layout_marginTop="4px"
+                android:background="@color/white"
+                android:divider="@color/darkgray"
+                android:dividerHeight="4px" />
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/layout_ms_sort"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/layout_ms_top"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/line_hint" />
+
+                <RadioButton
+                    android:id="@+id/rb_ms_sort_1"
+                    style="@style/shop_sort_layout_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="最新发布" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/line_hint" />
+
+                <RadioButton
+                    android:id="@+id/rb_ms_sort_2"
+                    style="@style/shop_sort_layout_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="价格由高到低" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/line_hint" />
+
+                <RadioButton
+                    android:id="@+id/rb_ms_sort_3"
+                    style="@style/shop_sort_layout_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="价格由低到高" />
+
+                <TextView
+                    android:id="@+id/tv_black_area1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/alpha_black" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/layout_ms_classify"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/layout_ms_top"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/line_hint" />
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white">
+
+                    <RadioButton
+                        android:id="@+id/rb_ms_classify_1"
+                        style="@style/shop_sort_layout_classify"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="衣服鞋帽" />
+
+                    <RadioButton
+                        android:id="@+id/rb_ms_classify_2"
+                        style="@style/shop_sort_layout_classify"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="数码产品" />
+
+                    <RadioButton
+                        android:id="@+id/rb_ms_classify_3"
+                        style="@style/shop_sort_layout_classify"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="生活用品" />
+
+                    <RadioButton
+                        android:id="@+id/rb_ms_classify_4"
+                        style="@style/shop_sort_layout_classify"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="书籍刊物" />
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/line_hint" />
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white">
+
+                    <RadioButton
+                        android:id="@+id/rb_ms_classify_5"
+                        style="@style/shop_sort_layout_classify"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="家具家纺" />
+
+                    <RadioButton
+                        android:id="@+id/rb_ms_classify_6"
+                        style="@style/shop_sort_layout_classify"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="家用电器" />
+
+                    <RadioButton
+                        android:id="@+id/rb_ms_classify_7"
+                        style="@style/shop_sort_layout_classify"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="母婴玩具" />
+
+                    <RadioButton
+                        android:id="@+id/rb_ms_classify_8"
+                        style="@style/shop_sort_layout_classify"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="其他物品" />
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_black_area2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/alpha_black" />
+            </com.zhy.autolayout.AutoLinearLayout>
+        </com.zhy.autolayout.AutoRelativeLayout>
+        <!--<LinearLayout-->
+        <!--android:id="@+id/listview_layout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:visibility="gone"-->
+        <!--android:orientation="vertical">-->
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:background="@color/white">-->
+        <!--<RelativeLayout-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center">-->
+        <!--<TextView-->
+        <!--android:id="@+id/paixu"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center"-->
+        <!--android:paddingBottom="7dp"-->
+        <!--android:paddingTop="7dp"-->
+        <!--android:text="智能排序"/>-->
+        <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_toRightOf="@id/paixu"-->
+        <!--android:layout_marginTop="15dp"-->
+        <!--android:layout_marginLeft="3dp"-->
+        <!--android:src="@drawable/lion_xiala"/>-->
+        <!--</RelativeLayout>-->
+        <!--<RelativeLayout-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center">-->
+        <!--<TextView-->
+        <!--android:id="@+id/fenlei"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center"-->
+        <!--android:paddingBottom="7dp"-->
+        <!--android:paddingTop="7dp"-->
+        <!--android:text="物品分类"/>-->
+        <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_toRightOf="@id/fenlei"-->
+        <!--android:layout_marginTop="15dp"-->
+        <!--android:layout_marginLeft="3dp"-->
+        <!--android:src="@drawable/lion_xiala"/>-->
+        <!--</RelativeLayout>-->
+        <!--</LinearLayout>-->
+        <!--<ListView-->
+        <!--android:id="@+id/all_usedgoods"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:divider="@color/white"-->
+        <!--android:dividerHeight="4dp" />-->
+        <!--</LinearLayout>-->
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/add_usedgoodslayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:visibility="gone">
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/darkgray"
+                android:orientation="vertical">
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white">
+
+                    <EditText
+                        android:id="@+id/edt_ms_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="60px"
+                        android:background="@color/white"
+                        android:gravity="center_vertical"
+                        android:hint="发布物品的名字(5个字以内)"
+                        android:maxLength="5"
+                        android:textColor="@color/textblack"
+                        android:textColorHint="@color/texthint"
+                        android:textSize="26px" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="25px"
+                        android:layout_marginRight="30px"
+                        android:src="@drawable/icon_title" />
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12px"
+                    android:background="@color/white">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="25px"
+                        android:layout_marginRight="30px"
+                        android:layout_marginTop="14px"
+                        android:src="@drawable/icon_details" />
+
+                    <EditText
+                        android:id="@+id/edt_ms_details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="top"
+                        android:hint="简要描述一下你的商品"
+                        android:lines="6"
+                        android:paddingBottom="18px"
+                        android:paddingTop="18px"
+                        android:textColor="@color/textblack"
+                        android:textColorHint="@color/texthint"
+                        android:textSize="26px" />
+                </com.zhy.autolayout.AutoLinearLayout>
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12px"
+                    android:background="@color/white">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="25px"
+                        android:layout_marginRight="30px"
+                        android:layout_marginTop="14px"
+                        android:src="@drawable/icon_img_" />
+
+                    <!--<com.zhy.autolayout.AutoRelativeLayout-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content">-->
+
+                    <!--<ImageView-->
+                    <!--android:id="@+id/img_ms_add1"-->
+                    <!--android:layout_width="180px"-->
+                    <!--android:layout_height="180px"-->
+                    <!--android:layout_marginBottom="14px"-->
+                    <!--android:layout_marginLeft="9px"-->
+                    <!--android:layout_marginTop="14px"-->
+                    <!--android:src="@drawable/test" />-->
+
+                    <!--<ImageView-->
+                    <!--android:id="@+id/img_ms_delete1"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="6px"-->
+                    <!--android:src="@drawable/btn_delete" />-->
+                    <!--</com.zhy.autolayout.AutoRelativeLayout>-->
+
+                    <com.zhy.autolayout.AutoRelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20px">
+
+                        <ImageView
+                            android:id="@+id/img_ms_add2"
+                            android:layout_width="180px"
+                            android:layout_height="180px"
+                            android:layout_marginBottom="14px"
+                            android:layout_marginLeft="9px"
+                            android:layout_marginTop="14px"
+                            android:src="@drawable/btn_add_img" />
+
+                        <ImageView
+                            android:id="@+id/img_ms_delete2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6px"
+                            android:src="@drawable/btn_delete"
+                            android:visibility="gone" />
+                    </com.zhy.autolayout.AutoRelativeLayout>
+                </com.zhy.autolayout.AutoLinearLayout>
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12px"
+                    android:background="@color/white">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="25px"
+                        android:layout_marginRight="30px"
+                        android:src="@drawable/icon_title" />
+
+                    <EditText
+                        android:id="@+id/edt_ms_price"
+                        android:layout_width="0dp"
+                        android:layout_height="60px"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        android:gravity="center_vertical"
+                        android:hint="物品出售价格"
+                        android:textColor="@color/textblack"
+                        android:textColorHint="@color/texthint"
+                        android:textSize="26px" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="40px"
+                        android:text="元"
+                        android:textColor="@color/red"
+                        android:textSize="24px" />
+                </com.zhy.autolayout.AutoLinearLayout>
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12px"
+                    android:background="@color/white">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="25px"
+                        android:layout_marginRight="30px"
+                        android:layout_marginTop="14px"
+                        android:src="@drawable/icon_class" />
+
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="60px"
+                            android:background="@color/white"
+                            android:gravity="center_vertical"
+                            android:text=""
+                            android:textColor="@color/texthint"
+                            android:textSize="26px" />
+
+                        <RadioGroup
+                            android:id="@+id/rg_ms_classify"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.zhy.autolayout.AutoLinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="24px">
+
+                                <RadioButton
+                                    android:id="@+id/rb_ms_classify1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:button="@null"
+                                    android:text="衣服鞋帽"
+                                    android:textColor="@drawable/comm_top_text_color_selector"
+                                    android:textSize="24px" />
+
+                                <RadioButton
+                                    android:id="@+id/rb_ms_classify2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:button="@null"
+                                    android:text="数码产品"
+                                    android:textColor="@drawable/comm_top_text_color_selector"
+                                    android:textSize="24px" />
+
+                                <RadioButton
+                                    android:id="@+id/rb_ms_classify3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:button="@null"
+                                    android:text="生活用品"
+                                    android:textColor="@drawable/comm_top_text_color_selector"
+                                    android:textSize="24px" />
+
+                                <RadioButton
+                                    android:id="@+id/rb_ms_classify4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:button="@null"
+                                    android:text="书籍刊物"
+                                    android:textColor="@drawable/comm_top_text_color_selector"
+                                    android:textSize="24px" />
+                            </com.zhy.autolayout.AutoLinearLayout>
+
+                            <com.zhy.autolayout.AutoLinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="14px">
+
+                                <RadioButton
+                                    android:id="@+id/rb_ms_classify5"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:button="@null"
+                                    android:text="家具家纺"
+                                    android:textColor="@drawable/comm_top_text_color_selector"
+                                    android:textSize="24px" />
+
+                                <RadioButton
+                                    android:id="@+id/rb_ms_classify6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:button="@null"
+                                    android:text="家用电器"
+                                    android:textColor="@drawable/comm_top_text_color_selector"
+                                    android:textSize="24px" />
+
+                                <RadioButton
+                                    android:id="@+id/rb_ms_classify7"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:button="@null"
+                                    android:text="母婴玩具"
+                                    android:textColor="@drawable/comm_top_text_color_selector"
+                                    android:textSize="24px" />
+
+                                <RadioButton
+                                    android:id="@+id/rb_ms_classify8"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:button="@null"
+                                    android:text="其他物品"
+                                    android:textColor="@drawable/comm_top_text_color_selector"
+                                    android:textSize="24px" />
+                            </com.zhy.autolayout.AutoLinearLayout>
+                        </RadioGroup>
+                    </com.zhy.autolayout.AutoLinearLayout>
+                </com.zhy.autolayout.AutoLinearLayout>
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12px"
+                    android:background="@color/white">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="25px"
+                        android:layout_marginRight="30px"
+                        android:src="@drawable/icon_user_" />
+
+                    <EditText
+                        android:id="@+id/edt_ms_sender"
+                        android:layout_width="match_parent"
+                        android:layout_height="60px"
+                        android:background="@color/white"
+                        android:gravity="center_vertical"
+                        android:hint="发布人称呼（如：张先生）"
+                        android:textColor="@color/textblack"
+                        android:textColorHint="@color/texthint"
+                        android:textSize="26px" />
+                </com.zhy.autolayout.AutoLinearLayout>
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12px"
+                    android:background="@color/white">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="25px"
+                        android:layout_marginRight="30px"
+                        android:src="@drawable/icon_phone" />
+
+                    <EditText
+                        android:id="@+id/edt_ms_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="60px"
+                        android:background="@color/white"
+                        android:gravity="center_vertical"
+                        android:hint="输入联系号码"
+                        android:inputType="phone"
+                        android:maxLength="11"
+                        android:textColor="@color/textblack"
+                        android:textColorHint="@color/texthint"
+                        android:textSize="26px" />
+                </com.zhy.autolayout.AutoLinearLayout>
+
+                <Button
+                    android:id="@+id/sure_to_postgoods"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50px"
+                    android:background="@drawable/postbtn_dianji"
+                    android:padding="20px"
+                    android:text="确 定 发 布"
+                    android:textColor="@color/white"
+                    android:textSize="30px" />
+
+            </com.zhy.autolayout.AutoLinearLayout>
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+    </com.zhy.autolayout.AutoFrameLayout>
+
+</LinearLayout>

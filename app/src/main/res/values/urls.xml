@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="url_meituan">http://www.meituan.com/?&amp;liebao</string>
+     <string name="url_dianping">http://www.dianping.com/?&amp;liebao</string>
+     <string name="url_taobao">http://m.taobao.com/#index</string>     
+     <string name="url_jingdong">http://wap.jd.com/?&amp;liebao</string>
+   <!--   <string name="url_weiping">http://p.yiqifa.com/n?k=CPgq  E&t=http://m.vip.com/&liebao</string> -->
+     <string name="url_weiping">http://m.vip.com</string>
+     <string name="url_yamaxun">https://www.amazon.cn</string>
+     <string name="url_xiecheng">http://www.ctrip.com</string>     
+     <string name="url_quna">http://touch.qunar.com/?bd_source=3w</string>
+     <string name="url_tuniu">http://m.tuniu.com/?fta=1#p=14835&amp;liebao</string>
+     <string name="url_tongcheng">http://www.ly.com</string>
+     
+     <string name="url_huzhang">http://class.hujiang.com</string>
+     <string name="url_quyy">https://www.quyiyuan.com</string>
+     <string name="url_teacher">http://www.nnjuma.com</string>
+     <string name="url_gongwuyuan">http://www.offcn.com</string>
+     <string name="url_zhichen">http://www.mycnvip.com</string>
+     <string name="url_muying">http://www.yaolan.com</string>
+</resources>

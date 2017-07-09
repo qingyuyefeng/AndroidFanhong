@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg1">
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="14px"
+            android:paddingLeft="20px"
+            android:text="小区新闻"
+            android:textColor="@color/popular"
+            android:textSize="30px" />
+
+        <com.fanhong.cn.listviews.RealhightListView
+            android:id="@+id/lv_community_news"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fastScrollEnabled="true"
+
+            ></com.fanhong.cn.listviews.RealhightListView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="14px"
+            android:paddingLeft="20px"
+            android:text="附近新闻"
+            android:textColor="@color/popular"
+            android:textSize="30px" />
+
+        <com.fanhong.cn.listviews.RealhightListView
+            android:id="@+id/lv_nearby_news"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></com.fanhong.cn.listviews.RealhightListView>
+    </com.zhy.autolayout.AutoLinearLayout>
+</ScrollView>
