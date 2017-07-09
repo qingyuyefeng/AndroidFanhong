@@ -47,7 +47,7 @@ public class App extends Application {
          */
         if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext())) ||
                 "io.rong.push".equals(getCurProcessName(getApplicationContext()))) {
-            RongIMClient.init(this);
+//            RongIMClient.init(this);
             last_msg_time=System.currentTimeMillis();
         }
     }
