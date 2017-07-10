@@ -3,7 +3,6 @@ package com.fanhong.cn;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
-import android.util.Log;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.fanhong.cn.synctaskpicture.SaveInMemery;
@@ -47,7 +46,7 @@ public class App extends Application {
          */
         if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext())) ||
                 "io.rong.push".equals(getCurProcessName(getApplicationContext()))) {
-//            RongIMClient.init(this);
+            RongIMClient.init(this);
             last_msg_time=System.currentTimeMillis();
         }
     }

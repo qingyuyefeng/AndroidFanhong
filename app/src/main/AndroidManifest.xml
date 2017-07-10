@@ -273,7 +273,8 @@
         <meta-data
             android:name="RONG_CLOUD_APP_KEY"
             android:value="pwe86ga5phjc6" />
-
+        <!--15723333995-->
+        <!--fanhong2573-->
         <service
             android:name="io.rong.imlib.ipc.RongService"
             android:exported="true"
