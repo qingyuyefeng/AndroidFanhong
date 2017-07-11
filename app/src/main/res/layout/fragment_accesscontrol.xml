@@ -12,17 +12,19 @@
     	>
     	<RelativeLayout
 	    	android:layout_width="fill_parent"
-	    	android:layout_height="48dp"    	       
+	    	android:layout_height="48dp"
 			android:layout_marginTop="4.0dip" 
 	    	>
-			<Button
+			<ImageView
 				android:id="@+id/btn_reflush"
 				android:layout_centerVertical="true"
 				android:layout_marginLeft="6dp"
-				android:background="@drawable/btn_refresh_style"
+				android:src="@drawable/refresh"
 				android:layout_gravity="center"
-				android:layout_width="36dp"
-				android:layout_height="36dp"
+				android:layout_width="30dp"
+				android:layout_height="30dp"
+				android:paddingLeft="3dp"
+				android:paddingRight="3dp"
 				android:layout_marginRight="10dp"
 				/>
 			<TextView
@@ -32,7 +34,10 @@
 				android:gravity="center"
 				android:text="@string/doorkey"
 				android:textColor="@color/white"
-				android:textSize="21.0sp" />
+				android:textSize="21.0sp"
+				android:layout_alignParentTop="true"
+				android:layout_alignLeft="@+id/btn_reflush"
+				android:layout_alignStart="@+id/btn_reflush" />
 			<LinearLayout
 			    android:layout_alignParentRight="true"
 	     		android:layout_centerInParent="true"

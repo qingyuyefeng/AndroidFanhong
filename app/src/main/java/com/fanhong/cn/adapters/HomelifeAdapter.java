@@ -27,8 +27,8 @@ public class HomelifeAdapter extends BaseAdapter {
     private Context context;
     private List<Homelife> homelifeList = new ArrayList<>();
     private LayoutInflater inflater;
-    private final int TYPE1 = 1; //加载三张图片的布局
-    private final int TYPE2 = 2; //加载一张图片的布局
+    private final int TYPE1 = 0; //加载三张图片的布局
+    private final int TYPE2 = 1; //加载一张图片的布局
 
     public HomelifeAdapter(Context context, List<Homelife> homelifeList) {
         this.context = context;
@@ -58,12 +58,11 @@ public class HomelifeAdapter extends BaseAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        if (homelifeList.get(position).getType() == 1) {
+        if (homelifeList.get(position).getType() == 0) {
             return TYPE1;
-        } else if (homelifeList.get(position).getType() == 2) {
+        } else {
             return TYPE2;
         }
-        return 0;
     }
 
     ImageOptions options = new ImageOptions.Builder().setLoadingDrawableId(R.mipmap.pictureloading)
@@ -87,7 +86,6 @@ public class HomelifeAdapter extends BaseAdapter {
                     viewHolder2 = new ViewHolder2(convertView);
                     AutoUtils.autoSize(convertView);
                     convertView.setTag(viewHolder2);
-                    Log.i("xq", "====type===>" + homelifeList.get(position).toString());
                     break;
             }
         } else {
@@ -96,7 +94,6 @@ public class HomelifeAdapter extends BaseAdapter {
                     viewHolder1 = (ViewHolder1) convertView.getTag();
                     break;
                 case TYPE2:
-
                     viewHolder2 = (ViewHolder2) convertView.getTag();
                     break;
             }
@@ -104,9 +101,13 @@ public class HomelifeAdapter extends BaseAdapter {
         switch (type) {
             case TYPE1:
                 Homelife homelife = homelifeList.get(position);
-                x.image().bind(viewHolder1.img1, homelife.getStrings().get(0), options);
-                x.image().bind(viewHolder1.img2, homelife.getStrings().get(1), options);
-                x.image().bind(viewHolder1.img3, homelife.getStrings().get(2), options);
+//                try {
+                    x.image().bind(viewHolder1.img1, homelife.getStrings().get(0), options);
+                    x.image().bind(viewHolder1.img2, homelife.getStrings().get(1), options);
+                    x.image().bind(viewHolder1.img3, homelife.getStrings().get(2), options);
+//                }catch (IndexOutOfBoundsException e){
+//                    Log.i("xq","数组越界==>"+homelife.getStrings().size());
+//                }
                 viewHolder1.title.setText(homelife.getTitle());
                 viewHolder1.place.setText(homelife.getPlace());
                 viewHolder1.time.setText(homelife.getTime());

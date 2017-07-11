@@ -266,6 +266,10 @@
             android:name=".NewsDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity
+            android:name=".HomeNewsALLActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
         <!-- alipay sdk end -->
 
 

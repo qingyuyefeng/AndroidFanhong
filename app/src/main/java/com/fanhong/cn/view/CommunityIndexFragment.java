@@ -46,17 +46,23 @@ public class CommunityIndexFragment extends BaseFragment {
         View view = x.view().inject(this, inflater, container);
 
         fragmentManager = getFragmentManager();
-        activity=getBaseActivity();
-        rg_tab.check(R.id.title_rb1);
-        pref=getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
-        try{
+        activity = getBaseActivity();
+        pref = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+        try {
             String str = pref.getString("gardenName", "");
-            if(str.length() > 0)
+            if (str.length() > 0)
                 tv_communityName.setText(str);
-        }catch (Exception e) {}
-
+        } catch (Exception e) {
+        }
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                rg_tab.check(R.id.title_rb1);
+            }
+        });
         return view;
     }
+
     @Event(value = R.id.rg_title_community, type = RadioGroup.OnCheckedChangeListener.class)
     private void onTabChecked(RadioGroup group, int checkedId) {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -64,9 +70,10 @@ public class CommunityIndexFragment extends BaseFragment {
         transaction.replace(R.id.framelayout_community, fragment);
         transaction.commit();
     }
+
     @Event(R.id.tv_back)
-    private void onBackClick(View v){
-        if (rg_tab.getCheckedRadioButtonId()==R.id.title_rb2)
+    private void onBackClick(View v) {
+        if (rg_tab.getCheckedRadioButtonId() == R.id.title_rb2)
             rg_tab.check(R.id.title_rb1);
     }
 
@@ -87,7 +94,7 @@ public class CommunityIndexFragment extends BaseFragment {
         return fragment;
     }
 
-    public void setFragment(String communityName){
+    public void setFragment(String communityName) {
         tv_communityName.setText(communityName);
     }
 

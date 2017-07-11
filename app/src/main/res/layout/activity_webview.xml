@@ -75,7 +75,6 @@
         android:src="@drawable/back_gray"
         android:padding="10dp"
         android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="200dp"
+        android:layout_centerInParent="true"
         android:background="#4000" />
 </RelativeLayout>

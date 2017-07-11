@@ -411,6 +411,7 @@ public class FragmentMainActivity extends SampleActivity {
                 break;
             case 555:        //注销登录的回调
                 mTab01.setFragment(11, mSettingPref.getString("gardenName", ""));
+                mTab05.setFragment(mSettingPref.getString("gardenName", ""));
                 mTab02.setFragment(21, "");
                 mTab04.setFragment(1, 0);
         }

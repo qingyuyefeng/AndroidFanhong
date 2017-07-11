@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -46,7 +47,8 @@ public class AccesscontrolView1 extends BaseFragment {
     private DoorApplyAdapter doorApplyAdapter;
     private List<DoorcheckModel> list = new ArrayList<>();
 
-    private Button btn_add,btn_reflush;
+    private ImageView btn_reflush;
+    private Button btn_add;
     private SharedPreferences mSettingPref;
 
     @Override
@@ -76,7 +78,7 @@ public class AccesscontrolView1 extends BaseFragment {
                     }
 				}	        		
      	});
-        btn_reflush = (Button)view.findViewById(R.id.btn_reflush);
+        btn_reflush = (ImageView)view.findViewById(R.id.btn_reflush);
         btn_reflush.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -88,26 +90,6 @@ public class AccesscontrolView1 extends BaseFragment {
                 }
             }
         });
-        doorapplyListview = (ListView) accView.findViewById(R.id.applydoors_listview);
-        doorApplyAdapter = new DoorApplyAdapter(getActivity(),list);
-        doorApplyAdapter.setOpenDoor(new DoorApplyAdapter.OpenDoor() {
-            @Override
-            public void openBtnClick(String str1,String str2,String str3) {
-                Intent intent = new Intent();
-                intent.putExtra("cellName",str1);
-                intent.putExtra("louNumber",str2);
-                intent.putExtra("miyue",str3);
-                intent.setClass(AccesscontrolView1.this.getActivity(), OpenDoorActivity.class);
-                startActivity(intent);
-            }
-        });
-        doorapplyListview.setAdapter(doorApplyAdapter);
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
     }
 
     @Override

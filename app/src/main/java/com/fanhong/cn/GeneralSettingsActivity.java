@@ -66,7 +66,6 @@ public class GeneralSettingsActivity extends SampleActivity implements OnClickLi
 			connectFail(type);
 			return;
 		}
-		Log.i("hu","********phonenumber="+phonenumber+" alias="+alias+" name="+name);
 		if(cmd == 2 && result == 0){
 
 		}else if(cmd == 4) {

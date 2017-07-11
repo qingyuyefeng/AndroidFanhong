@@ -20,9 +20,8 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:text="news Title"
-            android:textColor="@color/memory_avail"
-            android:textSize="30px"
-            android:textStyle="bold" />
+            android:textColor="@color/popular"
+            android:textSize="30px" />
         <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:text="article author"
                 android:textColor="@color/line_hint"
-                android:textSize="30px" />
+                android:textSize="16px" />
 
             <TextView
                 android:id="@+id/tv_news_time1"
@@ -43,7 +42,7 @@
                 android:layout_marginLeft="50px"
                 android:text="send time"
                 android:textColor="@color/line_hint"
-                android:textSize="30px" />
+                android:textSize="16px" />
         </com.zhy.autolayout.AutoLinearLayout>
     </com.zhy.autolayout.AutoRelativeLayout>
 

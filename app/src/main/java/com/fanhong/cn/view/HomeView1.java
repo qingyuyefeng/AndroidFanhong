@@ -30,6 +30,7 @@ import android.widget.ViewFlipper;
 
 import com.fanhong.cn.CommStoreDetailsActivity;
 import com.fanhong.cn.GardenSelecterActivity;
+import com.fanhong.cn.HomeNewsALLActivity;
 import com.fanhong.cn.LoginActivity;
 import com.fanhong.cn.R;
 import com.fanhong.cn.SampleConnection;
@@ -76,7 +77,7 @@ public class HomeView1 extends BaseFragment {
     private RadioGroup radioGroup;
     private List<RadioButton> btnLists = new ArrayList<>();
     private List<Integer> images = new ArrayList<>();
-    private TextView moreNotice, showCellName, moreEsgoods;
+    private TextView moreNotice, showCellName, moreEsgoods,moreNews;
     private TextView[] textViews = new TextView[4];
     private RelativeLayout repairLayout, kuaidiLayout, jiazhengLayout, storeLayout, daibanLayout;
 
@@ -171,6 +172,9 @@ public class HomeView1 extends BaseFragment {
 
         moreEsgoods = (TextView) view.findViewById(R.id.more_esgoods);
         moreEsgoods.setOnClickListener(ocl);
+
+        moreNews = (TextView) view.findViewById(R.id.more_news);
+        moreNews.setOnClickListener(ocl);
 
 
 //        jchtListView = (ListView) view.findViewById(R.id.jcht_listview);
@@ -383,6 +387,9 @@ public class HomeView1 extends BaseFragment {
                     intent.setClass(HomeView1.this.getActivity(), ShopActivity.class);
                     startActivity(intent);
                     break;
+                case R.id.more_news:
+                    intent.setClass(HomeView1.this.getActivity(), HomeNewsALLActivity.class);
+                    startActivity(intent);
             }
         }
     };
@@ -495,19 +502,18 @@ public class HomeView1 extends BaseFragment {
 //                Log.i("xq","list==>"+list.toString());
                 homelife.setStrings(list);
                 if(list.size() == 3){
-                    homelife.setType(1);
+                    homelife.setType(0);
                     homelife.setTitle(object.optString("bt"));
                     homelife.setPlace(object.optString("zz"));
                     homelife.setTime(object.optString("time"));
                     homelife.setUrl(object.optString("url"));
                 }else if(list.size() == 1){
-                    homelife.setType(2);
+                    homelife.setType(1);
                     homelife.setTitle(object.optString("bt"));
                     homelife.setPlace(object.optString("zz"));
                     homelife.setTime(object.optString("time"));
                     homelife.setUrl(object.optString("url"));
                 }
-
                 lifeList.add(homelife);
             }
             handler.sendEmptyMessage(0);
