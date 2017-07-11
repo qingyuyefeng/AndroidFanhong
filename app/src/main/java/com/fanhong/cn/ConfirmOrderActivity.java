@@ -239,6 +239,8 @@ public class ConfirmOrderActivity extends SampleActivity implements PayMoney,OnC
 		checkbox_wx = (CheckBox)findViewById(R.id.checkbox_wx);
 		checkbox_zfb.setOnCheckedChangeListener(this);
 		checkbox_wx.setOnCheckedChangeListener(this);
+		//暂不支持微信
+		checkbox_wx.setEnabled(false);
 
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(SampleConnection.MYPAY_RECEIVER);

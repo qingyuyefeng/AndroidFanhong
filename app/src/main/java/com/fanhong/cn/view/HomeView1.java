@@ -31,15 +31,15 @@ import android.widget.ViewFlipper;
 import com.fanhong.cn.CommStoreDetailsActivity;
 import com.fanhong.cn.GardenSelecterActivity;
 import com.fanhong.cn.LoginActivity;
-import com.fanhong.cn.NoticeActivity;
 import com.fanhong.cn.R;
 import com.fanhong.cn.SampleConnection;
 import com.fanhong.cn.StoreActivity;
 import com.fanhong.cn.WebViewActivity;
+import com.fanhong.cn.adapters.HomelifeAdapter;
 import com.fanhong.cn.adapters.HomenewsAdapter;
-import com.fanhong.cn.adapters.JchtAdapter;
+import com.fanhong.cn.listviews.RealhightListView;
 import com.fanhong.cn.models.HomeNews;
-import com.fanhong.cn.models.JchtModel;
+import com.fanhong.cn.models.Homelife;
 import com.fanhong.cn.synctaskpicture.RepairLinesActivity;
 import com.fanhong.cn.usedmarket.ShopActivity;
 
@@ -49,6 +49,13 @@ import org.json.JSONObject;
 import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -72,9 +79,7 @@ public class HomeView1 extends BaseFragment {
     private TextView moreNotice, showCellName, moreEsgoods;
     private TextView[] textViews = new TextView[4];
     private RelativeLayout repairLayout, kuaidiLayout, jiazhengLayout, storeLayout, daibanLayout;
-    //    private ListView jchtListView;
-//    private JchtAdapter jchtAdapter;
-//    private List<JchtModel> jchtModelList = new ArrayList<>();
+
     private List<String> strings = new ArrayList<>();
 
     private LinearLayout myGallery,homenewsLayout;
@@ -83,6 +88,10 @@ public class HomeView1 extends BaseFragment {
     private ListView newsListview;
     private List<HomeNews> newsList = new ArrayList<>();
     private HomenewsAdapter newsAdapter;
+
+    private ListView lifeListview;
+    private HomelifeAdapter lifeAdapter;
+    private List<Homelife> lifeList = new ArrayList<>();
 
 
     @Override
@@ -165,24 +174,7 @@ public class HomeView1 extends BaseFragment {
 
 
 //        jchtListView = (ListView) view.findViewById(R.id.jcht_listview);
-        newsListview = (ListView) view.findViewById(R.id.home_news);
 
-        initData();
-
-//        jchtAdapter = new JchtAdapter(getActivity(), jchtModelList);
-//        jchtListView.setAdapter(jchtAdapter);
-        newsAdapter = new HomenewsAdapter(getActivity(), newsList);
-        newsListview.setAdapter(newsAdapter);
-        newsListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String url = newsList.get(position).getNewsUrl();
-                Intent intent = new Intent(HomeView1.this.getActivity(), WebViewActivity.class);
-                intent.putExtra("url",url);
-                startActivityForResult(intent,1);
-            }
-        });
-//        getBaseActivity().setListViewHeight(jchtListView);
 
 
         repairLayout = (RelativeLayout) view.findViewById(R.id.repair_layout);
@@ -208,7 +200,13 @@ public class HomeView1 extends BaseFragment {
 //        }
         getGonggaoData();
         getEsGoodsDatas();
-        getNewsDatas();
+//        getNewsDatas();
+        new Thread(){
+            @Override
+            public void run() {
+                getnewsandlife();
+            }
+        }.start();
     }
     private void getGonggaoData(){
         Map<String,Object> map = new HashMap<>();
@@ -220,7 +218,6 @@ public class HomeView1 extends BaseFragment {
     }
 
     private void setGoodsData(String str) {
-        Log.i("xq", "es===>json：" + str);
         try {
             JSONObject jsonObject = new JSONObject(str);
             JSONArray jsonArray = jsonObject.optJSONArray("data");
@@ -434,9 +431,10 @@ public class HomeView1 extends BaseFragment {
             case 49:
                 newsList.clear();
                 setnewsList(str);
+                lifeList.clear();
+                setlifeList(str);
                 break;
             case 43:
-                Log.i("xq","首页最新公告==>"+str);
                 try {
                     JSONObject jsonObject = new JSONObject(str);
                     String string = jsonObject.optString("data").replace("[","").replace("]","").replace("\"","");
@@ -466,8 +464,10 @@ public class HomeView1 extends BaseFragment {
 //            }else {
                 for(int i=0;i<jsonArray.length();i++){
                     JSONObject object = jsonArray.getJSONObject(i);
+                    JSONArray logos = object.getJSONArray("logo");
+                    String logo = (String) logos.get(0);
                     HomeNews homeNews = new HomeNews();
-                    homeNews.setNewsImage(object.optString("logo"));
+                    homeNews.setNewsImage(logo);
                     homeNews.setNewsTitle(object.optString("bt"));
                     homeNews.setNewsWhere(object.optString("zz"));
                     homeNews.setNewsTime(object.optString("time"));
@@ -479,16 +479,51 @@ public class HomeView1 extends BaseFragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+    private void setlifeList(String str){
+        try {
+            JSONObject jsonObject = new JSONObject(str);
+            JSONArray jsonArray = jsonObject.optJSONArray("data2");
+            for(int i = 0;i < jsonArray.length();i++){
+                JSONObject object = jsonArray.getJSONObject(i);
+                Homelife homelife = new Homelife();
+                JSONArray logos = object.getJSONArray("logo");
+                List<String> list = new ArrayList<>();
+                for(int j=0;j<logos.length();j++){
+                    list.add((String)logos.get(j));
+                }
+//                Log.i("xq","list==>"+list.toString());
+                homelife.setStrings(list);
+                if(list.size() == 3){
+                    homelife.setType(1);
+                    homelife.setTitle(object.optString("bt"));
+                    homelife.setPlace(object.optString("zz"));
+                    homelife.setTime(object.optString("time"));
+                    homelife.setUrl(object.optString("url"));
+                }else if(list.size() == 1){
+                    homelife.setType(2);
+                    homelife.setTitle(object.optString("bt"));
+                    homelife.setPlace(object.optString("zz"));
+                    homelife.setTime(object.optString("time"));
+                    homelife.setUrl(object.optString("url"));
+                }
 
+                lifeList.add(homelife);
+            }
+            handler.sendEmptyMessage(0);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
-//          jchtAdapter.notifyDataSetChanged();
             newsAdapter.notifyDataSetChanged();
+            lifeAdapter.notifyDataSetChanged();
             getBaseActivity().setListViewHeight(newsListview);
+            getBaseActivity().setListViewHeight(lifeListview);
             return true;
         }
     });
@@ -504,8 +539,35 @@ public class HomeView1 extends BaseFragment {
         } catch (Exception e) {
         }
 
-        getEsGoodsDatas();
-        getNewsDatas();
+        newsListview = (ListView) homeView1.findViewById(R.id.home_news);
+        lifeListview = (ListView) homeView1.findViewById(R.id.life_listview);
+        initData();
+
+
+        newsAdapter = new HomenewsAdapter(getActivity(), newsList);
+        newsListview.setAdapter(newsAdapter);
+        newsListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String url = newsList.get(position).getNewsUrl();
+                Intent intent = new Intent(HomeView1.this.getActivity(), WebViewActivity.class);
+                intent.putExtra("url",url);
+                startActivityForResult(intent,1);
+            }
+        });
+
+        lifeAdapter = new HomelifeAdapter(getActivity(),lifeList);
+        lifeListview.setAdapter(lifeAdapter);
+        lifeListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String url = lifeList.get(position).getUrl();
+                Intent intent = new Intent(HomeView1.this.getActivity(), WebViewActivity.class);
+                intent.putExtra("url",url);
+                startActivityForResult(intent,1);
+            }
+        });
+
 
     }
 
@@ -525,5 +587,40 @@ public class HomeView1 extends BaseFragment {
             mSample = new SampleConnection(getBaseActivity(), 49);
         }
         mSample.connectService1(map);
+    }
+    private void getnewsandlife(){
+        String url = SampleConnection.url;
+        OutputStream os = null;
+        try {
+            URL url1 = new URL(url);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url1.openConnection();
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setConnectTimeout(5000);
+            httpURLConnection.setReadTimeout(5000);
+            String content = "cmd="+49;
+            os = httpURLConnection.getOutputStream();
+            os.write(content.getBytes());
+            os.flush();
+            int res = httpURLConnection.getResponseCode();
+            if(res == 200){
+                BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream(),"utf-8"));
+                StringBuffer sb = new StringBuffer();
+                String s;
+                while ((s = br.readLine())!=null){
+                    sb.append(s);
+                }
+                setFragment(49,sb.toString());
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                os.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

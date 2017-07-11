@@ -2,44 +2,44 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >    
-    <LinearLayout 
+    android:orientation="vertical" >
+    <LinearLayout
 	    android:layout_width="fill_parent"
-	    android:layout_height="50dp" 
+	    android:layout_height="50dp"
 	    android:layout_alignParentTop="true"
 	    android:background="@color/skyblue">
     </LinearLayout>
-    <LinearLayout 
+    <LinearLayout
 	    android:layout_width="fill_parent"
-	    android:layout_height="50dp" 
+	    android:layout_height="50dp"
 	    android:layout_alignParentBottom="true"
 	    android:background="@color/black">
     </LinearLayout>
 	<LinearLayout
      	android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"
-	    android:fitsSystemWindows="true"  
+	    android:fitsSystemWindows="true"
         android:clipToPadding="true"
-	    android:orientation="vertical" > 
+	    android:orientation="vertical" >
     	<RelativeLayout
 	    	android:layout_width="fill_parent"
-	    	android:layout_height="48dp"    	       
-			android:layout_marginTop="4.0dip" 
+	    	android:layout_height="48dp"
+			android:layout_marginTop="4.0dip"
 			android:visibility="gone"
 			android:background="@color/skyblue"
-	    	>    
+	    	>
 		     <ImageView
 				android:id="@+id/titleBackImageBtn"
 				android:src="@drawable/style_button_back_gray"
-		        android:layout_width="wrap_content"   
-		        android:layout_height="match_parent" 
+		        android:layout_width="wrap_content"
+		        android:layout_height="match_parent"
 		        android:visibility="gone"
 		     	android:padding="8dp"
-		        /> 	
+		        />
 			<TextView
 			    android:id="@+id/tv_title"
 				android:layout_width="fill_parent"
-				android:layout_height="34dp"				
+				android:layout_height="34dp"
 		        android:layout_marginTop="5dp"
 	        	android:layout_marginLeft="14dp"
 	        	android:layout_marginRight="14dp"
@@ -48,24 +48,34 @@
 		        android:textSize="15sp"
 		        android:textColor="@color/textgray"
 		        android:paddingLeft="5dp"
-		        android:inputType="textUri" />			
+		        android:inputType="textUri" />
 		</RelativeLayout>
 		<LinearLayout
 		     	android:layout_width="fill_parent"
 			    android:layout_height="fill_parent"
 			    android:orientation="vertical"
-			    android:background="@color/bg1" > 
-				<RelativeLayout 
+			    android:background="@color/bg1" >
+				<RelativeLayout
 				    android:id="@+id/rlclient"
 				    android:layout_width="fill_parent"
 					android:layout_height="fill_parent"
 					android:layout_below="@+id/rltitle"
 					android:background="@color/white">
-					
-						<WebView android:id="@+id/webView" 
+
+						<WebView android:id="@+id/webView"
 						    android:layout_width="match_parent"
 						    android:layout_height="match_parent"/>
 				</RelativeLayout>
 	    </LinearLayout>
-    </LinearLayout>  
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/back_img_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/back_gray"
+        android:padding="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="200dp"
+        android:background="#4000" />
 </RelativeLayout>

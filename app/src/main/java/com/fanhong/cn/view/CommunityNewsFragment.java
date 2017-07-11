@@ -72,31 +72,25 @@ public class CommunityNewsFragment extends Fragment {
         }
     };
 
-    private void initNewsData(int i) {
-        switch (i) {
-            case 1:
-                listcomm = new ArrayList<>();
-                getCommunityNewsData(1);
-                adaptercomm = new CommunityNewsAdapter(getActivity(), listcomm);
-                lv_community_news.setAdapter(adaptercomm);
-                break;
-            case 2:
-                listnews = new ArrayList<>();
-                getCommunityNewsData(2);
-                adapternews = new CommunityNewsAdapter(getActivity(), listnews);
-                lv_nearby_news.setAdapter(adapternews);
-                break;
-        }
+    private void initNewsData() {
+        getCommunityNewsData();
+        listcomm = new ArrayList<>();
+        adaptercomm = new CommunityNewsAdapter(getActivity(), listcomm);
+        lv_community_news.setAdapter(adaptercomm);
+        listnews = new ArrayList<>();
+        adapternews = new CommunityNewsAdapter(getActivity(), listnews);
+        lv_nearby_news.setAdapter(adapternews);
+
     }
 
     @Override
     public void onResume() {
-        initNewsData(1);
-        initNewsData(2);
+        initNewsData();
+
         super.onResume();
     }
 
-    private void getCommunityNewsData(final int type) {
+    private void getCommunityNewsData() {
         RequestParams params = new RequestParams(App.CMDURL);
         String xid = pref.getString("gardenId", "");
         if (xid.equals("")) return;
@@ -108,25 +102,23 @@ public class CommunityNewsFragment extends Fragment {
                 Log.i("mLog", s);
                 //判断是否成功
                 if (JsonSyncUtils.getJsonValue(s, "cw").equals("0")) {
-                    if (type == 1) {
-                        //添加指定类型的新闻到列表中
-                        listcomm = JsonSyncUtils.addNews(listcomm, s, CommunityNewsBean.TYPE_INFORM);//通知
-                        listcomm = JsonSyncUtils.addNews(listcomm, s, CommunityNewsBean.TYPE_NOTICE);//公告
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                adaptercomm.notifyDataSetChanged();
-                            }
-                        });
-                    } else {
-                        listnews = JsonSyncUtils.addNews(listnews, s, CommunityNewsBean.TYPE_NEWS);
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                adapternews.notifyDataSetChanged();
-                            }
-                        });
-                    }
+                    //添加指定类型的新闻到列表中
+                    listcomm = JsonSyncUtils.addNews(listcomm, s, CommunityNewsBean.TYPE_INFORM);//通知
+                    listcomm = JsonSyncUtils.addNews(listcomm, s, CommunityNewsBean.TYPE_NOTICE);//公告
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            adaptercomm.notifyDataSetChanged();
+                        }
+                    });
+                    listnews = JsonSyncUtils.addNews(listnews, s, CommunityNewsBean.TYPE_NEWS);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            adapternews.notifyDataSetChanged();
+                        }
+                    });
+
                 }
             }
 

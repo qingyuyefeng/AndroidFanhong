@@ -105,8 +105,7 @@ public class OrderDetailActivity extends SampleActivity implements PayMoney,OnCh
 		tv_arrivetime = (TextView)findViewById(R.id.tv_arrivetime);
 		checkbox_zfb = (CheckBox)findViewById(R.id.checkbox_zfb);
 		checkbox_wx = (CheckBox)findViewById(R.id.checkbox_wx);
-		//微信暂未开通
-		checkbox_wx.setEnabled(false);
+
 
 		Button titleBackImageBtn = (Button)findViewById(R.id.btn_back);
 		titleBackImageBtn.setOnClickListener(new OnClickListener() {

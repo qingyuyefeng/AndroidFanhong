@@ -11,12 +11,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.WindowManager;
 import android.webkit.URLUtil;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,10 +49,15 @@ public class WebViewActivity extends Activity{
 		Bundle bundle = this.getIntent().getExtras();
 		if(bundle != null){
 			url = bundle.getString("url");
-			Log.i("hu","打开网页："+url);
 		}
 		tv_title = (TextView)findViewById(R.id.tv_title);
 		webView = (WebView)findViewById(R.id.webView);
+		findViewById(R.id.back_img_btn).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				WebViewActivity.this.finish();
+			}
+		});
 
 		// 开启 localStorage
 		webView.getSettings().setDomStorageEnabled(true);
@@ -84,11 +91,10 @@ public class WebViewActivity extends Activity{
 		if(progressBar.isShowing())
 			return true;
 		if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
-			Log.e("hu","******web goback");
+			Log.i("xq","===>"+webView.canGoBack());
 			webView.goBack(); //goBack()表示返回WebView的上一页面
 			return true;
 		}else if(keyCode == KeyEvent.KEYCODE_BACK){
-			Log.e("hu","******web finish");
 			this.finish();
 		}
 		return super.onKeyDown(keyCode, event);

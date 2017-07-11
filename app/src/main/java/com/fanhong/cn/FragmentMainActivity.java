@@ -326,11 +326,11 @@ public class FragmentMainActivity extends SampleActivity {
             } else {
                 Toast.makeText(this, "门禁钥匙数据异常", Toast.LENGTH_SHORT).show();
             }
-        }else if(cmd == 34){
+        }else if(cmd == 34){//二手卖品展示
             mTab01.setFragment(33,json.toString());
-        }else if(cmd == 50){
-            mTab01.setFragment(49,json.toString());
-        }else if(cmd == 44){
+//        }else if(cmd == 50){//主页新闻和品味生活展示
+//            mTab01.setFragment(49,json.toString());
+        }else if(cmd == 44){//主页最新公告展示
             mTab01.setFragment(43,json.toString());
         }
         else {
@@ -434,10 +434,6 @@ public class FragmentMainActivity extends SampleActivity {
         listView.setLayoutParams(params);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
 
     public void hiddenBottom(boolean hidden) {
         if (hidden) {

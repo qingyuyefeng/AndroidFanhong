@@ -9,49 +9,57 @@
         <ImageView
             android:id="@+id/news_picture"
             android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_height="100dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:src="@drawable/print_sunzhengcai"
             android:scaleType="fitXY" />
+
         <RelativeLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="4dp">
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1">
+
             <TextView
                 android:id="@+id/news_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/newstitle"
-                android:gravity="center"
-                android:textColor="@color/popular"
-                android:textSize="13sp"
-                android:singleLine="true"
-                android:ellipsize="end"
-                android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@string/newstitle"
+                android:textColor="@color/popular"
+                android:textSize="13sp" />
+
             <TextView
                 android:id="@+id/news_place"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/newsplace"
-                android:textSize="10sp"
-                android:textColor="@color/popular"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="10dp"
+                android:text="@string/newsplace"
+                android:textColor="@color/popular"
+                android:textSize="10sp" />
+
             <TextView
                 android:id="@+id/news_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/newstime"
-                android:layout_alignTop="@id/news_place"
-                android:textColor="@color/popular"
-                android:textSize="10sp"
                 android:layout_alignParentBottom="true"
+                android:layout_alignTop="@id/news_place"
+                android:layout_marginLeft="30dp"
                 android:layout_toRightOf="@id/news_place"
-                android:layout_marginLeft="30dp"/>
+                android:text="@string/newstime"
+                android:textColor="@color/popular"
+                android:textSize="10sp" />
         </RelativeLayout>
     </LinearLayout>
 

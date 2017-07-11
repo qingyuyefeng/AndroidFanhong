@@ -133,7 +133,6 @@ public class AccesscontrolView1 extends BaseFragment {
     }
 
     private void setList(String string){
-        Log.i("xq", "门禁data===>" + string);
         try {
             JSONObject jsonObject = new JSONObject(string);
             String data = jsonObject.optString("data","");

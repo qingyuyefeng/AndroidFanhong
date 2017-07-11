@@ -115,7 +115,6 @@ public class MineView1 extends BaseFragment implements OnClickListener{
 
 				if(SampleConnection.LOGO_URL != null && SampleConnection.LOGO_URL.length() > 0){
 					String ul = SampleConnection.LOGO_URL;
-					Log.i("xq","头像--url==>"+ul);
 					//用ImageLoader加载图片
 					ImageLoader.getInstance().displayImage(ul, iv_login,new ImageLoaderPicture(this.getActivity()).getOptions(),new SimpleImageLoadingListener());
 				}

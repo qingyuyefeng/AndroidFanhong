@@ -230,11 +230,6 @@
 				android:layout_height="26dp"
 				android:background="@drawable/wx"
 				android:focusable="false" />
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="match_parent"
-				android:gravity="center_vertical"
-				android:text="(暂不支持)"/>
 		</LinearLayout>
 		<LinearLayout
   			android:layout_width="fill_parent"

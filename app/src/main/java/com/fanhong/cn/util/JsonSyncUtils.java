@@ -72,4 +72,22 @@ public class JsonSyncUtils {
         }
         return value;
     }
+
+    /**
+     *
+     * @param jsonArray
+     * @param key
+     * @return
+     */
+    public synchronized static String getJsonValueInAray(String jsonArray, String key) {
+        String value = "";
+        try {
+            JSONArray array=new JSONArray(jsonArray);
+            JSONObject obj = (JSONObject) array.opt(0);
+            value = obj.getString(key);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return value;
+    }
 }

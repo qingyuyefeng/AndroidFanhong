@@ -51,15 +51,15 @@ public class RepairLinesActivity extends Activity {
 
     private void showDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("???????"+repair_lines_tel.getText().toString());
-        builder.setMessage("???????????");
-        builder.setPositiveButton("???", new DialogInterface.OnClickListener() {
+        builder.setTitle("将要拨打"+repair_lines_tel.getText().toString());
+        builder.setMessage("是否立即拨打");
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 callNumber(repair_lines_tel.getText().toString());
             }
         });
-        builder.setNegativeButton("???", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

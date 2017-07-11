@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="15px"
+    android:paddingTop="15px"
+    android:orientation="horizontal">
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_news_title1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="50px"
+            android:layout_toLeftOf="@id/news_picture"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="news Title"
+            android:textColor="@color/memory_avail"
+            android:textSize="30px"
+            android:textStyle="bold" />
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+            <TextView
+                android:id="@+id/tv_news_author1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="article author"
+                android:textColor="@color/line_hint"
+                android:textSize="30px" />
+
+            <TextView
+                android:id="@+id/tv_news_time1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="50px"
+                android:text="send time"
+                android:textColor="@color/line_hint"
+                android:textSize="30px" />
+        </com.zhy.autolayout.AutoLinearLayout>
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <ImageView
+        android:id="@+id/img_news_picture"
+        android:layout_width="145px"
+        android:layout_height="145px"
+        android:scaleType="fitXY"
+        android:src="@drawable/img_default" />
+
+
+</com.zhy.autolayout.AutoLinearLayout>
