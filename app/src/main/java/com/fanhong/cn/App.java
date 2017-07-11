@@ -9,6 +9,9 @@ import com.fanhong.cn.synctaskpicture.SaveInMemery;
 
 import org.xutils.x;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import io.rong.imlib.RongIMClient;
 
 /**
@@ -31,7 +34,7 @@ public class App extends Application {
     public static String CMDURL = "http://m.wuyebest.com/index.php/App/index";
     public static SaveInMemery memery = SaveInMemery.getMemoryCache(50);
 
-    public static long last_msg_time;
+    public static Set<Long> old_msg_times=new HashSet<>();
 
     @Override
     public void onCreate() {
@@ -47,7 +50,6 @@ public class App extends Application {
         if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext())) ||
                 "io.rong.push".equals(getCurProcessName(getApplicationContext()))) {
             RongIMClient.init(this);
-            last_msg_time=System.currentTimeMillis();
         }
     }
 

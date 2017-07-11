@@ -54,8 +54,8 @@ public class SampleConnection extends Application{
 	public static String ALIAS = "";   //昵称
 	public static String PASSWORD = "";   //登录密码
 	public static String LOGO_URL = "";   //头像的url
-	public static String TOKEN = "";   //头像的url
-	public static String CHATROOM = "";   //头像的url
+	public static String TOKEN = "";   //融云Token码
+	public static String CHATROOM = "";   //聊天室ID
 	private SampleActivity mSampleActivity;
 	private SamplePreferenceActivity mSamplePreferenceActivity;
 	private int mType;
