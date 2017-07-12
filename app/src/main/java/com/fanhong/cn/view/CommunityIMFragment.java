@@ -53,26 +53,27 @@ public class CommunityIMFragment extends Fragment {
     @ViewInject(R.id.btn_msg_send)
     Button btn_msg_send;
 
-    List<CommunityMessageBean> list;
+    List<CommunityMessageBean> list = new ArrayList<>();
+    ;
     CommunityChatAdapter adapter;
+    SharedPreferences pref;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = x.view().inject(this, inflater, container);
+        initData();
         connectRongCloud(SampleConnection.TOKEN, SampleConnection.CHATROOM);
-
         btn_msg_send.setEnabled(false);
         edt_chat_input.addTextChangedListener(watcher);
 
         return view;
     }
 
-    private List<CommunityMessageBean> initData() {
-        list = new ArrayList<>();
-        list.add(new CommunityMessageBean("http://imgsrc.baidu.com/imgad/pic/item/b8014a90f603738dc01baa06b91bb051f819ec45.jpg",
-                "春风与湖", "欢迎加入我们的聊天室", 1499126400000l, CommunityMessageBean.TYPE_LEFT));
-        return list;
+    private void initData() {
+        pref = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+        SampleConnection.TOKEN=pref.getString("token","");
+        SampleConnection.CHATROOM=pref.getString("gardenId","");
     }
 
     TextWatcher watcher = new TextWatcher() {
@@ -98,10 +99,10 @@ public class CommunityIMFragment extends Fragment {
 
     /**
      * 获取当前用户的信息
+     *
      * @return userInfo：包含用户ID、昵称、头像地址（地址为URI，需要处理）
      */
     private UserInfo getCurrentInfo() {
-        SharedPreferences pref = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
         String uId = pref.getString("UserId", "");
         String nick = pref.getString("Nick", "");
         String headUrl = SampleConnection.LOGO_URL;
@@ -114,6 +115,7 @@ public class CommunityIMFragment extends Fragment {
 
     /**
      * 发送按钮点击事件
+     *
      * @param v
      */
     @Event(R.id.btn_msg_send)
@@ -163,7 +165,8 @@ public class CommunityIMFragment extends Fragment {
 
     /**
      * 连接融云服务器并加入指定聊天室
-     * @param token 用户的token
+     *
+     * @param token      用户的token
      * @param chatRoomId 所选小区的聊天室ID
      */
     private void connectRongCloud(String token, final String chatRoomId) {
@@ -183,10 +186,10 @@ public class CommunityIMFragment extends Fragment {
                 RongIMClient.getInstance().joinChatRoom(chatRoomId, 50, new RongIMClient.OperationCallback() {
                     @Override
                     public void onSuccess() {
-                        edt_chat_input.setEnabled(true);
-                        edt_chat_input.setHint("");
                         //初始化聊天室
                         initConversation();
+                        edt_chat_input.setEnabled(true);
+                        edt_chat_input.setHint("");
                     }
 
                     @Override
@@ -206,7 +209,8 @@ public class CommunityIMFragment extends Fragment {
     }
 
     private void initConversation() {
-        initData();
+        list.add(new CommunityMessageBean("assets://welcome.gif", pref.getString("gardenName", "帆社区"),
+                "欢迎加入我们的聊天室", System.currentTimeMillis(), CommunityMessageBean.TYPE_LEFT));
         adapter = new CommunityChatAdapter(getActivity(), list);
         lv_msg_content.setAdapter(adapter);
 //        /**RongIMClient.getInstance().getChatroomHistoryMessages

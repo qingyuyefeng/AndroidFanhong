@@ -32,11 +32,12 @@ import java.util.List;
  * Created by Administrator on 2017/7/11.
  */
 
-public class HomeNewsALLActivity extends Activity{
+public class HomeNewsALLActivity extends Activity {
     private ImageView backBtn;
     private ListView newsListView;
     private List<HomeNews> newsList = new ArrayList<>();
     private HomenewsAdapter homenewsAdapter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,34 +58,35 @@ public class HomeNewsALLActivity extends Activity{
         initView();
     }
 
-    private void initData(){
-        new Thread(){
+    private void initData() {
+        new Thread() {
             @Override
             public void run() {
                 getAllnews();
             }
         }.start();
     }
-    private void initView(){
+
+    private void initView() {
         newsListView = (ListView) findViewById(R.id.all_home_news);
-        homenewsAdapter = new HomenewsAdapter(this,newsList);
+        homenewsAdapter = new HomenewsAdapter(this, newsList);
         newsListView.setAdapter(homenewsAdapter);
         newsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String url = newsList.get(position).getNewsUrl();
                 Intent intent = new Intent(HomeNewsALLActivity.this, WebViewActivity.class);
-                intent.putExtra("url",url);
-                startActivityForResult(intent,1);
+                intent.putExtra("url", url);
+                startActivityForResult(intent, 1);
             }
         });
     }
 
-    private void setList(String str){
+    private void setList(String str) {
         try {
             JSONObject jsonObject = new JSONObject(str);
             JSONArray jsonArray = jsonObject.optJSONArray("data");
-            for(int i=0;i<jsonArray.length();i++){
+            for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject object = jsonArray.getJSONObject(i);
                 JSONArray logos = object.getJSONArray("logo");
                 String logo = (String) logos.get(0);
@@ -102,7 +104,7 @@ public class HomeNewsALLActivity extends Activity{
         }
     }
 
-    private void getAllnews(){
+    private void getAllnews() {
         String url = SampleConnection.url;
         OutputStream os = null;
         try {
@@ -111,16 +113,16 @@ public class HomeNewsALLActivity extends Activity{
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setConnectTimeout(5000);
             httpURLConnection.setReadTimeout(5000);
-            String content = "cmd="+53;
+            String content = "cmd=" + 53;
             os = httpURLConnection.getOutputStream();
             os.write(content.getBytes());
             os.flush();
             int res = httpURLConnection.getResponseCode();
-            if(res == 200){
-                BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream(),"utf-8"));
+            if (res == 200) {
+                BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream(), "utf-8"));
                 StringBuffer sb = new StringBuffer();
                 String s;
-                while ((s = br.readLine())!=null){
+                while ((s = br.readLine()) != null) {
                     sb.append(s);
                 }
                 newsList.clear();
@@ -130,7 +132,7 @@ public class HomeNewsALLActivity extends Activity{
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 os.close();
             } catch (IOException e) {
@@ -138,6 +140,7 @@ public class HomeNewsALLActivity extends Activity{
             }
         }
     }
+
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
