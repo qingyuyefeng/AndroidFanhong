@@ -123,7 +123,7 @@ public class GoodsselectActivity extends Activity{
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject1 = jsonArray.optJSONObject(i);
                         ShopModel shopModel = new ShopModel();
-                        shopModel.setGoodsName("商品名："+jsonObject1.optString("name"));
+                        shopModel.setGoodsName(jsonObject1.optString("name"));
                         shopModel.setGoodsPicture(jsonObject1.optString("tupian"));
                         shopModel.setGoodsMessages("商品描述："+jsonObject1.optString("ms"));
                         shopModel.setOwnerPhone("卖家电话："+jsonObject1.optString("dh"));

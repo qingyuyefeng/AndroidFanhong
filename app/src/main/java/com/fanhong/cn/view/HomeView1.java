@@ -367,8 +367,9 @@ public class HomeView1 extends BaseFragment {
 //                    startActivity(intent);
                     break;
                 case R.id.repair_layout:
-                    intent.setClass(HomeView1.this.getActivity(), RepairLinesActivity.class);
-                    startActivity(intent);
+//                    intent.setClass(HomeView1.this.getActivity(), RepairLinesActivity.class);
+//                    startActivity(intent);
+                    Toast.makeText(getActivity(), R.string.starting, Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.kuaidi_layout:
                     Toast.makeText(getActivity(), R.string.starting, Toast.LENGTH_SHORT).show();
@@ -466,9 +467,9 @@ public class HomeView1 extends BaseFragment {
         try {
             JSONObject jsonObject = new JSONObject(str);
             JSONArray jsonArray = jsonObject.optJSONArray("data1");
-//            if(jsonArray.length() == 0){
-//                homenewsLayout.setBackgroundResource(R.drawable.nodatas);
-//            }else {
+            if(jsonArray.length() == 0){
+                homenewsLayout.setBackgroundResource(R.drawable.nodatas);
+            }else {
                 for(int i=0;i<jsonArray.length();i++){
                     JSONObject object = jsonArray.getJSONObject(i);
                     JSONArray logos = object.getJSONArray("logo");
@@ -482,7 +483,7 @@ public class HomeView1 extends BaseFragment {
                     newsList.add(homeNews);
                 }
                 handler.sendEmptyMessage(0);
-//            }
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
