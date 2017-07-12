@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,9 @@ import io.rong.imlib.model.Message;
 import io.rong.imlib.model.UserInfo;
 import io.rong.message.TextMessage;
 
+import static android.R.id.list;
+import static android.R.id.message;
+
 /**
  * Created by Administrator on 2017/6/30.
  */
@@ -53,7 +57,7 @@ public class CommunityIMFragment extends Fragment {
     @ViewInject(R.id.btn_msg_send)
     Button btn_msg_send;
 
-    List<CommunityMessageBean> list = new ArrayList<>();
+    List<CommunityMessageBean> mMessagelist = new ArrayList<>();
     ;
     CommunityChatAdapter adapter;
     SharedPreferences pref;
@@ -70,10 +74,16 @@ public class CommunityIMFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     private void initData() {
         pref = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
-        SampleConnection.TOKEN=pref.getString("token","");
-        SampleConnection.CHATROOM=pref.getString("gardenId","");
+        SampleConnection.TOKEN = pref.getString("token", "");
+        SampleConnection.CHATROOM = pref.getString("gardenId", "");
+//        Log.i("IMFragment","token="+SampleConnection.TOKEN+"chatroomId="+SampleConnection.CHATROOM);
     }
 
     TextWatcher watcher = new TextWatcher() {
@@ -124,16 +134,16 @@ public class CommunityIMFragment extends Fragment {
         edt_chat_input.setText("");
         TextMessage textMessage = TextMessage.obtain(input_msg);
         textMessage.setUserInfo(getCurrentInfo());//在消息体中附加用户信息，以便于接收时使用
-        RongIMClient.getInstance().sendMessage(Conversation.ConversationType.CHATROOM, SampleConnection.TOKEN, textMessage, null, null,
+        RongIMClient.getInstance().sendMessage(Conversation.ConversationType.CHATROOM, SampleConnection.CHATROOM, textMessage, null, null,
                 new RongIMClient.SendMessageCallback() {
                     @Override
                     public void onError(Integer integer, RongIMClient.ErrorCode errorCode) {
-
+                        Log.i("IMFragment", "发送失败" + errorCode.getMessage());
                     }
 
                     @Override
                     public void onSuccess(Integer integer) {
-
+                        Log.i("IMFragment", "发送成功");
                     }
                 }, new RongIMClient.ResultCallback<Message>() {
                     @Override
@@ -147,7 +157,7 @@ public class CommunityIMFragment extends Fragment {
                         bean.setUserName(info.getName());
                         bean.setHeadUrl(SampleConnection.getUrlFromUri(info.getPortraitUri()));
                         bean.setType(CommunityMessageBean.TYPE_RIGHT);//发送的消息显示在右边
-                        list.add(bean);
+                        mMessagelist.add(bean);
                         getActivity().runOnUiThread(new Runnable() {//在UI线程更新
                             @Override
                             public void run() {
@@ -170,16 +180,20 @@ public class CommunityIMFragment extends Fragment {
      * @param chatRoomId 所选小区的聊天室ID
      */
     private void connectRongCloud(String token, final String chatRoomId) {
+        Log.i("IMFragment", "token=" + token + "chatroomId=" + chatRoomId);
+//        edt_chat_input.setEnabled(false);
         RongIMClient.connect(token, new RongIMClient.ConnectCallback() {
             @Override
             public void onTokenIncorrect() {
                 //token失效
                 edt_chat_input.setEnabled(false);
                 edt_chat_input.setHint("加入聊天室失败:31004");
+                Log.i("IMFragment", "onTokenIncorrect()加入聊天室失败:31004");
             }
 
             @Override
             public void onSuccess(String s) {
+                Log.i("IMFragment", "链接聊天服务器成功");
                 /**
                  * 加入聊天室
                  */
@@ -187,15 +201,16 @@ public class CommunityIMFragment extends Fragment {
                     @Override
                     public void onSuccess() {
                         //初始化聊天室
+                        Log.i("IMFragment", "加入聊天室成功");
                         initConversation();
-                        edt_chat_input.setEnabled(true);
-                        edt_chat_input.setHint("");
+
                     }
 
                     @Override
                     public void onError(RongIMClient.ErrorCode errorCode) {
                         edt_chat_input.setEnabled(false);
                         edt_chat_input.setHint("加入聊天室失败:" + errorCode.getValue());
+                        Log.i("IMFragment", "onError连接聊天服务器失败:" + errorCode.getValue());
                     }
                 });
             }
@@ -204,33 +219,60 @@ public class CommunityIMFragment extends Fragment {
             public void onError(RongIMClient.ErrorCode errorCode) {
                 edt_chat_input.setEnabled(false);
                 edt_chat_input.setHint("加入聊天室失败:" + errorCode.getValue());
+                Log.i("IMFragment", "onError连接聊天服务器失败:" + errorCode.getValue());
             }
         });
     }
 
     private void initConversation() {
-        list.add(new CommunityMessageBean("assets://welcome.gif", pref.getString("gardenName", "帆社区"),
+        mMessagelist.add(new CommunityMessageBean("assets://welcome.gif", pref.getString("gardenName", "帆社区"),
                 "欢迎加入我们的聊天室", System.currentTimeMillis(), CommunityMessageBean.TYPE_LEFT));
-        adapter = new CommunityChatAdapter(getActivity(), list);
+        adapter = new CommunityChatAdapter(getActivity(), mMessagelist);
         lv_msg_content.setAdapter(adapter);
-//        /**RongIMClient.getInstance().getChatroomHistoryMessages
-//         * 聊天室中该方法是付费功能，需要开通才能使用
-//         * targetId - 目标 Id。根据不同的 conversationType，可能是用户 Id、讨论组 Id、群组 Id。
-//         * recordTime - 起始的消息发送时间戳，单位: 毫秒。
-//         * count - 要获取的消息数量，count 大于 0 ，小于等于 200。
-//         * order - 拉取顺序: 降序, 按照时间戳从大到小; 升序, 按照时间戳从小到大。
-//         */
-//        RongIMClient.getInstance().getChatroomHistoryMessages(chatroomId, 0, 20, RongIMClient.TimestampOrder.RC_TIMESTAMP_DESC, new IRongCallback.IChatRoomHistoryMessageCallback() {
-//            @Override
-//            public void onSuccess(List<Message> list, long l) {
-//
-//            }
-//
-//            @Override
-//            public void onError(RongIMClient.ErrorCode errorCode) {
-//
-//            }
-//        });
+        edt_chat_input.setEnabled(true);
+        edt_chat_input.setHint("");
+        /**RongIMClient.getInstance().getChatroomHistoryMessages
+         * 聊天室中该方法是付费功能，需要开通才能使用
+         * targetId - 目标 Id。根据不同的 conversationType，可能是用户 Id、讨论组 Id、群组 Id。
+         * recordTime - 起始的消息发送时间戳，单位: 毫秒。
+         * count - 要获取的消息数量，count 大于 0 ，小于等于 200。
+         * order - 拉取顺序: 降序, 按照时间戳从大到小; 升序, 按照时间戳从小到大。
+         */
+        RongIMClient.getInstance().getChatroomHistoryMessages(SampleConnection.CHATROOM, 0, 50, RongIMClient.TimestampOrder.RC_TIMESTAMP_DESC, new IRongCallback.IChatRoomHistoryMessageCallback() {
+            @Override
+            public void onSuccess(List<Message> list, long l) {
+                for (Message message : list) {
+                    if (message != null) {
+                        CommunityMessageBean bean = new CommunityMessageBean();
+                        TextMessage msg = (TextMessage) message.getContent();
+                        UserInfo info = message.getContent().getUserInfo();//获取消息体中所附带的用户信息
+                        //获取消息内容
+                        bean.setMessage(msg.getContent());
+                        bean.setMsgTime(message.getSentTime());
+                        bean.setUserName(info.getName());
+                        bean.setHeadUrl(SampleConnection.getUrlFromUri(info.getPortraitUri()));
+                        //对比消息的用户是否是当前用户，是则显示在右边，否则显示在左边
+                        if (getCurrentInfo().getUserId().equals(info.getUserId()))
+                            bean.setType(CommunityMessageBean.TYPE_RIGHT);
+                        else
+                            bean.setType(CommunityMessageBean.TYPE_LEFT);
+                        mMessagelist.add(bean);//在UI线程中更新
+                        getActivity().runOnUiThread(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                adapter.notifyDataSetChanged();
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+
+            }
+        });
         /**
          * 设置消息接收监听
          */
@@ -257,7 +299,7 @@ public class CommunityIMFragment extends Fragment {
                         bean.setType(CommunityMessageBean.TYPE_RIGHT);
                     else
                         bean.setType(CommunityMessageBean.TYPE_LEFT);
-                    list.add(bean);//在UI线程中更新
+                    mMessagelist.add(bean);//在UI线程中更新
                     getActivity().runOnUiThread(new Runnable() {
 
                         @Override
