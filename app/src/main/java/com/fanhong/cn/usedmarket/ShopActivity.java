@@ -222,6 +222,7 @@ public class ShopActivity extends SampleActivity {
                             radioButton1.setTextColor(getResources().getColor(R.color.white));
                             radioButton2.setTextColor(getResources().getColor(R.color.skyblue));
                         } else {
+                            radioButton1.setChecked(true);
                             Toast.makeText(context, R.string.pleaselogin, Toast.LENGTH_SHORT).show();
                         }
                         break;
@@ -709,8 +710,8 @@ public class ShopActivity extends SampleActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
         shopModels.clear();
         //加载数据
         new Thread() {
@@ -719,11 +720,6 @@ public class ShopActivity extends SampleActivity {
                 seleteAllpostgoods();
             }
         }.start();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         shopAdapter = new ShopAdapter(shopModels, ShopActivity.this);
         shopAdapter.setCallseller(new ShopAdapter.Callseller() {
             @Override
@@ -764,7 +760,7 @@ public class ShopActivity extends SampleActivity {
                 case 2:
                     Toast.makeText(context, "上传成功", Toast.LENGTH_SHORT).show();
                     radioButton1.setChecked(true);
-                    onResume();
+                    ShopActivity.this.onResume();
                     break;
                 case 3:
                     Toast.makeText(context, "上传失败", Toast.LENGTH_SHORT).show();

@@ -40,7 +40,7 @@ public class ChooseLouActivity extends SampleActivity{
     public synchronized void connectFail(int type) {
         switch (type){
             case CHOOSE_LOUDONG:
-                Toast.makeText(this,"数据异常错误1",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"选择小区错误1",Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -78,7 +78,7 @@ public class ChooseLouActivity extends SampleActivity{
                             });
                         }
                     }else {
-                        Toast.makeText(this,"数据异常错误",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this,"选择小区错误",Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

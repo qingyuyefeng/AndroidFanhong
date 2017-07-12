@@ -123,6 +123,7 @@ public class HomeNewsALLActivity extends Activity{
                 while ((s = br.readLine())!=null){
                     sb.append(s);
                 }
+                newsList.clear();
                 setList(sb.toString());
             }
         } catch (MalformedURLException e) {

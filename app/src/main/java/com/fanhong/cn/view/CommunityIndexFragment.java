@@ -6,6 +6,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,22 +55,32 @@ public class CommunityIndexFragment extends BaseFragment {
                 tv_communityName.setText(str);
         } catch (Exception e) {
         }
-        getActivity().runOnUiThread(new Runnable() {
+        rg_tab.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void run() {
-                rg_tab.check(R.id.title_rb1);
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                Fragment fragment = getInstanceByIndex(checkedId);
+                transaction.replace(R.id.framelayout_community, fragment);
+                transaction.commitAllowingStateLoss();
             }
         });
+
+//        getActivity().runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+                rg_tab.check(R.id.title_rb1);
+//            }
+//        });
         return view;
     }
 
-    @Event(value = R.id.rg_title_community, type = RadioGroup.OnCheckedChangeListener.class)
-    private void onTabChecked(RadioGroup group, int checkedId) {
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        Fragment fragment = getInstanceByIndex(checkedId);
-        transaction.replace(R.id.framelayout_community, fragment);
-        transaction.commit();
-    }
+//    @Event(value = R.id.rg_title_community, type = RadioGroup.OnCheckedChangeListener.class)
+//    private void onTabChecked(RadioGroup group, int checkedId) {
+//        FragmentTransaction transaction = fragmentManager.beginTransaction();
+//        Fragment fragment = getInstanceByIndex(checkedId);
+//        transaction.replace(R.id.framelayout_community, fragment);
+//        transaction.commit();
+//    }
 
     @Event(R.id.tv_back)
     private void onBackClick(View v) {
