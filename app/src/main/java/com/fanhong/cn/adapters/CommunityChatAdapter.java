@@ -41,7 +41,7 @@ public class CommunityChatAdapter extends BaseAdapter {
         this.context = context;
         this.list = list;
         this.mInflater = LayoutInflater.from(context);
-        this.options = new ImageOptions.Builder().setLoadingDrawableId(R.drawable.ilon_yh).setFailureDrawableId(R.drawable.ilon_yh).setCircular(true).setUseMemCache(true).build();
+        this.options = new ImageOptions.Builder().setLoadingDrawableId(R.drawable.ilon_yh).setIgnoreGif(false).setFailureDrawableId(R.drawable.ilon_yh).setCircular(true).setUseMemCache(true).build();
     }
 
     @Override
@@ -107,10 +107,12 @@ public class CommunityChatAdapter extends BaseAdapter {
         switch (type) {
             case CommunityMessageBean.TYPE_LEFT:
                 holderLeft.tv_time.setVisibility(View.GONE);
-                if (iswent5min(bean.getMsgTime(),  position == 0 ? bean.getMsgTime() : list.get(position - 1).getMsgTime())) {
+                if (iswent5min(bean.getMsgTime(), position == 0 ? bean.getMsgTime() : list.get(position - 1).getMsgTime())) {
+                    App.old_msg_times.add(bean.getMsgTime());
+                }
+                if (App.old_msg_times.contains(bean.getMsgTime())) {
                     String sendTime = new SimpleDateFormat("MM月dd日 HH:mm").format(new Date(bean.getMsgTime()));
                     holderLeft.tv_time.setText(sendTime);
-                    App.last_msg_time = bean.getMsgTime();
                     holderLeft.tv_time.setVisibility(View.VISIBLE);
                 }
                 holderLeft.tv_user.setText(bean.getUserName());
@@ -120,9 +122,11 @@ public class CommunityChatAdapter extends BaseAdapter {
             case CommunityMessageBean.TYPE_RIGHT:
                 holderLeft.tv_time.setVisibility(View.GONE);
                 if (iswent5min(bean.getMsgTime(), position == 0 ? bean.getMsgTime() : list.get(position - 1).getMsgTime())) {
+                    App.old_msg_times.add(bean.getMsgTime());
+                }
+                if (App.old_msg_times.contains(bean.getMsgTime())) {
                     String sendTime = new SimpleDateFormat("MM月dd日 HH:mm").format(new Date(bean.getMsgTime()));
                     holderRight.tv_time.setText(sendTime);
-                    App.last_msg_time = bean.getMsgTime();
                     holderLeft.tv_time.setVisibility(View.VISIBLE);
                 }
                 holderRight.tv_user.setText(bean.getUserName());
