@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fanhong.cn.R;
 import com.fanhong.cn.SampleConnection;
@@ -71,12 +72,13 @@ public class OpenDoorActivity extends Activity{
                     finish();
                     break;
                 case R.id.open_door:
-                    new Thread(){
-                        @Override
-                        public void run() {
-                            openDoor(miyue);
-                        }
-                    }.start();
+//                    new Thread(){
+//                        @Override
+//                        public void run() {
+//                            openDoor(miyue);
+//                        }
+//                    }.start();
+                    Toast.makeText(OpenDoorActivity.this,R.string.opendoor,Toast.LENGTH_SHORT).show();
                     break;
             }
         }

@@ -74,6 +74,7 @@ public class ShopAdapter extends BaseAdapter {
         viewHolder.goodsMessages.setText(shopModel.getGoodsMessages());
         viewHolder.ownerPhone.setText(shopModel.getOwnerPhone());
         viewHolder.ownerName.setText(shopModel.getOwnerName());
+        viewHolder.goodsPrice.setText(shopModel.getPrice());
         final String str = shopModel.getOwnerPhone();
         viewHolder.callSeller.setOnClickListener(new View.OnClickListener() {
             @Override

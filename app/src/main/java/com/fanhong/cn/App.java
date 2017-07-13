@@ -36,6 +36,7 @@ public class App extends Application {
 
     public static Set<Long> old_msg_times=new HashSet<>();
 
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -69,5 +70,4 @@ public class App extends Application {
         }
         return null;
     }
-
 }

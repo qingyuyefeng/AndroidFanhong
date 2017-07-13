@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.IdRes;
@@ -19,7 +21,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -27,9 +28,9 @@ import android.widget.Toast;
 
 import com.fanhong.cn.listviews.MyFragmentPagerAdapter;
 import com.fanhong.cn.view.AccesscontrolView1;
+import com.fanhong.cn.view.CommunityIndexFragment;
 import com.fanhong.cn.view.FixedViewPager;
 import com.fanhong.cn.view.HomeView1;
-import com.fanhong.cn.view.CommunityIndexFragment;
 import com.fanhong.cn.view.MineView1;
 import com.fanhong.cn.view.ServiceView1;
 
@@ -81,6 +82,13 @@ public class FragmentMainActivity extends SampleActivity {
 //		}
         wellcom();
         initViews();
+
+        if(!isNetworkAvailable(this)){
+            Toast.makeText(this,R.string.nonetwork,Toast.LENGTH_SHORT).show();
+        }else if(isNetworkAvailable(this) && !isWifi(this)){
+            Toast.makeText(this,R.string.nowife,Toast.LENGTH_SHORT).show();
+        }
+
         fragmentManager = getFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         //setTabSelection(0);
@@ -99,6 +107,43 @@ public class FragmentMainActivity extends SampleActivity {
             }
         }
     }
+
+
+    /* 判断联网状态
+         * 连上之后判断是流量还是wifi
+         */
+    public boolean isNetworkAvailable(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (cm == null) {
+            return false;
+        } else {
+            //如果仅仅是用来判断网络连接
+            //则可以使用 cm.getActiveNetworkInfo().isAvailable();
+            NetworkInfo[] info = cm.getAllNetworkInfo();
+            if (info != null) {
+                for (int i = 0; i < info.length; i++) {
+                    if (info[i].getState() == NetworkInfo.State.CONNECTED) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    public static boolean isWifi(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkINfo = cm.getActiveNetworkInfo();
+        if (networkINfo != null
+                && networkINfo.getType() == ConnectivityManager.TYPE_WIFI) {
+            return true;
+        }
+        return false;
+    }
+
+
+
 
     private void wellcom() {
         new Handler().postDelayed(new Runnable() {

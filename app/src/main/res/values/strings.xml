@@ -60,6 +60,9 @@
     <string name="newsdetail">新闻详情</string>
     <string name="getdatafailed">数据获取失败</string>
 
+    <string name="nonetwork">网络连接失败，部分数据无法显示</string>
+    <string name="nowife">当前为数据流量连接，请小心流量</string>
+
     <string name="userregister">用户注册</string>
     <string name="registering">注册中……</string>
     <string name="readandagree">我已阅读并同意</string>
@@ -194,6 +197,7 @@
 
     <string name="postgoods">上传卖品</string>
     <string name="starting">即将开通</string>
+    <string name="opendoor">暂无大门安装门禁</string>
 
     <string name="newstitle">重庆帆社区的大数据建设为重庆经济带来飞跃性发展</string>
     <string name="newsplace">重庆商报</string>

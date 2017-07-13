@@ -12,10 +12,23 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs{
+        release{
+            storeFile file('C:/Users/Administrator/Desktop/FanHong.jks')
+            storePassword '100200'
+            keyAlias 'release-key'
+            keyPassword '100200'
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.release
+            pseudoLocalesEnabled true
         }
     }
 
@@ -66,7 +79,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile files('gradle/wrapper/gradle-wrapper.jar')
     //    compile 'com.android.support:multidex:1.0.0'
-    compile project(':IMLib')
+    compile project(':imlib')
 }
 
 

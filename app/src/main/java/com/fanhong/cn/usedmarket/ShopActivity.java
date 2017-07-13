@@ -582,7 +582,7 @@ public class ShopActivity extends SampleActivity {
 
     //上传卖品文字信息
     private void postData() {
-        BufferedReader br = null;
+        OutputStream os = null;
         try {
             URL url = new URL(cmdUrl);
             HttpURLConnection http = (HttpURLConnection) url.openConnection();
@@ -595,11 +595,11 @@ public class ShopActivity extends SampleActivity {
             String content = "cmd=" + 31 + "&name=" + edittext[0].getText() + "&tupian=" + picmsg +
                     "&ms=" + edittext[1].getText() + "&jg=" + edittext[2].getText() +
                     "&user=" + edittext[3].getText() + "&dh=" + edittext[4].getText() + "&uid=" + uid;
-            OutputStream os = http.getOutputStream();
+            os = http.getOutputStream();
             os.write(content.getBytes());
-
+            os.flush();
             if (http.getResponseCode() == 200) {
-                br = new BufferedReader(new InputStreamReader(http.getInputStream(), "utf-8"));
+                BufferedReader br = new BufferedReader(new InputStreamReader(http.getInputStream(), "utf-8"));
                 StringBuffer sb = new StringBuffer();
                 String str;
                 while ((str = br.readLine()) != null) {
@@ -626,10 +626,12 @@ public class ShopActivity extends SampleActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         } finally {
-            try {
-                br.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+            if(os!=null){
+                try {
+                    os.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -700,12 +702,12 @@ public class ShopActivity extends SampleActivity {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                os.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//        } finally {
+//            try {
+//                os.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
         }
     }
 
