@@ -9,11 +9,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.SyncStateContract;
 import android.support.annotation.IdRes;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -26,6 +30,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.alipay.android.phone.mrpc.core.Config;
 import com.fanhong.cn.listviews.MyFragmentPagerAdapter;
 import com.fanhong.cn.view.AccesscontrolView1;
 import com.fanhong.cn.view.CommunityIndexFragment;
@@ -141,10 +146,27 @@ public class FragmentMainActivity extends SampleActivity {
         }
         return false;
     }
+    private static final int Permission_Request_Code = 1000;
+    public void requestPermission(String[] permissions) {
+        ActivityCompat.requestPermissions(this, permissions, Permission_Request_Code);
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        if(MyBaseClass.isLacksOfPermission(MyBaseClass.PERMISSION[0])){
+//            ActivityCompat.requestPermissions(this, MyBaseClass.PERMISSION, 0x12);
+//        }else {
 
+//        }
+        if (ContextCompat.checkSelfPermission(this, MyBaseClass.PERMISSION[0])== PackageManager.PERMISSION_DENIED) {
 
-
-
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[]
+            grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
     private void wellcom() {
         new Handler().postDelayed(new Runnable() {
             @Override

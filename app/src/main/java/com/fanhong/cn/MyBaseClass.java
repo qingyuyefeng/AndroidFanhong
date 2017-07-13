@@ -27,5 +27,4 @@ public class MyBaseClass {
         }
         return false;
     }
-
 }

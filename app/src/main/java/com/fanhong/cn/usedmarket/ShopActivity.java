@@ -164,7 +164,6 @@ public class ShopActivity extends SampleActivity {
 
         mSettingPref = getSharedPreferences("Setting", Context.MODE_PRIVATE);
         uid = mSettingPref.getString("UserId", "");
-        Log.i("xq", "userid====>" + uid);
 
         listLayout = (AutoRelativeLayout) findViewById(R.id.goods_listview_layout);
         shopListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -608,7 +607,6 @@ public class ShopActivity extends SampleActivity {
                 JSONObject object = new JSONObject(sb.toString());
                 int cmd = object.optInt("cmd");
                 int cw = object.optInt("cw");
-                Log.e("result", "cmd=" + cmd + "cw=" + cw);
                 if (cw == 0) {
                     Message m = handler.obtainMessage();
                     m.what = 2;
@@ -702,12 +700,14 @@ public class ShopActivity extends SampleActivity {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
-//        } finally {
-//            try {
-//                os.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
+        } finally {
+            if(os!=null){
+                try {
+                    os.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
