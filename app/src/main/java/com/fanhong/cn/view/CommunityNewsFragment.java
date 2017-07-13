@@ -11,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 
 import com.fanhong.cn.App;
@@ -20,15 +22,19 @@ import com.fanhong.cn.R;
 import com.fanhong.cn.adapters.CommunityNewsAdapter;
 import com.fanhong.cn.bean.CommunityNewsBean;
 import com.fanhong.cn.util.JsonSyncUtils;
+import com.zhy.autolayout.AutoLinearLayout;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
+import org.xutils.image.ImageOptions;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import me.nereo.multi_image_selector.bean.Image;
 
 /**
  * Created by Administrator on 2017/6/30.
@@ -39,6 +45,10 @@ public class CommunityNewsFragment extends Fragment {
     ListView lv_community_news;
     @ViewInject(R.id.lv_nearby_news)
     ListView lv_nearby_news;
+    @ViewInject(R.id.progressBar_community)
+    AutoLinearLayout bar_community;
+    @ViewInject(R.id.img_news_bar)
+    ImageView img_bar;
     List<CommunityNewsBean> listcomm, listnews;
     CommunityNewsAdapter adaptercomm, adapternews;
     private SharedPreferences pref;
@@ -52,6 +62,7 @@ public class CommunityNewsFragment extends Fragment {
 //        initNewsData(2);
         lv_community_news.setOnItemClickListener(listenerComm);
         lv_nearby_news.setOnItemClickListener(listenerNearby);
+        x.image().bind(img_bar,"assets://progressbar.gif",new ImageOptions.Builder().setIgnoreGif(false).build());
         return view;
     }
 
@@ -108,6 +119,7 @@ public class CommunityNewsFragment extends Fragment {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            bar_community.setVisibility(View.GONE);
                             adaptercomm.notifyDataSetChanged();
                         }
                     });
@@ -115,6 +127,7 @@ public class CommunityNewsFragment extends Fragment {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            bar_community.setVisibility(View.GONE);
                             adapternews.notifyDataSetChanged();
                         }
                     });
