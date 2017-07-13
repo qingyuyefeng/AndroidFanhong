@@ -34,6 +34,7 @@ import com.fanhong.cn.view.MineView1;
 import com.fanhong.cn.view.ServiceView1;
 
 import org.json.JSONObject;
+import org.xutils.image.ImageOptions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,6 +68,13 @@ public class FragmentMainActivity extends SampleActivity {
     private FixedViewPager viewPager;
     private List<Fragment> fragments = new ArrayList<>();
     private int lastCheckedPage = R.id.home_page;
+
+    public final static int FRAGMENT_HOMEVIEW = 1;
+    public final static int FRAGMENT_SERVICE = 2;
+    public final static int FRAGMENT_OPENDOOR = 3;
+    public final static int FRAGMENT_COMMUNITY = 4;
+    public final static int FRAGMENT_MINEVIEW = 6;
+    public static int FORCE_FRAGMENT = 0;//当前选中的Fragment
 
     @SuppressLint("NewApi")
     @Override
@@ -149,6 +157,7 @@ public class FragmentMainActivity extends SampleActivity {
                         imageViews[3].setVisibility(View.INVISIBLE);
                         imageViews[4].setVisibility(View.INVISIBLE);
                         lastCheckedPage = R.id.home_page;
+                        FORCE_FRAGMENT = FRAGMENT_HOMEVIEW;
                         break;
                     case R.id.service_page:
 //                        showFragment(fragmentTransaction,1);
@@ -164,6 +173,7 @@ public class FragmentMainActivity extends SampleActivity {
                         imageViews[3].setVisibility(View.INVISIBLE);
                         imageViews[4].setVisibility(View.INVISIBLE);
                         lastCheckedPage = R.id.service_page;
+                        FORCE_FRAGMENT = FRAGMENT_SERVICE;
                         break;
                     case R.id.door_page:
 //                        showFragment(fragmentTransaction,2);
@@ -179,6 +189,7 @@ public class FragmentMainActivity extends SampleActivity {
                         imageViews[3].setVisibility(View.INVISIBLE);
                         imageViews[4].setVisibility(View.INVISIBLE);
                         lastCheckedPage = R.id.door_page;
+                        FORCE_FRAGMENT = FRAGMENT_OPENDOOR;
                         break;
                     case R.id.interact_page:
 //                        showFragment(fragmentTransaction,3);
@@ -197,6 +208,7 @@ public class FragmentMainActivity extends SampleActivity {
                                     imageViews[3].setVisibility(View.VISIBLE);
                                     imageViews[4].setVisibility(View.INVISIBLE);
                                     lastCheckedPage = R.id.interact_page;
+                                    FORCE_FRAGMENT = FRAGMENT_COMMUNITY;
                                 } else {
                                     createDialog(1);
                                     bottomRadioGroup.check(lastCheckedPage);
@@ -223,6 +235,7 @@ public class FragmentMainActivity extends SampleActivity {
                         imageViews[3].setVisibility(View.INVISIBLE);
                         imageViews[4].setVisibility(View.VISIBLE);
                         lastCheckedPage = R.id.mine_page;
+                        FORCE_FRAGMENT = FRAGMENT_MINEVIEW;
                         break;
                 }
             }
@@ -266,12 +279,13 @@ public class FragmentMainActivity extends SampleActivity {
                 lastPressBackKeyTime = currentTime;
             }
             return true;
+
         }
         return super.onKeyDown(keyCode, event);
     }
 
-    public void setRadioButtonsChecked(int number){
-        if(number < radioButtons.length){
+    public void setRadioButtonsChecked(int number) {
+        if (number < radioButtons.length) {
             radioButtons[number].setChecked(true);
         }
     }
@@ -317,7 +331,7 @@ public class FragmentMainActivity extends SampleActivity {
             mSettingPref.edit().putInt("Status", 1).commit();
             mSettingPref.edit().putString("Name", name).commit();
             mSettingPref.edit().putString("Nick", nick).commit();
-            mTab04.setFragment(1,1);
+            mTab04.setFragment(1, 1);
             getAccessControl();
         } else if (cmd == 42) {
             if (result == 0) {
@@ -326,14 +340,13 @@ public class FragmentMainActivity extends SampleActivity {
             } else {
                 Toast.makeText(this, "门禁钥匙数据异常", Toast.LENGTH_SHORT).show();
             }
-        }else if(cmd == 34){//二手卖品展示
-            mTab01.setFragment(33,json.toString());
+        } else if (cmd == 34) {//二手卖品展示
+            mTab01.setFragment(33, json.toString());
 //        }else if(cmd == 50){//主页新闻和品味生活展示
 //            mTab01.setFragment(49,json.toString());
-        }else if(cmd == 44){//主页最新公告展示
-            mTab01.setFragment(43,json.toString());
-        }
-        else {
+        } else if (cmd == 44) {//主页最新公告展示
+            mTab01.setFragment(43, json.toString());
+        } else {
             connectFail(type);
         }
     }

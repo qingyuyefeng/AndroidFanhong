@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="30px"
+            android:padding="30px"
             android:src="@drawable/btn_back" />
 
         <!--<TextView-->
@@ -44,6 +44,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/rb_bg_selector"
                 android:button="@null"
+                android:checked="true"
                 android:padding="4dp"
                 android:text="社区新闻"
                 android:textColor="@drawable/title_radio_text_selector"

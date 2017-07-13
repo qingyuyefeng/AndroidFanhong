@@ -1,42 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg1">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="14px"
+                android:paddingLeft="20px"
+                android:text="小区新闻"
+                android:textColor="@color/popular"
+                android:textSize="30px" />
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="200px"
+                android:orientation="vertical">
+
+                <com.fanhong.cn.listviews.RealhightListView
+                    android:id="@+id/lv_community_news"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fastScrollEnabled="true" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="14px"
+                android:paddingLeft="20px"
+                android:text="附近新闻"
+                android:textColor="@color/popular"
+                android:textSize="30px" />
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="200px"
+                android:orientation="vertical">
+
+
+                <com.fanhong.cn.listviews.RealhightListView
+                    android:id="@+id/lv_nearby_news"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></com.fanhong.cn.listviews.RealhightListView>
+            </com.zhy.autolayout.AutoLinearLayout>
+
+        </com.zhy.autolayout.AutoLinearLayout>
+    </ScrollView>
+
     <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/progressBar_community"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@color/bg1"
+        android:gravity="center">
 
-        <TextView
+        <ImageView
+            android:id="@+id/img_news_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="14px"
-            android:paddingLeft="20px"
-            android:text="小区新闻"
-            android:textColor="@color/popular"
-            android:textSize="30px" />
-
-        <com.fanhong.cn.listviews.RealhightListView
-            android:id="@+id/lv_community_news"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fastScrollEnabled="true"
-            android:minHeight="200px" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="14px"
-            android:paddingLeft="20px"
-            android:text="附近新闻"
-            android:textColor="@color/popular"
-            android:textSize="30px" />
-
-        <com.fanhong.cn.listviews.RealhightListView
-            android:id="@+id/lv_nearby_news"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></com.fanhong.cn.listviews.RealhightListView>
+            android:background="@color/bg1"/>
     </com.zhy.autolayout.AutoLinearLayout>
-</ScrollView>
+</com.zhy.autolayout.AutoRelativeLayout>

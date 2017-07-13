@@ -4,7 +4,38 @@
     android:layout_height="match_parent"
     android:background="@color/bg1"
     >
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:id="@+id/layout_title"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:background="@color/skyblue">
 
+
+        <ImageView
+            android:id="@+id/tv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="30px"
+            android:src="@drawable/btn_back" />
+
+        <TextView
+            android:id="@+id/tv_chat_title"
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="30px" />
+    </com.zhy.autolayout.AutoRelativeLayout>
     <com.zhy.autolayout.AutoLinearLayout
         android:id="@+id/layout_chat_edit"
         android:layout_width="match_parent"
@@ -40,5 +71,6 @@
         android:divider="@null"
         android:dividerHeight="10px"
         android:listSelector="@android:color/transparent"
-        android:layout_above="@id/layout_chat_edit"></ListView>
+        android:layout_below="@id/layout_title"
+        android:layout_above="@id/layout_chat_edit"/>
 </com.zhy.autolayout.AutoRelativeLayout>
