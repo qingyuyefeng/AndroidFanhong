@@ -38,10 +38,8 @@ import com.fanhong.cn.StoreActivity;
 import com.fanhong.cn.WebViewActivity;
 import com.fanhong.cn.adapters.HomelifeAdapter;
 import com.fanhong.cn.adapters.HomenewsAdapter;
-import com.fanhong.cn.listviews.RealhightListView;
 import com.fanhong.cn.models.HomeNews;
 import com.fanhong.cn.models.Homelife;
-import com.fanhong.cn.synctaskpicture.RepairLinesActivity;
 import com.fanhong.cn.usedmarket.ShopActivity;
 
 import org.json.JSONArray;
@@ -225,9 +223,9 @@ public class HomeView1 extends BaseFragment {
         try {
             JSONObject jsonObject = new JSONObject(str);
             JSONArray jsonArray = jsonObject.optJSONArray("data");
-//            if (jsonArray.length() == 0) {
-//                myGallery.setBackgroundResource(R.drawable.nodatas);
-//            } else {
+            if (jsonArray.length() == 0) {
+                myGallery.setBackgroundResource(R.drawable.nodatas);
+            } else {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject object = jsonArray.getJSONObject(i);
 
@@ -265,7 +263,7 @@ public class HomeView1 extends BaseFragment {
                     imageView.setLayoutParams(params1);
                     myGallery.addView(view);
                 }
-//            }
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -426,6 +424,7 @@ public class HomeView1 extends BaseFragment {
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
+
 
     public synchronized void setFragment(int type, String str) {
         switch (type) {
@@ -623,11 +622,13 @@ public class HomeView1 extends BaseFragment {
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
-            try {
-                os.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+           if(os!=null){
+               try {
+                   os.close();
+               } catch (IOException e) {
+                   e.printStackTrace();
+               }
+           }
         }
     }
 }

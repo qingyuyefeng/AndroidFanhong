@@ -58,6 +58,7 @@ public class MyPostGoodsAdapter extends BaseAdapter{
             viewHolder.goodsMessages = (TextView)view.findViewById(R.id.goodsmessage);
             viewHolder.ownerPhone = (TextView)view.findViewById(R.id.ownerphone);
             viewHolder.ownerName = (TextView)view.findViewById(R.id.ownername);
+            viewHolder.goodsprice = (TextView) view.findViewById(R.id.goodsprice);
             viewHolder.id = (TextView) view.findViewById(R.id.goodsid);
             view.setTag(viewHolder);
             //删除(传入id)
@@ -81,6 +82,7 @@ public class MyPostGoodsAdapter extends BaseAdapter{
         viewHolder.goodsMessages.setText(shopModel.getGoodsMessages());
         viewHolder.ownerPhone.setText(shopModel.getOwnerPhone());
         viewHolder.ownerName.setText(shopModel.getOwnerName());
+        viewHolder.goodsprice.setText(shopModel.getPrice());
         viewHolder.id.setText(shopModel.getId());
         return view;
     }
@@ -90,6 +92,7 @@ public class MyPostGoodsAdapter extends BaseAdapter{
         private TextView goodsMessages;
         private TextView ownerPhone;
         private TextView ownerName;
+        private TextView goodsprice;
         private TextView id;
     }
     PostgoodsDelete postgoodsDelete;

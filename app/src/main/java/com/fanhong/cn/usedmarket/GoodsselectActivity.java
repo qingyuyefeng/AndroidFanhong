@@ -2,7 +2,6 @@ package com.fanhong.cn.usedmarket;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,7 +13,6 @@ import android.widget.Toast;
 
 import com.fanhong.cn.App;
 import com.fanhong.cn.R;
-
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,33 +46,6 @@ public class GoodsselectActivity extends Activity{
     public void init(){
         selectPostgoodsBack = (ImageView) findViewById(R.id.select_postgoods_back_btn);
         selectPostgoodsBack.setOnClickListener(ocl);
-        postedListview = (ListView) findViewById(R.id.mypostgoods_listview);
-//        getData();
-        myPostGoodsAdapter = new MyPostGoodsAdapter(models,GoodsselectActivity.this);
-
-        myPostGoodsAdapter.setPostgoodsDelete(new MyPostGoodsAdapter.PostgoodsDelete() {
-            @Override
-            public void deleteposted(String s,int i) {
-                //实现适配器中接口的方法
-                final String id = s;
-                final int position = i;
-                new Thread(){
-                    @Override
-                    public void run() {
-                        deletePostgoods(id,position);
-                    }
-                }.start();
-
-            }
-        });
-        postedListview.setAdapter(myPostGoodsAdapter);
-        //加载数据
-        new Thread(){
-            @Override
-            public void run() {
-                selectPostGoods();
-            }
-        }.start();
     }
     View.OnClickListener ocl = new View.OnClickListener() {
         @Override
@@ -128,6 +99,7 @@ public class GoodsselectActivity extends Activity{
                         shopModel.setGoodsMessages("商品描述："+jsonObject1.optString("ms"));
                         shopModel.setOwnerPhone("卖家电话："+jsonObject1.optString("dh"));
                         shopModel.setOwnerName("卖家姓名："+jsonObject1.optString("user"));
+                        shopModel.setPrice(jsonObject1.optString("jg"));
                         shopModel.setId(jsonObject1.optInt("id")+"");
                         models.add(shopModel);
                     }
@@ -143,10 +115,12 @@ public class GoodsselectActivity extends Activity{
         } catch (JSONException e) {
             e.printStackTrace();
         }finally {
-            try {
-                os.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+            if(os!=null){
+                try {
+                    os.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -175,10 +149,12 @@ public class GoodsselectActivity extends Activity{
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
-            try {
-                os.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+            if(os!=null){
+                try {
+                    os.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -191,13 +167,13 @@ public class GoodsselectActivity extends Activity{
     @Override
     protected void onResume() {
         super.onResume();
-//        models.clear();
-//        new Thread(){
-//            @Override
-//            public void run() {
-//                selectPostGoods();
-//            }
-//        }.start();
+        models.clear();
+        new Thread(){
+            @Override
+            public void run() {
+                selectPostGoods();
+            }
+        }.start();
         postedListview = (ListView) findViewById(R.id.mypostgoods_listview);
         myPostGoodsAdapter = new MyPostGoodsAdapter(models,GoodsselectActivity.this);
         myPostGoodsAdapter.setPostgoodsDelete(new MyPostGoodsAdapter.PostgoodsDelete() {
