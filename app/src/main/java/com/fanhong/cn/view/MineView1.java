@@ -72,8 +72,8 @@ public class MineView1 extends BaseFragment implements OnClickListener{
 					Intent intent = new Intent(MineView1.this.getActivity(), LoginActivity.class);
 					MineView1.this.getBaseActivity().startActivityForResult(intent,2);
 				}
-			}        	
-        });    	
+			}
+        });
 
  		tv_login = (TextView)view.findViewById(R.id.tv_login);
  		ll_userset = (LinearLayout)view.findViewById(R.id.ll_userset);
@@ -109,7 +109,7 @@ public class MineView1 extends BaseFragment implements OnClickListener{
     		if(str1 == null || str1.length()==0){
     			try{
         			str1 = mSettingPref.getString("Name", "");
-        		}catch (Exception e) {}	
+        		}catch (Exception e) {}
     		}
 			tv_login.setText(str1);
 
@@ -121,7 +121,7 @@ public class MineView1 extends BaseFragment implements OnClickListener{
     	}else{
     		tv_login.setText(getString(R.string.keylogin));
 			iv_login.setImageResource(R.drawable.ico_tx);
-    	}    	
+    	}
     }
 
     public synchronized void setFragment(int type,int k) {
@@ -141,7 +141,7 @@ public class MineView1 extends BaseFragment implements OnClickListener{
 		case R.id.ll_userset:
 			if(isLogined() == 1){
 				Intent intent1 = new Intent(MineView1.this.getActivity(), AccountSettingsActivity.class);
-				MineView1.this.getBaseActivity().startActivityForResult(intent1,2);	
+				MineView1.this.getBaseActivity().startActivityForResult(intent1,2);
 			}else{
 				Toast.makeText(MineView1.this.getActivity(), getString(R.string.pleaselogin), Toast.LENGTH_SHORT).show();
 			}
@@ -149,7 +149,7 @@ public class MineView1 extends BaseFragment implements OnClickListener{
 		case R.id.ll_mytradeno:
 			if(isLogined() == 1){
 				Intent intent1 = new Intent(MineView1.this.getActivity(), MyTradeNoActivity.class);
-				MineView1.this.getBaseActivity().startActivityForResult(intent1,2);	
+				MineView1.this.getBaseActivity().startActivityForResult(intent1,2);
 			}else{
 				Toast.makeText(MineView1.this.getActivity(), getString(R.string.pleaselogin), Toast.LENGTH_SHORT).show();
 			}
@@ -157,7 +157,7 @@ public class MineView1 extends BaseFragment implements OnClickListener{
 		case R.id.ll_notice:
 			//if(isLogined() == 1){
 				Intent intent = new Intent(MineView1.this.getActivity(), NoticeActivity.class);
-				MineView1.this.getBaseActivity().startActivityForResult(intent,2);	
+				MineView1.this.getBaseActivity().startActivityForResult(intent,2);
 			//}else{
 			//	Toast.makeText(MineView1.this.getActivity(), getString(R.string.pleaselogin), Toast.LENGTH_SHORT).show();
 			//}
@@ -168,19 +168,19 @@ public class MineView1 extends BaseFragment implements OnClickListener{
 			break;
 		case R.id.ll_generalset:
 			Intent intent2 = new Intent(MineView1.this.getActivity(), GeneralSettingsActivity.class);
-			MineView1.this.getBaseActivity().startActivityForResult(intent2,2);	
+			MineView1.this.getBaseActivity().startActivityForResult(intent2,2);
 			break;
 		case R.id.ll_about:
 			Intent intent5 = new Intent(MineView1.this.getActivity(), AboutActivity.class);
-			MineView1.this.getBaseActivity().startActivityForResult(intent5,2);	
+			MineView1.this.getBaseActivity().startActivityForResult(intent5,2);
 			break;
 		case R.id.ll_versionupgrade:
 			Intent intent4 = new Intent(MineView1.this.getActivity(), update.class);
-			MineView1.this.getBaseActivity().startActivityForResult(intent4,2);	
+			MineView1.this.getBaseActivity().startActivityForResult(intent4,2);
 			break;
 		}
 	}
-	
+
 	private int isLogined(){
 		int result = 0;
 		try{
