@@ -101,6 +101,12 @@ public class CommunityNewsFragment extends Fragment {
         super.onResume();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        bar_community.setVisibility(View.VISIBLE);
+    }
+
     private void getCommunityNewsData() {
         RequestParams params = new RequestParams(App.CMDURL);
         String xid = pref.getString("gardenId", "");

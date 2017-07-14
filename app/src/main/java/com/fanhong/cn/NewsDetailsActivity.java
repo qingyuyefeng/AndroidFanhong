@@ -6,17 +6,21 @@ import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fanhong.cn.util.JsonSyncUtils;
+import com.zhy.autolayout.AutoRelativeLayout;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
+import org.xutils.image.ImageOptions;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import static com.alipay.sdk.app.statistic.c.v;
 import static com.fanhong.cn.R.id.news_detail_back;
 
 /**
@@ -32,12 +36,17 @@ public class NewsDetailsActivity extends Activity {
     TextView tv_from;
     @ViewInject(R.id.new_detail_content)
     TextView tv_content;
+    @ViewInject(R.id.img_news_details_bar)
+    ImageView img_bar;
+    @ViewInject(R.id.news_details_bar)
+    AutoRelativeLayout news_progressbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
         String id = getIntent().getStringExtra("newsId");
+        x.image().bind(img_bar,"assets://progressbar.gif",new ImageOptions.Builder().setIgnoreGif(false).build());
         initdata(id);
     }
 
@@ -55,6 +64,7 @@ public class NewsDetailsActivity extends Activity {
                     tv_time.setText(JsonSyncUtils.getJsonValue(data,"time"));
                     tv_from.setText(JsonSyncUtils.getJsonValue(data,"zz"));
                     tv_content.setText(JsonSyncUtils.getJsonValue(data,"nr"));
+                    news_progressbar.setVisibility(View.GONE);
                 }
             }
 

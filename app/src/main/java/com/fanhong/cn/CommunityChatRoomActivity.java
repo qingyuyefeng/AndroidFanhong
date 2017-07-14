@@ -11,6 +11,10 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -26,6 +30,7 @@ import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import io.rong.imlib.RongIMClient;
@@ -60,19 +65,68 @@ public class CommunityChatRoomActivity extends Activity {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
         initData();
-//        if (!ATCHATROOM)
+        //连接融云聊天服务器
         connectRongCloud(SampleConnection.TOKEN, SampleConnection.CHATROOM);
         btn_msg_send.setEnabled(false);
         edt_chat_input.setEnabled(false);
         edt_chat_input.addTextChangedListener(watcher);
+        //添加消息体滚动监听以使得在底部上划时可以弹出软键盘输入
+        lv_msg_content.setOnScrollListener(new AbsListView.OnScrollListener() {
+            public int totaItemCounts;
+            public int lasstVisible;
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (totaItemCounts == lasstVisible && scrollState == SCROLL_STATE_IDLE) {
+                    edt_chat_input.setFocusable(true);
+                    edt_chat_input.setFocusableInTouchMode(true);
+                    edt_chat_input.requestFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                //最后一个可见item是第一个可见item加上所有可见item（第一个可见item为0）
+                this.lasstVisible = firstVisibleItem + visibleItemCount;
+                //所有item为listview的所有item
+                this.totaItemCounts = totalItemCount;
+            }
+        });
     }
+
 
     private void initData() {
         pref = getSharedPreferences("Setting", Context.MODE_PRIVATE);
         SampleConnection.TOKEN = pref.getString("token", "");
         SampleConnection.CHATROOM = pref.getString("gardenId", "");
 //        Log.i("IMFragment","token="+SampleConnection.TOKEN+"chatroomId="+SampleConnection.CHATROOM);
-        tv_title.setText(pref.getString("gardenName",""));
+        tv_title.setText(pref.getString("gardenName", ""));
+
+    }
+
+    /**
+     * 将相邻消息超过5分钟的消息记录下来以便于显示
+     */
+    private void updateListTime() {
+        for (int i = mMessagelist.size() - 1; i >= 0; i--) {
+            if (!App.old_msg_times.contains(mMessagelist.get(i).getMsgTime())) {
+                if (isWentMinutes(mMessagelist.get(i).getMsgTime()
+                        , mMessagelist.get(i == 0 ? i : i - 1).getMsgTime(), 5)) {
+                    App.old_msg_times.add(mMessagelist.get(i).getMsgTime());
+                }
+            }
+        }
+    }
+
+    private boolean isWentMinutes(long msgtime, long lastmsgtime, int x) {
+        Date last = new Date(lastmsgtime);
+        Date msg = new Date(msgtime);
+        long went = msg.getTime() - last.getTime();
+        if (went > 1000 * 60 * x)//如果超过x分钟返回true
+            return true;
+        return false;
     }
 
     TextWatcher watcher = new TextWatcher() {
@@ -95,6 +149,11 @@ public class CommunityChatRoomActivity extends Activity {
             }
         }
     };
+
+    @Event(value = R.id.lv_chatroom_msg_content, type = AdapterView.OnItemClickListener.class)
+    private void onContentItemClick(AdapterView<?> parent, View view, int position, long id) {
+        edt_chat_input.clearFocus();
+    }
 
     /**
      * 获取当前用户的信息
@@ -122,7 +181,7 @@ public class CommunityChatRoomActivity extends Activity {
         TextMessage textMessage = TextMessage.obtain(input_msg);
         textMessage.setUserInfo(getCurrentInfo());//在消息体中附加用户信息，以便于接收时使用
         UserInfo info = getCurrentInfo();
-        Log.i("IMFragment", "Info=:" + info.getUserId() + "," + info.getPortraitUri() + "," + info.getName());
+//        Log.i("IMFragment", "Info=:" + info.getUserId() + "," + info.getPortraitUri() + "," + info.getName());
         RongIMClient.getInstance().sendMessage(Conversation.ConversationType.CHATROOM, SampleConnection.CHATROOM, textMessage, null, null,
                 new RongIMClient.SendMessageCallback() {
                     @Override
@@ -151,6 +210,7 @@ public class CommunityChatRoomActivity extends Activity {
                             @Override
                             public void run() {
                                 mMessagelist.add(bean);
+                                updateListTime();
                                 adapter.notifyDataSetChanged();
                             }
                         });
@@ -218,9 +278,13 @@ public class CommunityChatRoomActivity extends Activity {
         });
     }
 
+    /**
+     * 初始化聊天室：添加欢迎消息、拉取历史信息、设置消息接收监听
+     */
     private void initConversation() {
-        mMessagelist.add(new CommunityMessageBean("assets://welcome.gif", pref.getString("gardenName", "帆社区"),
+        mMessagelist.add(new CommunityMessageBean("assets://systmsghead.png", pref.getString("gardenName", "帆社区"),
                 "欢迎加入我们的聊天室", System.currentTimeMillis(), CommunityMessageBean.TYPE_LEFT));
+        updateListTime();
         adapter = new CommunityChatAdapter(this, mMessagelist);
         lv_msg_content.setAdapter(adapter);
         edt_chat_input.setEnabled(true);
@@ -298,6 +362,7 @@ public class CommunityChatRoomActivity extends Activity {
                         @Override
                         public void run() {
                             mMessagelist.add(bean);//在UI线程中更新
+                            updateListTime();
                             adapter.notifyDataSetChanged();
                         }
                     });
