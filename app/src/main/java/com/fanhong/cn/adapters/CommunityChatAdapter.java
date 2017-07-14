@@ -41,7 +41,7 @@ public class CommunityChatAdapter extends BaseAdapter {
         this.context = context;
         this.list = list;
         this.mInflater = LayoutInflater.from(context);
-        this.options = new ImageOptions.Builder().setLoadingDrawableId(R.drawable.ilon_yh).setIgnoreGif(false).setFailureDrawableId(R.drawable.ilon_yh).setCircular(true).setUseMemCache(true).build();
+        this.options = new ImageOptions.Builder().setLoadingDrawableId(R.drawable.head_default).setIgnoreGif(false).setFailureDrawableId(R.drawable.head_default).setCircular(true).setUseMemCache(true).build();
     }
 
     @Override
@@ -107,27 +107,27 @@ public class CommunityChatAdapter extends BaseAdapter {
         switch (type) {
             case CommunityMessageBean.TYPE_LEFT:
                 holderLeft.tv_time.setVisibility(View.GONE);
-                if (iswentmin(bean.getMsgTime(), position == 0 ? bean.getMsgTime() : list.get(position - 1).getMsgTime(),5)) {
-                    App.old_msg_times.add(bean.getMsgTime());
-                }
+//                if (iswent5min(bean.getMsgTime(), position == 0 ? bean.getMsgTime() : list.get(position - 1).getMsgTime())) {
+//                    App.old_msg_times.add(bean.getMsgTime());
+//                }
                 if (App.old_msg_times.contains(bean.getMsgTime())) {
                     String sendTime = new SimpleDateFormat("MM月dd日 HH:mm").format(new Date(bean.getMsgTime()));
-                    holderLeft.tv_time.setText(sendTime);
                     holderLeft.tv_time.setVisibility(View.VISIBLE);
+                    holderLeft.tv_time.setText(sendTime);
                 }
                 holderLeft.tv_user.setText(bean.getUserName());
                 holderLeft.tv_msg.setText(bean.getMessage());
                 x.image().bind(holderLeft.img_head, bean.getHeadUrl(), options);
                 break;
             case CommunityMessageBean.TYPE_RIGHT:
-                holderLeft.tv_time.setVisibility(View.GONE);
-                if (iswentmin(bean.getMsgTime(), position == 0 ? bean.getMsgTime() : list.get(position - 1).getMsgTime(),5)) {
-                    App.old_msg_times.add(bean.getMsgTime());
-                }
+                holderRight.tv_time.setVisibility(View.GONE);
+//                if (iswent5min(bean.getMsgTime(), position == 0 ? bean.getMsgTime() : list.get(position - 1).getMsgTime())) {
+//                    App.old_msg_times.add(bean.getMsgTime());
+//                }
                 if (App.old_msg_times.contains(bean.getMsgTime())) {
                     String sendTime = new SimpleDateFormat("MM月dd日 HH:mm").format(new Date(bean.getMsgTime()));
+                    holderRight.tv_time.setVisibility(View.VISIBLE);
                     holderRight.tv_time.setText(sendTime);
-                    holderLeft.tv_time.setVisibility(View.VISIBLE);
                 }
                 holderRight.tv_user.setText(bean.getUserName());
                 holderRight.tv_msg.setText(bean.getMessage());
@@ -138,12 +138,12 @@ public class CommunityChatAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private boolean iswentmin(long msgtime, long lastmsgtime,int x) {
+    private boolean iswent5min(long msgtime, long lastmsgtime) {
         Date sys = new Date(lastmsgtime);
         Date msg = new Date(msgtime);
         long went = sys.getTime() - msg.getTime();
 //        Toast.makeText(context,String.valueOf(went),Toast.LENGTH_SHORT).show();
-        if (went > 1000 * 60 * x)//如果超过五分钟返回true
+        if (went > 1000 * 60 * 1)//如果超过五分钟返回true
             return true;
         return false;
     }

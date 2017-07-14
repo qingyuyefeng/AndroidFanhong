@@ -102,9 +102,9 @@ public class HomelifeAdapter extends BaseAdapter {
             case TYPE1:
                 Homelife homelife = homelifeList.get(position);
 //                try {
-                    x.image().bind(viewHolder1.img1, homelife.getStrings().get(0), options);
-                    x.image().bind(viewHolder1.img2, homelife.getStrings().get(1), options);
-                    x.image().bind(viewHolder1.img3, homelife.getStrings().get(2), options);
+                x.image().bind(viewHolder1.img1, homelife.getStrings().get(0), options);
+                x.image().bind(viewHolder1.img2, homelife.getStrings().get(1), options);
+                x.image().bind(viewHolder1.img3, homelife.getStrings().get(2), options);
 //                }catch (IndexOutOfBoundsException e){
 //                    Log.i("xq","数组越界==>"+homelife.getStrings().size());
 //                }
