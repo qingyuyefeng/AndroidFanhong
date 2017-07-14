@@ -107,7 +107,7 @@ public class CommunityChatAdapter extends BaseAdapter {
         switch (type) {
             case CommunityMessageBean.TYPE_LEFT:
                 holderLeft.tv_time.setVisibility(View.GONE);
-                if (iswent5min(bean.getMsgTime(), position == 0 ? bean.getMsgTime() : list.get(position - 1).getMsgTime())) {
+                if (iswentmin(bean.getMsgTime(), position == 0 ? bean.getMsgTime() : list.get(position - 1).getMsgTime(),5)) {
                     App.old_msg_times.add(bean.getMsgTime());
                 }
                 if (App.old_msg_times.contains(bean.getMsgTime())) {
@@ -121,7 +121,7 @@ public class CommunityChatAdapter extends BaseAdapter {
                 break;
             case CommunityMessageBean.TYPE_RIGHT:
                 holderLeft.tv_time.setVisibility(View.GONE);
-                if (iswent5min(bean.getMsgTime(), position == 0 ? bean.getMsgTime() : list.get(position - 1).getMsgTime())) {
+                if (iswentmin(bean.getMsgTime(), position == 0 ? bean.getMsgTime() : list.get(position - 1).getMsgTime(),5)) {
                     App.old_msg_times.add(bean.getMsgTime());
                 }
                 if (App.old_msg_times.contains(bean.getMsgTime())) {
@@ -138,12 +138,12 @@ public class CommunityChatAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private boolean iswent5min(long msgtime, long lastmsgtime) {
+    private boolean iswentmin(long msgtime, long lastmsgtime,int x) {
         Date sys = new Date(lastmsgtime);
         Date msg = new Date(msgtime);
         long went = sys.getTime() - msg.getTime();
 //        Toast.makeText(context,String.valueOf(went),Toast.LENGTH_SHORT).show();
-        if (went > 1000 * 60 * 1)//如果超过五分钟返回true
+        if (went > 1000 * 60 * x)//如果超过五分钟返回true
             return true;
         return false;
     }

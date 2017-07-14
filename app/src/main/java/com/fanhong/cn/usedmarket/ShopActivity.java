@@ -24,6 +24,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -245,18 +246,6 @@ public class ShopActivity extends SampleActivity {
 
     }
 
-    public void showSoftInputFromWindow(Activity activity, EditText editText) {
-        editText.setFocusable(true);
-        editText.setFocusableInTouchMode(true);
-        editText.requestFocus();
-        activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-    }
-
-    public void hideSoftInputFromWindow(Activity activity, EditText editText) {
-        editText.clearFocus();
-        activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-    }
-
     private void classify(int id) {
         rb_classify1.setChecked(false);
         rb_classify2.setChecked(false);
@@ -297,7 +286,7 @@ public class ShopActivity extends SampleActivity {
     @Event(value = {R.id.rb_ms_sort, R.id.rb_ms_classify, R.id.rb_ms_sort_1, R.id.rb_ms_sort_2, R.id.rb_ms_sort_3,
             R.id.rb_ms_classify_1, R.id.rb_ms_classify_2, R.id.rb_ms_classify_3, R.id.rb_ms_classify_4,
             R.id.rb_ms_classify_5, R.id.rb_ms_classify_6, R.id.rb_ms_classify_7, R.id.rb_ms_classify_8,
-            R.id.tv_black_area1, R.id.tv_black_area2})
+            R.id.tv_black_area1, R.id.tv_black_area2,R.id.add_usedgoodslayout})
     private void onClicks(View view) {
         switch (view.getId()) {
             case R.id.rb_ms_sort:
@@ -372,6 +361,10 @@ public class ShopActivity extends SampleActivity {
             case R.id.rb_ms_classify_8:
                 classify(8);
                 break;
+            case R.id.add_usedgoodslayout:
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                break;
         }
     }
 
@@ -383,6 +376,8 @@ public class ShopActivity extends SampleActivity {
                     finish();
                     break;
                 case R.id.img_ms_add2:
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
                     showWindow();
                     break;
                 case R.id.sure_to_postgoods://确定上传
@@ -747,6 +742,7 @@ public class ShopActivity extends SampleActivity {
             }
         });
         shopAdapter.notifyDataSetChanged();
+
     }
 
     private Handler handler = new Handler(new Handler.Callback() {
@@ -762,6 +758,7 @@ public class ShopActivity extends SampleActivity {
                 case 2:
                     Toast.makeText(context, "上传成功", Toast.LENGTH_SHORT).show();
                     radioButton1.setChecked(true);
+                    clearData();
                     ShopActivity.this.onResume();
                     break;
                 case 3:
@@ -771,4 +768,11 @@ public class ShopActivity extends SampleActivity {
             return true;
         }
     });
+    private void clearData(){
+        //清空数据
+        for(int i=0;i<edittext.length;i++){
+            edittext[i].setText("");
+        }
+        yourGoodspicture.setImageResource(R.drawable.btn_add_img);
+    }
 }

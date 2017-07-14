@@ -6,9 +6,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -23,6 +26,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class WebViewActivity extends Activity{
 	private WebView webView;
@@ -91,7 +96,6 @@ public class WebViewActivity extends Activity{
 		if(progressBar.isShowing())
 			return true;
 		if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
-			Log.i("xq","===>"+webView.canGoBack());
 			webView.goBack(); //goBack()表示返回WebView的上一页面
 			return true;
 		}else if(keyCode == KeyEvent.KEYCODE_BACK){
@@ -104,7 +108,6 @@ public class WebViewActivity extends Activity{
 		//设计进度条
 		progressBar = ProgressDialog.show(WebViewActivity.this, null, "正在进入网页，请稍后…");
 		alertDialog = new AlertDialog.Builder(WebViewActivity.this).create();
-
 		//String strURI = ApplicationUtil.URL + "tools/news.aspx?id=3";
 		String strURI = url;
 		//检测网站的合法性
@@ -119,7 +122,6 @@ public class WebViewActivity extends Activity{
 		public boolean shouldOverrideUrlLoading(WebView view, String url) {
 			//view.loadUrl(url);
 			//return true;
-			Log.e("hu","打开网页 url="+url);
 			if(url.startsWith("http:") || url.startsWith("https:") ) {
 				view.loadUrl(url);
 				return false;
@@ -150,18 +152,49 @@ public class WebViewActivity extends Activity{
 			return response;
 		}
 
+		private Timer timer;
+		private long timeout = 5000;
+		private Handler handler = new Handler(){
+			@Override
+			public void handleMessage(Message msg) {
+				switch (msg.what){
+					case 1:
+//						timer.cancel();
+//						timer.purge();
+						break;
+				}
+			}
+		};
+
+		@Override
+		public void onPageStarted(WebView view, String url, Bitmap favicon) {
+			super.onPageStarted(view, url, favicon);
+			timer = new Timer();
+			TimerTask tt = new TimerTask() {
+				@Override
+				public void run() {
+					if(WebViewActivity.this.webView.getProgress()<100){
+						Message msg = new Message();
+						msg.what = 1;
+						handler.sendMessage(msg);
+					}
+				}
+			};
+			timer.schedule(tt,timeout,1);
+		}
+
 		@Override
 		public void onPageFinished(WebView view, String url) {
 			tv_title.setText(url);
-			//if(progressBar.isShowing()){
-			progressBar.dismiss();
-			//}
+			if(progressBar.isShowing()){
+				progressBar.dismiss();
+			}
 		}
 
 		@Override
 		public void onReceivedError(WebView view, int errorCode,
 									String description, String failingUrl) {
-			Toast.makeText(WebViewActivity.this, "网页加载出错！", Toast.LENGTH_LONG);
+			Toast.makeText(WebViewActivity.this, "网页加载出错！", Toast.LENGTH_LONG).show();
 			alertDialog.setTitle("ERROR");
 			alertDialog.setMessage(description);
 			alertDialog.setButton("OK", new DialogInterface.OnClickListener(){

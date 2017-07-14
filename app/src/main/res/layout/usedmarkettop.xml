@@ -283,73 +283,12 @@
                     android:background="@color/alpha_black" />
             </com.zhy.autolayout.AutoLinearLayout>
         </com.zhy.autolayout.AutoRelativeLayout>
-        <!--<LinearLayout-->
-        <!--android:id="@+id/listview_layout"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:visibility="gone"-->
-        <!--android:orientation="vertical">-->
-        <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="10dp"-->
-        <!--android:layout_marginBottom="10dp"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:background="@color/white">-->
-        <!--<RelativeLayout-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:gravity="center">-->
-        <!--<TextView-->
-        <!--android:id="@+id/paixu"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:gravity="center"-->
-        <!--android:paddingBottom="7dp"-->
-        <!--android:paddingTop="7dp"-->
-        <!--android:text="智能排序"/>-->
-        <!--<ImageView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_toRightOf="@id/paixu"-->
-        <!--android:layout_marginTop="15dp"-->
-        <!--android:layout_marginLeft="3dp"-->
-        <!--android:src="@drawable/lion_xiala"/>-->
-        <!--</RelativeLayout>-->
-        <!--<RelativeLayout-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:gravity="center">-->
-        <!--<TextView-->
-        <!--android:id="@+id/fenlei"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:gravity="center"-->
-        <!--android:paddingBottom="7dp"-->
-        <!--android:paddingTop="7dp"-->
-        <!--android:text="物品分类"/>-->
-        <!--<ImageView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_toRightOf="@id/fenlei"-->
-        <!--android:layout_marginTop="15dp"-->
-        <!--android:layout_marginLeft="3dp"-->
-        <!--android:src="@drawable/lion_xiala"/>-->
-        <!--</RelativeLayout>-->
-        <!--</LinearLayout>-->
-        <!--<ListView-->
-        <!--android:id="@+id/all_usedgoods"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:divider="@color/white"-->
-        <!--android:dividerHeight="4dp" />-->
-        <!--</LinearLayout>-->
+
         <com.zhy.autolayout.AutoRelativeLayout
             android:id="@+id/add_usedgoodslayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clickable="true"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:visibility="gone">
@@ -430,26 +369,6 @@
                         android:layout_marginTop="14px"
                         android:src="@drawable/icon_img_" />
 
-                    <!--<com.zhy.autolayout.AutoRelativeLayout-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content">-->
-
-                    <!--<ImageView-->
-                    <!--android:id="@+id/img_ms_add1"-->
-                    <!--android:layout_width="180px"-->
-                    <!--android:layout_height="180px"-->
-                    <!--android:layout_marginBottom="14px"-->
-                    <!--android:layout_marginLeft="9px"-->
-                    <!--android:layout_marginTop="14px"-->
-                    <!--android:src="@drawable/test" />-->
-
-                    <!--<ImageView-->
-                    <!--android:id="@+id/img_ms_delete1"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginTop="6px"-->
-                    <!--android:src="@drawable/btn_delete" />-->
-                    <!--</com.zhy.autolayout.AutoRelativeLayout>-->
 
                     <com.zhy.autolayout.AutoRelativeLayout
                         android:layout_width="wrap_content"

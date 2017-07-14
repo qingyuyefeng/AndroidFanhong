@@ -9,7 +9,9 @@ import com.fanhong.cn.synctaskpicture.SaveInMemery;
 
 import org.xutils.x;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import io.rong.imlib.RongIMClient;
@@ -35,6 +37,7 @@ public class App extends Application {
     public static SaveInMemery memery = SaveInMemery.getMemoryCache(50);
 
     public static Set<Long> old_msg_times=new HashSet<>();
+//    public static List<Long> old_msg_times=new ArrayList<>();
 
 
     @Override

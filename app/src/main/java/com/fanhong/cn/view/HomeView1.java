@@ -109,12 +109,7 @@ public class HomeView1 extends BaseFragment {
         mSharedPref = this.getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
         chooseCell = (ImageView) view.findViewById(R.id.image_choosecell);
         chooseCell.setOnClickListener(ocl);
-        showCellName = (TextView) view.findViewById(R.id.show_cellname);
-        try {
-            String str = mSharedPref.getString("gardenName", "");
-            showCellName.setText(str);
-        } catch (Exception e) {
-        }
+
 
         moreNotice = (TextView) view.findViewById(R.id.show_notice);
         moreNotice.setOnClickListener(ocl);
@@ -248,7 +243,6 @@ public class HomeView1 extends BaseFragment {
                         }
                     });
                     ImageView imageView = (ImageView) view.findViewById(R.id.myitempic);
-//                LoadImage.Load(imageView,object.optString("tupian",""),getActivity());
                     ImageOptions options = new ImageOptions.Builder().setLoadingDrawableId(R.mipmap.pictureloading)
                             .setFailureDrawableId(R.mipmap.picturefailedloading).setUseMemCache(true).build();
                     x.image().bind(imageView, object.optString("tupian", ""), options);
@@ -516,8 +510,11 @@ public class HomeView1 extends BaseFragment {
                 }
                 lifeList.add(homelife);
             }
+            wait(2000);
             handler.sendEmptyMessage(0);
         } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }

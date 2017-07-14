@@ -10,8 +10,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,7 +48,6 @@ public class ChooseLouActivity extends SampleActivity{
         switch (type){
             case CHOOSE_LOUDONG:
                 try {
-                    Log.i("xq","选择楼栋json====>"+json.toString());
                     String str = json.getString("cw");
                     int cw = Integer.parseInt(str);
                     String str1 = json.getString("data");
@@ -58,13 +55,15 @@ public class ChooseLouActivity extends SampleActivity{
                         strings = str1.split(",");
                         for(int i=0;i<strings.length;i++){
                             TextView tv = new TextView(this);
-                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(-1,50);
+                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(-2,60);
                             layoutParams.setMargins(50,5,5,5);
                             tv.setLayoutParams(layoutParams);
+                            tv.setBackgroundResource(R.drawable.postpicture_biankuang);
                             tv.setGravity(Gravity.CENTER_VERTICAL);
                             tv.setTextSize(15.0f);
                             final String[] strings1 = strings[i].split("<");
                             tv.setText(strings1[0]);
+                            tv.setPadding(25,5,25,5);
                             loudongLayout.addView(tv);
                             tv.setOnClickListener(new View.OnClickListener() {
                                 @Override
