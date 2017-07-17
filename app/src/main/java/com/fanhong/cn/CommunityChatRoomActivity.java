@@ -375,17 +375,17 @@ public class CommunityChatRoomActivity extends Activity {
     @Override
     public void onPause() {
         super.onPause();
-        RongIMClient.getInstance().quitChatRoom(SampleConnection.CHATROOM, new RongIMClient.OperationCallback() {
-            @Override
-            public void onSuccess() {
-                ATCHATROOM = false;
-            }
-
-            @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
-
-            }
-        });
+//        RongIMClient.getInstance().quitChatRoom(SampleConnection.CHATROOM, new RongIMClient.OperationCallback() {
+//            @Override
+//            public void onSuccess() {
+//                ATCHATROOM = false;
+//            }
+//
+//            @Override
+//            public void onError(RongIMClient.ErrorCode errorCode) {
+//
+//            }
+//        });
     }
 
     @Override

@@ -41,6 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="100px"
         android:layout_alignParentBottom="true"
+        android:padding="12px"
         >
         <EditText
             android:id="@+id/edt_chat_input"
@@ -55,7 +56,7 @@
             android:layout_width="146px"
             android:layout_height="match_parent"
             android:background="@drawable/chat_send_selector"
-            android:layout_marginLeft="8px"
+            android:layout_marginLeft="12px"
             android:textColor="@color/white"
             android:textSize="30px"
             android:text="发 送"
