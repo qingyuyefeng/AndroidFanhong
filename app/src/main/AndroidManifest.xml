@@ -261,7 +261,6 @@
             android:name=".applydoors.OpenDoorActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
-
         <activity
             android:name=".NewsDetailsActivity"
             android:screenOrientation="portrait"
@@ -281,8 +280,8 @@
         <meta-data
             android:name="RONG_CLOUD_APP_KEY"
             android:value="pwe86ga5phjc6" />
-        <!--15723333995-->
-        <!--fanhong2573-->
+        <!-- 15723333995 -->
+        <!-- fanhong2573 -->
         <service
             android:name="io.rong.imlib.ipc.RongService"
             android:exported="true"
@@ -345,6 +344,7 @@
 
 
         <!-- end -->
+        <activity android:name=".HouseKeepingActivity"></activity>
     </application>
 
 </manifest>
