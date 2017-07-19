@@ -12,22 +12,30 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    signingConfigs {
-        release {
+    signingConfigs{
+        config{
             storeFile file('C:/Users/Administrator/Desktop/FanHong.jks')
             storePassword '100200'
             keyAlias 'release-key'
             keyPassword '100200'
+        }
+        debug{
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+        release{
+            v1SigningEnabled true
+            v2SigningEnabled true
         }
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.config
         }
         debug {
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.config
             pseudoLocalesEnabled true
         }
     }
@@ -51,6 +59,8 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile 'com.android.support:support-v4:21.0.3'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -69,20 +79,17 @@ dependencies {
     compile project(':multi-image-selector')
     compile files('libs/xUtils-3.1.22.jar')
     //    compile 'com.android.support:appcompat-F:25.3.1'
-    compile files('gradle/wrapper/gradle-wrapper.jar')
-    //    compile 'com.android.support:multidex:1.0.0'
-    compile project(':imlib')
-    compile 'com.android.support:appcompat-v7:25.0.0'
-    compile 'com.android.support:support-v4:21.0.3'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.zhy:autolayout:1.4.5'
     compile 'com.facebook.fresco:fresco:1.0.1'
     compile 'me.relex:photodraweeview:1.1.0'
     compile 'com.loopj.android:android-async-http:1.4.4'
-    compile 'com.android.support:recyclerview-v7:25.0.0'
     testCompile 'junit:junit:4.12'
+    compile files('gradle/wrapper/gradle-wrapper.jar')
+    //    compile 'com.android.support:multidex:1.0.0'
+    compile project(':imlib')
+    compile 'com.android.support:recyclerview-v7:25.0.0'
 }
-
 
 
 
