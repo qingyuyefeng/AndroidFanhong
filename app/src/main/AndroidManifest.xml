@@ -269,8 +269,13 @@
             android:name=".HomeNewsALLActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
+
         <activity
             android:name=".CommunityChatRoomActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <!--家政区域-->
+        <activity android:name=".HouseKeepingActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <!-- alipay sdk end -->
@@ -344,7 +349,6 @@
 
 
         <!-- end -->
-        <activity android:name=".HouseKeepingActivity"></activity>
     </application>
 
 </manifest>

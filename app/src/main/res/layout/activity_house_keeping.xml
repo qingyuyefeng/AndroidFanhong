@@ -58,7 +58,6 @@
             style="@style/housekeeping_home_radio"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:checked="true"
             android:drawableLeft="@drawable/ilon_recommended"
             android:text="推荐" />
 

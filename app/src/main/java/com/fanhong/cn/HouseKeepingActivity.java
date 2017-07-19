@@ -1,9 +1,9 @@
 package com.fanhong.cn;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioGroup;
@@ -17,16 +17,16 @@ import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 @ContentView(R.layout.activity_house_keeping)
-public class HouseKeepingActivity extends AppCompatActivity {
+public class HouseKeepingActivity extends Activity {
     @ViewInject(R.id.rg_housekeeping_home)
             private RadioGroup rg_home;
 
     FragmentManager fragmentManager;
-    FragmentMainActivity activity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
+        fragmentManager = getFragmentManager();
 
         rg_home.check(R.id.rb_hk_recommend);
     }

@@ -3,15 +3,18 @@ package com.fanhong.cn.adapters;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.fanhong.cn.R;
 import com.fanhong.cn.bean.HousekeepingRecommendBean;
+import com.zhy.autolayout.AutoRelativeLayout;
 import com.zhy.autolayout.utils.AutoUtils;
 
 import org.xutils.common.Callback;
@@ -37,7 +40,8 @@ public class HKRecyclerViewAdapter extends RecyclerView.Adapter<HKRecyclerViewAd
         this.list = list;
         inflater = LayoutInflater.from(context);
         options = new ImageOptions.Builder().setLoadingDrawableId(R.drawable.img_default)
-                .setFailureDrawableId(R.drawable.img_default).setUseMemCache(true).setIgnoreGif(false).build();
+                .setFailureDrawableId(R.drawable.img_default)
+                .setUseMemCache(false).setIgnoreGif(false).build();
     }
 
     private OnItemCLickListener clickListener;
@@ -71,7 +75,7 @@ public class HKRecyclerViewAdapter extends RecyclerView.Adapter<HKRecyclerViewAd
     }
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         HousekeepingRecommendBean bean = list.get(position);
         holder.tv_title.setText(bean.getTitle());
         holder.tv_price.setText(bean.getPrice());
@@ -80,11 +84,12 @@ public class HKRecyclerViewAdapter extends RecyclerView.Adapter<HKRecyclerViewAd
         x.image().bind(holder.picture, bean.getImgUrl(), options, new Callback.CommonCallback<Drawable>() {
             @Override
             public void onSuccess(Drawable drawable) {
-                int MaxHeight = holder.picture.getWidth() * 10;
-                int picheight = (int) ((float) holder.picture.getWidth() / drawable.getMinimumWidth() * drawable.getMinimumHeight());
-                holder.picture.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, picheight));
-                holder.picture.setMaxHeight(MaxHeight);
-                holder.picture.setImageDrawable(drawable);
+//                holder.picture.setImageDrawable(drawable);
+//                int width=holder.itemView.getWidth();
+//                int picheight = (int) ((float) (width / drawable.getMinimumWidth()) * drawable.getMinimumHeight());
+////                holder.picture.setMinimumHeight(picheight);
+////                holder.picture.setMaxHeight(picheight);
+//                holder.picture.setLayoutParams(new RelativeLayout.LayoutParams(width,picheight));
             }
 
             @Override
@@ -99,7 +104,6 @@ public class HKRecyclerViewAdapter extends RecyclerView.Adapter<HKRecyclerViewAd
 
             @Override
             public void onFinished() {
-
             }
         });
         if (null != clickListener) {
@@ -125,7 +129,7 @@ public class HKRecyclerViewAdapter extends RecyclerView.Adapter<HKRecyclerViewAd
 
     @Override
     public int getItemCount() {
-        return 0;
+        return list.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {

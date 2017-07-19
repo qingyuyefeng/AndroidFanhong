@@ -31,6 +31,7 @@ import android.widget.ViewFlipper;
 import com.fanhong.cn.CommStoreDetailsActivity;
 import com.fanhong.cn.GardenSelecterActivity;
 import com.fanhong.cn.HomeNewsALLActivity;
+import com.fanhong.cn.HouseKeepingActivity;
 import com.fanhong.cn.LoginActivity;
 import com.fanhong.cn.R;
 import com.fanhong.cn.SampleConnection;
@@ -367,7 +368,9 @@ public class HomeView1 extends BaseFragment {
                     Toast.makeText(getActivity(), R.string.starting, Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.jiazheng_layout:
-                    Toast.makeText(getActivity(), R.string.starting, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), R.string.starting, Toast.LENGTH_SHORT).show();
+                    intent.setClass(HomeView1.this.getActivity(), HouseKeepingActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.store_layout:
                     intent.setClass(HomeView1.this.getActivity(), StoreActivity.class);
