@@ -161,14 +161,6 @@ public class FragmentMainActivity extends SampleActivity {
     @Override
     protected void onResume() {
         super.onResume();
-//        if(MyBaseClass.isLacksOfPermission(MyBaseClass.PERMISSION[0])){
-//            ActivityCompat.requestPermissions(this, MyBaseClass.PERMISSION, 0x12);
-//        }else {
-
-//        }
-        if (ContextCompat.checkSelfPermission(this, MyBaseClass.PERMISSION[0])== PackageManager.PERMISSION_DENIED) {
-
-        }
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[]
@@ -180,7 +172,6 @@ public class FragmentMainActivity extends SampleActivity {
             @Override
             public void run() {
                 findViewById(R.id.wellcome).setVisibility(View.GONE);
-
             }
         }, 3000);
     }
@@ -191,7 +182,7 @@ public class FragmentMainActivity extends SampleActivity {
         radioButtons[1] = (RadioButton) findViewById(R.id.service_page);
         radioButtons[2] = (RadioButton) findViewById(R.id.door_page);
         radioButtons[3] = (RadioButton) findViewById(R.id.interact_page);
-        radioButtons[4] = (RadioButton) findViewById(mine_page);
+        radioButtons[4] = (RadioButton) findViewById(R.id.mine_page);
         imageViews[0] = (ImageView) findViewById(R.id.click_home);
         imageViews[1] = (ImageView) findViewById(R.id.click_serve);
         imageViews[2] = (ImageView) findViewById(R.id.click_entrance);
