@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <RadioGroup
+        android:id="@+id/classify_radiogroup"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:background="@color/leftbackground">
+        <RadioButton
+            android:id="@+id/keepclean_radio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/keepcleanservice"
+            android:checked="true"
+            style="@style/housekeeping_classify_radio"/>
+        <RadioButton
+            android:id="@+id/familyservice_radio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/familyservice"
+            style="@style/housekeeping_classify_radio"/>
+        <RadioButton
+            android:id="@+id/carryservice_radio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/carryservice"
+            style="@style/housekeeping_classify_radio"/>
+        <RadioButton
+            android:id="@+id/otherservice_radio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/otherservice"
+            style="@style/housekeeping_classify_radio"/>
+    </RadioGroup>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="2.5"
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/housekeeping_classify_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="0dp"
+            android:divider="#0fff"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+
+</com.zhy.autolayout.AutoLinearLayout>
