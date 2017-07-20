@@ -1,25 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.sivin.Banner
-        android:id="@+id/banner_hk_recommend"
+    <com.zhy.autolayout.AutoRelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="350px"
-        android:visibility="gone"
-        app:banner_pointGravity="center_horizontal">
+        android:layout_height="match_parent">
 
-    </com.sivin.Banner>
+        <com.sivin.Banner
+            android:id="@+id/banner_hk_recommend"
+            android:layout_width="match_parent"
+            android:layout_height="350px"
+            android:visibility="gone"
+            app:banner_pointGravity="center_horizontal">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_hk_recommend"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/banner_hk_recommend"
-        android:paddingBottom="6px"
-        android:paddingLeft="7px"
-        android:paddingRight="7px"
-        android:paddingTop="6px" />
-</com.zhy.autolayout.AutoRelativeLayout>
+        </com.sivin.Banner>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_hk_recommend"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/banner_hk_recommend"
+            android:paddingBottom="6px"
+            android:paddingLeft="7px"
+            android:paddingRight="7px"
+            android:paddingTop="6px" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+</ScrollView>

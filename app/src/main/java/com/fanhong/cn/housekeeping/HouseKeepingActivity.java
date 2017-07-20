@@ -1,4 +1,4 @@
-package com.fanhong.cn;
+package com.fanhong.cn.housekeeping;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -8,8 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioGroup;
 
-import com.fanhong.cn.view.HouseKeepingClassifyFragment;
-import com.fanhong.cn.view.HouseKeepingRecommendFragment;
+import com.fanhong.cn.R;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;

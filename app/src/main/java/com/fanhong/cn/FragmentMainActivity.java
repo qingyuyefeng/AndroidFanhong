@@ -47,6 +47,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.rong.imlib.RongIMClient;
+
 import static com.fanhong.cn.R.id.mine_page;
 
 public class FragmentMainActivity extends SampleActivity {
@@ -331,6 +333,7 @@ public class FragmentMainActivity extends SampleActivity {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             long currentTime = System.currentTimeMillis();
             if (currentTime - lastPressBackKeyTime < 2000) {
+                RongIMClient.getInstance().disconnect();
                 finish();
             } else {
                 Toast.makeText(this, R.string.exit_app_tip, Toast.LENGTH_LONG).show();

@@ -11,7 +11,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
@@ -229,7 +228,7 @@ public class CommunityChatRoomActivity extends Activity {
      * @param token      用户的token
      * @param chatRoomId 所选小区的聊天室ID
      */
-    private void connectRongCloud(String token, final String chatRoomId) {
+    private void connectRongCloud(final String token, final String chatRoomId) {
         Log.i("IMFragment", "token=" + token + "chatroomId=" + chatRoomId);
 //        edt_chat_input.setEnabled(false);
         RongIMClient.connect(token, new RongIMClient.ConnectCallback() {
@@ -243,7 +242,7 @@ public class CommunityChatRoomActivity extends Activity {
 
             @Override
             public void onSuccess(String s) {
-                Log.i("IMFragment", "链接聊天服务器成功");
+                Log.i("IMFragment", "连接聊天服务器成功");
                 joinChatRoom(chatRoomId);
             }
 
@@ -252,11 +251,15 @@ public class CommunityChatRoomActivity extends Activity {
                 edt_chat_input.setEnabled(false);
                 edt_chat_input.setHint("加入聊天室失败:" + errorCode.getValue());
                 Log.i("IMFragment", "onError连接聊天服务器失败:" + errorCode.getValue());
+                if (errorCode.getValue() == 30003) {
+                    RongIMClient.getInstance().disconnect();
+                    connectRongCloud(token, chatRoomId);
+                }
             }
         });
     }
 
-    private void joinChatRoom(String chatRoomId) {
+    private void joinChatRoom(final String chatRoomId) {
         /**
          * 加入聊天室
          */
@@ -274,6 +277,9 @@ public class CommunityChatRoomActivity extends Activity {
                 edt_chat_input.setEnabled(false);
                 edt_chat_input.setHint("加入聊天室失败:" + errorCode.getValue());
                 Log.i("IMFragment", "onError连接聊天服务器失败:" + errorCode.getValue());
+                if (errorCode.getValue() == 30003)
+                    joinChatRoom(chatRoomId);
+
             }
         });
     }
@@ -282,6 +288,7 @@ public class CommunityChatRoomActivity extends Activity {
      * 初始化聊天室：添加欢迎消息、拉取历史信息、设置消息接收监听
      */
     private void initConversation() {
+        mMessagelist.clear();
         mMessagelist.add(new CommunityMessageBean("assets://images/systmsghead.png", pref.getString("gardenName", "帆社区"),
                 "欢迎加入我们的聊天室", System.currentTimeMillis(), CommunityMessageBean.TYPE_LEFT));
         updateListTime();
@@ -399,7 +406,7 @@ public class CommunityChatRoomActivity extends Activity {
     public void onStop() {
         super.onStop();
         //断开连接
-        RongIMClient.getInstance().disconnect();
+//        RongIMClient.getInstance().disconnect();
 //        ATCHATROOM = false;
     }
 

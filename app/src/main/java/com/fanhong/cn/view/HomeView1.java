@@ -31,7 +31,7 @@ import android.widget.ViewFlipper;
 import com.fanhong.cn.CommStoreDetailsActivity;
 import com.fanhong.cn.GardenSelecterActivity;
 import com.fanhong.cn.HomeNewsALLActivity;
-import com.fanhong.cn.HouseKeepingActivity;
+import com.fanhong.cn.housekeeping.HouseKeepingActivity;
 import com.fanhong.cn.LoginActivity;
 import com.fanhong.cn.R;
 import com.fanhong.cn.SampleConnection;

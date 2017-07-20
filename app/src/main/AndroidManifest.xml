@@ -275,7 +275,10 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <!--家政区域-->
-        <activity android:name=".HouseKeepingActivity"
+        <activity android:name=".housekeeping.HouseKeepingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity android:name=".housekeeping.HouseKeepingClassifyServiceActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <!-- alipay sdk end -->

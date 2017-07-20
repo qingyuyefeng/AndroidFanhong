@@ -1,4 +1,4 @@
-package com.fanhong.cn.view;
+package com.fanhong.cn.housekeeping;
 
 import android.app.Fragment;
 import android.os.Bundle;

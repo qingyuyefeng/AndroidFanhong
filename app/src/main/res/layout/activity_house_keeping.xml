@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg1"
     android:orientation="vertical"
-    tools:context="com.fanhong.cn.HouseKeepingActivity">
+    tools:context="com.fanhong.cn.housekeeping.HouseKeepingActivity">
 
     <com.zhy.autolayout.AutoRelativeLayout
         android:id="@+id/layout_title"
