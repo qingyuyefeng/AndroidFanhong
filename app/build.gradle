@@ -89,7 +89,7 @@ dependencies {
     //    compile 'com.android.support:multidex:1.0.0'
     compile project(':imlib')
     compile 'com.android.support:recyclerview-v7:25.0.0'
-    compile 'com.xiwenhec:banner:1.0.2'
+    compile 'com.xiwenhec:banner:1.0.4'
 }
 
 
