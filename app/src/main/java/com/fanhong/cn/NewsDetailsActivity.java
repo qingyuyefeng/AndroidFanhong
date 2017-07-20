@@ -46,7 +46,7 @@ public class NewsDetailsActivity extends Activity {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
         String id = getIntent().getStringExtra("newsId");
-        x.image().bind(img_bar,"assets://progressbar.gif",new ImageOptions.Builder().setIgnoreGif(false).build());
+        x.image().bind(img_bar,"assets://images/progressbar.gif",new ImageOptions.Builder().setIgnoreGif(false).build());
         initdata(id);
     }
 

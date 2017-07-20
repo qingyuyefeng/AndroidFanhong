@@ -12,18 +12,18 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    signingConfigs{
-        config{
+    signingConfigs {
+        config {
             storeFile file('C:/Users/Administrator/Desktop/FanHong.jks')
             storePassword '100200'
             keyAlias 'release-key'
             keyPassword '100200'
         }
-        debug{
+        debug {
             v1SigningEnabled true
             v2SigningEnabled true
         }
-        release{
+        release {
             v1SigningEnabled true
             v2SigningEnabled true
         }
@@ -89,6 +89,7 @@ dependencies {
     //    compile 'com.android.support:multidex:1.0.0'
     compile project(':imlib')
     compile 'com.android.support:recyclerview-v7:25.0.0'
+    compile 'com.xiwenhec:banner:1.0.4'
 }
 
 

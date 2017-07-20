@@ -282,7 +282,7 @@ public class CommunityChatRoomActivity extends Activity {
      * 初始化聊天室：添加欢迎消息、拉取历史信息、设置消息接收监听
      */
     private void initConversation() {
-        mMessagelist.add(new CommunityMessageBean("assets://systmsghead.png", pref.getString("gardenName", "帆社区"),
+        mMessagelist.add(new CommunityMessageBean("assets://images/systmsghead.png", pref.getString("gardenName", "帆社区"),
                 "欢迎加入我们的聊天室", System.currentTimeMillis(), CommunityMessageBean.TYPE_LEFT));
         updateListTime();
         adapter = new CommunityChatAdapter(this, mMessagelist);

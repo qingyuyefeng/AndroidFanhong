@@ -62,7 +62,7 @@ public class CommunityNewsFragment extends Fragment {
 //        initNewsData(2);
         lv_community_news.setOnItemClickListener(listenerComm);
         lv_nearby_news.setOnItemClickListener(listenerNearby);
-        x.image().bind(img_bar,"assets://progressbar.gif",new ImageOptions.Builder().setIgnoreGif(false).build());
+        x.image().bind(img_bar,"assets://images/progressbar.gif",new ImageOptions.Builder().setIgnoreGif(false).build());
         return view;
     }
 
