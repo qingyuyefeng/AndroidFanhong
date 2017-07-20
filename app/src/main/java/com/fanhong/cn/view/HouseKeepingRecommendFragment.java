@@ -107,7 +107,7 @@ public class HouseKeepingRecommendFragment extends Fragment {
         bannerModels.add(new BannerModel().setLink("4小时家庭保洁").setImageUrl("assets://timg.png"));
         bannerModels.add(new BannerModel().setLink("厨房保洁").setImageUrl("http://img4.imgtn.bdimg.com/it/u=1383668407,3661848721&fm=200&gp=0.jpg"));
         bannerModels.add(new BannerModel().setLink("4小时家庭保洁").setImageUrl("http://imgsrc.baidu.com/image/c0%3Dshijue1%2C0%2C0%2C294%2C40/sign=adbb6307c2fcc3cea0cdc170fa2cbcfd/c2fdfc039245d6883e945d81aec27d1ed21b2405.jpg"));
-        banner.notifiDataHasChanged();
+        banner.notifyDataHasChanged();
     }
 
     private void initListdatas() {

@@ -108,6 +108,7 @@
     <string name="account">账号</string>
     <string name="resetpsw">修改密码</string>
     <string name="modifynick">修改昵称</string>
+    <string name="mygettingaddress">收货地址</string>
     <string name="save">保存</string>
     <string name="initialpassword">初始密码:</string>
     <string name="newpassword">新设密码:</string>

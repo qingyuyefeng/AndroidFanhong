@@ -97,6 +97,13 @@ public class HomeView1 extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         homeView1 = inflater.inflate(R.layout.fragment_home, null);
+        getGonggaoData();
+        new Thread(){
+            @Override
+            public void run() {
+                getnewsandlife();
+            }
+        }.start();
         return homeView1;
     }
 
@@ -196,15 +203,8 @@ public class HomeView1 extends BaseFragment {
 //            JchtModel jchtModel = new JchtModel();
 //            jchtModelList.add(jchtModel);
 //        }
-        getGonggaoData();
         getEsGoodsDatas();
 //        getNewsDatas();
-        new Thread(){
-            @Override
-            public void run() {
-                getnewsandlife();
-            }
-        }.start();
     }
     private void getGonggaoData(){
         Map<String,Object> map = new HashMap<>();

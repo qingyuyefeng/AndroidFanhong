@@ -362,12 +362,16 @@ public class ShopActivity extends SampleActivity {
                 classify(8);
                 break;
             case R.id.add_usedgoodslayout:
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                hideSoftinputyer();
                 break;
         }
     }
 
+    //隐藏软键盘的方法
+    private void hideSoftinputyer(){
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+    }
     View.OnClickListener ocl = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -376,8 +380,7 @@ public class ShopActivity extends SampleActivity {
                     finish();
                     break;
                 case R.id.img_ms_add2:
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                    hideSoftinputyer();
                     showWindow();
                     break;
                 case R.id.sure_to_postgoods://确定上传
