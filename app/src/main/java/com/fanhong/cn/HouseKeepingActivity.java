@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.RadioGroup;
 
 import com.fanhong.cn.view.HouseKeepingClassifyFragment;
-import com.fanhong.cn.view.HouseKeepingRecommitFragment;
+import com.fanhong.cn.view.HouseKeepingRecommendFragment;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -28,7 +28,7 @@ public class HouseKeepingActivity extends Activity {
         x.view().inject(this);
         fragmentManager = getFragmentManager();
 
-//        rg_home.check(R.id.rb_hk_recommend);
+        rg_home.check(R.id.rb_hk_recommend);
     }
 
     @Event(value = R.id.rg_housekeeping_home, type = RadioGroup.OnCheckedChangeListener.class)
@@ -47,7 +47,7 @@ public class HouseKeepingActivity extends Activity {
         Fragment fragment = null;
         switch (checkedId) {
             case R.id.rb_hk_recommend:
-                fragment = new HouseKeepingRecommitFragment();
+                fragment = new HouseKeepingRecommendFragment();
                 break;
             case R.id.rb_hk_classify:
                 fragment = new HouseKeepingClassifyFragment();

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="6px"
+    android:layout_marginLeft="7px"
+    android:layout_marginRight="7px"
+    android:layout_marginTop="6px"
+    android:paddingBottom="10px"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/img_hk_recommend_picture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:maxHeight="400px"
+        android:scaleType="centerCrop"
+        android:src="@drawable/timg" />
+
+    <TextView
+        android:id="@+id/tv_hk_recommend_title"
+        android:layout_width="230px"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/img_hk_recommend_picture"
+        android:layout_marginLeft="20px"
+        android:layout_marginTop="20px"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="4小时家庭保洁家庭保"
+        android:textColor="@color/memory_avail"
+        android:textSize="23px" />
+
+    <TextView
+        android:id="@+id/tv_hk_recommend_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/rmb"
+        android:text="199"
+        android:textColor="@color/red"
+        android:layout_alignBottom="@id/tv_hk_recommend_title"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20px"
+        android:textSize="23px"
+        />
+
+    <TextView
+        android:id="@+id/tv_hk_recommend_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tv_hk_recommend_title"
+        android:layout_below="@id/tv_hk_recommend_title"
+        android:text="已接2654单"
+        android:textColor="@color/notchecked"
+        android:layout_marginTop="16px"
+        android:textSize="16px" />
+
+    <TextView
+        android:id="@+id/tv_hk_recommend_reputation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="好评90%"
+        android:layout_alignRight="@id/tv_hk_recommend_price"
+        android:layout_alignBottom="@id/tv_hk_recommend_count"
+        android:textColor="@color/notchecked"
+        android:textSize="16px"/>
+</com.zhy.autolayout.AutoRelativeLayout>
