@@ -1,7 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:id="@+id/layout_title"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:background="@color/skyblue">
+
+
+        <ImageView
+            android:id="@+id/tv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="30px"
+            android:src="@drawable/btn_back" />
+
+        <TextView
+            android:id="@+id/tv_chat_title"
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:text="家政服务"
+            android:textColor="@color/white"
+            android:textSize="30px" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_hk_classify_service"
         android:layout_width="match_parent"
@@ -10,4 +46,4 @@
         android:paddingLeft="7px"
         android:paddingRight="7px"
         android:paddingTop="6px" />
-</LinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>
