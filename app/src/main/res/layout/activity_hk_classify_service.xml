@@ -6,7 +6,6 @@
         android:id="@+id/rv_hk_classify_service"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/banner_hk_recommend"
         android:paddingBottom="6px"
         android:paddingLeft="7px"
         android:paddingRight="7px"

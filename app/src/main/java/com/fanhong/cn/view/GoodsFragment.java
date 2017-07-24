@@ -145,7 +145,7 @@ public class GoodsFragment extends BaseFragment implements OnItemClickListener, 
 
 	private void setList(String str,int cout,int page){
 		count = cout;
-		Log.i("hu","收到商品总条数："+count);
+//		Log.i("hu","收到商品总条数："+count);
 		pageNum = count/10;
 		if(count%10 > 0)
 			pageNum++;
@@ -194,8 +194,7 @@ public class GoodsFragment extends BaseFragment implements OnItemClickListener, 
 
 	@Override
 	public boolean onLoadNextPage() {
-		Log.i("hu","******onLoadNextPage()");
-
+//		Log.i("hu","******onLoadNextPage()");
 		return loadData(++mEndPageNum);
 	}
 

@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.fanhong.cn.AgentWebActivity;
 import com.fanhong.cn.CommStoreDetailsActivity;
 import com.fanhong.cn.GardenSelecterActivity;
 import com.fanhong.cn.HomeNewsALLActivity;
@@ -198,14 +199,6 @@ public class HomeView1 extends BaseFragment {
         inflater = LayoutInflater.from(getActivity());
     }
 
-    private void initData() {
-//        for (int i = 0; i < 2; i++) {
-//            JchtModel jchtModel = new JchtModel();
-//            jchtModelList.add(jchtModel);
-//        }
-        getEsGoodsDatas();
-//        getNewsDatas();
-    }
     private void getGonggaoData(){
         Map<String,Object> map = new HashMap<>();
         map.put("cmd",43);
@@ -214,7 +207,6 @@ public class HomeView1 extends BaseFragment {
         }
         mSample.connectService1(map);
     }
-
     private void setGoodsData(String str) {
         try {
             JSONObject jsonObject = new JSONObject(str);
@@ -303,32 +295,12 @@ public class HomeView1 extends BaseFragment {
 
     }
 
-    //    private void getGoodsData(String string){
-//        try {
-//            JSONObject jsonObject = new JSONObject(string);
-//            JSONArray jsonArray = jsonObject.getJSONArray("data");
-//            for(int i=0;i<jsonArray.length();i++){
-//                JSONObject object = jsonArray.optJSONObject(i);
-//                HorizontalListviewModel model = new HorizontalListviewModel();
-//                model.setImageUrl(object.optString("tupian"));
-//                model.setPicName(object.optString("name"));
-//                modelList.add(model);
-//            }
-//            Message msg = handler.obtainMessage();
-//            msg.what = 1;
-//            handler.sendMessage(msg);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//    }
     View.OnClickListener ocl = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent();
             switch (v.getId()) {
                 case R.id.show_notice:
-//                    intent.setClass(HomeView1.this.getActivity(), NoticeActivity.class);
-//                    startActivity(intent);
                     getBaseActivity().setRadioButtonsChecked(3);
                     break;
                 case R.id.image_choosecell:
@@ -547,7 +519,7 @@ public class HomeView1 extends BaseFragment {
 
         newsListview = (ListView) homeView1.findViewById(R.id.home_news);
         lifeListview = (ListView) homeView1.findViewById(R.id.life_listview);
-        initData();
+        getEsGoodsDatas();
 
 
         newsAdapter = new HomenewsAdapter(getActivity(), newsList);
@@ -556,7 +528,8 @@ public class HomeView1 extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String url = newsList.get(position).getNewsUrl();
-                Intent intent = new Intent(HomeView1.this.getActivity(), WebViewActivity.class);
+//                Intent intent = new Intent(HomeView1.this.getActivity(), WebViewActivity.class);
+                Intent intent = new Intent(HomeView1.this.getActivity(), AgentWebActivity.class);
                 intent.putExtra("url",url);
                 startActivityForResult(intent,1);
             }
@@ -568,7 +541,8 @@ public class HomeView1 extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String url = lifeList.get(position).getUrl();
-                Intent intent = new Intent(HomeView1.this.getActivity(), WebViewActivity.class);
+//                Intent intent = new Intent(HomeView1.this.getActivity(), WebViewActivity.class);
+                Intent intent = new Intent(HomeView1.this.getActivity(), AgentWebActivity.class);
                 intent.putExtra("url",url);
                 startActivityForResult(intent,1);
             }

@@ -307,7 +307,7 @@
                     <EditText
                         android:id="@+id/edt_ms_title"
                         android:layout_width="match_parent"
-                        android:layout_height="60px"
+                        android:layout_height="70px"
                         android:background="@color/white"
                         android:gravity="center_vertical"
                         android:hint="发布物品的名字(5个字以内)"
@@ -575,7 +575,7 @@
                     <EditText
                         android:id="@+id/edt_ms_sender"
                         android:layout_width="match_parent"
-                        android:layout_height="60px"
+                        android:layout_height="70px"
                         android:background="@color/white"
                         android:gravity="center_vertical"
                         android:hint="发布人称呼（如：张先生）"
@@ -601,7 +601,7 @@
                     <EditText
                         android:id="@+id/edt_ms_phone"
                         android:layout_width="match_parent"
-                        android:layout_height="60px"
+                        android:layout_height="70px"
                         android:background="@color/white"
                         android:gravity="center_vertical"
                         android:hint="输入联系号码"
