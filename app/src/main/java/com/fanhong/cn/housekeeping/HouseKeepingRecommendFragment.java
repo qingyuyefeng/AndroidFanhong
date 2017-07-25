@@ -2,6 +2,7 @@ package com.fanhong.cn.housekeeping;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -115,17 +116,21 @@ public class HouseKeepingRecommendFragment extends Fragment {
         recommendDatas.add(new HousekeepingRecommendBean("assets://timg.png", "4小时家庭保洁", "199", "已接1654单", "好评90%"));
 
         adapter = new HKRecyclerViewAdapter(getActivity(), recommendDatas);
-//        adapter.setItemClickListener(new HKRecyclerViewAdapter.OnItemCLickListener() {
-//            @Override
-//            public void onItemClick(View v, int position) {
-//
-//            }
+        adapter.setItemClickListener(new HKRecyclerViewAdapter.OnItemCLickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                Intent intent=new Intent(getActivity(),HouseKeepingServiceDetailsActivity.class);
+                intent.putExtra("title",recommendDatas.get(position).getTitle());
+                intent.putExtra("price",recommendDatas.get(position).getPrice());
+//                intent.putExtra("url",recommendDatas.get(position).getImgUrl());
+                startActivity(intent);
+            }
 //        }).setItemLongClickListener(new HKRecyclerViewAdapter.OnItemLongCLickListener() {
 //            @Override
 //            public void onItemLongClick(View v, int position) {
 //
 //            }
-//        });
+        });
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
     }

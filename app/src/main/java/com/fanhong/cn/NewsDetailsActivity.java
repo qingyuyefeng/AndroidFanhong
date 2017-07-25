@@ -1,6 +1,7 @@
 package com.fanhong.cn;
 
 import android.app.Activity;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
@@ -40,13 +41,17 @@ public class NewsDetailsActivity extends Activity {
     ImageView img_bar;
     @ViewInject(R.id.news_details_bar)
     AutoRelativeLayout news_progressbar;
+    AnimationDrawable anim;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
         String id = getIntent().getStringExtra("newsId");
-        x.image().bind(img_bar,"assets://images/progressbar.gif",new ImageOptions.Builder().setIgnoreGif(false).build());
+//        x.image().bind(img_bar,"assets://images/progressbar.gif",new ImageOptions.Builder().setIgnoreGif(false).build());
+        img_bar.setImageResource(R.drawable.anim_progressbar);
+        anim = (AnimationDrawable) img_bar.getDrawable();
+        anim.start();
         initdata(id);
     }
 
@@ -58,13 +63,14 @@ public class NewsDetailsActivity extends Activity {
             @Override
             public void onSuccess(String s) {
                 Log.i("====mLog====", s);
-                if (JsonSyncUtils.getJsonValue(s,"cw").equals("0")){
-                    String data=JsonSyncUtils.getJsonValue(s,"data");
-                    tv_title.setText(JsonSyncUtils.getJsonValue(data,"bt"));
-                    tv_time.setText(JsonSyncUtils.getJsonValue(data,"time"));
-                    tv_from.setText(JsonSyncUtils.getJsonValue(data,"zz"));
-                    tv_content.setText(JsonSyncUtils.getJsonValue(data,"nr"));
-                    news_progressbar.setVisibility(View.GONE);
+                if (JsonSyncUtils.getJsonValue(s, "cw").equals("0")) {
+                    String data = JsonSyncUtils.getJsonValue(s, "data");
+                    tv_title.setText(JsonSyncUtils.getJsonValue(data, "bt"));
+                    tv_time.setText(JsonSyncUtils.getJsonValue(data, "time"));
+                    tv_from.setText(JsonSyncUtils.getJsonValue(data, "zz"));
+                    tv_content.setText(JsonSyncUtils.getJsonValue(data, "nr"));
+//                    news_progressbar.setVisibility(View.GONE);
+//                    anim.stop();
                 }
             }
 

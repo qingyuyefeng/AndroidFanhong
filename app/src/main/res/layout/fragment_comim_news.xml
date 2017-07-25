@@ -60,17 +60,24 @@
         </com.zhy.autolayout.AutoLinearLayout>
     </ScrollView>
 
-    <com.zhy.autolayout.AutoLinearLayout
+    <com.zhy.autolayout.AutoRelativeLayout
         android:id="@+id/progressBar_community"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bg1"
-        android:gravity="center">
+        android:background="#e6e6e6">
 
+        <TextView
+            android:id="@+id/tv_bar_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
         <ImageView
             android:id="@+id/img_news_bar"
-            android:layout_width="100px"
-            android:layout_height="100px"
-            android:background="@color/bg1"/>
-    </com.zhy.autolayout.AutoLinearLayout>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/anim_progressbar"
+            android:layout_alignBottom="@id/tv_bar_center"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="-15px"/>
+    </com.zhy.autolayout.AutoRelativeLayout>
 </com.zhy.autolayout.AutoRelativeLayout>
