@@ -51,7 +51,7 @@ public class WebViewActivity extends Activity{
 			Log.i("hu","打开网页："+url);
 		}
 		tv_title = (TextView)findViewById(R.id.tv_title);
-		webView = (WebView)findViewById(R.id.webView);
+		webView = (WebView)findViewById(R.id.ay_webView);
 		//中间设定一个强制退出webview的点击
 		findViewById(R.id.back_img_btn).setOnClickListener(new View.OnClickListener() {
 			@Override

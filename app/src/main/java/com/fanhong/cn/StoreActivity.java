@@ -71,7 +71,7 @@ public class StoreActivity extends SampleActivity implements LoadData{
 		int result=-1;
 		String str;
 		String name = "";
-		Log.i("hu","StoreActivity.java json="+json.toString());
+		Log.i("xq","StoreActivity.java json="+json.toString());
 		try {
 			str = json.getString("cmd");
 			cmd = Integer.parseInt(str);
@@ -225,19 +225,19 @@ public class StoreActivity extends SampleActivity implements LoadData{
 				WindowManager wm = this.getWindowManager();
 				int totalwidth = wm.getDefaultDisplay().getWidth();
 
-				Log.i("hu","**********totalwidth="+totalwidth+" width="+width);
+//				Log.i("hu","**********totalwidth="+totalwidth+" width="+width);
 				//if(totalwidth > width * PagerCount){
 				if(PagerCount < 6){
 					pad = (totalwidth - (width * PagerCount))/(PagerCount*2);
 					item_width=totalwidth/PagerCount;
-					Log.i("hu","*****1****pad ="+pad);
+//					Log.i("hu","*****1****pad ="+pad);
 				}
 				else{
 					pad = 40;
 					item_width=totalwidth/5;
-					Log.i("hu","*****2****pad ="+pad);
+//					Log.i("hu","*****2****pad ="+pad);
 				}
-				Log.i("hu","*********item_width="+item_width);
+//				Log.i("hu","*********item_width="+item_width);
 			}
 			//int px = dip2px(context, pad);
 			//coupon_home_ad_item.setPadding(pad, 0, pad, 0);
@@ -256,7 +256,7 @@ public class StoreActivity extends SampleActivity implements LoadData{
 	}
 
 	private void oper(int index){
-		Log.i("hu","*111*****index="+index);
+//		Log.i("hu","*111*****index="+index);
 		AnimationSet _AnimationSet = new AnimationSet(true);
 		TranslateAnimation _TranslateAnimation;
 		mCurrentChecked = index;
@@ -276,12 +276,12 @@ public class StoreActivity extends SampleActivity implements LoadData{
 		mCurrentCheckedRadioLeft = getCurrentCheckedRadioLeft(header_ll);// 更新当前蓝色横条距离左边的距离
 		h_scrollview.smoothScrollTo((int) mCurrentCheckedRadioLeft
 				- item_width, 0);
-		Log.i("hu","*111*****oper");
+//		Log.i("hu","*111*****oper");
 		//getGoods(index,1);
 	}
 
 	private void getGoods(int type, int page){
-		Log.i("hu","*******getGoods()  type="+type+" page="+page);
+//		Log.i("hu","*******getGoods()  type="+type+" page="+page);
 		if(mSafoneConnection == null)
 			mSafoneConnection = new SampleConnection(this, 0);
 		mSafoneConnection.connectService1(genGoods(type,page));
@@ -340,7 +340,7 @@ public class StoreActivity extends SampleActivity implements LoadData{
 		switch (resultCode) {
 			case RESULT_OK:
 				if(requestCode == 11){
-					Log.i("hu","***2***购物车返回");
+//					Log.i("hu","***2***购物车返回");
 					updateCartCount();
 				}
 				break;
@@ -372,7 +372,7 @@ public class StoreActivity extends SampleActivity implements LoadData{
 		@Override
 		public void onPageSelected(int position) {
 			//header_ll.getChildAt(position).performClick();
-			Log.i("hu","*********oper 2 onPageSelected");
+//			Log.i("hu","*********oper 2 onPageSelected");
 			oper(position);
 			getGoods(mCurrentChecked+1,1);
 		}

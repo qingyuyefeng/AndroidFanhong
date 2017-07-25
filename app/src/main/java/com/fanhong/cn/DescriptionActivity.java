@@ -88,7 +88,7 @@ public class DescriptionActivity extends SampleActivity implements OnPageChangeL
      */
     private int[] imgIdArray = {R.drawable.goods, R.drawable.top_banner, R.drawable.banner_02, R.drawable.banner_03};
     private int mImageViewArray[] = {R.drawable.banner_02, R.drawable.banner_03, R.drawable.goods};
-    private TextView tv_detail, tv_discuss;
+    private TextView tv_detail, tv_discuss,tv_guige;
     private int selectedBtn = R.id.tv_detail;
     private String ID; //商品id
     private ImageView iv_logo, iv_detail;
@@ -241,6 +241,7 @@ public class DescriptionActivity extends SampleActivity implements OnPageChangeL
 
         tv_detail = (TextView) findViewById(R.id.tv_detail);
         tv_discuss = (TextView) findViewById(R.id.tv_discuss);
+        tv_guige = (TextView) findViewById(R.id.tv_guige);
         tv_detail.setOnClickListener(this);
         tv_discuss.setOnClickListener(this);
     }
@@ -610,6 +611,7 @@ public class DescriptionActivity extends SampleActivity implements OnPageChangeL
         Log.i("hu", "*********name=" + name + " describe=" + describe + " logourl="
                 + logourl + " price=" + price + " normal=" + normal + " pictureurl=" + pictureurl);
 
+        tv_guige.setText(normal);
         ImageOptions options = new ImageOptions.Builder().setLoadingDrawableId(R.drawable.img_default)
                 .setFailureDrawableId(R.drawable.img_default).setUseMemCache(true)
                 .setImageScaleType(ImageView.ScaleType.FIT_CENTER).build();

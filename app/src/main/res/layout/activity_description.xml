@@ -343,7 +343,7 @@
                             android:layout_toRightOf="@id/tv_1"
                             android:ellipsize="end"
                             android:focusable="false"
-                            android:text="10kg/袋"
+                            android:text=""
                             android:textColor="@color/textgray"
                             android:textSize="15sp" />
 
