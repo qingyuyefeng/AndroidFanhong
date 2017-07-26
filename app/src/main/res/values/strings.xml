@@ -16,6 +16,8 @@
     <string name="login_verificationcode">请输入验证码</string>
     <string name="phoneiswrong">手机号错误！请重新输入！</string>
     <string name="delete">删除</string>
+    <string name="editor">编辑</string>
+    <string name="whetherset">是否设置为默认地址</string>
 
     <string name="app_login">用户登录</string>
     <string name="login_user">请输入手机号</string>

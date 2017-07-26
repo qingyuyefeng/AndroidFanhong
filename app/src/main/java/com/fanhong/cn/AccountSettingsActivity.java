@@ -28,6 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fanhong.cn.shippingaddress.AllAddressActivity;
 import com.fanhong.cn.synctaskpicture.LoadImage;
 import com.fanhong.cn.util.FileUtil;
 import com.fanhong.cn.util.HttpUtil;
@@ -267,7 +268,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
                 startActivityForResult(intent1, 1);
                 break;
             case R.id.ll_inputaddress:
-
+                startActivity(new Intent(AccountSettingsActivity.this, AllAddressActivity.class));
                 break;
             case R.id.ll_resetpsw:
 //			if(mSettingPref.getInt("Status", 0)==0){

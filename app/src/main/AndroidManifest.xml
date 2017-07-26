@@ -280,6 +280,20 @@
             android:name=".HomeNewsALLActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <!-- 地址管理区域 -->
+        <activity
+            android:name=".shippingaddress.AddNewAddressActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity
+            android:name=".shippingaddress.EditAddressActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity
+            android:name=".shippingaddress.AllAddressActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+
 
         <activity
             android:name=".CommunityChatRoomActivity"
