@@ -41,7 +41,7 @@ public class HKRecyclerViewAdapter extends RecyclerView.Adapter<HKRecyclerViewAd
         inflater = LayoutInflater.from(context);
         options = new ImageOptions.Builder().setLoadingDrawableId(R.drawable.img_default)
                 .setFailureDrawableId(R.drawable.img_default)
-                .setUseMemCache(false).setIgnoreGif(false).build();
+                .setUseMemCache(true).setIgnoreGif(false).build();
     }
 
     private OnItemCLickListener clickListener;

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg1"
+    android:orientation="vertical">
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:id="@+id/layout_title"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:background="@color/skyblue">
+
+
+        <ImageView
+            android:id="@+id/tv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="30px"
+            android:src="@drawable/btn_back" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:text="家政服务"
+            android:textColor="@color/white"
+            android:textSize="30px" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/btn_hk_order_addr_default"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:background="@color/white"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25px"
+            android:text="默认地址："
+            android:textColor="@color/popular"
+            android:textSize="28px" />
+
+        <TextView
+            android:id="@+id/tv_addr_default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:text="重庆市大渡口区春晖路****小区*****"
+            android:textColor="@color/popular"
+            android:textSize="28px" />
+
+        <TextView
+            android:layout_width="50px"
+            android:layout_height="50px"
+            android:layout_marginRight="25px"
+            android:alpha="0.5"
+            android:background="@drawable/ico_next" />
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="@color/linehkorder" />
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200px"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/img_hk_order_details"
+            android:layout_width="200px"
+            android:layout_height="150px"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30px"
+            android:src="@drawable/timg" />
+
+        <TextView
+            android:id="@+id/tv_hk_order_details_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="30px"
+            android:layout_marginTop="50px"
+            android:layout_toRightOf="@id/img_hk_order_details"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="4小时家庭保洁"
+            android:textColor="@color/popular"
+            android:textSize="28px" />
+
+        <TextView
+            android:id="@+id/label_hk_order_details_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/tv_hk_order_details_title"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50px"
+            android:text="营业时间："
+            android:textColor="@color/notchecked"
+            android:textSize="24px" />
+
+        <TextView
+            android:id="@+id/tv_hk_order_details_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/label_hk_order_details_time"
+            android:layout_marginRight="30px"
+            android:layout_toRightOf="@id/label_hk_order_details_time"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="8:00-12:00"
+            android:textColor="@color/notchecked"
+            android:textSize="24px" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="@color/linehkorder" />
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="30px">
+
+        <TextView
+            android:id="@+id/label_hk_order_service_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="服务时间："
+            android:textColor="@color/popular"
+            android:textSize="26px" />
+
+        <Spinner
+            android:id="@+id/sb_hk_order_year"
+            android:layout_width="138px"
+            android:layout_height="30px"
+            android:layout_marginTop="2px"
+            android:layout_toRightOf="@id/label_hk_order_service_time"
+            android:background="@drawable/bg_spinner_hk_order" />
+
+        <Spinner
+            android:id="@+id/sb_hk_order_month"
+            android:layout_width="70px"
+            android:layout_height="30px"
+            android:layout_marginLeft="10px"
+            android:layout_marginTop="2px"
+            android:layout_toRightOf="@id/sb_hk_order_year"
+            android:background="@drawable/bg_spinner_hk_order" />
+
+        <Spinner
+            android:id="@+id/sb_hk_order_day"
+            android:layout_width="70px"
+            android:layout_height="30px"
+            android:layout_marginLeft="10px"
+            android:layout_marginTop="2px"
+            android:layout_toRightOf="@id/sb_hk_order_month"
+            android:background="@drawable/bg_spinner_hk_order" />
+
+        <TextView
+            android:id="@+id/label_hk_order_service_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label_hk_order_service_time"
+            android:layout_marginTop="20px"
+            android:text="联系电话："
+            android:textColor="@color/popular"
+            android:textSize="26px" />
+
+        <TextView
+            android:id="@+id/tv_hk_order_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/label_hk_order_service_phone"
+            android:layout_alignTop="@id/label_hk_order_service_phone"
+            android:layout_marginLeft="10px"
+            android:layout_toRightOf="@id/label_hk_order_service_phone"
+            android:background="@drawable/bg_underline"
+            android:text="187-****-****"
+            android:textColor="@color/popular"
+            android:textSize="26px" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="@color/linehkorder" />
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_hk_order_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30px"
+            android:drawableLeft="@drawable/rmb"
+            android:drawablePadding="4px"
+            android:text="199"
+            android:textColor="@color/red"
+            android:textSize="30px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/tv_hk_order_money"
+            android:text="需付金额："
+            android:textColor="@color/red"
+            android:textSize="30px" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/btn_hk_order_pay_now"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:layout_gravity="bottom"
+        android:background="@color/btn_cheng"
+        android:gravity="center"
+        android:text="立 即 支 付"
+        android:textColor="@color/white"
+        android:textSize="30px" />
+</com.zhy.autolayout.AutoLinearLayout>

@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -23,6 +24,7 @@ import com.fanhong.cn.adapters.CommunityNewsAdapter;
 import com.fanhong.cn.bean.CommunityNewsBean;
 import com.fanhong.cn.util.JsonSyncUtils;
 import com.zhy.autolayout.AutoLinearLayout;
+import com.zhy.autolayout.AutoRelativeLayout;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -46,12 +48,14 @@ public class CommunityNewsFragment extends Fragment {
     @ViewInject(R.id.lv_nearby_news)
     ListView lv_nearby_news;
     @ViewInject(R.id.progressBar_community)
-    AutoLinearLayout bar_community;
+    AutoRelativeLayout bar_community;
     @ViewInject(R.id.img_news_bar)
     ImageView img_bar;
     List<CommunityNewsBean> listcomm, listnews;
     CommunityNewsAdapter adaptercomm, adapternews;
     private SharedPreferences pref;
+
+    AnimationDrawable anim;
 
     @Nullable
     @Override
@@ -62,7 +66,10 @@ public class CommunityNewsFragment extends Fragment {
 //        initNewsData(2);
         lv_community_news.setOnItemClickListener(listenerComm);
         lv_nearby_news.setOnItemClickListener(listenerNearby);
-        x.image().bind(img_bar,"assets://images/progressbar.gif",new ImageOptions.Builder().setIgnoreGif(false).build());
+//        x.image().bind(img_bar,"assets://images/progressbar.gif",new ImageOptions.Builder().setIgnoreGif(false).build());
+        img_bar.setImageResource(R.drawable.anim_progressbar);
+        anim = (AnimationDrawable) img_bar.getDrawable();
+
         return view;
     }
 
@@ -98,6 +105,7 @@ public class CommunityNewsFragment extends Fragment {
     public void onResume() {
         initNewsData();
 
+        anim.start();
         super.onResume();
     }
 
@@ -127,6 +135,7 @@ public class CommunityNewsFragment extends Fragment {
                         public void run() {
                             bar_community.setVisibility(View.GONE);
                             adaptercomm.notifyDataSetChanged();
+                            anim.stop();
                         }
                     });
                     listnews = JsonSyncUtils.addNews(listnews, s, CommunityNewsBean.TYPE_NEWS);
@@ -135,6 +144,7 @@ public class CommunityNewsFragment extends Fragment {
                         public void run() {
                             bar_community.setVisibility(View.GONE);
                             adapternews.notifyDataSetChanged();
+                            anim.stop();
                         }
                     });
 
