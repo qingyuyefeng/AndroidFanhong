@@ -69,8 +69,8 @@ public class NewsDetailsActivity extends Activity {
                     tv_time.setText(JsonSyncUtils.getJsonValue(data, "time"));
                     tv_from.setText(JsonSyncUtils.getJsonValue(data, "zz"));
                     tv_content.setText(JsonSyncUtils.getJsonValue(data, "nr"));
-//                    news_progressbar.setVisibility(View.GONE);
-//                    anim.stop();
+                    news_progressbar.setVisibility(View.GONE);
+                    anim.stop();
                 }
             }
 

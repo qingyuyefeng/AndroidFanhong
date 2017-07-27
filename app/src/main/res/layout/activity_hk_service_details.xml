@@ -82,14 +82,13 @@
             <ImageView
                 android:id="@+id/img_hk_details_details"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"/>
         </com.zhy.autolayout.AutoLinearLayout>
     </ScrollView>
 
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100px"
-        android:layout_marginTop="20px">
+        android:layout_height="80px">
 
         <com.zhy.autolayout.AutoRelativeLayout
             android:id="@+id/btn_hk_details_phone"
@@ -109,7 +108,7 @@
                 android:layout_centerInParent="true"
                 android:drawableLeft="@drawable/ilon_kefu"
                 android:drawablePadding="10px"
-                android:text="电话"
+                android:text="客服"
                 android:textColor="@color/red"
                 android:textSize="30px" />
         </com.zhy.autolayout.AutoRelativeLayout>

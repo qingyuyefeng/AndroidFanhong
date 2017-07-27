@@ -79,13 +79,13 @@
 
     <com.zhy.autolayout.AutoRelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200px"
+        android:layout_height="260px"
         android:background="@color/white">
 
         <ImageView
             android:id="@+id/img_hk_order_details"
-            android:layout_width="200px"
-            android:layout_height="150px"
+            android:layout_width="260px"
+            android:layout_height="200px"
             android:layout_centerVertical="true"
             android:layout_marginLeft="30px"
             android:src="@drawable/timg" />
@@ -138,7 +138,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:padding="30px">
+        android:padding="30px"
+        android:paddingTop="26px">
 
         <TextView
             android:id="@+id/label_hk_order_service_time"
@@ -146,46 +147,65 @@
             android:layout_height="wrap_content"
             android:text="服务时间："
             android:textColor="@color/popular"
+            android:layout_marginTop="4px"
             android:textSize="26px" />
 
-        <Spinner
+        <CheckBox
             android:id="@+id/sb_hk_order_year"
-            android:layout_width="138px"
-            android:layout_height="30px"
-            android:layout_marginTop="2px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_toRightOf="@id/label_hk_order_service_time"
-            android:background="@drawable/bg_spinner_hk_order" />
+            android:background="@drawable/bg_spinner_hk_order"
+            android:button="@null"
+            android:drawablePadding="8px"
+            android:drawableRight="@drawable/spinner_arrow_selector"
+            android:padding="4px"
+            android:text="2017年"
+            android:textColor="@color/popular"
+            android:textSize="28px" />
 
-        <Spinner
+        <CheckBox
             android:id="@+id/sb_hk_order_month"
-            android:layout_width="70px"
-            android:layout_height="30px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10px"
-            android:layout_marginTop="2px"
             android:layout_toRightOf="@id/sb_hk_order_year"
-            android:background="@drawable/bg_spinner_hk_order" />
+            android:background="@drawable/bg_spinner_hk_order"
+            android:button="@null"
+            android:drawablePadding="8px"
+            android:drawableRight="@drawable/spinner_arrow_selector"
+            android:padding="4px"
+            android:text="7月"
+            android:textColor="@color/popular"
+            android:textSize="28px" />
 
-        <Spinner
+        <CheckBox
             android:id="@+id/sb_hk_order_day"
-            android:layout_width="70px"
-            android:layout_height="30px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10px"
-            android:layout_marginTop="2px"
             android:layout_toRightOf="@id/sb_hk_order_month"
-            android:background="@drawable/bg_spinner_hk_order" />
+            android:background="@drawable/bg_spinner_hk_order"
+            android:button="@null"
+            android:drawablePadding="8px"
+            android:drawableRight="@drawable/spinner_arrow_selector"
+            android:padding="4px"
+            android:text="18日"
+            android:textColor="@color/popular"
+            android:textSize="28px" />
 
         <TextView
             android:id="@+id/label_hk_order_service_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/label_hk_order_service_time"
-            android:layout_marginTop="20px"
+            android:layout_marginTop="30px"
             android:text="联系电话："
             android:textColor="@color/popular"
             android:textSize="26px" />
 
-        <TextView
-            android:id="@+id/tv_hk_order_day"
+        <EditText
+            android:id="@+id/edt_hk_order_service_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/label_hk_order_service_phone"
@@ -193,7 +213,68 @@
             android:layout_marginLeft="10px"
             android:layout_toRightOf="@id/label_hk_order_service_phone"
             android:background="@drawable/bg_underline"
-            android:text="187-****-****"
+            android:inputType="phone"
+            android:textColor="@color/popular"
+            android:textSize="26px" />
+
+        <TextView
+            android:id="@+id/label_hk_order_service_pay_by"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label_hk_order_service_phone"
+            android:layout_marginTop="30px"
+            android:text="支付方式："
+            android:textColor="@color/popular"
+            android:textSize="26px" />
+
+        <CheckBox
+            android:id="@+id/checkbox_alipay"
+            android:layout_width="50px"
+            android:layout_height="50px"
+            android:layout_alignTop="@id/label_hk_order_service_pay_by"
+            android:layout_marginTop="-10px"
+            android:layout_toRightOf="@id/label_hk_order_service_pay_by"
+            android:background="@drawable/btn_check"
+            android:button="@null" />
+
+        <ImageView
+            android:layout_width="50px"
+            android:layout_height="50px"
+            android:layout_alignTop="@id/label_hk_order_service_pay_by"
+            android:layout_marginLeft="20px"
+            android:layout_marginTop="-10px"
+            android:layout_toRightOf="@id/checkbox_alipay"
+            android:src="@drawable/zfb" />
+
+        <CheckBox
+            android:id="@+id/checkbox_weichatpay"
+            android:layout_width="50px"
+            android:layout_height="50px"
+            android:layout_alignTop="@id/label_hk_order_service_pay_by"
+            android:layout_marginLeft="120px"
+            android:layout_marginTop="-10px"
+            android:layout_toRightOf="@id/checkbox_alipay"
+            android:background="@drawable/btn_check"
+            android:button="@null"
+            android:enabled="false" />
+
+        <ImageView
+            android:layout_width="50px"
+            android:layout_height="50px"
+            android:layout_alignTop="@id/label_hk_order_service_pay_by"
+            android:layout_marginLeft="20px"
+            android:layout_marginTop="-10px"
+            android:layout_toRightOf="@id/checkbox_weichatpay"
+            android:src="@drawable/wx"
+            android:tint="@color/notchecked" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/label_hk_order_service_pay_by"
+            android:layout_marginLeft="80px"
+            android:layout_toRightOf="@id/checkbox_weichatpay"
+            android:text="(暂不支持)"
             android:textColor="@color/popular"
             android:textSize="26px" />
     </com.zhy.autolayout.AutoRelativeLayout>
@@ -234,12 +315,13 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:background="@color/white" />
 
     <Button
         android:id="@+id/btn_hk_order_pay_now"
         android:layout_width="match_parent"
-        android:layout_height="100px"
+        android:layout_height="80px"
         android:layout_gravity="bottom"
         android:background="@color/btn_cheng"
         android:gravity="center"

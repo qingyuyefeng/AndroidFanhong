@@ -32,6 +32,7 @@ import com.fanhong.cn.shippingaddress.AllAddressActivity;
 import com.fanhong.cn.synctaskpicture.LoadImage;
 import com.fanhong.cn.util.FileUtil;
 import com.fanhong.cn.util.HttpUtil;
+import com.fanhong.cn.util.JsonSyncUtils;
 import com.fanhong.cn.util.NetUtil;
 import com.fanhong.cn.view.CircleImg;
 import com.fanhong.cn.view.SelectPicPopupWindow;
@@ -42,6 +43,8 @@ import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.x;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -129,6 +132,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
             if (result == 1) {
                 pd.dismiss();
                 Toast.makeText(AccountSettingsActivity.this, "头像上传成功！", Toast.LENGTH_LONG).show();
+                getToken(mSettingPref.getString("UserId", ""));
             } else {
                 pd.dismiss();
                 Toast.makeText(AccountSettingsActivity.this, "头像上传失败！", Toast.LENGTH_LONG).show();
@@ -209,6 +213,37 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
         }
     }
 
+    private void getToken(String userId) {
+        org.xutils.http.RequestParams params = new org.xutils.http.RequestParams(App.CMDURL);
+        params.addParameter("cmd", "55");
+        params.addParameter("id", userId);
+        Log.i("getToken json=id:", userId);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String s) {
+                mSettingPref.edit().putString("token", JsonSyncUtils.getJsonValue(s, "token")).commit();
+                SampleConnection.TOKEN = JsonSyncUtils.getJsonValue(s, "token");
+                x.image().clearMemCache();
+                Log.i("getToken json=", "onSuccess:" + s);
+            }
+
+            @Override
+            public void onError(Throwable throwable, boolean b) {
+                Log.i("getToken json=", "onError:" + throwable.getMessage());
+            }
+
+            @Override
+            public void onCancelled(CancelledException e) {
+                Log.i("getToken json=", "onCancelled:" + e.getMessage());
+            }
+
+            @Override
+            public void onFinished() {
+                Log.i("getToken json=", "onFinished:");
+            }
+        });
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (resultCode) {
@@ -216,6 +251,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
                 break;
             case 2:  //修改昵称返回
                 tv_nickname.setText(data.getStringExtra("nick"));
+                getToken(mSettingPref.getString("UserId", ""));
 //			tv_nickname.setText(mSettingPref.getString("Nick",""));
                 break;
             case 3:  //修改密码返回

@@ -62,8 +62,11 @@ public class HouseKeepingServiceDetailsActivity extends Activity {
                         "ImageView:Width:" + img_details.getWidth() + "Height:" + img_details.getHeight());
                 DisplayMetrics display = getResources().getDisplayMetrics();
                 int width = display.widthPixels;
-                int height = (int) ((float) (width / drawable.getMinimumWidth()) * drawable.getMinimumHeight());
-                img_details.setLayoutParams(new LinearLayout.LayoutParams(width, height));
+                width = width > img_details.getWidth() ? width : img_details.getWidth();
+                int height = (int) ((float) width * drawable.getMinimumHeight() / drawable.getMinimumWidth());
+                LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(width, height);
+                param.bottomMargin = 20 * width / 720;
+                img_details.setLayoutParams(param);
                 img_details.setImageDrawable(drawable);
                 Log.i("bindximage", "Parent:width:" + width + "\theight:" + height + "\n" +
                         "ImageView:Width:" + img_details.getWidth() + "Height:" + img_details.getHeight());
@@ -98,11 +101,11 @@ public class HouseKeepingServiceDetailsActivity extends Activity {
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                     }
-                }).setNegativeButton("取消",null).show();
+                }).setNegativeButton("取消", null).show();
                 break;
             case R.id.btn_hk_details_oder_now:
-                Intent intent=new Intent(this,HouseKeepingOrderActivity.class);
-                intent.putExtra("title",getIntent().getStringExtra("title"));
+                Intent intent = new Intent(this, HouseKeepingOrderActivity.class);
+                intent.putExtra("title", getIntent().getStringExtra("title"));
                 startActivity(intent);
                 break;
             case R.id.tv_back:
