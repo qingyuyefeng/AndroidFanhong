@@ -224,6 +224,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
                 mSettingPref.edit().putString("token", JsonSyncUtils.getJsonValue(s, "token")).commit();
                 SampleConnection.TOKEN = JsonSyncUtils.getJsonValue(s, "token");
                 x.image().clearMemCache();
+                x.image().clearCacheFiles();
                 Log.i("getToken json=", "onSuccess:" + s);
             }
 
