@@ -73,6 +73,7 @@
     <color name="detail_btn_normal">#FF4D4D</color>
     <color name="detail_btn_press">#FF6C6C</color>
     <color name="line_hint">#cbcbcb</color>
+    <color name="text_default">#424242</color>
 
     <color name="divider">#ffd2d2d2</color>
     <color name="alpha_black">#33000000</color>
