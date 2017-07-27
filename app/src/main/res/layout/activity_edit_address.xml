@@ -107,13 +107,15 @@
         <EditText
             android:id="@+id/change_address_edt"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="13px"
             android:layout_marginLeft="10px"
             android:layout_marginRight="30px"
             android:layout_weight="1"
             android:background="@drawable/postpicture_biankuang"
             android:hint="请输入地址（详细到门牌信息）"
-            android:textSize="30px" />
+            android:textSize="30px"
+            android:textColorHint="@color/alpha_black"/>
     </com.zhy.autolayout.AutoLinearLayout>
 
     <CheckBox

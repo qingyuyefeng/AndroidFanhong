@@ -84,7 +84,8 @@ public class AllAddressActivity extends Activity{
 
             @Override
             public void holderItemClick() {
-                Toast.makeText(AllAddressActivity.this,"item的点击",Toast.LENGTH_SHORT).show();
+                Toast.makeText(AllAddressActivity.this,"item的点击,",Toast.LENGTH_SHORT).show();
+
             }
         });
         addressRecyclerView.setAdapter(myAddressAdapter);

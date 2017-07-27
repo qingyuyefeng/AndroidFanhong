@@ -328,15 +328,19 @@ public class ServiceView1 extends BaseFragment {
 
 	private void oper2(int arg){
 		String url = ServiceView1.this.getString(mUrlArray2[arg]);
+		String str = getString(mTextviewArray2[arg]);
 		Intent intent2 = new Intent(ServiceView1.this.getActivity(), WebViewActivity.class);
 		intent2.putExtra("url", url);
+		intent2.putExtra("title",str);
 		startActivityForResult(intent2,1);
 	}
 
 	private void oper3(int arg){
 		String url = ServiceView1.this.getString(mUrlArray3[arg]);
+		String str = getString(mTextviewArray3[arg]);
 		Intent intent2 = new Intent(ServiceView1.this.getActivity(), WebViewActivity.class);
 		intent2.putExtra("url", url);
+		intent2.putExtra("title",str);
 		startActivityForResult(intent2,1);
 	}
 

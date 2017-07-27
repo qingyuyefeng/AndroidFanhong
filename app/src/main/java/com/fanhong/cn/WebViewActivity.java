@@ -30,7 +30,7 @@ public class WebViewActivity extends Activity{
 	private String url;
 	public static String NAVIGATION_URL = "http://m.wapreach.com/?cpid=7461";  //导航地址
 	private Context context;
-	private TextView tv_title;
+	private TextView tv_title,web_title;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,16 +44,18 @@ public class WebViewActivity extends Activity{
 			getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 		}
 
+		web_title = (TextView) findViewById(R.id.web_title);
+
 		context = getApplicationContext();
 		Bundle bundle = this.getIntent().getExtras();
 		if(bundle != null){
 			url = bundle.getString("url");
-			Log.i("hu","打开网页："+url);
+			web_title.setText(bundle.getString("title"));
 		}
 		tv_title = (TextView)findViewById(R.id.tv_title);
 		webView = (WebView)findViewById(R.id.ay_webView);
 		//中间设定一个强制退出webview的点击
-		findViewById(R.id.back_img_btn).setOnClickListener(new View.OnClickListener() {
+		findViewById(R.id.back_img_button).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				WebViewActivity.this.finish();

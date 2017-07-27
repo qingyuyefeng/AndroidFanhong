@@ -40,6 +40,7 @@ import com.fanhong.cn.pay.OrderInfo;
 import com.fanhong.cn.pay.ParameterConfig;
 import com.fanhong.cn.pay.PayResult;
 import com.fanhong.cn.pay.WXpayUtil;
+import com.fanhong.cn.shippingaddress.AllAddressActivity;
 import com.fanhong.cn.view.PayMoney;
 import com.fanhong.cn.view.PayPopupWindow;
 import com.fanhong.cn.listviews.ConfirmOrderListView;
@@ -217,7 +218,7 @@ public class ConfirmOrderActivity extends SampleActivity implements PayMoney,OnC
 			@Override
 			public void onClick(View v) {
 				Intent intent2 = new Intent();
-				intent2.setClass(ConfirmOrderActivity.this, AddressActivity.class);
+				intent2.setClass(ConfirmOrderActivity.this, AllAddressActivity.class);
 				startActivityForResult(intent2, 1);
 			}
 		});

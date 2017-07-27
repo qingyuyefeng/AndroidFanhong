@@ -75,7 +75,7 @@ public class HomeNewsALLActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String url = newsList.get(position).getNewsUrl();
-                Intent intent = new Intent(HomeNewsALLActivity.this, WebViewActivity.class);
+                Intent intent = new Intent(HomeNewsALLActivity.this, AgentWebActivity.class);
                 intent.putExtra("url", url);
                 startActivityForResult(intent, 1);
             }

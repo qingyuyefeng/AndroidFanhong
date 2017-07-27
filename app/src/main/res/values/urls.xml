@@ -3,7 +3,7 @@
 	<string name="url_meituan">http://www.meituan.com/?&amp;liebao</string>
      <string name="url_dianping">http://www.dianping.com/?&amp;liebao</string>
      <string name="url_taobao">http://m.taobao.com/#index</string>     
-     <string name="url_jingdong">http://wap.jd.com/?&amp;liebao</string>
+     <string name="url_jingdong">http://m.jd.com/?&amp;liebao</string>
    <!--   <string name="url_weiping">http://p.yiqifa.com/n?k=CPgq  E&t=http://m.vip.com/&liebao</string> -->
      <string name="url_weiping">http://m.vip.com</string>
      <string name="url_yamaxun">https://www.amazon.cn</string>
