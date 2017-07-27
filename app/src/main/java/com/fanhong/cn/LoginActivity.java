@@ -389,6 +389,7 @@ public class LoginActivity extends SampleActivity {
             public void onSuccess(String s) {
                 mSettingPref.edit().putString("token",JsonSyncUtils.getJsonValue(s, "token")).commit();
                 SampleConnection.TOKEN = JsonSyncUtils.getJsonValue(s, "token");
+                x.image().clearMemCache();
                 Log.i("getToken json=", "onSuccess:" + s);
             }
 

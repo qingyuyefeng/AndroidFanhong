@@ -40,14 +40,15 @@ public class StringUtils {
      */
     public static String addChar(int length, String string, char c) {
         string = string.replaceAll(" ", "");
+        string = string.replaceAll("-", "");
         StringBuffer sb = new StringBuffer(string);
         String str = "";
         for (int i = 0; i < string.length(); i++) {
             str += sb.charAt(i);
-            if ((i - length + 1) >= 0) {
+            if (i != string.length() - 1 && (i - length + 1) >= 0) {
                 if (i - length + 1 == 0) {
                     str += c;
-                } else if ((i - length + 1) % 4 == 0) {
+                } else if (i != string.length() - 1 && (i - length + 1) % 4 == 0) {
                     str += c;
                 }
             }

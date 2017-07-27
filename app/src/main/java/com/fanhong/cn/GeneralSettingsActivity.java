@@ -25,6 +25,7 @@ import android.widget.ToggleButton;
 import com.fanhong.cn.util.DataCleanManager;
 
 import org.json.JSONObject;
+import org.xutils.x;
 
 public class GeneralSettingsActivity extends SampleActivity implements OnClickListener{
 	private TextView tv_cach;
@@ -262,6 +263,8 @@ public class GeneralSettingsActivity extends SampleActivity implements OnClickLi
 				try {
 					myclearaAppCache();
 					msg.what = CLEAN_SUC;
+					x.image().clearMemCache();
+					x.image().clearCacheFiles();
 				} catch (Exception e) {
 					e.printStackTrace();
 					msg.what = CLEAN_FAIL;
