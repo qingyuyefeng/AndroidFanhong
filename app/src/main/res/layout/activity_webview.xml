@@ -10,6 +10,33 @@
         android:clipToPadding="true"
         android:fitsSystemWindows="true"
         android:orientation="vertical">
+        <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/title_llayout"
+            android:layout_width="match_parent"
+            android:layout_height="95px"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_alignParentTop="true"
+            android:background="@color/skyblue">
+            <ImageView
+                android:id="@+id/back_img_button"
+                android:layout_width="70px"
+                android:layout_height="70px"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:padding="20px"
+                android:src="@drawable/guanbiwangye" />
+            <TextView
+                android:id="@+id/web_title"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:paddingLeft="-50px"
+                android:textColor="@color/white"/>
+        </com.zhy.autolayout.AutoLinearLayout>
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -63,13 +90,4 @@
         </LinearLayout>
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/back_img_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerInParent="true"
-        android:background="#4000"
-        android:padding="10dp"
-        android:src="@drawable/back_gray" />
 </RelativeLayout>
