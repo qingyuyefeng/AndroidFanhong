@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fanhong.cn.FragmentMainActivity;
@@ -21,12 +22,52 @@ import org.xutils.x;
  */
 @ContentView(R.layout.activity_hk_order_details)
 public class HouseKeepingOrderDetailsActivity extends Activity {
+    @ViewInject(R.id.img_hk_order_details)
+    ImageView img_details;
+    @ViewInject(R.id.tv_hk_order_details_title)
+    TextView tv_details_title;
+    @ViewInject(R.id.tv_hk_order_details_time)
+    TextView tv_details_time;
+    @ViewInject(R.id.tv_hk_order_details_step_time)
+    TextView tv_step_time;
+    @ViewInject(R.id.tv_hk_order_details_step_addr)
+    TextView tv_step_addr;
     @ViewInject(R.id.tv_hk_order_details_step_phone)
     TextView tv_step_phone;
+    @ViewInject(R.id.img_hk_order_step_1)
+    ImageView img_step_1;
+    @ViewInject(R.id.tv_hk_order_step_1)
+    TextView tv_step_1;
+    @ViewInject(R.id.img_hk_order_step_2)
+    ImageView img_step_2;
+    @ViewInject(R.id.tv_hk_order_step_2)
+    TextView tv_step_2;
+    @ViewInject(R.id.img_hk_order_step_3)
+    ImageView img_step_3;
+    @ViewInject(R.id.tv_hk_order_step_3)
+    TextView tv_step_3;
+    @ViewInject(R.id.img_hk_order_step_4)
+    ImageView img_step_4;
+    @ViewInject(R.id.tv_hk_order_step_4)
+    TextView tv_step_4;
+    @ViewInject(R.id.img_hk_order_step_5)
+    ImageView img_step_5;
+    @ViewInject(R.id.tv_hk_order_step_5)
+    TextView tv_step_5;
+    @ViewInject(R.id.img_hk_order_step_6)
+    ImageView img_step_6;
+    @ViewInject(R.id.tv_hk_order_step_6)
+    TextView tv_step_6;
+
+
+    private String service_title,service_price;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
+        service_title = getIntent().getStringExtra("title");
+        service_price = getIntent().getStringExtra("price");
         rulephonetext(tv_step_phone.getText().toString().trim());
     }
 
@@ -35,14 +76,23 @@ public class HouseKeepingOrderDetailsActivity extends Activity {
         phone = StringUtils.addChar(3, phone, '-');
         tv_step_phone.setText(phone);
     }
-    @Event({R.id.tv_back, R.id.btn_hk_order_return})
+
+    @Event({R.id.tv_back, R.id.layout_hk_order_details, R.id.btn_hk_order_return})
     private void onClicks(View v) {
+        Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.tv_back:
                 finish();
                 break;
+            case R.id.layout_hk_order_details:
+                intent.setClass(this, HouseKeepingServiceDetailsActivity.class);
+                intent.putExtra("single",true);
+                intent.putExtra("title", service_title);
+                intent.putExtra("price",service_price);
+                startActivity(intent);
+                break;
             case R.id.btn_hk_order_return:
-                Intent intent =new Intent(this, FragmentMainActivity.class);
+                intent.setClass(this, FragmentMainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;

@@ -51,6 +51,10 @@ public class HouseKeepingServiceDetailsActivity extends Activity {
         tv_title.setText(getIntent().getStringExtra("title"));
         tv_price.setText(getIntent().getStringExtra("price"));
         bindImages();
+        if(getIntent().getBooleanExtra("single",false)){
+            findViewById(R.id.layout_bottom_btns).setVisibility(View.GONE);
+            findViewById(R.id.btn_hk_bottom_return).setVisibility(View.VISIBLE);
+        }
     }
 
     private void bindImages() {
@@ -89,7 +93,7 @@ public class HouseKeepingServiceDetailsActivity extends Activity {
         });
     }
 
-    @Event(value = {R.id.tv_back, R.id.btn_hk_details_phone, R.id.btn_hk_details_oder_now})
+    @Event(value = {R.id.tv_back, R.id.btn_hk_details_phone, R.id.btn_hk_details_oder_now,R.id.btn_hk_bottom_return})
     private void onclicks(View v) {
         switch (v.getId()) {
             case R.id.btn_hk_details_phone:
@@ -106,9 +110,11 @@ public class HouseKeepingServiceDetailsActivity extends Activity {
             case R.id.btn_hk_details_oder_now:
                 Intent intent = new Intent(this, HouseKeepingOrderActivity.class);
                 intent.putExtra("title", getIntent().getStringExtra("title"));
+                intent.putExtra("price",getIntent().getStringExtra("price"));
                 startActivity(intent);
                 break;
             case R.id.tv_back:
+            case R.id.btn_hk_bottom_return:
                 finish();
                 break;
         }

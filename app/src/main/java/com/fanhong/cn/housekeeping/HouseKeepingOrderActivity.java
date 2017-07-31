@@ -10,6 +10,7 @@ import android.support.annotation.RequiresApi;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
@@ -60,7 +61,7 @@ public class HouseKeepingOrderActivity extends Activity {
     @ViewInject(R.id.sb_hk_order_day)
     CheckBox sb_hk_order_day;
 
-    private String service_title;
+    private String service_title,service_price;
     private boolean isinput = true;
     private int year, month, day, year0, month0, day0;
     private static List<Integer> years, months, days;
@@ -75,18 +76,16 @@ public class HouseKeepingOrderActivity extends Activity {
     }
 
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
         service_title = getIntent().getStringExtra("title");
+        service_price = getIntent().getStringExtra("price");
         initViews();
     }
 
-
-    private void setdayscount(int year, int month) {
-        setdayscount(year, month, 0);
-    }
 
     private void setdayscount(int year, int month, int type) {
         Calendar a = Calendar.getInstance();
@@ -94,7 +93,7 @@ public class HouseKeepingOrderActivity extends Activity {
         a.set(Calendar.MONTH, month - 1);
         a.set(Calendar.DATE, 1);
         a.roll(Calendar.DATE, -1);
-        int maxDate = a.get(Calendar.DATE);
+        int maxDate = a.get(Calendar.DATE);//当月最大天数
         if (year <= year0) {
             if (type == 1) {
                 months.clear();
@@ -107,6 +106,7 @@ public class HouseKeepingOrderActivity extends Activity {
                 popMonths.notifyDataChanged();
             }
             if (month <= month0) {
+                this.month = month0;
                 days.clear();
                 for (int i = 0; i < maxDate - day0 + 1; i++)
                     days.add(i + day0);
@@ -115,8 +115,13 @@ public class HouseKeepingOrderActivity extends Activity {
                     sb_hk_order_day.setText(day + "日");
                 }
                 popDays.notifyDataChanged();
-                return;
+            } else {
+                days.clear();
+                for (int i = 0; i < maxDate; i++)
+                    days.add(i + 1);
+                popDays.notifyDataChanged();
             }
+            return;
         }
         months.clear();
         for (int i = 0; i < 12; i++)
@@ -168,11 +173,10 @@ public class HouseKeepingOrderActivity extends Activity {
                 setdayscount(year, month, 1);
                 sb_hk_order_year.setText(year + "年");
             }
-        },"年");
+        }, "年");
         popYears.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-//                setdayscount(year, month, 1);
                 sb_hk_order_year.setChecked(false);
             }
         });
@@ -184,11 +188,10 @@ public class HouseKeepingOrderActivity extends Activity {
                 setdayscount(year, month, 0);
                 sb_hk_order_month.setText(month + "月");
             }
-        },"月");
+        }, "月");
         popMonths.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-                setdayscount(year, month, 0);
                 sb_hk_order_month.setChecked(false);
             }
         });
@@ -199,7 +202,7 @@ public class HouseKeepingOrderActivity extends Activity {
                 day = days.get(position);
                 sb_hk_order_day.setText(day + "日");
             }
-        },"日");
+        }, "日");
         popDays.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
@@ -239,6 +242,7 @@ public class HouseKeepingOrderActivity extends Activity {
             case R.id.btn_hk_order_pay_now://立即支付
                 Intent intent = new Intent(this, HouseKeepingOrderDetailsActivity.class);
                 intent.putExtra("title", service_title);
+                intent.putExtra("price",service_price);
                 startActivity(intent);
                 break;
         }
