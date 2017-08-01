@@ -1,20 +1,37 @@
 package com.alipay.sdk.pay.demo.util;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Random;
-
 import android.util.Log;
 
 import com.fanhong.cn.pay.SignUtils;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
+//使用方法
+//微信公众账号支付配置
+//		WxPayH5Config wxPayH5Config = new WxPayH5Config();
+//		wxPayH5Config.setAppId("xxxxx");
+//		wxPayH5Config.setAppSecret("xxxxxxxx");
+//		wxPayH5Config.setMchId("xxxxxx");
+//		wxPayH5Config.setMchKey("xxxxxxx");
+//		wxPayH5Config.setNotifyUrl("http://xxxxx");
+
+//支付类, 所有方法都在这个类里
+//		BestPayServiceImpl bestPayService = new BestPayServiceImpl();
+//		bestPayService.setWxPayH5Config(wxPayH5Config);
+
+//发起支付
+//		bestPayService.pay();
+
+//异步回调
+//		bestPayService.asyncNotify();
+
 
 
 public class OrderInfoUtil2_0 {
