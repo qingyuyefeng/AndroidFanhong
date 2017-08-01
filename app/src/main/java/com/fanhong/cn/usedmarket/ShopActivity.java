@@ -3,7 +3,6 @@ package com.fanhong.cn.usedmarket;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.IdRes;
@@ -23,13 +23,11 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -93,20 +91,36 @@ public class ShopActivity extends SampleActivity {
     @ViewInject(R.id.rb_ms_sort_3)
     private RadioButton rb_sort3;
     @ViewInject(R.id.rb_ms_classify_1)
-    private RadioButton rb_classify1;
+    private RadioButton rb_classify_1;
     @ViewInject(R.id.rb_ms_classify_2)
-    private RadioButton rb_classify2;
+    private RadioButton rb_classify_2;
     @ViewInject(R.id.rb_ms_classify_3)
-    private RadioButton rb_classify3;
+    private RadioButton rb_classify_3;
     @ViewInject(R.id.rb_ms_classify_4)
-    private RadioButton rb_classify4;
+    private RadioButton rb_classify_4;
     @ViewInject(R.id.rb_ms_classify_5)
-    private RadioButton rb_classify5;
+    private RadioButton rb_classify_5;
     @ViewInject(R.id.rb_ms_classify_6)
-    private RadioButton rb_classify6;
+    private RadioButton rb_classify_6;
     @ViewInject(R.id.rb_ms_classify_7)
-    private RadioButton rb_classify7;
+    private RadioButton rb_classify_7;
     @ViewInject(R.id.rb_ms_classify_8)
+    private RadioButton rb_classify_8;
+    @ViewInject(R.id.rb_ms_classify1)
+    private RadioButton rb_classify1;
+    @ViewInject(R.id.rb_ms_classify2)
+    private RadioButton rb_classify2;
+    @ViewInject(R.id.rb_ms_classify3)
+    private RadioButton rb_classify3;
+    @ViewInject(R.id.rb_ms_classify4)
+    private RadioButton rb_classify4;
+    @ViewInject(R.id.rb_ms_classify5)
+    private RadioButton rb_classify5;
+    @ViewInject(R.id.rb_ms_classify6)
+    private RadioButton rb_classify6;
+    @ViewInject(R.id.rb_ms_classify7)
+    private RadioButton rb_classify7;
+    @ViewInject(R.id.rb_ms_classify8)
     private RadioButton rb_classify8;
     @ViewInject(R.id.lv_ms_goods)
     private ListView shopListView;
@@ -246,7 +260,44 @@ public class ShopActivity extends SampleActivity {
 
     }
 
-    private void classify(int id) {
+    private void classifyl(int id) {
+        rb_classify_1.setChecked(false);
+        rb_classify_2.setChecked(false);
+        rb_classify_3.setChecked(false);
+        rb_classify_4.setChecked(false);
+        rb_classify_5.setChecked(false);
+        rb_classify_6.setChecked(false);
+        rb_classify_7.setChecked(false);
+        rb_classify_8.setChecked(false);
+        switch (id) {
+            case 1:
+                rb_classify_1.setChecked(true);
+                break;
+            case 2:
+                rb_classify_2.setChecked(true);
+                break;
+            case 3:
+                rb_classify_3.setChecked(true);
+                break;
+            case 4:
+                rb_classify_4.setChecked(true);
+                break;
+            case 5:
+                rb_classify_5.setChecked(true);
+                break;
+            case 6:
+                rb_classify_6.setChecked(true);
+                break;
+            case 7:
+                rb_classify_7.setChecked(true);
+                break;
+            case 8:
+                rb_classify_8.setChecked(true);
+                break;
+        }
+    }
+
+    private void classifyr(int id) {
         rb_classify1.setChecked(false);
         rb_classify2.setChecked(false);
         rb_classify3.setChecked(false);
@@ -286,7 +337,9 @@ public class ShopActivity extends SampleActivity {
     @Event(value = {R.id.rb_ms_sort, R.id.rb_ms_classify, R.id.rb_ms_sort_1, R.id.rb_ms_sort_2, R.id.rb_ms_sort_3,
             R.id.rb_ms_classify_1, R.id.rb_ms_classify_2, R.id.rb_ms_classify_3, R.id.rb_ms_classify_4,
             R.id.rb_ms_classify_5, R.id.rb_ms_classify_6, R.id.rb_ms_classify_7, R.id.rb_ms_classify_8,
-            R.id.tv_black_area1, R.id.tv_black_area2,R.id.add_usedgoodslayout})
+            R.id.tv_black_area1, R.id.tv_black_area2, R.id.add_usedgoodslayout,R.id.rb_ms_classify1,
+            R.id.rb_ms_classify2,R.id.rb_ms_classify3,R.id.rb_ms_classify4,R.id.rb_ms_classify5,
+            R.id.rb_ms_classify6,R.id.rb_ms_classify7,R.id.rb_ms_classify8})
     private void onClicks(View view) {
         switch (view.getId()) {
             case R.id.rb_ms_sort:
@@ -338,40 +391,68 @@ public class ShopActivity extends SampleActivity {
                 rb_sort3.setChecked(true);
                 break;
             case R.id.rb_ms_classify_1:
-                classify(1);
+                classifyl(1);
                 break;
             case R.id.rb_ms_classify_2:
-                classify(2);
+                classifyl(2);
                 break;
             case R.id.rb_ms_classify_3:
-                classify(3);
+                classifyl(3);
                 break;
             case R.id.rb_ms_classify_4:
-                classify(4);
+                classifyl(4);
                 break;
             case R.id.rb_ms_classify_5:
-                classify(5);
+                classifyl(5);
                 break;
             case R.id.rb_ms_classify_6:
-                classify(6);
+                classifyl(6);
                 break;
             case R.id.rb_ms_classify_7:
-                classify(7);
+                classifyl(7);
                 break;
             case R.id.rb_ms_classify_8:
-                classify(8);
+                classifyl(8);
                 break;
             case R.id.add_usedgoodslayout:
-                hideSoftinputyer();
+                hideSoftinputyer(addgoodsLayout);
+                break;
+            case R.id.rb_ms_classify1:
+                classifyr(1);
+                break;
+            case R.id.rb_ms_classify2:
+                classifyr(2);
+                break;
+            case R.id.rb_ms_classify3:
+                classifyr(3);
+                break;
+            case R.id.rb_ms_classify4:
+                classifyr(4);
+                break;
+            case R.id.rb_ms_classify5:
+                classifyr(5);
+                break;
+            case R.id.rb_ms_classify6:
+                classifyr(6);
+                break;
+            case R.id.rb_ms_classify7:
+                classifyr(7);
+                break;
+            case R.id.rb_ms_classify8:
+                classifyr(8);
                 break;
         }
     }
 
     //隐藏软键盘的方法
-    private void hideSoftinputyer(){
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+    private void hideSoftinputyer(View view) {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        Log.i("windowToken",view.getWindowToken().toString());
+        imm.hideSoftInputFromWindow(view.getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
+//        if (imm.isAcceptingText())
+//            imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
     }
+
     View.OnClickListener ocl = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -380,7 +461,7 @@ public class ShopActivity extends SampleActivity {
                     finish();
                     break;
                 case R.id.img_ms_add2:
-                    hideSoftinputyer();
+                    hideSoftinputyer(yourGoodspicture);
                     showWindow();
                     break;
                 case R.id.sure_to_postgoods://确定上传
@@ -472,6 +553,7 @@ public class ShopActivity extends SampleActivity {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
@@ -622,7 +704,7 @@ public class ShopActivity extends SampleActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         } finally {
-            if(os!=null){
+            if (os != null) {
                 try {
                     os.close();
                 } catch (IOException e) {
@@ -699,7 +781,7 @@ public class ShopActivity extends SampleActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         } finally {
-            if(os!=null){
+            if (os != null) {
                 try {
                     os.close();
                 } catch (IOException e) {
@@ -771,9 +853,10 @@ public class ShopActivity extends SampleActivity {
             return true;
         }
     });
-    private void clearData(){
+
+    private void clearData() {
         //清空数据
-        for(int i=0;i<edittext.length;i++){
+        for (int i = 0; i < edittext.length; i++) {
             edittext[i].setText("");
         }
         yourGoodspicture.setImageResource(R.drawable.btn_add_img);
