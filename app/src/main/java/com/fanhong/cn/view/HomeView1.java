@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,19 +16,16 @@ import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
 
 import com.fanhong.cn.AgentWebActivity;
 import com.fanhong.cn.CommStoreDetailsActivity;
+import com.fanhong.cn.FaceRecognitionIntroductionActivity;
 import com.fanhong.cn.GardenSelecterActivity;
 import com.fanhong.cn.HomeNewsALLActivity;
 import com.fanhong.cn.LoginActivity;
@@ -150,7 +146,14 @@ public class HomeView1 extends BaseFragment {
                 Intent intent = new Intent();
                 switch (position){
                     case 0:
+                        intent.setClass(HomeView1.this.getActivity(),FaceRecognitionIntroductionActivity.class);
+                        intent.putExtra("position",0);
+                        startActivity(intent);
+                        break;
                     case 1:
+                        intent.setClass(HomeView1.this.getActivity(),FaceRecognitionIntroductionActivity.class);
+                        intent.putExtra("position",1);
+                        startActivity(intent);
                         break;
                     case 2:
                         intent.setClass(HomeView1.this.getActivity(),StoreActivity.class);
