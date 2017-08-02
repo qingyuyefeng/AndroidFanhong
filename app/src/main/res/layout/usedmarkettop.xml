@@ -307,8 +307,8 @@
                         android:layout_height="70px"
                         android:background="@color/white"
                         android:gravity="center_vertical"
-                        android:hint="发布物品的名字(5个字以内)"
-                        android:maxLength="5"
+                        android:hint="发布物品的名字(8个字以内)"
+                        android:maxLength="8"
                         android:textColor="@color/textblack"
                         android:textColorHint="@color/texthint"
                         android:textSize="26px" />

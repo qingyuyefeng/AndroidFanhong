@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,16 +16,12 @@ import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
 
 import com.fanhong.cn.AgentWebActivity;
 import com.fanhong.cn.CommStoreDetailsActivity;
@@ -73,21 +68,21 @@ public class HomeView1 extends BaseFragment {
     private View homeView1;
     private SharedPreferences mSharedPref;
     private SampleConnection mSample;
-    private ImageView chooseCell;
-//    private ViewFlipper viewFlipper;
+    private ImageView chooseCell,noEsgoods;
+    //    private ViewFlipper viewFlipper;
 //    private GestureDetector gestureDetector;
 //    private RadioGroup radioGroup;
 //    private List<RadioButton> btnLists = new ArrayList<>();
     private Banner banner;
     private BannerAdapter bannerAdapter;
     private List<BannerModel> bannerModelList = new ArrayList<>();
-    private TextView moreNotice, showCellName, moreEsgoods,moreNews;
+    private TextView moreNotice, showCellName, moreEsgoods, moreNews;
     private TextView[] textViews = new TextView[4];
     private RelativeLayout repairLayout, kuaidiLayout, jiazhengLayout, storeLayout, daibanLayout;
 
     private List<String> strings = new ArrayList<>();
 
-    private LinearLayout myGallery,homenewsLayout;
+    private LinearLayout myGallery, homenewsLayout;
     private LayoutInflater inflater;
 
     private ListView newsListview;
@@ -103,7 +98,7 @@ public class HomeView1 extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         homeView1 = inflater.inflate(R.layout.fragment_home, null);
         getGonggaoData();
-        new Thread(){
+        new Thread() {
             @Override
             public void run() {
                 getnewsandlife();
@@ -131,29 +126,29 @@ public class HomeView1 extends BaseFragment {
         banner = (Banner) view.findViewById(R.id.home_banner);
         bannerAdapter = new BannerAdapter<BannerModel>(bannerModelList) {
 
-           @Override
-           protected void bindTips(TextView tv, BannerModel bannerModel) {
+            @Override
+            protected void bindTips(TextView tv, BannerModel bannerModel) {
 
-           }
+            }
 
-           @Override
-           public void bindImage(ImageView imageView, BannerModel bannerModel) {
-               ImageOptions options = new ImageOptions.Builder().setCrop(true).setPlaceholderScaleType(ImageView.ScaleType.FIT_XY).setUseMemCache(true).build();
-               x.image().bind(imageView,bannerModel.getImageUrl(),options);
-           }
-       };
+            @Override
+            public void bindImage(ImageView imageView, BannerModel bannerModel) {
+                ImageOptions options = new ImageOptions.Builder().setCrop(true).setPlaceholderScaleType(ImageView.ScaleType.FIT_XY).setUseMemCache(true).build();
+                x.image().bind(imageView, bannerModel.getImageUrl(), options);
+            }
+        };
         banner.setBannerAdapter(bannerAdapter);
         getBannerImg();
         banner.setOnBannerItemClickListener(new Banner.OnBannerItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent();
-                switch (position){
+                switch (position) {
                     case 0:
                     case 1:
                         break;
                     case 2:
-                        intent.setClass(HomeView1.this.getActivity(),StoreActivity.class);
+                        intent.setClass(HomeView1.this.getActivity(), StoreActivity.class);
                         startActivity(intent);
                         break;
                 }
@@ -241,68 +236,66 @@ public class HomeView1 extends BaseFragment {
         daibanLayout.setOnClickListener(ocl);
 
         myGallery = (LinearLayout) view.findViewById(R.id.my_gallery);
+        noEsgoods = (ImageView) view.findViewById(R.id.iv_noesgoods);
         homenewsLayout = (LinearLayout) view.findViewById(R.id.home_news_layout);
         inflater = LayoutInflater.from(getActivity());
     }
 
-    private void getBannerImg(){
+    private void getBannerImg() {
         bannerModelList.add(new BannerModel().setImageUrl("assets://images/title3.jpg"));
         bannerModelList.add(new BannerModel().setImageUrl("assets://images/banner.jpg"));
         bannerModelList.add(new BannerModel().setImageUrl("assets://images/top_banner.jpg"));
         banner.notifyDataHasChanged();
     }
 
-    private void getGonggaoData(){
-        Map<String,Object> map = new HashMap<>();
-        map.put("cmd",43);
-        if(mSample == null){
-            mSample = new SampleConnection(getBaseActivity(),43);
+    private void getGonggaoData() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("cmd", 43);
+        if (mSample == null) {
+            mSample = new SampleConnection(getBaseActivity(), 43);
         }
         mSample.connectService1(map);
     }
+
     private void setGoodsData(String str) {
         try {
             JSONObject jsonObject = new JSONObject(str);
             JSONArray jsonArray = jsonObject.optJSONArray("data");
-            if (jsonArray.length() == 0) {
-                myGallery.setBackgroundResource(R.drawable.nodatas);
-            } else {
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject object = jsonArray.getJSONObject(i);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject object = jsonArray.getJSONObject(i);
 
-                    final JSONObject object1 = object;
-                    View view = inflater.inflate(R.layout.myhorizontallistview_item, null);
-                    view.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(HomeView1.this.getActivity(), CommStoreDetailsActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("title", (object1.optString("name")));
-                            bundle.putString("img", (object1.optString("tupian")));
-                            bundle.putString("detail", object1.optString("ms"));
-                            bundle.putString("user", (object1.optString("user")));
-                            bundle.putString("phone", (object1.optString("dh")));
-                            bundle.putString("price", object1.optString("jg"));
-                            bundle.putString("id", (object1.optInt("id") + ""));
-                            intent.putExtras(bundle);
-                            startActivity(intent);
-                        }
-                    });
-                    ImageView imageView = (ImageView) view.findViewById(R.id.myitempic);
-                    ImageOptions options = new ImageOptions.Builder().setLoadingDrawableId(R.mipmap.pictureloading)
-                            .setFailureDrawableId(R.mipmap.picturefailedloading).setUseMemCache(true).build();
-                    x.image().bind(imageView, object.optString("tupian", ""), options);
-                    TextView textView = (TextView) view.findViewById(R.id.myitemtext);
-                    textView.setText(object.optString("name", ""));
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(getWidth() / 3 - 20, -1);
-                    params.setMargins(10, 0, 10, 0);
-                    view.setLayoutParams(params);
-                    LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(getWidth() / 3 - 80,
-                            getWidth() / 3 - 80);
-                    params1.setMargins(0, 20, 0, 0);
-                    imageView.setLayoutParams(params1);
-                    myGallery.addView(view);
-                }
+                final JSONObject object1 = object;
+                View view = inflater.inflate(R.layout.myhorizontallistview_item, null);
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(HomeView1.this.getActivity(), CommStoreDetailsActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("title", (object1.optString("name")));
+                        bundle.putString("img", (object1.optString("tupian")));
+                        bundle.putString("detail", object1.optString("ms"));
+                        bundle.putString("user", (object1.optString("user")));
+                        bundle.putString("phone", (object1.optString("dh")));
+                        bundle.putString("price", object1.optString("jg"));
+                        bundle.putString("id", (object1.optInt("id") + ""));
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                });
+                ImageView imageView = (ImageView) view.findViewById(R.id.myitempic);
+                ImageOptions options = new ImageOptions.Builder().setLoadingDrawableId(R.mipmap.pictureloading)
+                        .setFailureDrawableId(R.mipmap.picturefailedloading).setUseMemCache(true).build();
+                x.image().bind(imageView, object.optString("tupian", ""), options);
+                TextView textView = (TextView) view.findViewById(R.id.myitemtext);
+                textView.setText(object.optString("name", ""));
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(getWidth() / 3 - 20, -1);
+                params.setMargins(10, 5, 10, 5);
+                view.setLayoutParams(params);
+                LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(getWidth() / 3 - 80,
+                        getWidth() / 3 - 80);
+                params1.setMargins(0, 20, 0, 5);
+                imageView.setLayoutParams(params1);
+                myGallery.addView(view);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -317,6 +310,7 @@ public class HomeView1 extends BaseFragment {
 
     // 移动效果
     int i = 0;
+
     public void translateImpl(final TextView tv) {
         AlphaAnimation alphaAnimation = new AlphaAnimation(1.0f, 0.1f);
         //次数重复中停留的时间
@@ -455,7 +449,21 @@ public class HomeView1 extends BaseFragment {
                 break;
             case 33:
                 myGallery.removeAllViews();
-                setGoodsData(str);
+                try {
+                    JSONObject jsonObject = new JSONObject(str);
+                    int cw = jsonObject.optInt("cw");
+                    if (cw == 0) {
+                        setGoodsData(str);
+                    } else {
+                        noEsgoods.setVisibility(View.VISIBLE);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case 333://接口数据获取失败（比如未联网）
+                noEsgoods.setImageResource(R.drawable.datafailed);
+                noEsgoods.setVisibility(View.VISIBLE);
                 break;
             case 49:
                 newsList.clear();
@@ -466,10 +474,10 @@ public class HomeView1 extends BaseFragment {
             case 43:
                 try {
                     JSONObject jsonObject = new JSONObject(str);
-                    String string = jsonObject.optString("data").replace("[","").replace("]","").replace("\"","");
+                    String string = jsonObject.optString("data").replace("[", "").replace("]", "").replace("\"", "");
                     String[] strs = string.split(",");
-                    if(strs.length>0){
-                        for(int i=0;i<strs.length;i++){
+                    if (strs.length > 0) {
+                        for (int i = 0; i < strs.length; i++) {
                             strings.add(strs[i]);
                         }
                         moreNotice.setText(strings.get(0));
@@ -488,10 +496,10 @@ public class HomeView1 extends BaseFragment {
         try {
             JSONObject jsonObject = new JSONObject(str);
             JSONArray jsonArray = jsonObject.optJSONArray("data1");
-            if(jsonArray.length() == 0){
+            if (jsonArray.length() == 0) {
                 homenewsLayout.setBackgroundResource(R.drawable.nodatas);
-            }else {
-                for(int i=0;i<jsonArray.length();i++){
+            } else {
+                for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject object = jsonArray.getJSONObject(i);
                     JSONArray logos = object.getJSONArray("logo");
                     String logo = (String) logos.get(0);
@@ -509,27 +517,28 @@ public class HomeView1 extends BaseFragment {
             e.printStackTrace();
         }
     }
-    private void setlifeList(String str){
+
+    private void setlifeList(String str) {
         try {
             JSONObject jsonObject = new JSONObject(str);
             JSONArray jsonArray = jsonObject.optJSONArray("data2");
-            for(int i = 0;i < jsonArray.length();i++){
+            for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject object = jsonArray.getJSONObject(i);
                 Homelife homelife = new Homelife();
                 JSONArray logos = object.getJSONArray("logo");
                 List<String> list = new ArrayList<>();
-                for(int j=0;j<logos.length();j++){
-                    list.add((String)logos.get(j));
+                for (int j = 0; j < logos.length(); j++) {
+                    list.add((String) logos.get(j));
                 }
 //                Log.i("xq","list==>"+list.toString());
                 homelife.setStrings(list);
-                if(list.size() == 3){
+                if (list.size() == 3) {
                     homelife.setType(0);
                     homelife.setTitle(object.optString("bt"));
                     homelife.setPlace(object.optString("zz"));
                     homelife.setTime(object.optString("time"));
                     homelife.setUrl(object.optString("url"));
-                }else if(list.size() == 1){
+                } else if (list.size() == 1) {
                     homelife.setType(1);
                     homelife.setTitle(object.optString("bt"));
                     homelife.setPlace(object.optString("zz"));
@@ -583,12 +592,12 @@ public class HomeView1 extends BaseFragment {
                 String url = newsList.get(position).getNewsUrl();
 //                Intent intent = new Intent(HomeView1.this.getActivity(), WebViewActivity.class);
                 Intent intent = new Intent(HomeView1.this.getActivity(), AgentWebActivity.class);
-                intent.putExtra("url",url);
-                startActivityForResult(intent,1);
+                intent.putExtra("url", url);
+                startActivityForResult(intent, 1);
             }
         });
 
-        lifeAdapter = new HomelifeAdapter(getActivity(),lifeList);
+        lifeAdapter = new HomelifeAdapter(getActivity(), lifeList);
         lifeListview.setAdapter(lifeAdapter);
         lifeListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -596,8 +605,8 @@ public class HomeView1 extends BaseFragment {
                 String url = lifeList.get(position).getUrl();
 //                Intent intent = new Intent(HomeView1.this.getActivity(), WebViewActivity.class);
                 Intent intent = new Intent(HomeView1.this.getActivity(), AgentWebActivity.class);
-                intent.putExtra("url",url);
-                startActivityForResult(intent,1);
+                intent.putExtra("url", url);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -621,7 +630,8 @@ public class HomeView1 extends BaseFragment {
         }
         mSample.connectService1(map);
     }
-    private void getnewsandlife(){
+
+    private void getnewsandlife() {
         String url = SampleConnection.url;
         OutputStream os = null;
         try {
@@ -630,32 +640,32 @@ public class HomeView1 extends BaseFragment {
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setConnectTimeout(5000);
             httpURLConnection.setReadTimeout(5000);
-            String content = "cmd="+49;
+            String content = "cmd=" + 49;
             os = httpURLConnection.getOutputStream();
             os.write(content.getBytes());
             os.flush();
             int res = httpURLConnection.getResponseCode();
-            if(res == 200){
-                BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream(),"utf-8"));
+            if (res == 200) {
+                BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream(), "utf-8"));
                 StringBuffer sb = new StringBuffer();
                 String s;
-                while ((s = br.readLine())!=null){
+                while ((s = br.readLine()) != null) {
                     sb.append(s);
                 }
-                setFragment(49,sb.toString());
+                setFragment(49, sb.toString());
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
-           if(os!=null){
-               try {
-                   os.close();
-               } catch (IOException e) {
-                   e.printStackTrace();
-               }
-           }
+        } finally {
+            if (os != null) {
+                try {
+                    os.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }
