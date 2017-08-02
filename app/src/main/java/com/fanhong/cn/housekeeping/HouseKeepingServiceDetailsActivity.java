@@ -62,8 +62,8 @@ public class HouseKeepingServiceDetailsActivity extends Activity {
         x.image().bind(img_details, "assets://images/housekeeping_details.jpg", options, new Callback.CommonCallback<Drawable>() {
             @Override
             public void onSuccess(Drawable drawable) {
-                Log.i("bindximage", "drawable:width:" + drawable.getMinimumWidth() + "\theight:" + drawable.getMinimumHeight() + "\n" +
-                        "ImageView:Width:" + img_details.getWidth() + "Height:" + img_details.getHeight());
+//                Log.i("bindximage", "drawable:width:" + drawable.getMinimumWidth() + "\theight:" + drawable.getMinimumHeight() + "\n" +
+//                        "ImageView:Width:" + img_details.getWidth() + "Height:" + img_details.getHeight());
                 DisplayMetrics display = getResources().getDisplayMetrics();
                 int width = display.widthPixels;
                 width = width > img_details.getWidth() ? width : img_details.getWidth();
@@ -72,8 +72,8 @@ public class HouseKeepingServiceDetailsActivity extends Activity {
                 param.bottomMargin = 20 * width / 720;
                 img_details.setLayoutParams(param);
                 img_details.setImageDrawable(drawable);
-                Log.i("bindximage", "Parent:width:" + width + "\theight:" + height + "\n" +
-                        "ImageView:Width:" + img_details.getWidth() + "Height:" + img_details.getHeight());
+//                Log.i("bindximage", "Parent:width:" + width + "\theight:" + height + "\n" +
+//                        "ImageView:Width:" + img_details.getWidth() + "Height:" + img_details.getHeight());
             }
 
             @Override

@@ -152,6 +152,10 @@
             android:name=".bluetooth.ClientActivity2"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".FaceRecognitionIntroductionActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity
             android:name=".update"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />

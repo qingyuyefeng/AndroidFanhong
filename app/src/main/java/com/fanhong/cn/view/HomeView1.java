@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.fanhong.cn.AgentWebActivity;
 import com.fanhong.cn.CommStoreDetailsActivity;
+import com.fanhong.cn.FaceRecognitionIntroductionActivity;
 import com.fanhong.cn.GardenSelecterActivity;
 import com.fanhong.cn.HomeNewsALLActivity;
 import com.fanhong.cn.LoginActivity;
@@ -145,7 +146,14 @@ public class HomeView1 extends BaseFragment {
                 Intent intent = new Intent();
                 switch (position) {
                     case 0:
+                        intent.setClass(HomeView1.this.getActivity(),FaceRecognitionIntroductionActivity.class);
+                        intent.putExtra("position",0);
+                        startActivity(intent);
+                        break;
                     case 1:
+                        intent.setClass(HomeView1.this.getActivity(),FaceRecognitionIntroductionActivity.class);
+                        intent.putExtra("position",1);
+                        startActivity(intent);
                         break;
                     case 2:
                         intent.setClass(HomeView1.this.getActivity(), StoreActivity.class);
