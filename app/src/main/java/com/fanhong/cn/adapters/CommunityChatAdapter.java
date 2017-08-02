@@ -2,6 +2,9 @@ package com.fanhong.cn.adapters;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +13,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fanhong.cn.App;
+import com.fanhong.cn.ImageLoaderPicture;
 import com.fanhong.cn.R;
+import com.fanhong.cn.SampleConnection;
 import com.fanhong.cn.bean.CommunityMessageBean;
+import com.fanhong.cn.view.CircleImg;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 import com.zhy.autolayout.utils.AutoUtils;
 
 import org.xutils.image.ImageOptions;
@@ -21,6 +29,9 @@ import org.xutils.x;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import static com.fanhong.cn.R.id.imageView;
+import static com.fanhong.cn.SampleConnection.url;
 
 
 /**
@@ -131,7 +142,18 @@ public class CommunityChatAdapter extends BaseAdapter {
                 }
                 holderRight.tv_user.setText(bean.getUserName());
                 holderRight.tv_msg.setText(bean.getMessage());
-                x.image().bind(holderRight.img_head, bean.getHeadUrl(), options);
+//                Glide.with(context).load(bean.getHeadUrl()).asBitmap().centerCrop().into(new BitmapImageViewTarget(holderRight.img_head) {
+//                    @Override
+//                    protected void setResource(Bitmap resource) {
+//                        RoundedBitmapDrawable circularBitmapDrawable =
+//                                RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+//                        circularBitmapDrawable.setCircular(true);
+//                        holderRight.img_head.setImageDrawable(circularBitmapDrawable);
+//                    }
+//                });
+
+//                x.image().bind(holderRight.img_head, bean.getHeadUrl(), options);
+                ImageLoader.getInstance().displayImage(SampleConnection.LOGO_URL, holderRight.img_head,new ImageLoaderPicture(context).getOptions(),new SimpleImageLoadingListener());
             default:
                 break;
         }
@@ -167,6 +189,6 @@ public class CommunityChatAdapter extends BaseAdapter {
         @ViewInject(R.id.tv_chat_msg_right)
         TextView tv_msg;
         @ViewInject(R.id.img_chat_head_right)
-        ImageView img_head;
+        CircleImg img_head;
     }
 }
