@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:clipToPadding="true"
@@ -35,6 +35,7 @@
                 android:ellipsize="end"
                 android:gravity="center"
                 android:paddingLeft="-50px"
+                android:textSize="38px"
                 android:textColor="@color/white"/>
         </com.zhy.autolayout.AutoLinearLayout>
 
@@ -88,6 +89,6 @@
 
             </RelativeLayout>
         </LinearLayout>
-    </LinearLayout>
+    </com.zhy.autolayout.AutoLinearLayout>
 
-</RelativeLayout>
+</com.zhy.autolayout.AutoRelativeLayout>

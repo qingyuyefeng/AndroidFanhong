@@ -32,17 +32,19 @@ import com.fanhong.cn.AgentWebActivity;
 import com.fanhong.cn.CommStoreDetailsActivity;
 import com.fanhong.cn.GardenSelecterActivity;
 import com.fanhong.cn.HomeNewsALLActivity;
-import com.fanhong.cn.housekeeping.HouseKeepingActivity;
 import com.fanhong.cn.LoginActivity;
 import com.fanhong.cn.R;
 import com.fanhong.cn.SampleConnection;
 import com.fanhong.cn.StoreActivity;
-import com.fanhong.cn.WebViewActivity;
 import com.fanhong.cn.adapters.HomelifeAdapter;
 import com.fanhong.cn.adapters.HomenewsAdapter;
+import com.fanhong.cn.housekeeping.HouseKeepingActivity;
+import com.fanhong.cn.models.BannerModel;
 import com.fanhong.cn.models.HomeNews;
 import com.fanhong.cn.models.Homelife;
 import com.fanhong.cn.usedmarket.ShopActivity;
+import com.sivin.Banner;
+import com.sivin.BannerAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -72,11 +74,13 @@ public class HomeView1 extends BaseFragment {
     private SharedPreferences mSharedPref;
     private SampleConnection mSample;
     private ImageView chooseCell;
-    private ViewFlipper viewFlipper;
-    private GestureDetector gestureDetector;
-    private RadioGroup radioGroup;
-    private List<RadioButton> btnLists = new ArrayList<>();
-    private List<Integer> images = new ArrayList<>();
+//    private ViewFlipper viewFlipper;
+//    private GestureDetector gestureDetector;
+//    private RadioGroup radioGroup;
+//    private List<RadioButton> btnLists = new ArrayList<>();
+    private Banner banner;
+    private BannerAdapter bannerAdapter;
+    private List<BannerModel> bannerModelList = new ArrayList<>();
     private TextView moreNotice, showCellName, moreEsgoods,moreNews;
     private TextView[] textViews = new TextView[4];
     private RelativeLayout repairLayout, kuaidiLayout, jiazhengLayout, storeLayout, daibanLayout;
@@ -122,51 +126,97 @@ public class HomeView1 extends BaseFragment {
 
         moreNotice = (TextView) view.findViewById(R.id.show_notice);
         moreNotice.setOnClickListener(ocl);
-        viewFlipper = (ViewFlipper) view.findViewById(R.id.my_flipper);
-        radioGroup = (RadioGroup) view.findViewById(R.id.radio_group);
+//        viewFlipper = (ViewFlipper) view.findViewById(R.id.my_flipper);
+//        radioGroup = (RadioGroup) view.findViewById(R.id.radio_group);
+        banner = (Banner) view.findViewById(R.id.home_banner);
+        bannerAdapter = new BannerAdapter<BannerModel>(bannerModelList) {
 
-        images.add(R.drawable.title3);
-        images.add(R.drawable.banner);
-        images.add(R.drawable.top_banner);
+           @Override
+           protected void bindTips(TextView tv, BannerModel bannerModel) {
+
+           }
+
+           @Override
+           public void bindImage(ImageView imageView, BannerModel bannerModel) {
+               ImageOptions options = new ImageOptions.Builder().setCrop(true).setPlaceholderScaleType(ImageView.ScaleType.FIT_XY).setUseMemCache(true).build();
+               x.image().bind(imageView,bannerModel.getImageUrl(),options);
+           }
+       };
+        banner.setBannerAdapter(bannerAdapter);
+        getBannerImg();
+        banner.setOnBannerItemClickListener(new Banner.OnBannerItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Intent intent = new Intent();
+                switch (position){
+                    case 0:
+                    case 1:
+                        break;
+                    case 2:
+                        intent.setClass(HomeView1.this.getActivity(),StoreActivity.class);
+                        startActivity(intent);
+                        break;
+                }
+            }
+        });
+
+//        images.add(R.drawable.title3);
+//        images.add(R.drawable.banner);
+//        images.add(R.drawable.top_banner);
 
         textViews[0] = (TextView) view.findViewById(R.id.textView0);
         textViews[1] = (TextView) view.findViewById(R.id.textView1);
         textViews[2] = (TextView) view.findViewById(R.id.textView2);
         textViews[3] = (TextView) view.findViewById(R.id.textView3);
-        RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(14, 14);
-        layoutParams.setMargins(12, 0, 12, 0);
-        for (int i = 0; i < images.size(); i++) {
-            ImageView imageView = new ImageView(getActivity());
-            imageView.setLayoutParams(new FrameLayout.LayoutParams(-1, -1));
-            imageView.setImageResource(images.get(i));
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            viewFlipper.addView(imageView);
-
-            RadioButton radioButton = new RadioButton(getActivity());
-            radioButton.setLayoutParams(layoutParams);
-            radioButton.setId(i);
-            radioButton.setButtonDrawable(null);
-            radioButton.setBackgroundResource(R.drawable.ciecle_radiobutton);
-            btnLists.add(radioButton);
-            radioGroup.addView(radioButton);
-        }
-        viewFlipper.setFlipInterval(3000); //设置切换间隔时间
-        viewFlipper.startFlipping(); //开始切换
-        viewFlipper.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom,
-                                       int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                btnLists.get(viewFlipper.getDisplayedChild()).setChecked(true);
-            }
-        });
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                viewFlipper.stopFlipping();  //停止切换
-                viewFlipper.setDisplayedChild(checkedId);
-                viewFlipper.startFlipping();  //开始切换
-            }
-        });
+//        RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(14, 14);
+//        layoutParams.setMargins(12, 0, 12, 0);
+//        for (int i = 0; i < images.size(); i++) {
+//            ImageView imageView = new ImageView(getActivity());
+//            imageView.setLayoutParams(new FrameLayout.LayoutParams(-1, -1));
+//            imageView.setImageResource(images.get(i));
+//            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+//            imageView.setId(250+i);
+//            imageView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    switch (v.getId()){
+//                        case 250:
+//                            break;
+//                        case 251:
+//                            break;
+//                        case 252:
+//                            startActivity(new Intent(HomeView1.this.getActivity(),StoreActivity.class));
+//                            break;
+//                    }
+//                }
+//            });
+//            viewFlipper.addView(imageView);
+//
+//            RadioButton radioButton = new RadioButton(getActivity());
+//            radioButton.setLayoutParams(layoutParams);
+//            radioButton.setId(i);
+//            radioButton.setButtonDrawable(null);
+//            radioButton.setBackgroundResource(R.drawable.ciecle_radiobutton);
+//            btnLists.add(radioButton);
+//            radioGroup.addView(radioButton);
+//        }
+//        viewFlipper.setFlipInterval(3000); //设置切换间隔时间
+//        viewFlipper.startFlipping(); //开始切换
+//        viewFlipper.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+//            @Override
+//            public void onLayoutChange(View v, int left, int top, int right, int bottom,
+//                                       int oldLeft, int oldTop, int oldRight, int oldBottom) {
+//                btnLists.get(viewFlipper.getDisplayedChild()).setChecked(true);
+//            }
+//        });
+//        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                viewFlipper.stopFlipping();  //停止切换
+//                viewFlipper.setDisplayedChild(checkedId);
+//                viewFlipper.startFlipping();  //开始切换
+//            }
+//        });
 
         for (int i = 0; i < textViews.length; i++) {
             textViews[i].setOnClickListener(ocl);
@@ -177,10 +227,6 @@ public class HomeView1 extends BaseFragment {
 
         moreNews = (TextView) view.findViewById(R.id.more_news);
         moreNews.setOnClickListener(ocl);
-
-
-//        jchtListView = (ListView) view.findViewById(R.id.jcht_listview);
-
 
 
         repairLayout = (RelativeLayout) view.findViewById(R.id.repair_layout);
@@ -197,6 +243,13 @@ public class HomeView1 extends BaseFragment {
         myGallery = (LinearLayout) view.findViewById(R.id.my_gallery);
         homenewsLayout = (LinearLayout) view.findViewById(R.id.home_news_layout);
         inflater = LayoutInflater.from(getActivity());
+    }
+
+    private void getBannerImg(){
+        bannerModelList.add(new BannerModel().setImageUrl("assets://images/title3.jpg"));
+        bannerModelList.add(new BannerModel().setImageUrl("assets://images/banner.jpg"));
+        bannerModelList.add(new BannerModel().setImageUrl("assets://images/top_banner.jpg"));
+        banner.notifyDataHasChanged();
     }
 
     private void getGonggaoData(){

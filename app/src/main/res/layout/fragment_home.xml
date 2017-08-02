@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/homeview_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
 
-    <LinearLayout
+    <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="100px"
         android:background="@drawable/background_title"
         android:orientation="horizontal">
 
@@ -27,8 +28,8 @@
             android:gravity="center"
             android:paddingLeft="-30dp"
             android:text="这里显示小区名字"
-            android:textSize="20sp" />
-    </LinearLayout>
+            android:textSize="40px" />
+    </com.zhy.autolayout.AutoLinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -73,23 +74,31 @@
                 android:layout_marginRight="4dp"
                 android:background="@color/bg1" />
 
-            <FrameLayout
+            <!--<FrameLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+
+                <!--<ViewFlipper-->
+                    <!--android:id="@+id/my_flipper"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="190dp" />-->
+
+                <!--<RadioGroup-->
+                    <!--android:id="@+id/radio_group"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center_horizontal"-->
+                    <!--android:layout_marginTop="170dp"-->
+                    <!--android:orientation="horizontal"></RadioGroup>-->
+            <!--</FrameLayout>-->
+
+            <com.sivin.Banner
+                android:id="@+id/home_banner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="190dp"
+                app:banner_pointGravity="center_horizontal">
 
-                <ViewFlipper
-                    android:id="@+id/my_flipper"
-                    android:layout_width="match_parent"
-                    android:layout_height="190dp" />
-
-                <RadioGroup
-                    android:id="@+id/radio_group"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="170dp"
-                    android:orientation="horizontal"></RadioGroup>
-            </FrameLayout>
+            </com.sivin.Banner>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -487,8 +496,9 @@
                 <LinearLayout
                     android:id="@+id/my_gallery"
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:orientation="horizontal">
+                    android:layout_height="125dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
 
                 </LinearLayout>
             </HorizontalScrollView>
@@ -550,7 +560,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="3dp"
-                    android:divider="@color/xuxian"
+                    android:divider="@color/lightdivider"
                     android:dividerHeight="1dp" />
             </LinearLayout>
 
@@ -591,10 +601,10 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="2dp"
-                    android:divider="@color/xuxian"
+                    android:divider="@color/lightdivider"
                     android:dividerHeight="1dp" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>
