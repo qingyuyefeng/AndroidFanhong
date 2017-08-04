@@ -9,7 +9,7 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.fanhong.cn.R;
-import com.fanhong.cn.bean.SortModel;
+import com.fanhong.cn.models.SortModel;
 
 import java.util.List;
 

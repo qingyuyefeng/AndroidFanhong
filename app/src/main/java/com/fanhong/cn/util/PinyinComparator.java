@@ -1,6 +1,6 @@
 package com.fanhong.cn.util;
 
-import com.fanhong.cn.bean.SortModel;
+import com.fanhong.cn.models.SortModel;
 
 import java.util.Comparator;
 

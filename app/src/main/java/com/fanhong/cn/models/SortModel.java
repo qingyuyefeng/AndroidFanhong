@@ -1,4 +1,4 @@
-package com.fanhong.cn.bean;
+package com.fanhong.cn.models;
 
 public class SortModel {
 

@@ -5,8 +5,28 @@ package com.fanhong.cn.shippingaddress;
  */
 
 public class AddressModel {
-    String name,phone,address;
+    String name;
+    String phone;
+    String address;
+    String cellId;
+    String louId;
     int isDefault,adrid;
+
+    public String getCellId() {
+        return cellId;
+    }
+
+    public void setCellId(String cellId) {
+        this.cellId = cellId;
+    }
+
+    public String getLouId() {
+        return louId;
+    }
+
+    public void setLouId(String louId) {
+        this.louId = louId;
+    }
 
     public int getAdrid() {
         return adrid;

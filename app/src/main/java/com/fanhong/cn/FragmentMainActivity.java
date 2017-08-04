@@ -401,7 +401,6 @@ public class FragmentMainActivity extends SampleActivity {
                 Toast.makeText(this, "门禁钥匙数据异常", Toast.LENGTH_SHORT).show();
             }
         } else if (cmd == 34) {//二手卖品展示
-            Log.i("xq","二手data===>"+json.toString());
             mTab01.setFragment(33, json.toString());
 //        }else if(cmd == 50){//主页新闻和品味生活展示
 //            mTab01.setFragment(49,json.toString());

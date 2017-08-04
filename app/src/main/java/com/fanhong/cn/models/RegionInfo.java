@@ -1,11 +1,10 @@
-package com.fanhong.cn.bean;
+package com.fanhong.cn.models;
 
 public class RegionInfo {
 	
-	private String id;
-	private String property;
-	private String name;
-	private int type;
+	private String id; //小区id
+	private String property; //所属物业id
+	private String name; //小区名字
 	public RegionInfo() {
 		super();
 	}
@@ -35,12 +34,12 @@ public class RegionInfo {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getType() {
-		return type;
-	}
-	public void setType(int type) {
-		this.type = type;
-	}
+//	public int getType() {
+//		return type;
+//	}
+//	public void setType(int type) {
+//		this.type = type;
+//	}
 	
 	
 

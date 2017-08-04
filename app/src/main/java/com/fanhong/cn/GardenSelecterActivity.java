@@ -9,7 +9,6 @@ import android.os.IBinder;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -20,8 +19,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.fanhong.cn.adapters.SortAdapter;
-import com.fanhong.cn.bean.RegionInfo;
-import com.fanhong.cn.bean.SortModel;
+import com.fanhong.cn.models.RegionInfo;
+import com.fanhong.cn.models.SortModel;
 import com.fanhong.cn.util.CharacterParser;
 import com.fanhong.cn.util.ClearEditText;
 import com.fanhong.cn.util.PinyinComparator;

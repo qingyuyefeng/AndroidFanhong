@@ -4,6 +4,8 @@
     android:id="@+id/homeview_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -485,17 +487,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginBottom="2dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="5dp"
                 android:background="@color/xuxian" />
 
             <com.zhy.autolayout.AutoFrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="125dp">
+                android:layout_height="130dp">
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scrollbars="none">
+                    android:scrollbars="none"
+                    android:layout_marginTop="10px">
 
                     <LinearLayout
                         android:id="@+id/my_gallery"
@@ -518,7 +521,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="5dp"
                 android:background="@color/bg1" />
 
             <LinearLayout
