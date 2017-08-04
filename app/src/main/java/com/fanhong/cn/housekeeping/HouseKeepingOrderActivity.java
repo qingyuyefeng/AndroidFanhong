@@ -2,7 +2,10 @@ package com.fanhong.cn.housekeeping;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fanhong.cn.R;
 import com.fanhong.cn.listviews.SpinerPopWindow;
@@ -31,6 +35,8 @@ import org.xutils.x;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import static com.fanhong.cn.R.id.dialog;
 
 
 /**
@@ -61,11 +67,13 @@ public class HouseKeepingOrderActivity extends Activity {
     @ViewInject(R.id.sb_hk_order_day)
     CheckBox sb_hk_order_day;
 
-    private String service_title,service_price;
-    private boolean isinput = true;
-    private int year, month, day, year0, month0, day0;
+    private String service_title, service_price, phoneNum;//商品名称、预设价格、电话号码
+    private boolean isinput = true;//拦截非用户输入的更改，防止死锁
+    private int year, month, day, year0, month0, day0, payby = -1;//value用于保存选择日期，value0保存起始日期（明天），payby记录支付方式
     private static List<Integer> years, months, days;
     private SpinerPopWindow<Integer> popYears, popMonths, popDays;
+
+    private final static int ALIPAY = 0, WEICHATPAY = 1;
 
     static {
         years = new ArrayList<>();
@@ -74,7 +82,6 @@ public class HouseKeepingOrderActivity extends Activity {
         months = new ArrayList<>();
         days = new ArrayList<>();
     }
-
 
 
     @Override
@@ -158,6 +165,7 @@ public class HouseKeepingOrderActivity extends Activity {
         });
         //获取当前日期并显示到三个选项框
         Calendar c = Calendar.getInstance();
+        c.add(c.DATE, 1);//
         year = year0 = c.get(Calendar.YEAR);
         month = month0 = c.get(Calendar.MONTH) + 1;
         day = day0 = c.get(Calendar.DAY_OF_MONTH);
@@ -213,7 +221,7 @@ public class HouseKeepingOrderActivity extends Activity {
     }
 
 
-    @Event({R.id.tv_back, R.id.btn_hk_order_addr_default, R.id.btn_hk_order_pay_now, R.id.sb_hk_order_year, R.id.sb_hk_order_month, R.id.sb_hk_order_day})
+    @Event({R.id.tv_back, R.id.btn_hk_order_addr_default, R.id.btn_hk_order_pay_now, R.id.sb_hk_order_year, R.id.sb_hk_order_month, R.id.sb_hk_order_day, R.id.checkbox_alipay, R.id.checkbox_weichatpay})
     private void onClicks(View v) {
         switch (v.getId()) {
             case R.id.tv_back:
@@ -240,11 +248,65 @@ public class HouseKeepingOrderActivity extends Activity {
                 }
                 break;
             case R.id.btn_hk_order_pay_now://立即支付
+                phoneNum = edt_phone.getText().toString().trim().replace("-", "");
+                if (!StringUtils.isEmpty(phoneNum)) {
+                    if (isPhoneNumber(phoneNum)) {
+                        AlertDialog dialog = new AlertDialog.Builder(this).setTitle("确认支付").setMessage("请确认您预约的时间")
+                                .setPositiveButton("去支付", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        doPay();
+                                    }
+                                }).setNegativeButton("再看看", null).create();
+                        if (payby == ALIPAY)
+                            dialog.setIcon(R.drawable.zfb);
+                        else if (payby == WEICHATPAY)
+                            dialog.setIcon(R.drawable.wx);
+                        dialog.show();
+                    } else {
+                        Toast.makeText(this, "请输入正确的联系电话", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(this, "请输入您的联系电话", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.checkbox_alipay:
+                payby = ALIPAY;
+                cbox_weichat.setChecked(false);
+                break;
+            case R.id.checkbox_weichatpay:
+                payby = WEICHATPAY;
+                cbox_alipay.setChecked(false);
+                break;
+        }
+    }
+
+    private boolean isPhoneNumber(String phoneNum) {
+        return StringUtils.validPhoneNum("2", phoneNum);
+    }
+
+    private void doPay() {
+        switch (payby) {
+            case ALIPAY:
+                //pay by aliPay , if result is ok ,skip to order details
+            {
                 Intent intent = new Intent(this, HouseKeepingOrderDetailsActivity.class);
                 intent.putExtra("title", service_title);
-                intent.putExtra("price",service_price);
+                intent.putExtra("price", service_price);
                 startActivity(intent);
-                break;
+            }
+            break;
+            case WEICHATPAY:
+                //pay by weiChat , if result is ok ,skip to order details
+            {
+                Intent intent = new Intent(this, HouseKeepingOrderDetailsActivity.class);
+                intent.putExtra("title", service_title);
+                intent.putExtra("price", service_price);
+                startActivity(intent);
+            }
+            break;
+            default:
+                Toast.makeText(this, "请选择支付方式", Toast.LENGTH_SHORT).show();
         }
     }
 }

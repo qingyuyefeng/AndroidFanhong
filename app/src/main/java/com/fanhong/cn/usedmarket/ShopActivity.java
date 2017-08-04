@@ -69,6 +69,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import static android.R.attr.delay;
+
 /**
  * Created by Administrator on 2017/5/15.
  */
@@ -151,6 +153,7 @@ public class ShopActivity extends SampleActivity {
     private Context context;
     private Intent intent = null;
     private SelectPicPopupWindow pictureWindow;
+    private int delaytime = 400;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -260,6 +263,27 @@ public class ShopActivity extends SampleActivity {
     }
 
     private void classifyl(int id) {
+        rb_classify_1.setEnabled(false);
+        rb_classify_2.setEnabled(false);
+        rb_classify_3.setEnabled(false);
+        rb_classify_4.setEnabled(false);
+        rb_classify_5.setEnabled(false);
+        rb_classify_6.setEnabled(false);
+        rb_classify_7.setEnabled(false);
+        rb_classify_8.setEnabled(false);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                rb_classify_1.setEnabled(true);
+                rb_classify_2.setEnabled(true);
+                rb_classify_3.setEnabled(true);
+                rb_classify_4.setEnabled(true);
+                rb_classify_5.setEnabled(true);
+                rb_classify_6.setEnabled(true);
+                rb_classify_7.setEnabled(true);
+                rb_classify_8.setEnabled(true);
+            }
+        }, delaytime);
         rb_classify_1.setChecked(false);
         rb_classify_2.setChecked(false);
         rb_classify_3.setChecked(false);
@@ -297,6 +321,27 @@ public class ShopActivity extends SampleActivity {
     }
 
     private void classifyr(int id) {
+        rb_classify1.setEnabled(false);
+        rb_classify2.setEnabled(false);
+        rb_classify3.setEnabled(false);
+        rb_classify4.setEnabled(false);
+        rb_classify5.setEnabled(false);
+        rb_classify6.setEnabled(false);
+        rb_classify7.setEnabled(false);
+        rb_classify8.setEnabled(false);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                rb_classify1.setEnabled(true);
+                rb_classify2.setEnabled(true);
+                rb_classify3.setEnabled(true);
+                rb_classify4.setEnabled(true);
+                rb_classify5.setEnabled(true);
+                rb_classify6.setEnabled(true);
+                rb_classify7.setEnabled(true);
+                rb_classify8.setEnabled(true);
+            }
+        }, delaytime);
         rb_classify1.setChecked(false);
         rb_classify2.setChecked(false);
         rb_classify3.setChecked(false);
@@ -333,15 +378,42 @@ public class ShopActivity extends SampleActivity {
         }
     }
 
+    private void delayTop() {
+        rb_sort.setEnabled(false);
+        rb_classify.setEnabled(false);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                rb_sort.setEnabled(true);
+                rb_classify.setEnabled(true);
+            }
+        }, delaytime);
+    }
+
+    private void delaySort() {
+        rb_sort1.setEnabled(false);
+        rb_sort2.setEnabled(false);
+        rb_sort3.setEnabled(false);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                rb_sort1.setEnabled(true);
+                rb_sort2.setEnabled(true);
+                rb_sort3.setEnabled(true);
+            }
+        }, delaytime);
+    }
+
     @Event(value = {R.id.rb_ms_sort, R.id.rb_ms_classify, R.id.rb_ms_sort_1, R.id.rb_ms_sort_2, R.id.rb_ms_sort_3,
             R.id.rb_ms_classify_1, R.id.rb_ms_classify_2, R.id.rb_ms_classify_3, R.id.rb_ms_classify_4,
             R.id.rb_ms_classify_5, R.id.rb_ms_classify_6, R.id.rb_ms_classify_7, R.id.rb_ms_classify_8,
-            R.id.tv_black_area1, R.id.tv_black_area2, R.id.add_usedgoodslayout,R.id.rb_ms_classify1,
-            R.id.rb_ms_classify2,R.id.rb_ms_classify3,R.id.rb_ms_classify4,R.id.rb_ms_classify5,
-            R.id.rb_ms_classify6,R.id.rb_ms_classify7,R.id.rb_ms_classify8})
+            R.id.tv_black_area1, R.id.tv_black_area2, R.id.add_usedgoodslayout, R.id.rb_ms_classify1,
+            R.id.rb_ms_classify2, R.id.rb_ms_classify3, R.id.rb_ms_classify4, R.id.rb_ms_classify5,
+            R.id.rb_ms_classify6, R.id.rb_ms_classify7, R.id.rb_ms_classify8})
     private void onClicks(View view) {
         switch (view.getId()) {
             case R.id.rb_ms_sort:
+                delayTop();
                 if (layout_sort.getVisibility() == View.VISIBLE) {
                     rb_sort.setChecked(false);
                     layout_sort.setVisibility(View.GONE);
@@ -355,6 +427,7 @@ public class ShopActivity extends SampleActivity {
                 }
                 break;
             case R.id.rb_ms_classify:
+                delayTop();
                 if (layout_classify.getVisibility() == View.VISIBLE) {
                     rb_classify.setChecked(false);
                     layout_classify.setVisibility(View.GONE);
@@ -374,17 +447,19 @@ public class ShopActivity extends SampleActivity {
                 onClicks(rb_classify);
                 break;
             case R.id.rb_ms_sort_1:
-//                Toast.makeText(getActivity(),rb_sort1.getText().toString(),Toast.LENGTH_SHORT).show();
+                delaySort();
                 rb_sort1.setChecked(true);
                 rb_sort2.setChecked(false);
                 rb_sort3.setChecked(false);
                 break;
             case R.id.rb_ms_sort_2:
+                delaySort();
                 rb_sort1.setChecked(false);
                 rb_sort2.setChecked(true);
                 rb_sort3.setChecked(false);
                 break;
             case R.id.rb_ms_sort_3:
+                delaySort();
                 rb_sort1.setChecked(false);
                 rb_sort2.setChecked(false);
                 rb_sort3.setChecked(true);
@@ -446,8 +521,8 @@ public class ShopActivity extends SampleActivity {
     //隐藏软键盘的方法
     private void hideSoftinputyer(View view) {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        Log.i("windowToken",view.getWindowToken().toString());
-        imm.hideSoftInputFromWindow(view.getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
+        Log.i("windowToken", view.getWindowToken().toString());
+        imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 //        if (imm.isAcceptingText())
 //            imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
     }
@@ -859,5 +934,9 @@ public class ShopActivity extends SampleActivity {
             edittext[i].setText("");
         }
         yourGoodspicture.setImageResource(R.drawable.btn_add_img);
+    }
+
+    public void onNull(View v) {
+
     }
 }
