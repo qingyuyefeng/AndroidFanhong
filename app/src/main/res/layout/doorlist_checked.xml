@@ -35,10 +35,10 @@
 
 			<ImageView
 				android:id="@+id/doorchecked_next"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
+				android:layout_width="33dp"
+				android:layout_height="33dp"
 				android:focusable="false"
-				android:src="@drawable/next_off"/>
+				android:src="@drawable/ico_qj"/>
 
 	</LinearLayout>
 

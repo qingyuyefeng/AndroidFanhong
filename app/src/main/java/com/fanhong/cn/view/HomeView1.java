@@ -38,6 +38,7 @@ import com.fanhong.cn.housekeeping.HouseKeepingActivity;
 import com.fanhong.cn.models.BannerModel;
 import com.fanhong.cn.models.HomeNews;
 import com.fanhong.cn.models.Homelife;
+import com.fanhong.cn.shippingaddress.BaiduMapActivity;
 import com.fanhong.cn.usedmarket.ShopActivity;
 import com.sivin.Banner;
 import com.sivin.BannerAdapter;
@@ -360,7 +361,8 @@ public class HomeView1 extends BaseFragment {
                     break;
                 case R.id.image_choosecell:
                     if (isLogined() == 1) {
-                        intent.setClass(HomeView1.this.getActivity(), GardenSelecterActivity.class);
+//                        intent.setClass(HomeView1.this.getActivity(), GardenSelecterActivity.class);
+                        intent.setClass(HomeView1.this.getActivity(), BaiduMapActivity.class);
                         HomeView1.this.getBaseActivity().startActivityForResult(intent, 12);
                     } else {
                         createDialog();

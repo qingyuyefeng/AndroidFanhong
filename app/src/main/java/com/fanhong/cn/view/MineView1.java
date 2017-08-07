@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -57,8 +58,8 @@ public class MineView1 extends BaseFragment implements OnClickListener{
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
 		// 启动activity时不自动弹出软键盘
-        this.getActivity().getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+//        this.getActivity().getWindow().setSoftInputMode(
+//                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
 		//实例化sharedpreferences对象，以key值为Setting获取
 		mSettingPref = this.getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
@@ -175,8 +176,10 @@ public class MineView1 extends BaseFragment implements OnClickListener{
 			MineView1.this.getBaseActivity().startActivityForResult(intent5,2);
 			break;
 		case R.id.ll_versionupgrade:
-			Intent intent4 = new Intent(MineView1.this.getActivity(), update.class);
-			MineView1.this.getBaseActivity().startActivityForResult(intent4,2);
+//			Intent intent4 = new Intent(MineView1.this.getActivity(), update.class);
+//			MineView1.this.getBaseActivity().startActivityForResult(intent4,2);
+			Toast.makeText(getActivity(),"暂无版本更新",Toast.LENGTH_SHORT).show();
+//			PackageManager pm = new PackageManager()
 			break;
 		}
 	}

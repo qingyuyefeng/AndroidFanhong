@@ -70,10 +70,9 @@ dependencies {
     compile files('libs/libammsdk.jar')
     compile files('libs/universal-image-loader-1.8.4-with-sources.jar')
     compile files('libs/Volley.jar')
-
-    /** 第三方屏幕适配       */
-    /** 第三方图片缓存                   */
-    /** 图片缩放的第三方框架      */
+    /** 第三方屏幕适配        */
+    /** 第三方图片缓存                    */
+    /** 图片缩放的第三方框架       */
     compile project(':multi-image-selector')
     compile files('libs/xUtils-3.1.22.jar')
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -89,6 +88,8 @@ dependencies {
     compile 'com.xiwenhec:banner:1.0.4'
     //agentweb
     compile 'com.just.agentweb:agentweb:1.0.3'
+    //baidu SDK
+    compile files('libs/BaiduLBS_Android.jar')
 }
 
 

@@ -390,11 +390,8 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
             //裁剪后的图片的保存路径
             urlpath = FileUtil.saveFile(context, userName, photo);
             avatarImg.setImageDrawable(drawable);
-            Log.e("hu", "******userName=" + userName);
-            Log.e("hu", "******urlpath=" + urlpath);
             //imgUrl = SampleConnection.HEAD_PICTURE_URL+userName;
             imgUrl = SampleConnection.HEAD_PICTURE_URL;
-            Log.e("hu", "******imgUrl=" + imgUrl);
 
             File file = new File(urlpath); //这里的path就是那个地址的全局变量
             asynchttpUpload(imgUrl, file);

@@ -40,7 +40,7 @@
 					android:layout_height="30dp"
 					android:layout_marginRight="10dip"
 					android:focusable="false"
-					android:background="@drawable/next_off"
+					android:background="@drawable/ico_qj"
 					/>
   			</LinearLayout>	
 			<LinearLayout

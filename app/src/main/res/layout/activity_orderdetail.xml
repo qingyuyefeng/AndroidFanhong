@@ -136,29 +136,29 @@
 				android:textColor="@color/textgray2" 				
 				android:textSize="15sp"/>
 	    </LinearLayout>
-		<LinearLayout
-  			android:layout_width="fill_parent"
-  			android:layout_height="wrap_content"
-  			android:layout_marginTop="16dp"
-  			android:layout_marginLeft="10dp"
-  			android:layout_marginRight="10dp"
-  			android:orientation="horizontal">
-			<TextView 
-				android:layout_height="wrap_content" 
-				android:layout_width="wrap_content"					
-				android:textSize="15sp"
-				android:textColor="@color/textgray2"
-				android:text="小区："
-				android:focusable="false"
-				android:ellipsize="end" />
-			<TextView 
-			    android:id="@+id/tv_cell"
-			    android:layout_height="wrap_content" 
-				android:layout_width="100dp"	
-				android:background="@null" 
-				android:textColor="@color/textgray2" 				
-				android:textSize="15sp"/>
-		</LinearLayout>
+		<!--<LinearLayout-->
+  			<!--android:layout_width="fill_parent"-->
+  			<!--android:layout_height="wrap_content"-->
+  			<!--android:layout_marginTop="16dp"-->
+  			<!--android:layout_marginLeft="10dp"-->
+  			<!--android:layout_marginRight="10dp"-->
+  			<!--android:orientation="horizontal">-->
+			<!--<TextView -->
+				<!--android:layout_height="wrap_content" -->
+				<!--android:layout_width="wrap_content"					-->
+				<!--android:textSize="15sp"-->
+				<!--android:textColor="@color/textgray2"-->
+				<!--android:text="小区："-->
+				<!--android:focusable="false"-->
+				<!--android:ellipsize="end" />-->
+			<!--<TextView -->
+			    <!--android:id="@+id/tv_cell"-->
+			    <!--android:layout_height="wrap_content" -->
+				<!--android:layout_width="100dp"	-->
+				<!--android:background="@null" -->
+				<!--android:textColor="@color/textgray2" 				-->
+				<!--android:textSize="15sp"/>-->
+		<!--</LinearLayout>-->
 		<LinearLayout
   			android:layout_width="fill_parent"
   			android:layout_height="wrap_content"

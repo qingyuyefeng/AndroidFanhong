@@ -114,7 +114,7 @@
                         android:layout_height="22dp"
                         android:layout_marginLeft="10dip"
                         android:layout_marginRight="10dip"
-                        android:background="@drawable/ico_next"
+                        android:background="@drawable/ico_qj"
                         android:focusable="false" />
 
                 </LinearLayout>
@@ -162,24 +162,6 @@
                         android:layout_height="wrap_content"
                         android:background="@null"
                         android:drawableBottom="@drawable/linebottom"
-                        android:textColor="@color/textgray2"
-                        android:textSize="15sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="16dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:focusable="false"
-                        android:text="选择小区："
                         android:textColor="@color/textgray2"
                         android:textSize="15sp" />
                 </LinearLayout>

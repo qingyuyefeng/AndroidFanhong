@@ -112,10 +112,10 @@ public class DoorApplyAdapter extends BaseAdapter{
                         public void onClick(View v) {
                             if(viewHolder20.layoutNext1.getVisibility() == View.GONE){
                                 viewHolder20.layoutNext1.setVisibility(View.VISIBLE);
-                                viewHolder20.ivArrow1.setImageResource(R.drawable.arrow_down);
+                                viewHolder20.ivArrow1.setImageResource(R.drawable.ico_qj1);
                             }else {
                                 viewHolder20.layoutNext1.setVisibility(View.GONE);
-                                viewHolder20.ivArrow1.setImageResource(R.drawable.next_off);
+                                viewHolder20.ivArrow1.setImageResource(R.drawable.ico_qj);
                             }
                         }
                     });
@@ -150,10 +150,10 @@ public class DoorApplyAdapter extends BaseAdapter{
                         public void onClick(View v) {
                             if(viewHolder20.layoutNext1.getVisibility() == View.GONE){
                                 viewHolder20.layoutNext1.setVisibility(View.VISIBLE);
-                                viewHolder20.ivArrow1.setImageResource(R.drawable.arrow_down);
+                                viewHolder20.ivArrow1.setImageResource(R.drawable.ico_qj1);
                             }else {
                                 viewHolder20.layoutNext1.setVisibility(View.GONE);
-                                viewHolder20.ivArrow1.setImageResource(R.drawable.next_off);
+                                viewHolder20.ivArrow1.setImageResource(R.drawable.ico_qj);
                             }
                         }
                     });
