@@ -319,6 +319,18 @@
             android:name=".housekeeping.HouseKeepingOrderDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity
+            android:name=".fenxiao.FenXiaoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity
+            android:name=".fenxiao.InformationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity
+            android:name=".fenxiao.PostSuccessActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity android:name=".shippingaddress.BaiduMapActivity"
             android:screenOrientation="portrait" />
         <!--代办年审-->
