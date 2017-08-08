@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion '25.0.0'
     defaultConfig {
-        applicationId "fanhong.fanhong"
+        applicationId "com.fanhong.cn"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
@@ -14,9 +14,9 @@ android {
     }
     signingConfigs {
         config {
-            storeFile file('C:/Users/Administrator/Desktop/FanHong.jks')
+            storeFile file('C:/Users/Administrator/Desktop/fanhong.jks')
             storePassword '100200'
-            keyAlias 'release-key'
+            keyAlias 'fhkj'
             keyPassword '100200'
         }
         debug {

@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,14 +30,15 @@ import com.fanhong.cn.R;
  * Created by Administrator on 2017/8/7.
  */
 
-public class BaiduMapActivity extends Activity{
+public class BaiduMapActivity extends Activity {
     private Button mButton;
     private TextView mTextView;
+    private ImageView backBtn;
     private LocationClient mLocationClient;
     private MyLocationListener listener;
 
-    private double mLatitude,mLongitude;//经纬度
-    String str1,str2;
+    private double mLatitude, mLongitude;//经纬度
+    String str1, str2;
 
     //地图视图
     private MapView mMapView;
@@ -58,19 +61,29 @@ public class BaiduMapActivity extends Activity{
 
         mButton = (Button) findViewById(R.id.getlocation);
         mTextView = (TextView) findViewById(R.id.showlocation);
+        backBtn = (ImageView) findViewById(R.id.backbtn);
         //点击获取到我的定位
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LatLng latLng = new LatLng(mLatitude,mLongitude);
+                LatLng latLng = new LatLng(mLatitude, mLongitude);
                 MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(latLng);
                 mBaiduMap.animateMapStatus(msu);
                 mTextView.setText(str1);
             }
         });
-
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.putExtra("location", str2);
+                setResult(112, intent);
+                BaiduMapActivity.this.finish();
+            }
+        });
     }
-    private void initLocation(){
+
+    private void initLocation() {
         mLocationClient = new LocationClient(this);
         listener = new MyLocationListener();
         mLocationClient.registerLocationListener(listener);
@@ -96,10 +109,11 @@ public class BaiduMapActivity extends Activity{
         super.onStart();
         mBaiduMap.setMyLocationEnabled(true);
         //开启定位
-        if(!mLocationClient.isStarted()){
+        if (!mLocationClient.isStarted()) {
             mLocationClient.start();
         }
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -131,16 +145,12 @@ public class BaiduMapActivity extends Activity{
         mMapView.onDestroy();
     }
 
-    //获取到的定位返回去
     @Override
-    public void finish() {
-        Intent intent = getIntent();
-        intent.putExtra("location",str2);
-        setResult(112,intent);
-        super.finish();
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return super.onKeyDown(keyCode, event);
     }
 
-    private class MyLocationListener implements BDLocationListener{
+    private class MyLocationListener implements BDLocationListener {
 
         @Override
         public void onReceiveLocation(BDLocation bdLocation) {
@@ -152,14 +162,14 @@ public class BaiduMapActivity extends Activity{
             mBaiduMap.setMyLocationData(data);
             mLatitude = bdLocation.getLatitude();
             mLongitude = bdLocation.getLongitude();
-            if(isFirstIn){
+            if (isFirstIn) {
                 LatLng latLng = new LatLng(bdLocation.getLatitude(),
                         bdLocation.getLongitude());
                 MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(latLng);
                 mBaiduMap.animateMapStatus(msu);
-                Toast.makeText(BaiduMapActivity.this,bdLocation.getAddrStr(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(BaiduMapActivity.this, bdLocation.getAddrStr(), Toast.LENGTH_SHORT).show();
                 str1 = bdLocation.getAddrStr();
-                str2 = bdLocation.getProvince()+bdLocation.getCity();
+                str2 = bdLocation.getProvince() + bdLocation.getCity() + bdLocation.getDistrict();
                 isFirstIn = false;
             }
         }

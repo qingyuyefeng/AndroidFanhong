@@ -482,6 +482,13 @@ public class FragmentMainActivity extends SampleActivity {
             case 24:   //添加小区门禁成功后返回
                 getAccessControl();
                 break;
+            case 112:
+                String location = data.getStringExtra("location");
+                Toast.makeText(this,location+" ",Toast.LENGTH_SHORT).show();
+                if(location!=null && location.length()>0){
+                    mTab01.setFragment(11, location);
+                }
+                break;
             case 555:        //注销登录的回调
                 mTab01.setFragment(11, mSettingPref.getString("gardenName", ""));
                 mTab05.setFragment(mSettingPref.getString("gardenName", ""));

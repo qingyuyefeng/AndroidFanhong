@@ -363,7 +363,7 @@ public class HomeView1 extends BaseFragment {
                     if (isLogined() == 1) {
 //                        intent.setClass(HomeView1.this.getActivity(), GardenSelecterActivity.class);
                         intent.setClass(HomeView1.this.getActivity(), BaiduMapActivity.class);
-                        HomeView1.this.getBaseActivity().startActivityForResult(intent, 12);
+                        HomeView1.this.getBaseActivity().startActivityForResult(intent, 112);
                     } else {
                         createDialog();
                     }
