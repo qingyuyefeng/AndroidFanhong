@@ -238,6 +238,7 @@
             android:button="@null" />
 
         <ImageView
+            android:id="@+id/label_alipay"
             android:layout_width="50px"
             android:layout_height="50px"
             android:layout_alignTop="@id/label_hk_order_service_pay_by"
@@ -269,6 +270,7 @@
             android:tint="@color/notchecked" />
 
         <TextView
+            android:id="@+id/label_weichatpay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/label_hk_order_service_pay_by"
