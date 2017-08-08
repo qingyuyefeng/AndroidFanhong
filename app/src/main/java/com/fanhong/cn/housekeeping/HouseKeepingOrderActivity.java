@@ -73,7 +73,7 @@ public class HouseKeepingOrderActivity extends Activity {
     private static List<Integer> years, months, days;
     private SpinerPopWindow<Integer> popYears, popMonths, popDays;
 
-    private final static int ALIPAY = 0, WEICHATPAY = 1;
+    private final static int ALIPAY = 0, WEICHATPAY = 1, NONE = -1;
 
     static {
         years = new ArrayList<>();
@@ -221,7 +221,9 @@ public class HouseKeepingOrderActivity extends Activity {
     }
 
 
-    @Event({R.id.tv_back, R.id.btn_hk_order_addr_default, R.id.btn_hk_order_pay_now, R.id.sb_hk_order_year, R.id.sb_hk_order_month, R.id.sb_hk_order_day, R.id.checkbox_alipay, R.id.checkbox_weichatpay})
+    @Event({R.id.tv_back, R.id.btn_hk_order_addr_default, R.id.btn_hk_order_pay_now, R.id.sb_hk_order_year,
+            R.id.sb_hk_order_month, R.id.sb_hk_order_day, R.id.checkbox_alipay, R.id.checkbox_weichatpay,
+            R.id.label_alipay, R.id.label_weichatpay})
     private void onClicks(View v) {
         switch (v.getId()) {
             case R.id.tv_back:
@@ -271,12 +273,40 @@ public class HouseKeepingOrderActivity extends Activity {
                 }
                 break;
             case R.id.checkbox_alipay:
-                payby = ALIPAY;
-                cbox_weichat.setChecked(false);
+                if (cbox_alipay.isChecked()) {
+                    payby = ALIPAY;
+                    cbox_weichat.setChecked(false);
+                } else {
+                    payby = NONE;
+                }
+//                Toast.makeText(this,"payby="+payby,1000).show();
                 break;
             case R.id.checkbox_weichatpay:
-                payby = WEICHATPAY;
-                cbox_alipay.setChecked(false);
+                if (cbox_weichat.isChecked()) {
+                    payby = WEICHATPAY;
+                    cbox_alipay.setChecked(false);
+                } else {
+                    payby = NONE;
+                }
+//                Toast.makeText(this,"payby="+payby,1000).show();
+                break;
+            case R.id.label_alipay:
+                if (cbox_alipay.isChecked()) {
+                    cbox_alipay.setChecked(false);
+                    onClicks(cbox_alipay);
+                } else {
+                    cbox_alipay.setChecked(true);
+                    onClicks(cbox_alipay);
+                }
+                break;
+            case R.id.label_weichatpay:
+                if (cbox_weichat.isChecked()) {
+                    cbox_weichat.setChecked(false);
+                    onClicks(cbox_alipay);
+                } else {
+                    cbox_weichat.setChecked(true);
+                    onClicks(cbox_weichat);
+                }
                 break;
         }
     }
