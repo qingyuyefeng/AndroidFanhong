@@ -26,6 +26,7 @@ import com.fanhong.cn.LoginActivity;
 import com.fanhong.cn.R;
 import com.fanhong.cn.StoreActivity;
 import com.fanhong.cn.WebViewActivity;
+import com.fanhong.cn.fenxiao.FenXiaoActivity;
 import com.fanhong.cn.synctaskpicture.RepairLinesActivity;
 import com.fanhong.cn.synctaskpicture.UrgentOpenDoorActivity;
 import com.fanhong.cn.usedmarket.ShopActivity;
@@ -37,8 +38,8 @@ public class ServiceView1 extends BaseFragment {
 	//定义数组来存放按钮图片
 	private int mImageViewArray1[] = {
 			R.drawable.service_store,R.drawable.service_es,
-			R.drawable.service_pay, R.drawable.service_dai
-
+			R.drawable.service_pay, R.drawable.service_dai,
+			R.drawable.service_distribution
 //			R.drawable.service_lock, R.drawable.service_park,R.drawable.service_fix,
 //			R.drawable.service_jd, R.drawable.service_kd, R.drawable.service_clean,
 //			R.drawable.service_talk,
@@ -47,7 +48,8 @@ public class ServiceView1 extends BaseFragment {
 	//定义数组文字
 	private int mTextviewArray1[] = {
 			R.string.service_store,R.string.service_es,
-			R.string.service_pay, R.string.service_dai
+			R.string.service_pay, R.string.service_dai,
+			R.string.service_zsdl
 //			R.string.service_lock, R.string.service_park,R.string.service_fix,
 //			R.string.service_jd, R.string.service_kd, R.string.service_clean,R.string.service_talk,
 			};
@@ -322,6 +324,9 @@ public class ServiceView1 extends BaseFragment {
 			//二手货市场
 			case 3:
 				Toast.makeText(ServiceView1.this.getActivity(),R.string.starting,Toast.LENGTH_SHORT).show();
+				break;
+			case 4:
+				startActivity(new Intent(ServiceView1.this.getActivity(), FenXiaoActivity.class));
 				break;
 		}
 	}

@@ -15,9 +15,9 @@
 
         <ImageView
             android:id="@+id/usedmarket_back_btn"
-            android:layout_width="50px"
-            android:layout_height="50px"
-            android:layout_marginLeft="5px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5px"
             android:src="@drawable/style_button_back_gray" />
 
         <View
