@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -222,8 +223,7 @@ public class HouseKeepingOrderActivity extends Activity {
 
 
     @Event({R.id.tv_back, R.id.btn_hk_order_addr_default, R.id.btn_hk_order_pay_now, R.id.sb_hk_order_year,
-            R.id.sb_hk_order_month, R.id.sb_hk_order_day, R.id.checkbox_alipay, R.id.checkbox_weichatpay,
-            R.id.label_alipay, R.id.label_weichatpay})
+            R.id.sb_hk_order_month, R.id.sb_hk_order_day, R.id.label_alipay, R.id.label_weichatpay})
     private void onClicks(View v) {
         switch (v.getId()) {
             case R.id.tv_back:
@@ -272,43 +272,42 @@ public class HouseKeepingOrderActivity extends Activity {
                     Toast.makeText(this, "请输入您的联系电话", Toast.LENGTH_SHORT).show();
                 }
                 break;
+            case R.id.label_alipay:
+                if (cbox_alipay.isChecked())
+                    cbox_alipay.setChecked(false);
+                else
+                    cbox_alipay.setChecked(true);
+                break;
+            case R.id.label_weichatpay:
+                if (cbox_weichat.isChecked())
+                    cbox_weichat.setChecked(false);
+                else
+                    cbox_weichat.setChecked(true);
+                break;
+        }
+    }
+
+    @Event(value = {R.id.checkbox_alipay, R.id.checkbox_weichatpay}, type = CompoundButton.OnCheckedChangeListener.class)
+    private void onchecks(CompoundButton view, boolean isChecked) {
+        switch (view.getId()) {
             case R.id.checkbox_alipay:
-                if (cbox_alipay.isChecked()) {
+                if (isChecked) {
                     payby = ALIPAY;
                     cbox_weichat.setChecked(false);
                 } else {
                     payby = NONE;
                 }
-//                Toast.makeText(this,"payby="+payby,1000).show();
                 break;
             case R.id.checkbox_weichatpay:
-                if (cbox_weichat.isChecked()) {
+                if (isChecked) {
                     payby = WEICHATPAY;
                     cbox_alipay.setChecked(false);
                 } else {
                     payby = NONE;
                 }
-//                Toast.makeText(this,"payby="+payby,1000).show();
-                break;
-            case R.id.label_alipay:
-                if (cbox_alipay.isChecked()) {
-                    cbox_alipay.setChecked(false);
-                    onClicks(cbox_alipay);
-                } else {
-                    cbox_alipay.setChecked(true);
-                    onClicks(cbox_alipay);
-                }
-                break;
-            case R.id.label_weichatpay:
-                if (cbox_weichat.isChecked()) {
-                    cbox_weichat.setChecked(false);
-                    onClicks(cbox_alipay);
-                } else {
-                    cbox_weichat.setChecked(true);
-                    onClicks(cbox_weichat);
-                }
                 break;
         }
+//        Toast.makeText(this, "payby=" + payby, 500).show();
     }
 
     private boolean isPhoneNumber(String phoneNum) {

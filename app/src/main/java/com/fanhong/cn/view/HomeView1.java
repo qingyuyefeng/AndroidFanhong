@@ -40,6 +40,7 @@ import com.fanhong.cn.models.HomeNews;
 import com.fanhong.cn.models.Homelife;
 import com.fanhong.cn.shippingaddress.BaiduMapActivity;
 import com.fanhong.cn.usedmarket.ShopActivity;
+import com.fanhong.cn.verification.VerificationIndexActivity;
 import com.sivin.Banner;
 import com.sivin.BannerAdapter;
 
@@ -70,7 +71,7 @@ public class HomeView1 extends BaseFragment {
     private View homeView1;
     private SharedPreferences mSharedPref;
     private SampleConnection mSample;
-    private ImageView chooseCell,noEsgoods;
+    private ImageView chooseCell, noEsgoods;
     //    private ViewFlipper viewFlipper;
 //    private GestureDetector gestureDetector;
 //    private RadioGroup radioGroup;
@@ -147,13 +148,13 @@ public class HomeView1 extends BaseFragment {
                 Intent intent = new Intent();
                 switch (position) {
                     case 0:
-                        intent.setClass(HomeView1.this.getActivity(),FaceRecognitionIntroductionActivity.class);
-                        intent.putExtra("position",0);
+                        intent.setClass(HomeView1.this.getActivity(), FaceRecognitionIntroductionActivity.class);
+                        intent.putExtra("position", 0);
                         startActivity(intent);
                         break;
                     case 1:
-                        intent.setClass(HomeView1.this.getActivity(),FaceRecognitionIntroductionActivity.class);
-                        intent.putExtra("position",1);
+                        intent.setClass(HomeView1.this.getActivity(), FaceRecognitionIntroductionActivity.class);
+                        intent.putExtra("position", 1);
                         startActivity(intent);
                         break;
                     case 2:
@@ -406,7 +407,9 @@ public class HomeView1 extends BaseFragment {
                     startActivity(intent);
                     break;
                 case R.id.daiban_layout:
-                    Toast.makeText(getActivity(), R.string.starting, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), R.string.starting, Toast.LENGTH_SHORT).show();
+                    intent.setClass(HomeView1.this.getActivity(), VerificationIndexActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.more_esgoods:
                     intent.setClass(HomeView1.this.getActivity(), ShopActivity.class);

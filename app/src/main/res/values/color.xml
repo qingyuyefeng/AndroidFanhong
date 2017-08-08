@@ -2,6 +2,9 @@
 <resources>
     <color name="black">#000</color>
     <color name="red">#F00</color>
+    <color name="text_3">#333333</color>
+    <color name="text_6">#666666</color>
+    <color name="text_9">#999999</color>
     <color name="housekeepingtitle">#606060</color>
     <color name="housekeepingleft">#818181</color>
     <color name="leftbackground">#e6e6e6</color>

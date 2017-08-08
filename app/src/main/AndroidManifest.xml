@@ -321,6 +321,19 @@
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity android:name=".shippingaddress.BaiduMapActivity"
             android:screenOrientation="portrait" />
+        <!--代办年审-->
+        <activity
+            android:name=".verification.VerificationIndexActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity
+            android:name=".verification.VerificationCarActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity
+            android:name=".verification.CarReferActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
         <!-- alipay sdk end -->
 
 
