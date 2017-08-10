@@ -20,7 +20,7 @@ import static com.fanhong.cn.R.id.tv_title;
  * Created by Administrator on 2017/8/8.
  */
 @ContentView(R.layout.activity_verification_car_refer)
-class CarReferActivity extends Activity {
+public class CarReferActivity extends Activity {
     @ViewInject(R.id.tv_title)
     TextView tv_title;
 

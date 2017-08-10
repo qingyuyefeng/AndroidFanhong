@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <include layout="@layout/activity_top"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/kuaidi_background"
+                android:orientation="vertical"
+                android:gravity="center">
+                <Button
+                    android:id="@+id/bn_sendexpress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="寄快递"
+                    android:textSize="30px"
+                    android:textColor="@color/white"
+                    android:background="@drawable/express_button_background"/>
+                <Button
+                    android:id="@+id/bn_checkexpress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50px"
+                    android:text="查快递"
+                    android:textSize="30px"
+                    android:textColor="@color/white"
+                    android:background="@drawable/express_button_background"/>
+            </com.zhy.autolayout.AutoLinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80px"
+                android:layout_marginLeft="30px"
+                android:textColor="@color/red"
+                android:text="*代发须知"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15px"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"
+                android:layout_marginBottom="40px"
+                android:textColor="@color/popular"
+                android:textSize="20px"
+                android:text="@string/daifaxuzhi"/>
+        </com.zhy.autolayout.AutoLinearLayout>
+    </ScrollView>
+
+</com.zhy.autolayout.AutoLinearLayout>

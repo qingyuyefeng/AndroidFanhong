@@ -319,6 +319,8 @@
             android:name=".housekeeping.HouseKeepingOrderDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
+
+        <!--分销-->
         <activity
             android:name=".fenxiao.FenXiaoActivity"
             android:screenOrientation="portrait"
@@ -344,6 +346,22 @@
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
             android:name=".verification.CarReferActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <!--快递服务-->
+        <activity
+            android:name=".expressage.ExpressHomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity
+            android:name=".expressage.SendExpressActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity
+            android:name=".expressage.CheckExpressActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity android:name=".expressage.ChooseExpressActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <!-- alipay sdk end -->

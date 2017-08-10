@@ -34,6 +34,7 @@ import com.fanhong.cn.SampleConnection;
 import com.fanhong.cn.StoreActivity;
 import com.fanhong.cn.adapters.HomelifeAdapter;
 import com.fanhong.cn.adapters.HomenewsAdapter;
+import com.fanhong.cn.expressage.ExpressHomeActivity;
 import com.fanhong.cn.housekeeping.HouseKeepingActivity;
 import com.fanhong.cn.models.BannerModel;
 import com.fanhong.cn.models.HomeNews;
@@ -395,7 +396,8 @@ public class HomeView1 extends BaseFragment {
                     Toast.makeText(getActivity(), R.string.starting, Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.kuaidi_layout:
-                    Toast.makeText(getActivity(), R.string.starting, Toast.LENGTH_SHORT).show();
+                    intent.setClass(HomeView1.this.getActivity(), ExpressHomeActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.jiazheng_layout:
 //                    Toast.makeText(getActivity(), R.string.starting, Toast.LENGTH_SHORT).show();
@@ -474,10 +476,10 @@ public class HomeView1 extends BaseFragment {
                     e.printStackTrace();
                 }
                 break;
-            case 333://接口数据获取失败（比如未联网）
-                noEsgoods.setImageResource(R.drawable.datafailed);
-                noEsgoods.setVisibility(View.VISIBLE);
-                break;
+//            case 333://接口数据获取失败（比如未联网）
+//                noEsgoods.setImageResource(R.drawable.datafailed);
+//                noEsgoods.setVisibility(View.VISIBLE);
+//                break;
             case 49:
                 newsList.clear();
                 setnewsList(str);
