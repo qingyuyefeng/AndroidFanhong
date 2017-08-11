@@ -51,6 +51,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="20px"
         android:textColor="@color/text_9"
-        android:textSize="26px"
+        android:textSize="18px"
         android:text="@string/verification_car_details"/>
 </com.zhy.autolayout.AutoLinearLayout>

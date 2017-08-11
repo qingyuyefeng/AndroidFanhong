@@ -261,7 +261,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30px"
                 android:text="商家已接单"
-                android:textColor="@color/notchecked"
+                android:textColor="@color/skyblue"
                 android:textSize="28px" />
         </com.zhy.autolayout.AutoLinearLayout>
 

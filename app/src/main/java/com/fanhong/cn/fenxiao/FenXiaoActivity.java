@@ -3,6 +3,7 @@ package com.fanhong.cn.fenxiao;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -36,40 +37,47 @@ public class FenXiaoActivity extends Activity {
     @ViewInject(R.id.tv_lijicanyu)
     private TextView joinIn;
 
-//    float y,oldy;
-//    boolean flag=false;
+    float y, oldy;
+    boolean flag = false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
         setImage(distribution1, 720, 1139);
         setImage(distribution2, 540, 858);
-//        scrollView.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                switch (event.getAction()){
-//                    case MotionEvent.ACTION_DOWN:
-//                        oldy=event.getY();
-//                        flag=true;
-//                        Log.i("scroltest",y+","+flag+","+oldy);
-//                        break;
-//                    case MotionEvent.ACTION_UP:
-//                        y=event.getY();
-//                        if ((y-oldy)<-50){
-//                            if (flag) {
-//                                scrollView.smoothScrollTo(0, distribution2.getTop());
-//                                flag=false;
-//                            }
-//                            Log.i("scroltest",y+","+flag+","+oldy);
-//                        }
-//                        break;
-//                }
-//                return false;
-//            }
-//        });
+        scrollView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        oldy = event.getY();
+                        flag = true;
+                        Log.i("scroltest", "down:" + y + "," + flag + "," + oldy);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        y = event.getY();
+                        float drag = y - oldy;
+                        if (drag < -100 || (drag > -10 && drag < 10)) {
+                            if (flag) {
+                                new Handler().post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        scrollView.smoothScrollTo(0, distribution2.getTop());
+                                    }
+                                });
+                                flag = false;
+                                Log.i("scroltest", "up:" + y + "," + flag + "," + oldy);
+                            }
+                        }
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
-    @Event(value = {R.id.back_button, R.id.iv_fenxiao1 ,R.id.iv_fenxiao2, R.id.tv_lijicanyu})
+    @Event(value = {R.id.back_button,/* R.id.iv_fenxiao1 ,*/R.id.iv_fenxiao2, R.id.tv_lijicanyu})
     private void onClick(View v) {
         switch (v.getId()) {
             case R.id.back_button:
