@@ -5,6 +5,7 @@
     <include layout="@layout/activity_top"/>
     <com.zhy.autolayout.AutoRelativeLayout
         android:layout_width="match_parent"
+        android:padding="40px"
         android:layout_height="wrap_content">
         <EditText
             android:id="@+id/input_express_number"
@@ -14,8 +15,7 @@
             android:hint="请输入单号查询"
             android:textColorHint="@color/alpha_black"
             android:textSize="25px"
-            android:padding="20px"
-            android:layout_margin="40px"/>
+            android:padding="20px"/>
         <ImageView
             android:id="@+id/img_search_express"
             android:layout_width="50px"
@@ -23,12 +23,14 @@
             android:src="@drawable/search"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="70px"/>
+            android:layout_marginRight="20px"
+            android:layout_alignRight="@id/input_express_number"/>
     </com.zhy.autolayout.AutoRelativeLayout>
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@color/white"
         android:layout_marginLeft="40px"
         android:layout_marginRight="40px">
         <com.zhy.autolayout.AutoLinearLayout
@@ -79,8 +81,43 @@
     <com.zhy.autolayout.AutoRelativeLayout
         android:id="@+id/check_express_relativelayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
         android:layout_marginLeft="40px"
-        android:layout_marginRight="40px" />
+        android:layout_marginRight="40px" >
+        <ListView
+            android:id="@+id/my_send_ex_recyc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dividerHeight="3px"
+            android:divider="@color/alpha_black"/>
+        <ListView
+            android:id="@+id/my_get_ex_recyc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/if_no_express"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ilon_empty" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:text="没有此类或此条数据"
+                android:textColor="@color/text_9" />
+        </com.zhy.autolayout.AutoLinearLayout>
+    </com.zhy.autolayout.AutoRelativeLayout>
+
 
 </com.zhy.autolayout.AutoLinearLayout>

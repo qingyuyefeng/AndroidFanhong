@@ -3,14 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="2dp">
+    android:layout_height="wrap_content">
     <TextView
         android:id="@+id/tv_express_type"
-        android:layout_width="match_parent"
+        android:layout_width="720px"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:text="顺丰快递"
         android:padding="20px"
         android:drawableRight="@drawable/ico_next"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"/>
 </com.zhy.autolayout.AutoLinearLayout>

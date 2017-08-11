@@ -364,6 +364,9 @@
         <activity android:name=".expressage.ChooseExpressActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity android:name=".expressage.FollowOrderActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
         <!-- alipay sdk end -->
 
 

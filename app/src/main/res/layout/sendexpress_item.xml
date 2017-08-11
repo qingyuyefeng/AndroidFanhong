@@ -2,25 +2,26 @@
 <com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:layout_marginTop="2dp">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <com.zhy.autolayout.AutoRelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:paddingTop="10px"
+            android:paddingBottom="30px">
 
             <TextView
                 android:id="@+id/num1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20px"
-                android:layout_marginTop="10px"
                 android:text="运单号："
                 android:textSize="20px" />
 
@@ -28,10 +29,9 @@
                 android:id="@+id/tracking_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@id/num1"
-                android:layout_toRightOf="@id/num1"
                 android:text="2366137162**"
-                android:textSize="20px" />
+                android:textSize="20px"
+                android:layout_toRightOf="@+id/num1" />
 
             <TextView
                 android:id="@+id/send_express_address"
@@ -46,7 +46,6 @@
                 android:id="@+id/send_express_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30px"
                 android:layout_below="@id/send_express_address"
                 android:layout_marginTop="15px"
                 android:text="湛洋"
@@ -80,24 +79,27 @@
                 android:id="@+id/get_express_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/send_express_address"
-                android:layout_marginTop="15px"
                 android:text="徐强"
-                android:layout_alignLeft="@id/get_express_address"
                 android:textColor="@color/popular"
-                android:textSize="30px" />
+                android:textSize="30px"
+                android:layout_toRightOf="@id/express_status"
+                android:layout_alignBottom="@id/send_express_name" />
         </com.zhy.autolayout.AutoRelativeLayout>
+
         <TextView
             android:id="@+id/follow_sending"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="订单跟踪"
-            android:textSize="30px"
-            android:textColor="@color/white"
+            android:background="@drawable/postbtn_dianji"
             android:gravity="center"
-            android:paddingRight="25px"
             android:paddingLeft="25px"
-            android:background="@drawable/postbtn_dianji"/>
+            android:paddingRight="25px"
+            android:text="订单跟踪"
+            android:textColor="@color/white"
+            android:textSize="30px" />
     </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"/>
 
 </com.zhy.autolayout.AutoLinearLayout>

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.fanhong.cn.R;
+import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.List;
 
@@ -58,6 +59,7 @@ public class ExpressTypeAdapter extends RecyclerView.Adapter<ExpressTypeAdapter.
         public MyViewHolder(View itemView) {
             super(itemView);
             express = (TextView) itemView.findViewById(R.id.tv_express_type);
+            AutoUtils.autoSize(itemView);
         }
     }
 }

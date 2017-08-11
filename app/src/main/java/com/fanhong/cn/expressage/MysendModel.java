@@ -51,4 +51,14 @@ public class MysendModel {
         this.receiveName = receiveName;
     }
 
+    @Override
+    public String toString() {
+        return "MysendModel{" +
+                "trackingNumber='" + trackingNumber + '\'' +
+                ", sendCity='" + sendCity + '\'' +
+                ", receiveCity='" + receiveCity + '\'' +
+                ", sendName='" + sendName + '\'' +
+                ", receiveName='" + receiveName + '\'' +
+                '}';
+    }
 }
