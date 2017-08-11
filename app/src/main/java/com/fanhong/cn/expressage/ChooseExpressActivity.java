@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.fanhong.cn.R;
 
 import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
@@ -29,7 +31,7 @@ public class ChooseExpressActivity extends Activity{
     private List<String> expressList = new ArrayList<>();
     private ExpressTypeAdapter typeAdapter;
 
-    private String[] expressage = {"顺丰快递,韵达快递,申通快递,中通快递,EMS,圆通快递,百世汇通"};
+    private String[] expressage = {"顺丰快递","韵达快递","申通快递","中通快递","EMS","圆通快递","百世汇通"};
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +45,14 @@ public class ChooseExpressActivity extends Activity{
     private void initData(){
         for(int i = 0;i < expressage.length;i++){
             expressList.add(expressage[i]);
+        }
+    }
+    @Event({R.id.img_back})
+    private void onClick(View v){
+        switch (v.getId()){
+            case R.id.img_back:
+                finish();
+                break;
         }
     }
 }

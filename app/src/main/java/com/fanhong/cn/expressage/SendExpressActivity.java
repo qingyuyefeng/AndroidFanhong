@@ -45,7 +45,7 @@ public class SendExpressActivity extends Activity{
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == 0){
+        if(resultCode == 46){
             String type = data.getStringExtra("expresstype");
             exType.setText(type);
         }
