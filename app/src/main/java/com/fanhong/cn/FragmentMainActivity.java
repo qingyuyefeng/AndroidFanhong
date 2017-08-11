@@ -100,7 +100,6 @@ public class FragmentMainActivity extends SampleActivity {
 
         if(!isNetworkAvailable(this)){
             Toast.makeText(this,R.string.nonetwork,Toast.LENGTH_SHORT).show();
-            mTab01.setFragment(333,"failed");
         }
 
         fragmentManager = getFragmentManager();
@@ -155,19 +154,19 @@ public class FragmentMainActivity extends SampleActivity {
         }
         return false;
     }
-    private static final int Permission_Request_Code = 1000;
-    public void requestPermission(String[] permissions) {
-        ActivityCompat.requestPermissions(this, permissions, Permission_Request_Code);
-    }
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[]
-            grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
+//    private static final int Permission_Request_Code = 1000;
+//    public void requestPermission(String[] permissions) {
+//        ActivityCompat.requestPermissions(this, permissions, Permission_Request_Code);
+//    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//    }
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[]
+//            grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//    }
     private void wellcom() {
         new Handler().postDelayed(new Runnable() {
             @Override

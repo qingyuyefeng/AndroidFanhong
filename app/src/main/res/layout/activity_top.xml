@@ -9,12 +9,12 @@
 
     <ImageView
         android:id="@+id/img_back"
-        android:layout_width="50px"
-        android:layout_height="50px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="30px"
-        android:src="@drawable/btn_back" />
+        android:padding="5px"
+        android:src="@drawable/back_gray" />
 
     <TextView
         android:id="@+id/tv_title"

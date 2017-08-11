@@ -16,21 +16,16 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fanhong.cn.CommStoreActivity;
-import com.fanhong.cn.GardenSelecterActivity;
 import com.fanhong.cn.LoginActivity;
 import com.fanhong.cn.R;
 import com.fanhong.cn.StoreActivity;
 import com.fanhong.cn.WebViewActivity;
 import com.fanhong.cn.fenxiao.FenXiaoActivity;
-import com.fanhong.cn.synctaskpicture.RepairLinesActivity;
-import com.fanhong.cn.synctaskpicture.UrgentOpenDoorActivity;
-import com.fanhong.cn.usedmarket.ShopActivity;
 import com.fanhong.cn.listviews.MyGridView;
+import com.fanhong.cn.usedmarket.ShopActivity;
 
 public class ServiceView1 extends BaseFragment {
 	public static final int PAGER_INDEX = 2;

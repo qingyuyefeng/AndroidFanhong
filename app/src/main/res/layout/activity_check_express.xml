@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/activity_top"/>
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/input_express_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/postpicture_biankuang"
+            android:hint="请输入单号查询"
+            android:textColorHint="@color/alpha_black"
+            android:textSize="25px"
+            android:padding="20px"
+            android:layout_margin="40px"/>
+        <ImageView
+            android:id="@+id/img_search_express"
+            android:layout_width="50px"
+            android:layout_height="50px"
+            android:src="@drawable/search"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="70px"/>
+    </com.zhy.autolayout.AutoRelativeLayout>
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="40px"
+        android:layout_marginRight="40px">
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/my_send_express"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="我寄的"
+                android:textSize="30px"
+                android:textColor="@color/popular"
+                android:paddingTop="20px"
+                android:paddingBottom="20px"
+                android:gravity="center"/>
+            <View
+                android:id="@+id/line_send_express"
+                android:layout_width="match_parent"
+                android:layout_height="5px"
+                android:background="@color/red"/>
+        </com.zhy.autolayout.AutoLinearLayout>
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/my_get_express"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="我收的"
+                android:textColor="@color/popular"
+                android:textSize="30px"
+                android:paddingTop="20px"
+                android:paddingBottom="20px"
+                android:gravity="center"/>
+            <View
+                android:id="@+id/line_get_express"
+                android:layout_width="match_parent"
+                android:layout_height="5px"
+                android:background="@color/red"
+                android:visibility="invisible"/>
+        </com.zhy.autolayout.AutoLinearLayout>
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:id="@+id/check_express_relativelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="40px"
+        android:layout_marginRight="40px" />
+
+</com.zhy.autolayout.AutoLinearLayout>
