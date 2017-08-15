@@ -9,13 +9,14 @@
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="match_parent"
             android:layout_height="100px"
             android:gravity="center_vertical|left"
-            android:paddingEight="40px"
+            android:paddingRight="40px"
             android:paddingLeft="40px">
 
             <TextView
@@ -31,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:text="姓名："
                 android:textColor="@color/text_6"
-                android:textSize="28px" />
+                android:textSize="26px" />
 
             <EditText
                 android:id="@+id/edt_input_name"
@@ -57,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="100px"
             android:gravity="center_vertical|left"
-            android:paddingEight="40px"
+            android:paddingRight="40px"
             android:paddingLeft="40px">
 
             <TextView
@@ -73,7 +74,8 @@
                 android:layout_height="wrap_content"
                 android:text="联系电话："
                 android:textColor="@color/text_6"
-                android:textSize="28px" />
+                android:inputType="phone"
+                android:textSize="26px" />
 
             <EditText
                 android:id="@+id/edt_input_phoneNumber"
@@ -98,7 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="100px"
             android:gravity="center_vertical|left"
-            android:paddingEight="40px"
+            android:paddingRight="40px"
             android:paddingLeft="40px">
 
             <TextView
@@ -114,9 +116,10 @@
                 android:layout_height="wrap_content"
                 android:text="车牌（号牌）号码："
                 android:textColor="@color/text_6"
-                android:textSize="28px" />
+                android:textSize="26px" />
 
             <TextView
+                android:id="@+id/tv_input_licence"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_comment_choose_bg"
@@ -149,7 +152,7 @@
             android:layout_width="match_parent"
             android:layout_height="100px"
             android:gravity="center_vertical|left"
-            android:paddingEight="40px"
+            android:paddingRight="40px"
             android:paddingLeft="40px">
 
             <TextView
@@ -165,40 +168,44 @@
                 android:layout_height="wrap_content"
                 android:text="车辆类型："
                 android:textColor="@color/text_6"
-                android:textSize="28px" />
+                android:textSize="26px" />
 
             <RadioGroup
+                android:id="@+id/rg_input_car_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="15px">
 
                 <RadioButton
+                    android:id="@+id/rb_car_mini"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="8px"
+                    android:layout_marginRight="6dp"
                     android:button="@drawable/rb_button_selector"
                     android:checked="true"
                     android:text="小型汽车"
                     android:textColor="@color/text_6"
-                    android:textSize="28px" />
+                    android:textSize="12sp" />
 
                 <RadioButton
+                    android:id="@+id/rb_car_large"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="8px"
+                    android:layout_marginRight="6dp"
                     android:button="@drawable/rb_button_selector"
                     android:text="大型汽车"
                     android:textColor="@color/text_6"
-                    android:textSize="28px" />
+                    android:textSize="12sp" />
 
                 <RadioButton
+                    android:id="@+id/rb_trailer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:button="@drawable/rb_button_selector"
                     android:text="挂车"
                     android:textColor="@color/text_6"
-                    android:textSize="28px" />
+                    android:textSize="12sp" />
             </RadioGroup>
         </com.zhy.autolayout.AutoLinearLayout>
 
@@ -213,7 +220,7 @@
             android:layout_width="match_parent"
             android:layout_height="100px"
             android:gravity="center_vertical|left"
-            android:paddingEight="40px"
+            android:paddingRight="40px"
             android:paddingLeft="40px">
 
             <TextView
@@ -229,7 +236,7 @@
                 android:layout_height="wrap_content"
                 android:text="发动机号后4位："
                 android:textColor="@color/text_6"
-                android:textSize="28px" />
+                android:textSize="26px" />
 
             <EditText
                 android:id="@+id/edt_input_engine"
@@ -237,6 +244,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_comment_choose_bg"
                 android:ems="6"
+                android:inputType="number"
                 android:gravity="center_vertical"
                 android:padding="15px"
                 android:textColor="@color/text_6"
@@ -254,7 +262,7 @@
             android:layout_width="match_parent"
             android:layout_height="100px"
             android:gravity="center_vertical|left"
-            android:paddingEight="40px"
+            android:paddingRight="40px"
             android:paddingLeft="40px">
 
             <TextView
@@ -270,7 +278,7 @@
                 android:layout_height="wrap_content"
                 android:text="身份证号码："
                 android:textColor="@color/text_6"
-                android:textSize="28px" />
+                android:textSize="26px" />
 
             <EditText
                 android:id="@+id/edt_input_idCard"
@@ -311,7 +319,7 @@
                 android:layout_height="wrap_content"
                 android:text="上门取车地址："
                 android:textColor="@color/text_6"
-                android:textSize="28px" />
+                android:textSize="26px" />
 
             <EditText
                 android:id="@+id/edt_input_getCarAddr"
@@ -320,10 +328,8 @@
                 android:background="@drawable/shape_comment_choose_bg"
                 android:gravity="center_vertical"
                 android:layout_marginRight="40px"
-                android:hint="000000000000000000"
                 android:padding="15px"
                 android:textColor="@color/text_6"
-                android:textColorHint="@color/transparent"
                 android:textSize="30px" />
         </com.zhy.autolayout.AutoLinearLayout>
 
@@ -338,7 +344,7 @@
             android:layout_width="match_parent"
             android:layout_height="100px"
             android:gravity="center_vertical|left"
-            android:paddingEight="40px"
+            android:paddingRight="40px"
             android:paddingLeft="40px">
 
             <TextView
@@ -354,7 +360,7 @@
                 android:layout_height="wrap_content"
                 android:text="输入验证码："
                 android:textColor="@color/text_6"
-                android:textSize="28px" />
+                android:textSize="26px" />
 
             <EditText
                 android:id="@+id/edt_input_code"
@@ -378,5 +384,16 @@
             android:layout_marginLeft="40px"
             android:layout_marginRight="40px"
             android:background="@drawable/xuxian_ccc" />
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="match_parent"
+            android:layout_height="85px"
+            android:layout_marginLeft="40px"
+            android:layout_marginRight="40px"
+            android:layout_marginTop="30px"
+            android:background="@drawable/btn_radius_red"
+            android:text="下一步"
+            android:textColor="@color/white"
+            android:textSize="35px"/>
     </com.zhy.autolayout.AutoLinearLayout>
 </com.zhy.autolayout.AutoLinearLayout>
