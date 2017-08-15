@@ -125,8 +125,6 @@ public class HomeView1 extends BaseFragment {
 
         moreNotice = (TextView) view.findViewById(R.id.show_notice);
         moreNotice.setOnClickListener(ocl);
-//        viewFlipper = (ViewFlipper) view.findViewById(R.id.my_flipper);
-//        radioGroup = (RadioGroup) view.findViewById(R.id.radio_group);
         banner = (Banner) view.findViewById(R.id.home_banner);
         bannerAdapter = new BannerAdapter<BannerModel>(bannerModelList) {
 
@@ -166,63 +164,11 @@ public class HomeView1 extends BaseFragment {
             }
         });
 
-//        images.add(R.drawable.title3);
-//        images.add(R.drawable.banner);
-//        images.add(R.drawable.top_banner);
 
         textViews[0] = (TextView) view.findViewById(R.id.textView0);
         textViews[1] = (TextView) view.findViewById(R.id.textView1);
         textViews[2] = (TextView) view.findViewById(R.id.textView2);
         textViews[3] = (TextView) view.findViewById(R.id.textView3);
-//        RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(14, 14);
-//        layoutParams.setMargins(12, 0, 12, 0);
-//        for (int i = 0; i < images.size(); i++) {
-//            ImageView imageView = new ImageView(getActivity());
-//            imageView.setLayoutParams(new FrameLayout.LayoutParams(-1, -1));
-//            imageView.setImageResource(images.get(i));
-//            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-//            imageView.setId(250+i);
-//            imageView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    switch (v.getId()){
-//                        case 250:
-//                            break;
-//                        case 251:
-//                            break;
-//                        case 252:
-//                            startActivity(new Intent(HomeView1.this.getActivity(),StoreActivity.class));
-//                            break;
-//                    }
-//                }
-//            });
-//            viewFlipper.addView(imageView);
-//
-//            RadioButton radioButton = new RadioButton(getActivity());
-//            radioButton.setLayoutParams(layoutParams);
-//            radioButton.setId(i);
-//            radioButton.setButtonDrawable(null);
-//            radioButton.setBackgroundResource(R.drawable.ciecle_radiobutton);
-//            btnLists.add(radioButton);
-//            radioGroup.addView(radioButton);
-//        }
-//        viewFlipper.setFlipInterval(3000); //设置切换间隔时间
-//        viewFlipper.startFlipping(); //开始切换
-//        viewFlipper.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-//            @Override
-//            public void onLayoutChange(View v, int left, int top, int right, int bottom,
-//                                       int oldLeft, int oldTop, int oldRight, int oldBottom) {
-//                btnLists.get(viewFlipper.getDisplayedChild()).setChecked(true);
-//            }
-//        });
-//        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                viewFlipper.stopFlipping();  //停止切换
-//                viewFlipper.setDisplayedChild(checkedId);
-//                viewFlipper.startFlipping();  //开始切换
-//            }
-//        });
 
         for (int i = 0; i < textViews.length; i++) {
             textViews[i].setOnClickListener(ocl);

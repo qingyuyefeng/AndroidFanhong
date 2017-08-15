@@ -88,35 +88,68 @@
             android:gravity="bottom"/>
     </com.zhy.autolayout.AutoLinearLayout>
 
-    <com.zhy.autolayout.AutoLinearLayout
+    <com.zhy.autolayout.AutoRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20px"
-        android:gravity="bottom"
-        android:orientation="horizontal"
-        android:paddingBottom="20px"
         android:paddingTop="20px"
-        android:layout_marginTop="35px">
+        android:paddingBottom="20px">
 
         <TextView
+            android:id="@+id/tv_shouhuo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="8px"
+            android:paddingTop="8px"
             android:text="收货地址："
             android:textSize="30px" />
 
-        <EditText
-            android:id="@+id/change_address_edt"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/change_address_choosecell"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="13px"
+            android:ems="7"
+            android:maxLines="1"
+            android:layout_marginLeft="10px"
+            android:layout_toRightOf="@id/tv_shouhuo"
+            android:background="@drawable/postpicture_biankuang"
+            android:drawableRight="@drawable/lion_xiala"
+            android:padding="8px"
+            android:text="@string/choosecell"
+            android:textSize="30px" />
+
+        <TextView
+            android:id="@+id/change_address_chooselou"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30px"
+            android:layout_toRightOf="@id/change_address_choosecell"
+            android:background="@drawable/postpicture_biankuang"
+            android:drawableRight="@drawable/lion_xiala"
+            android:padding="8px"
+            android:enabled="false"
+            android:ems="5"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="@string/chooselou"
+            android:textSize="30px" />
+
+        <EditText
+            android:id="@+id/input_address_edt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_shouhuo"
+            android:layout_alignLeft="@id/change_address_choosecell"
+            android:layout_marginTop="10px"
             android:layout_marginLeft="10px"
             android:layout_marginRight="30px"
-            android:layout_weight="1"
             android:background="@drawable/postpicture_biankuang"
-            android:hint="请输入地址（详细到门牌信息）"
-            android:textSize="30px"
-            android:textColorHint="@color/alpha_black"/>
-    </com.zhy.autolayout.AutoLinearLayout>
+            android:hint="请输入地址（详细的门牌信息）"
+            android:padding="13px"
+            android:textColorHint="@color/alpha_black"
+            android:enabled="false"
+            android:textSize="30px" />
+    </com.zhy.autolayout.AutoRelativeLayout>
 
     <CheckBox
         android:id="@+id/whether_default"

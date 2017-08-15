@@ -66,7 +66,7 @@ public class LoginActivity extends SampleActivity {
 
     public synchronized void connectSuccess(JSONObject json, int type) {
         int cmd = -1;
-        int result = -1;
+        int cw = -1;
         String name = "";
         String str;
         String nick = "";
@@ -77,7 +77,7 @@ public class LoginActivity extends SampleActivity {
             str = json.getString("cmd");
             cmd = Integer.parseInt(str);
             str = json.getString("cw");
-            result = Integer.parseInt(str);
+            cw = Integer.parseInt(str);
             try {
                 name = json.getString("name");
             } catch (Exception e) {
@@ -99,14 +99,14 @@ public class LoginActivity extends SampleActivity {
             connectFail(type);
             return;
         }
-        Log.i("xq", "********result=" + result);
+        Log.i("xq", "********result=" + cw);
         if (cmd == 6) {
             mLogin.setText(R.string.login);
             mLogin.setEnabled(false);
             mUserName.setEnabled(false);
             mPassword.setEnabled(false);
             mRemember.setEnabled(false);
-            if (result == 0) {
+            if (cw == 0) {
                 SampleConnection.USER = name;
                 SampleConnection.ALIAS = nick;
                 SampleConnection.USER_STATE = 1;

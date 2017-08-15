@@ -11,6 +11,15 @@ public class AddressModel {
     String cellId;
     String louId;
     int isDefault,adrid;
+//    boolean mControl;
+
+//    public boolean ismControl() {
+//        return mControl;
+//    }
+//
+//    public void setmControl(boolean mControl) {
+//        this.mControl = mControl;
+//    }
 
     public String getCellId() {
         return cellId;
