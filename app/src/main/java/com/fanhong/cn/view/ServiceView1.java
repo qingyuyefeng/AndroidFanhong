@@ -26,6 +26,7 @@ import com.fanhong.cn.WebViewActivity;
 import com.fanhong.cn.fenxiao.FenXiaoActivity;
 import com.fanhong.cn.listviews.MyGridView;
 import com.fanhong.cn.usedmarket.ShopActivity;
+import com.fanhong.cn.verification.VerificationIndexActivity;
 
 public class ServiceView1 extends BaseFragment {
 	public static final int PAGER_INDEX = 2;
@@ -318,7 +319,8 @@ public class ServiceView1 extends BaseFragment {
 //				break;
 			//二手货市场
 			case 3:
-				Toast.makeText(ServiceView1.this.getActivity(),R.string.starting,Toast.LENGTH_SHORT).show();
+//				Toast.makeText(ServiceView1.this.getActivity(),R.string.starting,Toast.LENGTH_SHORT).show();
+				startActivity(new Intent(ServiceView1.this.getActivity(), VerificationIndexActivity.class));
 				break;
 			case 4:
 				startActivity(new Intent(ServiceView1.this.getActivity(), FenXiaoActivity.class));

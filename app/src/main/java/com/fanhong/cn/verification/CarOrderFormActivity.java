@@ -61,7 +61,7 @@ public class CarOrderFormActivity extends Activity {
     private String[] provinces = {"渝", "京", "津", "冀", "晋", "蒙", "辽", "吉", "黑", "沪",
             "苏", "浙", "皖", "闽", "赣", "鲁", "豫", "鄂", "湘", "粤",
             "桂", "琼", "川", "贵", "云", "藏", "陕", "甘", "青", "宁", "新", "台"};
-    private CarOrderForm formModel;
+    private CarOrderForm formModel;//表单数据
     private boolean isinput = true;
     private SpinerPopWindow sp_licences;
     private List<String> list_province = new ArrayList<>();
@@ -133,6 +133,7 @@ public class CarOrderFormActivity extends Activity {
         });
     }
 
+    //表单验证
     private boolean getValues() throws ParseException {
         String name = edt_name.getText().toString();
         if (StringUtils.isEmpty(name)) {
@@ -201,12 +202,12 @@ public class CarOrderFormActivity extends Activity {
             case R.id.btn_next:
                 try {
                     if (getValues()) {
-                        Toast.makeText(this, "验证通过！", Toast.LENGTH_SHORT).show();
-//                        Intent intent = new Intent(this, null);
-//                        Bundle bundle = new Bundle();
-//                        bundle.putSerializable("model", formModel);
-//                        intent.putExtras(bundle);
-//                        startActivity(intent);
+//                        Toast.makeText(this, "验证通过！", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(this, CarFormConfirmActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("model", formModel);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
