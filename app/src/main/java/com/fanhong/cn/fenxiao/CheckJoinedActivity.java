@@ -59,7 +59,8 @@ public class CheckJoinedActivity extends Activity{
                 ssp = new SpinerPopWindow<>(CheckJoinedActivity.this, getYears(), new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        tvYear.setText(years.get(position));
+                        tvYear.setText(years.get(position)+"年");
+                        ssp.dismiss();
                     }
                 },"年");
                 ssp.setWidth(tvYear.getWidth());
@@ -69,8 +70,9 @@ public class CheckJoinedActivity extends Activity{
                 ssp = new SpinerPopWindow<>(CheckJoinedActivity.this, getMonths(), new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        tvMonth.setText(months.get(position));
-                        thisMonth.setText(months.get(position));
+                        tvMonth.setText(months.get(position)+"月");
+                        thisMonth.setText(months.get(position)+"月");
+                        ssp.dismiss();
                     }
                 },"月");
                 ssp.setWidth(tvMonth.getWidth());
@@ -79,12 +81,14 @@ public class CheckJoinedActivity extends Activity{
         }
     }
     private List<Integer> getMonths(){
+        months.clear();
         for(int i=0;i<12;i++){
             months.add(i+1);
         }
         return months;
     }
     private List<Integer> getYears(){
+        years.clear();
         for(int i=2017;i<2031;i++){
             years.add(i);
         }
