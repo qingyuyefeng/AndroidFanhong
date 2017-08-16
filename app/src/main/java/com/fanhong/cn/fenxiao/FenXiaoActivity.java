@@ -95,23 +95,6 @@ public class FenXiaoActivity extends Activity {
         }
     }
 
-//    @Event(value = R.id.scroll_fenxiao, type = View.OnTouchListener.class)
-//    private boolean onTouch(View v, MotionEvent event) {
-//        Toast.makeText(this,"",1000).show();
-//        switch (event.getAction()){
-//            case MotionEvent.ACTION_DOWN:
-//                oldy=event.getY();
-//                break;
-//            case MotionEvent.ACTION_UP:
-//                y=event.getY();
-//                if ((y-oldy)<-50){
-//                    scrollView.smoothScrollTo(0,distribution2.getTop());
-//                }
-//                break;
-//        }
-//        return false;
-//    }
-
     private void setImage(ImageView iv, int wd, int ht) {
         int screenWidth = getWindowManager().getDefaultDisplay().getWidth();
         int height = ht * screenWidth / wd;
