@@ -16,8 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="100px"
             android:gravity="center_vertical|left"
-            android:paddingRight="40px"
-            android:paddingLeft="40px">
+            android:paddingLeft="40px"
+            android:paddingRight="40px">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -41,6 +41,7 @@
                 android:background="@drawable/shape_comment_choose_bg"
                 android:ems="7"
                 android:gravity="center_vertical"
+                android:lines="1"
                 android:maxLines="1"
                 android:padding="15px"
                 android:textColor="@color/text_6"
@@ -58,8 +59,8 @@
             android:layout_width="match_parent"
             android:layout_height="100px"
             android:gravity="center_vertical|left"
-            android:paddingRight="40px"
-            android:paddingLeft="40px">
+            android:paddingLeft="40px"
+            android:paddingRight="40px">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -72,9 +73,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:inputType="phone"
                 android:text="联系电话："
                 android:textColor="@color/text_6"
-                android:inputType="phone"
                 android:textSize="26px" />
 
             <EditText
@@ -84,6 +85,7 @@
                 android:background="@drawable/shape_comment_choose_bg"
                 android:ems="11"
                 android:gravity="center_vertical"
+                android:lines="1"
                 android:padding="15px"
                 android:textColor="@color/text_6"
                 android:textSize="30px" />
@@ -100,8 +102,8 @@
             android:layout_width="match_parent"
             android:layout_height="100px"
             android:gravity="center_vertical|left"
-            android:paddingRight="40px"
-            android:paddingLeft="40px">
+            android:paddingLeft="40px"
+            android:paddingRight="40px">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -122,11 +124,11 @@
                 android:id="@+id/tv_input_licence"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="10px"
                 android:background="@drawable/shape_comment_choose_bg"
                 android:drawablePadding="10px"
                 android:drawableRight="@drawable/spinner_arrow_selector"
                 android:padding="17px"
-                android:layout_marginRight="10px"
                 android:text="渝" />
 
             <EditText
@@ -136,6 +138,7 @@
                 android:background="@drawable/shape_comment_choose_bg"
                 android:ems="5"
                 android:gravity="center_vertical"
+                android:lines="1"
                 android:padding="15px"
                 android:textColor="@color/text_6"
                 android:textSize="30px" />
@@ -152,8 +155,8 @@
             android:layout_width="match_parent"
             android:layout_height="100px"
             android:gravity="center_vertical|left"
-            android:paddingRight="40px"
-            android:paddingLeft="40px">
+            android:paddingLeft="40px"
+            android:paddingRight="40px">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -220,8 +223,8 @@
             android:layout_width="match_parent"
             android:layout_height="100px"
             android:gravity="center_vertical|left"
-            android:paddingRight="40px"
-            android:paddingLeft="40px">
+            android:paddingLeft="40px"
+            android:paddingRight="40px">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -244,8 +247,9 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_comment_choose_bg"
                 android:ems="6"
-                android:inputType="number"
                 android:gravity="center_vertical"
+                android:inputType="number"
+                android:lines="1"
                 android:padding="15px"
                 android:textColor="@color/text_6"
                 android:textSize="30px" />
@@ -262,8 +266,8 @@
             android:layout_width="match_parent"
             android:layout_height="100px"
             android:gravity="center_vertical|left"
-            android:paddingRight="40px"
-            android:paddingLeft="40px">
+            android:paddingLeft="40px"
+            android:paddingRight="40px">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -287,6 +291,7 @@
                 android:background="@drawable/shape_comment_choose_bg"
                 android:gravity="center_vertical"
                 android:hint="000000000000000000"
+                android:lines="1"
                 android:padding="15px"
                 android:textColor="@color/text_6"
                 android:textColorHint="@color/transparent"
@@ -325,9 +330,10 @@
                 android:id="@+id/edt_input_getCarAddr"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="40px"
                 android:background="@drawable/shape_comment_choose_bg"
                 android:gravity="center_vertical"
-                android:layout_marginRight="40px"
+                android:lines="1"
                 android:padding="15px"
                 android:textColor="@color/text_6"
                 android:textSize="30px" />
@@ -344,8 +350,8 @@
             android:layout_width="match_parent"
             android:layout_height="100px"
             android:gravity="center_vertical|left"
-            android:paddingRight="40px"
-            android:paddingLeft="40px">
+            android:paddingLeft="40px"
+            android:paddingRight="40px">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -369,9 +375,11 @@
                 android:background="@drawable/shape_comment_choose_bg"
                 android:ems="6"
                 android:gravity="center_vertical"
+                android:lines="1"
                 android:padding="15px"
                 android:textColor="@color/text_6"
                 android:textSize="30px" />
+
             <ImageView
                 android:id="@+id/img_input_code"
                 android:layout_width="180px"
@@ -384,6 +392,7 @@
             android:layout_marginLeft="40px"
             android:layout_marginRight="40px"
             android:background="@drawable/xuxian_ccc" />
+
         <Button
             android:id="@+id/btn_next"
             android:layout_width="match_parent"
@@ -394,6 +403,6 @@
             android:background="@drawable/btn_radius_red"
             android:text="下一步"
             android:textColor="@color/white"
-            android:textSize="35px"/>
+            android:textSize="35px" />
     </com.zhy.autolayout.AutoLinearLayout>
 </com.zhy.autolayout.AutoLinearLayout>
