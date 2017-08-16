@@ -26,6 +26,11 @@ public class MyAddressAdapter extends RecyclerView.Adapter<MyAddressAdapter.MyVi
     private LayoutInflater inflater;
 
     MyHolderClick myHolderClick;
+    boolean controlable = false;
+
+    public void setControlable(boolean controlable) {
+        this.controlable = controlable;
+    }
 
     public void setMyHolderClick(MyHolderClick myHolderClick) {
         this.myHolderClick = myHolderClick;
@@ -33,7 +38,7 @@ public class MyAddressAdapter extends RecyclerView.Adapter<MyAddressAdapter.MyVi
 
     public interface MyHolderClick{
         void editAddress(String name,String phone,String address,int status);
-        void deleteAddress(int id);
+        void deleteAddress(int id,int pos);
         void holderItemClick();
     }
 
@@ -52,17 +57,18 @@ public class MyAddressAdapter extends RecyclerView.Adapter<MyAddressAdapter.MyVi
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
+        final int pos = holder.getLayoutPosition();
         AddressModel addressModel = addressList.get(position);
-//        holder.tvName.setText(addressModel.getName());
-//        holder.tvPhone.setText(addressModel.getPhone());
-//        holder.tvAddress.setText(addressModel.getAddress());
+        holder.tvName.setText(addressModel.getName());
+        holder.tvPhone.setText(addressModel.getPhone());
+        holder.tvAddress.setText(addressModel.getAddress());
         final int id = addressModel.getAdrid();
         final int status = addressModel.getIsDefault();
-//        if(status == 1){
-//            holder.ivDefault.setVisibility(View.VISIBLE);
-//        }else {
-//            holder.ivDefault.setVisibility(View.GONE);
-//        }
+        if(status == 1){
+            holder.ivDefault.setVisibility(View.VISIBLE);
+        }else {
+            holder.ivDefault.setVisibility(View.GONE);
+        }
         holder.tvEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,15 +88,24 @@ public class MyAddressAdapter extends RecyclerView.Adapter<MyAddressAdapter.MyVi
                 /*
                 接入删除地址接口，传入地址id（后台标识）
                  */
-                myHolderClick.deleteAddress(id);
+                myHolderClick.deleteAddress(id,pos);
             }
         });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //item的点击
                 myHolderClick.holderItemClick();
             }
         });
+        //是否可管理
+        if(controlable){
+            holder.tvEdit.setVisibility(View.VISIBLE);
+            holder.tvDelete.setVisibility(View.VISIBLE);
+        }else {
+            holder.tvEdit.setVisibility(View.GONE);
+            holder.tvDelete.setVisibility(View.GONE);
+        }
     }
 
     @Override

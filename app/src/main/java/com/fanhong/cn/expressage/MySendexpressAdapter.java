@@ -65,29 +65,22 @@ public class MySendexpressAdapter extends BaseAdapter{
             myViewHolder = (MyViewHolder) convertView.getTag();
         }
         MysendModel mysendModel = list.get(position);
-//        holder.tnumber.setText(mysendModel.getTrackingNumber());
-//        holder.scity.setText(mysendModel.getSendCity());
-//        holder.sname.setText(mysendModel.getSendName());
-//        holder.rcity.setText(mysendModel.getReceiveCity());
-//        holder.rname.setText(mysendModel.getReceiveName());
-        myViewHolder.follow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                followClick.btnClick();
-            }
-        });
+//        myViewHolder.tnumber.setText(mysendModel.getTrackingNumber());
+//        myViewHolder.scity.setText(mysendModel.getSendCity());
+//        myViewHolder.sname.setText(mysendModel.getSendName());
+//        myViewHolder.rcity.setText(mysendModel.getReceiveCity());
+//        myViewHolder.rname.setText(mysendModel.getReceiveName());
         return convertView;
     }
 
     class MyViewHolder{
-        TextView tnumber,scity,sname,rcity,rname,follow;
+        TextView tnumber,scity,sname,rcity,rname;
         public MyViewHolder(View itemView) {
             tnumber = (TextView) itemView.findViewById(R.id.tracking_number);
             scity = (TextView) itemView.findViewById(R.id.send_express_city);
             sname = (TextView) itemView.findViewById(R.id.send_express_name);
             rcity = (TextView) itemView.findViewById(R.id.get_express_city);
             rname = (TextView) itemView.findViewById(R.id.get_express_name);
-            follow = (TextView) itemView.findViewById(R.id.follow_sending);
             AutoUtils.autoSize(itemView);
         }
     }

@@ -61,14 +61,6 @@ public class CheckExpressActivity extends Activity{
         title.setText("查快递");
         initData();
         mySendexpressAdapter = new MySendexpressAdapter(this,mysendModelList);
-        mySendexpressAdapter.setFollowClick(new MySendexpressAdapter.FollowClick() {
-            @Override
-            public void btnClick() {
-                Intent intent = new Intent();
-                intent.setClass(CheckExpressActivity.this,FollowOrderActivity.class);
-                startActivity(intent);
-            }
-        });
         msRecyclerView.setAdapter(mySendexpressAdapter);
         tvsend.setText("我寄的（"+mysendModelList.size()+"）");
         tvget.setText("我收的（"+mygetModelList.size()+"）");

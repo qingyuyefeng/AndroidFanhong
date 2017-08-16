@@ -22,6 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20px"
+                android:layout_marginLeft="30px"
                 android:text="运单号："
                 android:textSize="20px" />
 
@@ -38,6 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/num1"
+                android:layout_alignLeft="@id/num1"
                 android:text="北京市"
                 android:textColor="@color/popular"
                 android:textSize="30px" />
@@ -48,6 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/send_express_address"
                 android:layout_marginTop="15px"
+                android:layout_alignLeft="@id/num1"
                 android:text="湛洋"
                 android:textColor="@color/popular"
                 android:textSize="30px" />
@@ -86,17 +89,7 @@
                 android:layout_alignBottom="@id/send_express_name" />
         </com.zhy.autolayout.AutoRelativeLayout>
 
-        <TextView
-            android:id="@+id/follow_sending"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@drawable/postbtn_dianji"
-            android:gravity="center"
-            android:paddingLeft="25px"
-            android:paddingRight="25px"
-            android:text="订单跟踪"
-            android:textColor="@color/white"
-            android:textSize="30px" />
+
     </com.zhy.autolayout.AutoLinearLayout>
     <View
         android:layout_width="match_parent"

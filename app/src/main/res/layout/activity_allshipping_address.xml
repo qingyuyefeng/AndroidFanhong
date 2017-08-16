@@ -22,19 +22,39 @@
             android:text="收货地址"
             android:textColor="@color/white"
             android:textSize="34px"/>
-        <ImageView
-            android:id="@+id/add_new_address"
-            android:layout_width="60px"
+        <CheckBox
+            android:id="@+id/control_address"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/ico_add"
-            android:padding="5px"
+            android:button="@null"
+            android:checked="false"
+            android:text="管理"
+            android:paddingLeft="10px"
+            android:paddingRight="10px"
+            android:textColor="@color/white"
+            android:textSize="34px"
+            android:gravity="center"
             android:layout_marginRight="10px"/>
     </com.zhy.autolayout.AutoLinearLayout>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/shipping_address_recyclerview"
-        android:layout_marginTop="10px"
+    <com.zhy.autolayout.AutoRelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:dividerHeight="3px"/>
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/shipping_address_recyclerview"
+            android:layout_marginTop="10px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dividerHeight="3px"/>
+        <TextView
+            android:id="@+id/add_new_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="添加新地址"
+            android:gravity="center"
+            android:paddingTop="25px"
+            android:paddingBottom="25px"
+            android:background="@color/alpha_black"/>
+    </com.zhy.autolayout.AutoRelativeLayout>
 
 </com.zhy.autolayout.AutoLinearLayout>

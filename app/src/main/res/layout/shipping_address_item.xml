@@ -9,7 +9,8 @@
 
     <com.zhy.autolayout.AutoRelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="10px">
 
         <TextView
             android:id="@+id/whose_address"
@@ -17,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15px"
             android:layout_marginTop="15px"
-            android:text="詹*"
+            android:text="湛*"
             android:textColor="@color/popular"
             android:textSize="30px" />
 
@@ -60,8 +61,8 @@
             android:drawableLeft="@drawable/ilon_delete"
             android:drawablePadding="10px"
             android:padding="10px"
-            android:layout_marginBottom="10px"
             android:text="@string/delete"
+            android:visibility="gone"
             android:textColor="@color/popular"
             android:drawableTint="@color/popular"
             android:textSize="30px" />
@@ -78,6 +79,7 @@
             android:drawableTint="@color/popular"
             android:padding="10px"
             android:text="@string/editor"
+            android:visibility="gone"
             android:textColor="@color/popular"
             android:textSize="30px" />
     </com.zhy.autolayout.AutoRelativeLayout>

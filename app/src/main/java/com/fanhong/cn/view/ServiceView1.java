@@ -34,7 +34,8 @@ public class ServiceView1 extends BaseFragment {
 	//定义数组来存放按钮图片
 	private int mImageViewArray1[] = {
 			R.drawable.service_store,R.drawable.service_es,
-			R.drawable.service_pay, R.drawable.service_dai,
+//			R.drawable.service_pay,
+			R.drawable.service_dai,
 			R.drawable.service_distribution
 //			R.drawable.service_lock, R.drawable.service_park,R.drawable.service_fix,
 //			R.drawable.service_jd, R.drawable.service_kd, R.drawable.service_clean,
@@ -44,7 +45,8 @@ public class ServiceView1 extends BaseFragment {
 	//定义数组文字
 	private int mTextviewArray1[] = {
 			R.string.service_store,R.string.service_es,
-			R.string.service_pay, R.string.service_dai,
+//			R.string.service_pay,
+			R.string.service_dai,
 			R.string.service_zsdl
 //			R.string.service_lock, R.string.service_park,R.string.service_fix,
 //			R.string.service_jd, R.string.service_kd, R.string.service_clean,R.string.service_talk,
@@ -300,15 +302,14 @@ public class ServiceView1 extends BaseFragment {
 	private void oper1(int arg){
 		switch(arg){
 			case 0:
-				Intent intent2 = new Intent(ServiceView1.this.getActivity(), StoreActivity.class);
-				startActivity(intent2);
+				startActivity(new Intent(ServiceView1.this.getActivity(), StoreActivity.class));
 				break;
 			case 1:
 				startActivity(new Intent(ServiceView1.this.getActivity(), ShopActivity.class));
 				break;
-			case 2:
-				Toast.makeText(ServiceView1.this.getActivity(),R.string.starting,Toast.LENGTH_SHORT).show();
-				break;
+//			case 2:
+//				Toast.makeText(ServiceView1.this.getActivity(),R.string.starting,Toast.LENGTH_SHORT).show();
+//				break;
 //			//紧急开锁
 //			case 3:
 //				startActivity(new Intent(ServiceView1.this.getActivity(), UrgentOpenDoorActivity.class));
@@ -318,11 +319,11 @@ public class ServiceView1 extends BaseFragment {
 //				startActivity(new Intent(ServiceView1.this.getActivity(), RepairLinesActivity.class));
 //				break;
 			//二手货市场
-			case 3:
+			case 2:
 //				Toast.makeText(ServiceView1.this.getActivity(),R.string.starting,Toast.LENGTH_SHORT).show();
 				startActivity(new Intent(ServiceView1.this.getActivity(), VerificationIndexActivity.class));
 				break;
-			case 4:
+			case 3:
 				startActivity(new Intent(ServiceView1.this.getActivity(), FenXiaoActivity.class));
 				break;
 		}
