@@ -164,10 +164,8 @@ public class GoodspostActivity extends Activity {
     /**
      * 剪切图片
      * @param uri
-     * @param type
-     * @param data
      */
-    public void startPhotoZoom(Uri uri,int type,Intent data) {
+    public void startPhotoZoom(Uri uri) {
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");
         intent.putExtra("crop", "true");
@@ -191,11 +189,11 @@ public class GoodspostActivity extends Activity {
             return;
         switch (requestCode){
             case REQUESTCODE_TAKE://拍照的回调
-                startPhotoZoom(Uri.fromFile(file),REQUESTCODE_TAKE,data);
+                startPhotoZoom(Uri.fromFile(file));
                 break;
             case REQUESTCODE_PICK://选择图片的回调
                 if (data != null)
-                    startPhotoZoom(data.getData(),REQUESTCODE_PICK,data);
+                    startPhotoZoom(data.getData());
                 break;
             case REQUESTCODE_CUTTING://剪切
                 if (data == null)

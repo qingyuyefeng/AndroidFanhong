@@ -1,10 +1,12 @@
 package com.fanhong.cn;
 
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -16,6 +18,9 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -74,6 +79,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
     private static final int REQUESTCODE_TAKE = 61;        // 相机拍照标记
     private static final int REQUESTCODE_CUTTING = 62;    // 图片裁切标记
     private static final String IMAGE_FILE_NAME = "avatarImage.jpg";// 头像文件名称
+    private File file;
     private String urlpath;            // 图片本地路径
     // 上传服务器的路径【一般不硬编码到程序中】
     private String imgUrl = null;
@@ -100,7 +106,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
         String name = "";
         String phonenumber = "";
         String alias = "";
-        Log.i("xq", "ResetPswActivity.java json=" + json.toString());
+//        Log.i("xq", "ResetPswActivity.java json=" + json.toString());
         try {
             str = json.getString("cmd");
             cmd = Integer.parseInt(str);
@@ -269,8 +275,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
                 }
                 break;
             case REQUESTCODE_TAKE: // 调用相机拍照
-                File temp = new File(Environment.getExternalStorageDirectory() + "/" + IMAGE_FILE_NAME);
-                startPhotoZoom(Uri.fromFile(temp));
+                startPhotoZoom(Uri.fromFile(file));
                 break;
             case REQUESTCODE_CUTTING: //取得裁剪后的图片
                 if (data != null) {
@@ -337,24 +342,90 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
             switch (v.getId()) {
                 // 拍照
                 case R.id.takePhotoBtn:
-                    Intent takeIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    //下面这句指定调用相机拍照后的照片存储的路径
-                    takeIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-                            Uri.fromFile(new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
-                    startActivityForResult(takeIntent, REQUESTCODE_TAKE);
+//                    Intent takeIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                    //下面这句指定调用相机拍照后的照片存储的路径
+//                    takeIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+//                            Uri.fromFile(new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
+//                    startActivityForResult(takeIntent, REQUESTCODE_TAKE);
+                    String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                    if (Build.VERSION.SDK_INT >= 23) {
+                        int check = ContextCompat.checkSelfPermission(AccountSettingsActivity.this, permissions[0]);
+                        // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
+                        if (check == PackageManager.PERMISSION_GRANTED) {
+                            //调用相机
+                            useCamera();
+                        } else {
+                            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                        }
+                    } else {
+                        useCamera();
+                    }
                     break;
                 // 相册选择图片
                 case R.id.pickPhotoBtn:
-                    Intent pickIntent = new Intent(Intent.ACTION_PICK, null);
-                    // 如果朋友们要限制上传到服务器的图片类型时可以直接写如："image/jpeg 、image/png"等的类型
-                    pickIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-                    startActivityForResult(pickIntent, REQUESTCODE_PICK);
+//                    Intent pickIntent = new Intent(Intent.ACTION_PICK, null);
+//                    // 如果朋友们要限制上传到服务器的图片类型时可以直接写如："image/jpeg 、image/png"等的类型
+//                    pickIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+//                    startActivityForResult(pickIntent, REQUESTCODE_PICK);
+                    String[] permissions1 = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                    if (Build.VERSION.SDK_INT >= 23) {
+                        int check = ContextCompat.checkSelfPermission(AccountSettingsActivity.this, permissions1[0]);
+                        // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
+                        if (check == PackageManager.PERMISSION_GRANTED) {
+                            //调用相册选择
+                            choosePhoto();
+                        } else {
+                            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},2);
+                        }
+                    } else {
+                        choosePhoto();
+                    }
                     break;
                 default:
                     break;
             }
         }
     };
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            useCamera();
+        }else if(requestCode == 2 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            choosePhoto();
+        }else {
+            // 没有获取 到权限，从新请求，或者关闭app
+            Toast.makeText(this, "需要存储权限", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * 使用相机
+     */
+    private void useCamera() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        file = new File(Environment.getExternalStorageDirectory() + "/" + IMAGE_FILE_NAME);
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
+
+        //改变Uri  com.xykj.customview.fileprovider注意和xml中的一致
+        Uri uri = FileProvider.getUriForFile(this, "com.xqyh.customview.fileprovider", file);
+        //添加权限
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);//添加这一句表示对目标应用临时授权该Uri所代表的文件
+
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);//将拍取的照片保存到指定URI
+        startActivityForResult(intent, REQUESTCODE_TAKE);
+
+    }
+
+    private void choosePhoto(){
+        Intent intent1 = new Intent(Intent.ACTION_PICK, null);
+        intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        startActivityForResult(intent1, REQUESTCODE_PICK);
+    }
 
     /**
      * 裁剪图片方法实现
@@ -400,84 +471,6 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
         }
     }
 
-    /**
-     * 使用HttpUrlConnection模拟post表单进行文件
-     * 上传平时很少使用，比较麻烦
-     * 原理是： 分析文件上传的数据格式，然后根据格式构造相应的发送给服务器的字符串。
-     */
-    Runnable uploadImageRunnable = new Runnable() {
-        @Override
-        public void run() {
-
-            if (TextUtils.isEmpty(imgUrl)) {
-                Toast.makeText(context, "还没有设置上传服务器的路径！", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            Map<String, String> textParams = new HashMap<String, String>();
-            Map<String, File> fileparams = new HashMap<String, File>();
-
-            try {
-                // 创建一个URL对象
-                URL url = new URL(imgUrl);
-                textParams = new HashMap<String, String>();
-                fileparams = new HashMap<String, File>();
-                // 要上传的图片文件
-                File file = new File(urlpath);
-                fileparams.put("image", file);
-                // 利用HttpURLConnection对象从网络中获取网页数据
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setReadTimeout(10000);
-                // 设置连接超时（记得设置连接超时,如果网络不好,Android系统在超过默认时间会收回资源中断操作）
-                conn.setConnectTimeout(5000);
-                conn.setDoInput(true); // 允许输入流
-                // 设置允许输出（发送POST请求必须设置允许输出）
-                conn.setDoOutput(true);
-                // 设置使用POST的方式发送
-                conn.setRequestMethod("POST");
-                // 设置不使用缓存（容易出现问题）
-                conn.setUseCaches(false);
-                conn.setRequestProperty("Charset", "UTF-8");//设置编码
-                // 在开始用HttpURLConnection对象的setRequestProperty()设置,就是生成HTML文件头
-                conn.setRequestProperty("ser-Agent", "Fiddler");
-                // 设置contentType
-                conn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + NetUtil.BOUNDARY);
-                OutputStream os = conn.getOutputStream();
-                DataOutputStream ds = new DataOutputStream(os);
-                Log.i("hu", "*****1***");
-                NetUtil.writeStringParams(textParams, ds);
-                Log.i("hu", "*****2***");
-                NetUtil.writeFileParams(fileparams, ds);
-                Log.i("hu", "*****3***");
-                NetUtil.paramsEnd(ds);
-                // 对文件流操作完,要记得及时关闭
-                Log.i("hu", "*****4***");
-                os.close();
-                // 服务器返回的响应吗
-                int code = conn.getResponseCode(); // 从Internet获取网页,发送请求,将网页以流的形式读回来
-                // 对响应码进行判断
-                if (code == 200) {// 返回的响应码200,是成功
-                    Log.i("hu", "***9**code == 200***");
-                    // 得到网络返回的输入流
-                    InputStream is = conn.getInputStream();
-                    Log.i("hu", "*****5***");
-                    resultStr = NetUtil.readString(is);
-                    Log.i("hu", "*****6***resultStr=" + resultStr);
-                } else {
-                    Log.i("hu", "*****5***code=" + code);
-                    //Toast.makeText(context, "请求URL失败！", Toast.LENGTH_SHORT).show();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.i("hu", "*****00000000***");
-            }
-            //handler.sendEmptyMessage(0);// 执行耗时的方法之后发送消给handler
-            Message toMain = handler.obtainMessage();
-            toMain.what = 0;
-            handler.sendMessage(toMain);
-        }
-    };
-
     public void asynchttpUpload(String path, File myFile) {
         Log.e("hu", "*****path=" + path + " myFile=" + myFile);
         RequestParams params = new RequestParams();
@@ -489,7 +482,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
                 public void onSuccess(int statusCode, String content) {
                     super.onSuccess(statusCode, content);
                     //pd.dismiss();
-                    Log.e("hu", "**********statusCode=" + statusCode + " content=" + content);
+//                    Log.e("hu", "**********statusCode=" + statusCode + " content=" + content);
                     dealResult(content);
 
                 }
@@ -505,7 +498,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
             JSONObject json = new JSONObject(content);
             String status = json.getString("status");
             pig = json.getString("msg");
-            Log.e("hu", "*******status=" + status);
+//            Log.e("hu", "*******status=" + status);
             if (status.equals("true")) {
                 //Toast.makeText(AccountSettingsActivity.this, "上传成功！", Toast.LENGTH_LONG).show();
                 uploadissuccess = true;
@@ -529,7 +522,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
         map.put("uid", userid);
         map.put("logo", logo);
 
-        Log.i("xq", "修改头像map===>" + map.toString());
+//        Log.i("xq", "修改头像map===>" + map.toString());
         if (mSafoneConnection == null)
             mSafoneConnection = new SampleConnection(AccountSettingsActivity.this, 0);
         mSafoneConnection.connectService1(map);
@@ -542,7 +535,6 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
             switch (msg.what) {
                 case 0:
                     pd.dismiss();
-
                     try {
                         // 返回数据示例，根据需求和后台数据灵活处理
                         // {"status":"1","statusMessage":"上传成功","imageUrl":"http://120.24.219.49/726287_temphead.jpg"}

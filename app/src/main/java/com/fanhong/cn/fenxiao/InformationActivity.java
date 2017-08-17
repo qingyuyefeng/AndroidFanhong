@@ -5,14 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fanhong.cn.App;
@@ -25,6 +20,8 @@ import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
+
+import java.util.regex.Pattern;
 
 /**
  * Created by Administrator on 2017/8/8.
@@ -71,7 +68,13 @@ public class InformationActivity extends Activity {
     }
 
     private void postInformation(String s1, String s2, String s3, String s4, String s5) {
-        if (s1.length() > 0 && s2.length() > 0 && s3.length() > 0 && s4.length() > 0 && s5.length() > 0) {
+        if (!(s1.length() > 0 && s2.length() > 0 && s3.length() > 0 && s4.length() > 0 && s5.length() > 0)) {
+            Toast.makeText(this, "资料填写不完整", Toast.LENGTH_SHORT).show();
+        } else if (!checkPhoneNumber(s2)) {
+            Toast.makeText(this, "请输入正确的电话号码", Toast.LENGTH_SHORT).show();
+        } else if (!checkBankcard(s4)) {
+            Toast.makeText(this, "请输入正确的银行卡号", Toast.LENGTH_SHORT).show();
+        } else {
             RequestParams params = new RequestParams(App.CMDURL);
             params.addBodyParameter("cmd", "67");
             params.addBodyParameter("uid", uid);
@@ -104,8 +107,26 @@ public class InformationActivity extends Activity {
 
                 }
             });
+        }
+    }
+
+    //验证是否为电话号码
+    private boolean checkPhoneNumber(String phoneNum) {
+        Pattern p1 = Pattern.compile("^(((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(17[0-9])|(18[0-9]))+\\d{8})?$");
+        Pattern p2 = Pattern.compile("^(0[0-9]{2,3}\\-)?([1-9][0-9]{6,7})$");
+        if (((phoneNum.length() == 11 && p1.matcher(phoneNum).matches()) || (phoneNum.length() < 16 && p2.matcher(phoneNum).matches()))) {
+            return true;
         } else {
-            Toast.makeText(this, "资料填写不完整", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
+
+    //验证是否为银行卡号
+    private boolean checkBankcard(String cardNum) {
+        if (cardNum.length() < 15 || cardNum.length() > 19) {
+            return false;
+        } else {
+            return true;
         }
     }
 }

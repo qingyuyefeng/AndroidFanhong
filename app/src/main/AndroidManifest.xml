@@ -134,16 +134,16 @@
             </intent-filter>
         </activity>
         <activity
-        android:name=".AgentWebActivity"
-        android:screenOrientation="portrait"
-        android:theme="@android:style/Theme.Light.NoTitleBar">
-        <intent-filter>
-            <action android:name="android.intent.action.VIEW" /> <!-- 显示数据 -->
-            <category android:name="android.intent.category.DEFAULT" />
-            <category android:name="android.intent.category.BROWSABLE" /> <!-- 定义成浏览器类型，有URL需要处理时会过滤 -->
-            <data android:scheme="fyfeng" /> <!-- 打开以fyfeng协议的URL,这个自己随便定义。 -->
-        </intent-filter>
-    </activity>
+            android:name=".AgentWebActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" /> <!-- 显示数据 -->
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" /> <!-- 定义成浏览器类型，有URL需要处理时会过滤 -->
+                <data android:scheme="fyfeng" /> <!-- 打开以fyfeng协议的URL,这个自己随便定义。 -->
+            </intent-filter>
+        </activity>
         <activity
             android:name=".bluetooth.ClientActivity"
             android:screenOrientation="portrait" />
@@ -333,14 +333,16 @@
             android:name=".fenxiao.PostSuccessActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
-        <activity android:name=".fenxiao.CheckJoinedActivity"
+        <activity
+            android:name=".fenxiao.CheckJoinedActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar"/>
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
 
 
-        <activity android:name=".shippingaddress.BaiduMapActivity"
+        <activity
+            android:name=".shippingaddress.BaiduMapActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar"/>
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
         <!--代办年审-->
         <activity
             android:name=".verification.VerificationIndexActivity"
@@ -375,10 +377,12 @@
             android:name=".expressage.CheckExpressActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
-        <activity android:name=".expressage.ChooseExpressActivity"
+        <activity
+            android:name=".expressage.ChooseExpressActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
-        <activity android:name=".expressage.FollowOrderActivity"
+        <activity
+            android:name=".expressage.FollowOrderActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <!-- alipay sdk end -->
@@ -450,14 +454,22 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"/>
+            android:process=":remote" />
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="OCERegGLnvKmrUK8ENrHYzfotnUQPCdl" />
 
         <!-- 必选： SDK 核心功能 -->
 
-
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.xqyh.customview.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
         <!-- end -->
     </application>
 

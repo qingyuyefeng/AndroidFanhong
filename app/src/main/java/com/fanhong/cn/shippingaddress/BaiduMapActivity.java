@@ -2,9 +2,9 @@ package com.fanhong.cn.shippingaddress;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -17,7 +17,6 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
@@ -169,6 +168,7 @@ public class BaiduMapActivity extends Activity {
                 mBaiduMap.animateMapStatus(msu);
                 Toast.makeText(BaiduMapActivity.this, bdLocation.getAddrStr(), Toast.LENGTH_SHORT).show();
                 str1 = bdLocation.getAddrStr();
+                Log.i("定位的街道信息", bdLocation.getStreet() + "==>" + bdLocation.getStreetNumber());
                 str2 = bdLocation.getProvince() + bdLocation.getCity() + bdLocation.getDistrict();
                 isFirstIn = false;
             }

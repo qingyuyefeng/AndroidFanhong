@@ -58,6 +58,8 @@
                 android:paddingLeft="10dp"
                 android:textColor="#666"
                 android:textSize="12sp"
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:text="商品描述" />
 
             <TextView

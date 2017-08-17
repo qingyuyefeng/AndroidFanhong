@@ -5,186 +5,196 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <com.zhy.autolayout.AutoLinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/skyblue">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/back_bn"
-            android:layout_width="wrap_content"
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5px"
-            android:src="@drawable/back_gray" />
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:paddingLeft="-50px"
-            android:text="填写资料"
-            android:textColor="@color/white"
-            android:textSize="38px" />
-    </com.zhy.autolayout.AutoLinearLayout>
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/skyblue">
 
-    <com.zhy.autolayout.AutoLinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#f3f3f3">
+                <ImageView
+                    android:id="@+id/back_bn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5px"
+                    android:src="@drawable/back_gray" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="20px"
-            android:text="个人资料"
-            android:textSize="30px" />
-    </com.zhy.autolayout.AutoLinearLayout>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:paddingLeft="-50px"
+                    android:text="填写资料"
+                    android:textColor="@color/white"
+                    android:textSize="38px" />
+            </com.zhy.autolayout.AutoLinearLayout>
 
-    <com.zhy.autolayout.AutoLinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingTop="20px">
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#f3f3f3">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20px"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:text="姓名："
-            android:textSize="27px" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="20px"
+                    android:text="个人资料"
+                    android:textSize="30px" />
+            </com.zhy.autolayout.AutoLinearLayout>
 
-        <EditText
-            android:id="@+id/fenxiao_name"
-            android:layout_width="290px"
-            android:layout_height="70px"
-            android:layout_marginLeft="10px"
-            android:background="@drawable/postpicture_biankuang" />
-    </com.zhy.autolayout.AutoLinearLayout>
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="20px">
 
-    <com.zhy.autolayout.AutoLinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20px"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20px"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:text="姓名："
+                    android:textSize="27px" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20px"
-            android:text="电话："
-            android:textSize="27px" />
+                <EditText
+                    android:id="@+id/fenxiao_name"
+                    android:layout_width="290px"
+                    android:layout_height="70px"
+                    android:layout_marginLeft="10px"
+                    android:background="@drawable/postpicture_biankuang" />
+            </com.zhy.autolayout.AutoLinearLayout>
 
-        <EditText
-            android:id="@+id/fenxiao_phone"
-            android:layout_width="290px"
-            android:layout_height="70px"
-            android:layout_marginLeft="10px"
-            android:background="@drawable/postpicture_biankuang"
-            android:inputType="phone"
-            android:maxLength="11"
-            android:maxLines="1" />
-    </com.zhy.autolayout.AutoLinearLayout>
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20px"
-        android:layout_marginTop="20px"
-        android:text="合同收货地址："
-        android:textSize="27px" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20px"
+                    android:text="电话："
+                    android:textSize="27px" />
 
-    <EditText
-        android:id="@+id/hetong_address"
-        android:layout_width="600px"
-        android:layout_height="80px"
-        android:layout_marginLeft="20px"
-        android:layout_marginTop="20px"
-        android:hint="请详细到街道门牌信息"
-        android:maxLines="2"
-        android:textColorHint="@color/alpha_black"
-        android:textSize="25px" />
+                <EditText
+                    android:id="@+id/fenxiao_phone"
+                    android:layout_width="290px"
+                    android:layout_height="70px"
+                    android:layout_marginLeft="10px"
+                    android:background="@drawable/postpicture_biankuang"
+                    android:inputType="phone"
+                    android:maxLength="11"
+                    android:maxLines="1" />
+            </com.zhy.autolayout.AutoLinearLayout>
 
-    <com.zhy.autolayout.AutoLinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20px"
-        android:background="#f3f3f3">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"
+                android:layout_marginTop="20px"
+                android:text="合同收货地址："
+                android:textSize="27px" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="20px"
-            android:text="收款资料"
-            android:textSize="30px" />
-    </com.zhy.autolayout.AutoLinearLayout>
+            <EditText
+                android:id="@+id/hetong_address"
+                android:layout_width="600px"
+                android:layout_height="80px"
+                android:layout_marginLeft="20px"
+                android:layout_marginTop="20px"
+                android:hint="请详细到街道门牌信息"
+                android:maxLines="2"
+                android:textColorHint="@color/alpha_black"
+                android:textSize="25px" />
 
-    <com.zhy.autolayout.AutoLinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingTop="20px">
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:background="#f3f3f3">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20px"
-            android:text="银行卡号："
-            android:textSize="27px" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="20px"
+                    android:text="收款资料"
+                    android:textSize="30px" />
+            </com.zhy.autolayout.AutoLinearLayout>
 
-        <EditText
-            android:id="@+id/bank_card"
-            android:layout_width="450px"
-            android:layout_height="70px"
-            android:layout_marginLeft="10px"
-            android:background="@drawable/postpicture_biankuang"
-            android:inputType="number"
-            android:maxLines="1" />
-    </com.zhy.autolayout.AutoLinearLayout>
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="20px">
 
-    <com.zhy.autolayout.AutoLinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20px"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingBottom="20px">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20px"
+                    android:text="银行卡号："
+                    android:textSize="27px" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20px"
-            android:text="银行归属："
-            android:textSize="27px" />
+                <EditText
+                    android:id="@+id/bank_card"
+                    android:layout_width="450px"
+                    android:layout_height="70px"
+                    android:layout_marginLeft="10px"
+                    android:background="@drawable/postpicture_biankuang"
+                    android:inputType="number"
+                    android:maxLines="1" />
+            </com.zhy.autolayout.AutoLinearLayout>
 
-        <EditText
-            android:id="@+id/bank_type"
-            android:layout_width="450px"
-            android:layout_height="70px"
-            android:layout_marginLeft="10px"
-            android:background="@drawable/postpicture_biankuang"
-            android:maxLines="2" />
-    </com.zhy.autolayout.AutoLinearLayout>
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="20px">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#f3f3f3" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20px"
+                    android:text="银行归属："
+                    android:textSize="27px" />
 
-    <TextView
-        android:id="@+id/tv_post_information"
-        android:layout_width="match_parent"
-        android:layout_height="95px"
-        android:background="@color/warnred"
-        android:gravity="center"
-        android:text="提交"
-        android:textColor="@color/white"
-        android:textSize="35px" />
+                <EditText
+                    android:id="@+id/bank_type"
+                    android:layout_width="450px"
+                    android:layout_height="70px"
+                    android:layout_marginLeft="10px"
+                    android:background="@drawable/postpicture_biankuang"
+                    android:maxLines="2" />
+            </com.zhy.autolayout.AutoLinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="#f3f3f3" />
+
+            <TextView
+                android:id="@+id/tv_post_information"
+                android:layout_width="match_parent"
+                android:layout_height="95px"
+                android:background="@color/warnred"
+                android:gravity="center"
+                android:text="提交"
+                android:textColor="@color/white"
+                android:textSize="35px" />
+        </com.zhy.autolayout.AutoLinearLayout>
+    </ScrollView>
 </com.zhy.autolayout.AutoLinearLayout>

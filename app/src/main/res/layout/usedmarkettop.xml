@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ershopmainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,7 +8,7 @@
 
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100px"
         android:background="@color/skyblue"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -38,7 +38,7 @@
             <RadioButton
                 android:id="@+id/radio_usedmarket_first"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@drawable/radiobutton_change"
                 android:button="@null"
                 android:checked="true"
@@ -49,7 +49,7 @@
             <RadioButton
                 android:id="@+id/radio_usedmarket_second"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
                 android:background="@drawable/radiobutton_change"
                 android:button="@null"
@@ -130,11 +130,12 @@
                 android:id="@+id/lv_ms_goods"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/layout_ms_top"
-                android:layout_marginTop="4px"
                 android:background="@color/white"
                 android:divider="@color/darkgray"
-                android:dividerHeight="4px" />
+                android:dividerHeight="6px"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@+id/layout_ms_sort"
+                android:layout_toEndOf="@+id/layout_ms_sort" />
 
             <com.zhy.autolayout.AutoLinearLayout
                 android:id="@+id/layout_ms_sort"
@@ -307,7 +308,7 @@
                     <EditText
                         android:id="@+id/edt_ms_title"
                         android:layout_width="match_parent"
-                        android:layout_height="70px"
+                        android:layout_height="72px"
                         android:background="@color/white"
                         android:gravity="center_vertical"
                         android:hint="发布物品的名字(8个字以内)"
@@ -346,8 +347,9 @@
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:gravity="top"
-                        android:hint="简要描述一下你的商品"
-                        android:lines="6"
+                        android:maxLength="75"
+                        android:hint="简述一下你的商品(75个字以内)"
+                        android:lines="5"
                         android:paddingBottom="18px"
                         android:paddingTop="18px"
                         android:textColor="@color/textblack"
@@ -411,7 +413,7 @@
                     <EditText
                         android:id="@+id/edt_ms_price"
                         android:layout_width="0dp"
-                        android:layout_height="60px"
+                        android:layout_height="72px"
                         android:layout_weight="1"
                         android:background="@color/white"
                         android:gravity="center_vertical"
@@ -575,7 +577,7 @@
                     <EditText
                         android:id="@+id/edt_ms_sender"
                         android:layout_width="match_parent"
-                        android:layout_height="70px"
+                        android:layout_height="72px"
                         android:background="@color/white"
                         android:gravity="center_vertical"
                         android:hint="发布人称呼（如：张先生）"
@@ -601,7 +603,7 @@
                     <EditText
                         android:id="@+id/edt_ms_phone"
                         android:layout_width="match_parent"
-                        android:layout_height="70px"
+                        android:layout_height="72px"
                         android:background="@color/white"
                         android:gravity="center_vertical"
                         android:hint="输入联系号码"
@@ -628,4 +630,4 @@
 
     </com.zhy.autolayout.AutoFrameLayout>
 
-</LinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>

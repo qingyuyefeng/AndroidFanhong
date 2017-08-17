@@ -438,7 +438,7 @@ public class FragmentMainActivity extends SampleActivity {
     public void getAccessControl() {
         if (isLogined() == 1) {
             String userid = mSettingPref.getString("UserId", "");
-            Log.i("menjin", "userid===>" + userid);
+//            Log.i("menjin", "userid===>" + userid);
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("cmd", "41");
             map.put("uid", userid);

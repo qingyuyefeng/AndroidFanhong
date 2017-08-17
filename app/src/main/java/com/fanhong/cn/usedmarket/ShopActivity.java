@@ -699,7 +699,7 @@ public class ShopActivity extends SampleActivity {
     }
 
     private void asynchttpUpload(String url, File myFile) {
-        Log.i("xq", "*****path=" + url + " myFile=" + myFile);
+//        Log.i("xq", "*****path=" + url + " myFile=" + myFile);
         RequestParams params = new RequestParams();
         try {
             params.put("touxiang", myFile);
