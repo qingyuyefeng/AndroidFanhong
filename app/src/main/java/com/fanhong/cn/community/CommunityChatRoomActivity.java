@@ -1,4 +1,4 @@
-package com.fanhong.cn;
+package com.fanhong.cn.community;
 
 import android.app.Activity;
 import android.content.Context;
@@ -20,6 +20,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 
+import com.fanhong.cn.App;
+import com.fanhong.cn.R;
+import com.fanhong.cn.SampleConnection;
 import com.fanhong.cn.adapters.CommunityChatAdapter;
 import com.fanhong.cn.bean.CommunityMessageBean;
 
@@ -185,12 +188,12 @@ public class CommunityChatRoomActivity extends Activity {
                 new RongIMClient.SendMessageCallback() {
                     @Override
                     public void onError(Integer integer, RongIMClient.ErrorCode errorCode) {
-                        Log.i("IMFragment", "发送失败" + errorCode.getMessage());
+//                        Log.i("IMFragment", "发送失败" + errorCode.getMessage());
                     }
 
                     @Override
                     public void onSuccess(Integer integer) {
-                        Log.i("IMFragment", "发送成功");
+//                        Log.i("IMFragment", "发送成功");
                     }
                 }, new RongIMClient.ResultCallback<Message>() {
                     @Override
@@ -229,7 +232,7 @@ public class CommunityChatRoomActivity extends Activity {
      * @param chatRoomId 所选小区的聊天室ID
      */
     private void connectRongCloud(final String token, final String chatRoomId) {
-        Log.i("IMFragment", "token=" + token + "chatroomId=" + chatRoomId);
+//        Log.i("IMFragment", "token=" + token + "chatroomId=" + chatRoomId);
 //        edt_chat_input.setEnabled(false);
         RongIMClient.connect(token, new RongIMClient.ConnectCallback() {
             @Override
@@ -237,12 +240,12 @@ public class CommunityChatRoomActivity extends Activity {
                 //token失效
                 edt_chat_input.setEnabled(false);
                 edt_chat_input.setHint("加入聊天室失败:31004");
-                Log.i("IMFragment", "onTokenIncorrect()加入聊天室失败:31004");
+//                Log.i("IMFragment", "onTokenIncorrect()加入聊天室失败:31004");
             }
 
             @Override
             public void onSuccess(String s) {
-                Log.i("IMFragment", "连接聊天服务器成功");
+//                Log.i("IMFragment", "连接聊天服务器成功");
                 joinChatRoom(chatRoomId);
             }
 
@@ -250,7 +253,7 @@ public class CommunityChatRoomActivity extends Activity {
             public void onError(RongIMClient.ErrorCode errorCode) {
                 edt_chat_input.setEnabled(false);
                 edt_chat_input.setHint("加入聊天室失败:" + errorCode.getValue());
-                Log.i("IMFragment", "onError连接聊天服务器失败:" + errorCode.getValue());
+//                Log.i("IMFragment", "onError连接聊天服务器失败:" + errorCode.getValue());
                 if (errorCode.getValue() == 30003) {
                     RongIMClient.getInstance().disconnect();
                     connectRongCloud(token, chatRoomId);
@@ -269,14 +272,14 @@ public class CommunityChatRoomActivity extends Activity {
                 //初始化聊天室
                 initConversation();
                 ATCHATROOM = true;
-                Log.i("IMFragment", "加入聊天室成功");
+//                Log.i("IMFragment", "加入聊天室成功");
             }
 
             @Override
             public void onError(RongIMClient.ErrorCode errorCode) {
                 edt_chat_input.setEnabled(false);
                 edt_chat_input.setHint("加入聊天室失败:" + errorCode.getValue());
-                Log.i("IMFragment", "onError连接聊天服务器失败:" + errorCode.getValue());
+//                Log.i("IMFragment", "onError连接聊天服务器失败:" + errorCode.getValue());
                 if (errorCode.getValue() == 30003)
                     joinChatRoom(chatRoomId);
 

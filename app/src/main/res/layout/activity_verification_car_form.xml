@@ -6,403 +6,418 @@
 
     <include layout="@layout/activity_top" />
 
-    <com.zhy.autolayout.AutoLinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100px"
-            android:gravity="center_vertical|left"
-            android:paddingLeft="40px"
-            android:paddingRight="40px">
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10px"
-                android:text="*"
-                android:textColor="@color/red"
-                android:textSize="40px" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="姓名："
-                android:textColor="@color/text_6"
-                android:textSize="26px" />
-
-            <EditText
-                android:id="@+id/edt_input_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_comment_choose_bg"
-                android:ems="7"
-                android:gravity="center_vertical"
-                android:lines="1"
-                android:maxLines="1"
-                android:padding="15px"
-                android:textColor="@color/text_6"
-                android:textSize="30px" />
-        </com.zhy.autolayout.AutoLinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1.3dip"
-            android:layout_marginLeft="40px"
-            android:layout_marginRight="40px"
-            android:background="@drawable/xuxian_ccc" />
-
-        <com.zhy.autolayout.AutoLinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100px"
-            android:gravity="center_vertical|left"
-            android:paddingLeft="40px"
-            android:paddingRight="40px">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10px"
-                android:text="*"
-                android:textColor="@color/red"
-                android:textSize="40px" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="phone"
-                android:text="联系电话："
-                android:textColor="@color/text_6"
-                android:textSize="26px" />
-
-            <EditText
-                android:id="@+id/edt_input_phoneNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_comment_choose_bg"
-                android:ems="11"
-                android:gravity="center_vertical"
-                android:lines="1"
-                android:padding="15px"
-                android:textColor="@color/text_6"
-                android:textSize="30px" />
-        </com.zhy.autolayout.AutoLinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1.3dip"
-            android:layout_marginLeft="40px"
-            android:layout_marginRight="40px"
-            android:background="@drawable/xuxian_ccc" />
-
-        <com.zhy.autolayout.AutoLinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100px"
-            android:gravity="center_vertical|left"
-            android:paddingLeft="40px"
-            android:paddingRight="40px">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10px"
-                android:text="*"
-                android:textColor="@color/red"
-                android:textSize="40px" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="车牌（号牌）号码："
-                android:textColor="@color/text_6"
-                android:textSize="26px" />
-
-            <TextView
-                android:id="@+id/tv_input_licence"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10px"
-                android:background="@drawable/shape_comment_choose_bg"
-                android:drawablePadding="10px"
-                android:drawableRight="@drawable/spinner_arrow_selector"
-                android:padding="17px"
-                android:text="渝" />
-
-            <EditText
-                android:id="@+id/edt_input_licence"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_comment_choose_bg"
-                android:ems="5"
-                android:gravity="center_vertical"
-                android:lines="1"
-                android:padding="15px"
-                android:textColor="@color/text_6"
-                android:textSize="30px" />
-        </com.zhy.autolayout.AutoLinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1.3dip"
-            android:layout_marginLeft="40px"
-            android:layout_marginRight="40px"
-            android:background="@drawable/xuxian_ccc" />
-
-        <com.zhy.autolayout.AutoLinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100px"
-            android:gravity="center_vertical|left"
-            android:paddingLeft="40px"
-            android:paddingRight="40px">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10px"
-                android:text="*"
-                android:textColor="@color/red"
-                android:textSize="40px" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="车辆类型："
-                android:textColor="@color/text_6"
-                android:textSize="26px" />
-
-            <RadioGroup
-                android:id="@+id/rg_input_car_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="15px">
-
-                <RadioButton
-                    android:id="@+id/rb_car_mini"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="6dp"
-                    android:button="@drawable/rb_button_selector"
-                    android:checked="true"
-                    android:text="小型汽车"
-                    android:textColor="@color/text_6"
-                    android:textSize="12sp" />
-
-                <RadioButton
-                    android:id="@+id/rb_car_large"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="6dp"
-                    android:button="@drawable/rb_button_selector"
-                    android:text="大型汽车"
-                    android:textColor="@color/text_6"
-                    android:textSize="12sp" />
-
-                <RadioButton
-                    android:id="@+id/rb_trailer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:button="@drawable/rb_button_selector"
-                    android:text="挂车"
-                    android:textColor="@color/text_6"
-                    android:textSize="12sp" />
-            </RadioGroup>
-        </com.zhy.autolayout.AutoLinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1.3dip"
-            android:layout_marginLeft="40px"
-            android:layout_marginRight="40px"
-            android:background="@drawable/xuxian_ccc" />
-
-        <com.zhy.autolayout.AutoLinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100px"
-            android:gravity="center_vertical|left"
-            android:paddingLeft="40px"
-            android:paddingRight="40px">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10px"
-                android:text="*"
-                android:textColor="@color/red"
-                android:textSize="40px" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="发动机号后4位："
-                android:textColor="@color/text_6"
-                android:textSize="26px" />
-
-            <EditText
-                android:id="@+id/edt_input_engine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_comment_choose_bg"
-                android:ems="6"
-                android:gravity="center_vertical"
-                android:inputType="number"
-                android:lines="1"
-                android:padding="15px"
-                android:textColor="@color/text_6"
-                android:textSize="30px" />
-        </com.zhy.autolayout.AutoLinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1.3dip"
-            android:layout_marginLeft="40px"
-            android:layout_marginRight="40px"
-            android:background="@drawable/xuxian_ccc" />
-
-        <com.zhy.autolayout.AutoLinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100px"
-            android:gravity="center_vertical|left"
-            android:paddingLeft="40px"
-            android:paddingRight="40px">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10px"
-                android:text="*"
-                android:textColor="@color/red"
-                android:textSize="40px" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="身份证号码："
-                android:textColor="@color/text_6"
-                android:textSize="26px" />
-
-            <EditText
-                android:id="@+id/edt_input_idCard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_comment_choose_bg"
-                android:gravity="center_vertical"
-                android:hint="000000000000000000"
-                android:lines="1"
-                android:padding="15px"
-                android:textColor="@color/text_6"
-                android:textColorHint="@color/transparent"
-                android:textSize="30px" />
-        </com.zhy.autolayout.AutoLinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1.3dip"
-            android:layout_marginLeft="40px"
-            android:layout_marginRight="40px"
-            android:background="@drawable/xuxian_ccc" />
-
-        <com.zhy.autolayout.AutoLinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100px"
-            android:gravity="center_vertical|left"
-            android:paddingLeft="40px">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10px"
-                android:text="*"
-                android:textColor="@color/red"
-                android:textSize="40px" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="上门取车地址："
-                android:textColor="@color/text_6"
-                android:textSize="26px" />
-
-            <EditText
-                android:id="@+id/edt_input_getCarAddr"
+            <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100px"
+                android:gravity="center_vertical|left"
+                android:paddingLeft="40px"
+                android:paddingRight="40px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10px"
+                    android:text="*"
+                    android:textColor="@color/red"
+                    android:textSize="40px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="姓名："
+                    android:textColor="@color/text_6"
+                    android:textSize="26px" />
+
+                <EditText
+                    android:id="@+id/edt_input_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_comment_choose_bg"
+                    android:ems="7"
+                    android:gravity="center_vertical"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:padding="15px"
+                    android:singleLine="true"
+                    android:textColor="@color/text_6"
+                    android:textSize="30px" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1.3dip"
+                android:layout_marginLeft="40px"
                 android:layout_marginRight="40px"
-                android:background="@drawable/shape_comment_choose_bg"
-                android:gravity="center_vertical"
-                android:lines="1"
-                android:padding="15px"
-                android:textColor="@color/text_6"
-                android:textSize="30px" />
-        </com.zhy.autolayout.AutoLinearLayout>
+                android:background="@drawable/xuxian_ccc" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1.3dip"
-            android:layout_marginLeft="40px"
-            android:layout_marginRight="40px"
-            android:background="@drawable/xuxian_ccc" />
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100px"
+                android:gravity="center_vertical|left"
+                android:paddingLeft="40px"
+                android:paddingRight="40px">
 
-        <com.zhy.autolayout.AutoLinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100px"
-            android:gravity="center_vertical|left"
-            android:paddingLeft="40px"
-            android:paddingRight="40px">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10px"
+                    android:text="*"
+                    android:textColor="@color/red"
+                    android:textSize="40px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="联系电话："
+                    android:textColor="@color/text_6"
+                    android:textSize="26px" />
+
+                <EditText
+                    android:id="@+id/edt_input_phoneNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_comment_choose_bg"
+                    android:ems="11"
+                    android:maxLength="13"
+                    android:gravity="center_vertical"
+                    android:inputType="phone"
+                    android:lines="1"
+                    android:padding="15px"
+                    android:textColor="@color/text_6"
+                    android:textSize="30px" />
+            </com.zhy.autolayout.AutoLinearLayout>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10px"
-                android:text="*"
-                android:textColor="@color/red"
-                android:textSize="40px" />
+                android:layout_width="match_parent"
+                android:layout_height="1.3dip"
+                android:layout_marginLeft="40px"
+                android:layout_marginRight="40px"
+                android:background="@drawable/xuxian_ccc" />
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100px"
+                android:gravity="center_vertical|left"
+                android:paddingLeft="40px"
+                android:paddingRight="40px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10px"
+                    android:text="*"
+                    android:textColor="@color/red"
+                    android:textSize="40px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="车牌（号牌）号码："
+                    android:textColor="@color/text_6"
+                    android:textSize="26px" />
+
+                <TextView
+                    android:id="@+id/tv_input_licence"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10px"
+                    android:background="@drawable/shape_comment_choose_bg"
+                    android:drawablePadding="10px"
+                    android:drawableRight="@drawable/spinner_arrow_selector"
+                    android:padding="17px"
+                    android:text="渝" />
+
+                <EditText
+                    android:id="@+id/edt_input_licence"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_comment_choose_bg"
+                    android:ems="5"
+                    android:gravity="center_vertical"
+                    android:inputType="textEmailSubject"
+                    android:lines="1"
+                    android:padding="15px"
+                    android:textColor="@color/text_6"
+                    android:textSize="30px" />
+            </com.zhy.autolayout.AutoLinearLayout>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="输入验证码："
-                android:textColor="@color/text_6"
-                android:textSize="26px" />
+                android:layout_width="match_parent"
+                android:layout_height="1.3dip"
+                android:layout_marginLeft="40px"
+                android:layout_marginRight="40px"
+                android:background="@drawable/xuxian_ccc" />
 
-            <EditText
-                android:id="@+id/edt_input_code"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_comment_choose_bg"
-                android:ems="6"
-                android:gravity="center_vertical"
-                android:lines="1"
-                android:padding="15px"
-                android:textColor="@color/text_6"
-                android:textSize="30px" />
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100px"
+                android:gravity="center_vertical|left"
+                android:paddingLeft="40px"
+                android:paddingRight="40px">
 
-            <ImageView
-                android:id="@+id/img_input_code"
-                android:layout_width="180px"
-                android:layout_height="66px" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10px"
+                    android:text="*"
+                    android:textColor="@color/red"
+                    android:textSize="40px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="车辆类型："
+                    android:textColor="@color/text_6"
+                    android:textSize="26px" />
+
+                <RadioGroup
+                    android:id="@+id/rg_input_car_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="15px">
+
+                    <RadioButton
+                        android:id="@+id/rb_car_mini"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="6dp"
+                        android:button="@drawable/rb_button_selector"
+                        android:checked="true"
+                        android:text="小型汽车"
+                        android:textColor="@color/text_6"
+                        android:textSize="12sp" />
+
+                    <RadioButton
+                        android:id="@+id/rb_car_large"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="6dp"
+                        android:button="@drawable/rb_button_selector"
+                        android:text="大型汽车"
+                        android:textColor="@color/text_6"
+                        android:textSize="12sp" />
+
+                    <RadioButton
+                        android:id="@+id/rb_trailer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/rb_button_selector"
+                        android:text="挂车"
+                        android:textColor="@color/text_6"
+                        android:textSize="12sp" />
+                </RadioGroup>
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1.3dip"
+                android:layout_marginLeft="40px"
+                android:layout_marginRight="40px"
+                android:background="@drawable/xuxian_ccc" />
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100px"
+                android:gravity="center_vertical|left"
+                android:paddingLeft="40px"
+                android:paddingRight="40px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10px"
+                    android:text="*"
+                    android:textColor="@color/red"
+                    android:textSize="40px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="发动机号后4位："
+                    android:textColor="@color/text_6"
+                    android:textSize="26px" />
+
+                <EditText
+                    android:id="@+id/edt_input_engine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_comment_choose_bg"
+                    android:ems="6"
+                    android:gravity="center_vertical"
+                    android:inputType="number"
+                    android:lines="1"
+                    android:maxLength="4"
+                    android:padding="15px"
+                    android:textColor="@color/text_6"
+                    android:textSize="30px" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1.3dip"
+                android:layout_marginLeft="40px"
+                android:layout_marginRight="40px"
+                android:background="@drawable/xuxian_ccc" />
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100px"
+                android:gravity="center_vertical|left"
+                android:paddingLeft="40px"
+                android:paddingRight="40px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10px"
+                    android:text="*"
+                    android:textColor="@color/red"
+                    android:textSize="40px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="身份证号码："
+                    android:textColor="@color/text_6"
+                    android:textSize="26px" />
+
+                <EditText
+                    android:id="@+id/edt_input_idCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_comment_choose_bg"
+                    android:gravity="center_vertical"
+                    android:hint="000000000000000000"
+                    android:inputType="number"
+                    android:lines="1"
+                    android:maxLength="18"
+                    android:padding="15px"
+                    android:textColor="@color/text_6"
+                    android:textColorHint="@color/transparent"
+                    android:textSize="30px" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1.3dip"
+                android:layout_marginLeft="40px"
+                android:layout_marginRight="40px"
+                android:background="@drawable/xuxian_ccc" />
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100px"
+                android:gravity="center_vertical|left"
+                android:paddingLeft="40px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10px"
+                    android:text="*"
+                    android:textColor="@color/red"
+                    android:textSize="40px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="上门取车地址："
+                    android:textColor="@color/text_6"
+                    android:textSize="26px" />
+
+                <EditText
+                    android:id="@+id/edt_input_getCarAddr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="40px"
+                    android:background="@drawable/shape_comment_choose_bg"
+                    android:gravity="center_vertical"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:padding="15px"
+                    android:textColor="@color/text_6"
+                    android:textSize="30px" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1.3dip"
+                android:layout_marginLeft="40px"
+                android:layout_marginRight="40px"
+                android:background="@drawable/xuxian_ccc" />
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100px"
+                android:gravity="center_vertical|left"
+                android:paddingLeft="40px"
+                android:paddingRight="40px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10px"
+                    android:text="*"
+                    android:textColor="@color/red"
+                    android:textSize="40px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="输入验证码："
+                    android:textColor="@color/text_6"
+                    android:textSize="26px" />
+
+                <EditText
+                    android:id="@+id/edt_input_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_comment_choose_bg"
+                    android:ems="6"
+                    android:gravity="center_vertical"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:maxLength="4"
+                    android:padding="15px"
+                    android:textColor="@color/text_6"
+                    android:textSize="30px" />
+
+                <ImageView
+                    android:id="@+id/img_input_code"
+                    android:layout_width="180px"
+                    android:layout_height="66px" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1.3dip"
+                android:layout_marginLeft="40px"
+                android:layout_marginRight="40px"
+                android:background="@drawable/xuxian_ccc" />
+
+            <Button
+                android:id="@+id/btn_next"
+                android:layout_width="match_parent"
+                android:layout_height="85px"
+                android:layout_marginLeft="40px"
+                android:layout_marginRight="40px"
+                android:layout_marginTop="30px"
+                android:background="@drawable/btn_radius_red"
+                android:text="下一步"
+                android:textColor="@color/white"
+                android:textSize="35px" />
         </com.zhy.autolayout.AutoLinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1.3dip"
-            android:layout_marginLeft="40px"
-            android:layout_marginRight="40px"
-            android:background="@drawable/xuxian_ccc" />
-
-        <Button
-            android:id="@+id/btn_next"
-            android:layout_width="match_parent"
-            android:layout_height="85px"
-            android:layout_marginLeft="40px"
-            android:layout_marginRight="40px"
-            android:layout_marginTop="30px"
-            android:background="@drawable/btn_radius_red"
-            android:text="下一步"
-            android:textColor="@color/white"
-            android:textSize="35px" />
-    </com.zhy.autolayout.AutoLinearLayout>
+    </ScrollView>
 </com.zhy.autolayout.AutoLinearLayout>

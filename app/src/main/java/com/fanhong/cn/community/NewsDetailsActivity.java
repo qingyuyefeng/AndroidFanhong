@@ -1,4 +1,4 @@
-package com.fanhong.cn;
+package com.fanhong.cn.community;
 
 import android.app.Activity;
 import android.graphics.drawable.AnimationDrawable;
@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.fanhong.cn.App;
+import com.fanhong.cn.R;
 import com.fanhong.cn.util.JsonSyncUtils;
 import com.zhy.autolayout.AutoRelativeLayout;
 

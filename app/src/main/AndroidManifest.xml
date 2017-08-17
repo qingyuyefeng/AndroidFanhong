@@ -272,7 +272,7 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
-            android:name=".NewsDetailsActivity"
+            android:name=".community.NewsDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
@@ -295,7 +295,7 @@
 
 
         <activity
-            android:name=".CommunityChatRoomActivity"
+            android:name=".community.CommunityChatRoomActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <!--家政区域-->

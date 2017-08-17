@@ -7,6 +7,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.DigitsKeyListener;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -58,8 +59,8 @@ public class CarOrderFormActivity extends Activity {
     @ViewInject(R.id.img_input_code)
     ImageView img_code;
 
-    private String[] provinces = {"渝", "京", "津", "冀", "晋", "蒙", "辽", "吉", "黑", "沪",
-            "苏", "浙", "皖", "闽", "赣", "鲁", "豫", "鄂", "湘", "粤",
+    private String[] provinces = {"渝", "京", "津", "冀", "晋", "蒙", "辽", "吉",
+            "黑", "沪", "苏", "浙", "皖", "闽", "赣", "鲁", "豫", "鄂", "湘", "粤",
             "桂", "琼", "川", "贵", "云", "藏", "陕", "甘", "青", "宁", "新", "台"};
     private CarOrderForm formModel;//表单数据
     private boolean isinput = true;
@@ -93,29 +94,45 @@ public class CarOrderFormActivity extends Activity {
             public void afterTextChanged(Editable s) {
                 if (isinput) {
                     isinput = false;
-                    String str = StringUtils.addChar(3, edt_phone.getText().toString(), '-');
-                    edt_phone.setText(str);
-                    edt_phone.setSelection(str.length());
+                    String text = s.toString().trim().replace("-", "");
+                    if (text.length() > 0) {
+                        if (text.charAt(0) == '1') {//以‘1’开头的说明是电话号码，否则认为是座机号码
+                            text = StringUtils.addChar(3, text, '-');
+                            edt_phone.setText(text);
+                        } else {
+                            text = StringUtils.addChar(4, text, '-');
+                            edt_phone.setText(text);
+                        }
+                    }
+                    edt_phone.setSelection(text.length());
                 } else isinput = true;
             }
         });
         //设置省号下拉框
         list_province = Arrays.asList(provinces);
-        sp_licences = new SpinerPopWindow<>(this, list_province, new AdapterView.OnItemClickListener() {
+        sp_licences = new SpinerPopWindow<>(this, list_province, new AdapterView.OnItemClickListener()
+
+        {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 sp_licences.dismiss();
                 sb_licence.setText(list_province.get(position));
             }
         }, "");
-        //初始化验证码
-        img_code.setImageBitmap(Code.getInstance().createBitmap());
-        truecode = Code.getInstance().getCode().toLowerCase();
+        //设置限定输入格式
+        String digists_licence = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        edt_licence.setKeyListener(DigitsKeyListener.getInstance(digists_licence));
+        String digists_idCard = "0123456789X";
+        edt_idCard.setKeyListener(DigitsKeyListener.getInstance(digists_idCard));
+        String digists_code = "0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        edt_code.setKeyListener(DigitsKeyListener.getInstance(digists_code));
         //初始化表单对象
         formModel = new CarOrderForm();
         formModel.setType("小型车辆");
         //添加车型选择事件
-        rg_type.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        rg_type.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+
+        {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 switch (checkedId) {
@@ -138,41 +155,49 @@ public class CarOrderFormActivity extends Activity {
         String name = edt_name.getText().toString();
         if (StringUtils.isEmpty(name)) {
             Toast.makeText(this, "请输入姓名！", Toast.LENGTH_SHORT).show();
+            onClicks(img_code);
             return false;
         }
         String phone = edt_phone.getText().toString().trim().replace("-", "");
         if (!StringUtils.validPhoneNum("2", phone)) {
             Toast.makeText(this, "联系电话错误或为空！", Toast.LENGTH_SHORT).show();
+            onClicks(img_code);
             return false;
         }
         String licence0 = sb_licence.getText().toString();
         if (StringUtils.isEmpty(licence0)) {
             Toast.makeText(this, "请选择省号！", Toast.LENGTH_SHORT).show();
+            onClicks(img_code);
             return false;
         }
         String licence1 = edt_licence.getText().toString();
         if (StringUtils.isEmpty(licence1)) {
             Toast.makeText(this, "请输入车牌号！", Toast.LENGTH_SHORT).show();
+            onClicks(img_code);
             return false;
         }
         String engine = edt_engine.getText().toString().trim();
         if (StringUtils.isEmpty(engine)) {
             Toast.makeText(this, "请输入发动机号！", Toast.LENGTH_SHORT).show();
+            onClicks(img_code);
             return false;
         }
         String idCard = edt_idCard.getText().toString().trim();
         if (!StringUtils.IDCardValidate(idCard)) {
             Toast.makeText(this, "身份证号错误或为空！", Toast.LENGTH_SHORT).show();
+            onClicks(img_code);
             return false;
         }
         String addr = edt_addr.getText().toString();
-        if (StringUtils.isEmpty(engine)) {
+        if (StringUtils.isEmpty(addr)) {
             Toast.makeText(this, "请输入取车地址！", Toast.LENGTH_SHORT).show();
+            onClicks(img_code);
             return false;
         }
         String code = edt_code.getText().toString().trim();
-        if (StringUtils.isEmpty(code) || code.equals(truecode)) {
+        if (StringUtils.isEmpty(code) || code.equalsIgnoreCase(truecode)) {
             Toast.makeText(this, getString(R.string.input_randomcode2), Toast.LENGTH_SHORT).show();
+            onClicks(img_code);
             return false;
         }
         formModel.setName(name);
@@ -184,7 +209,7 @@ public class CarOrderFormActivity extends Activity {
         return true;
     }
 
-    @Event({R.id.img_back, R.id.tv_input_licence, R.id.btn_next,R.id.img_input_code})
+    @Event({R.id.img_back, R.id.tv_input_licence, R.id.btn_next, R.id.img_input_code})
     private void onClicks(View v) {
         switch (v.getId()) {
             case R.id.img_back:
@@ -215,5 +240,12 @@ public class CarOrderFormActivity extends Activity {
                 }
                 break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //初始化验证码
+        onClicks(img_code);
     }
 }
