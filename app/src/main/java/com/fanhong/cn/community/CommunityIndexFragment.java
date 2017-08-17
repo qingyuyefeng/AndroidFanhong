@@ -1,4 +1,4 @@
-package com.fanhong.cn.view;
+package com.fanhong.cn.community;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -16,12 +16,11 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.fanhong.cn.CommunityChatRoomActivity;
 import com.fanhong.cn.FragmentMainActivity;
 import com.fanhong.cn.R;
+import com.fanhong.cn.view.BaseFragment;
 
 import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 

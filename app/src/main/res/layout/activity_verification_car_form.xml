@@ -89,6 +89,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/shape_comment_choose_bg"
                     android:ems="11"
+                    android:maxLength="13"
                     android:gravity="center_vertical"
                     android:inputType="phone"
                     android:lines="1"

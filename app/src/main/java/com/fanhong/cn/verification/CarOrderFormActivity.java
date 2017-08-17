@@ -126,9 +126,6 @@ public class CarOrderFormActivity extends Activity {
         edt_idCard.setKeyListener(DigitsKeyListener.getInstance(digists_idCard));
         String digists_code = "0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         edt_code.setKeyListener(DigitsKeyListener.getInstance(digists_code));
-        //初始化验证码
-        img_code.setImageBitmap(Code.getInstance().createBitmap());
-        truecode = Code.getInstance().getCode().toLowerCase();
         //初始化表单对象
         formModel = new CarOrderForm();
         formModel.setType("小型车辆");
@@ -158,41 +155,49 @@ public class CarOrderFormActivity extends Activity {
         String name = edt_name.getText().toString();
         if (StringUtils.isEmpty(name)) {
             Toast.makeText(this, "请输入姓名！", Toast.LENGTH_SHORT).show();
+            onClicks(img_code);
             return false;
         }
         String phone = edt_phone.getText().toString().trim().replace("-", "");
         if (!StringUtils.validPhoneNum("2", phone)) {
             Toast.makeText(this, "联系电话错误或为空！", Toast.LENGTH_SHORT).show();
+            onClicks(img_code);
             return false;
         }
         String licence0 = sb_licence.getText().toString();
         if (StringUtils.isEmpty(licence0)) {
             Toast.makeText(this, "请选择省号！", Toast.LENGTH_SHORT).show();
+            onClicks(img_code);
             return false;
         }
         String licence1 = edt_licence.getText().toString();
         if (StringUtils.isEmpty(licence1)) {
             Toast.makeText(this, "请输入车牌号！", Toast.LENGTH_SHORT).show();
+            onClicks(img_code);
             return false;
         }
         String engine = edt_engine.getText().toString().trim();
         if (StringUtils.isEmpty(engine)) {
             Toast.makeText(this, "请输入发动机号！", Toast.LENGTH_SHORT).show();
+            onClicks(img_code);
             return false;
         }
         String idCard = edt_idCard.getText().toString().trim();
         if (!StringUtils.IDCardValidate(idCard)) {
             Toast.makeText(this, "身份证号错误或为空！", Toast.LENGTH_SHORT).show();
+            onClicks(img_code);
             return false;
         }
         String addr = edt_addr.getText().toString();
-        if (StringUtils.isEmpty(engine)) {
+        if (StringUtils.isEmpty(addr)) {
             Toast.makeText(this, "请输入取车地址！", Toast.LENGTH_SHORT).show();
+            onClicks(img_code);
             return false;
         }
         String code = edt_code.getText().toString().trim();
-        if (StringUtils.isEmpty(code) || code.equals(truecode)) {
+        if (StringUtils.isEmpty(code) || code.equalsIgnoreCase(truecode)) {
             Toast.makeText(this, getString(R.string.input_randomcode2), Toast.LENGTH_SHORT).show();
+            onClicks(img_code);
             return false;
         }
         formModel.setName(name);
@@ -235,5 +240,12 @@ public class CarOrderFormActivity extends Activity {
                 }
                 break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //初始化验证码
+        onClicks(img_code);
     }
 }

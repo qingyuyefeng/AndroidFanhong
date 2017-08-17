@@ -1,4 +1,4 @@
-package com.fanhong.cn.view;
+package com.fanhong.cn.community;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -14,29 +14,23 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 
 
 import com.fanhong.cn.App;
-import com.fanhong.cn.NewsDetailsActivity;
 import com.fanhong.cn.R;
 import com.fanhong.cn.adapters.CommunityNewsAdapter;
 import com.fanhong.cn.bean.CommunityNewsBean;
 import com.fanhong.cn.util.JsonSyncUtils;
-import com.zhy.autolayout.AutoLinearLayout;
 import com.zhy.autolayout.AutoRelativeLayout;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
-import org.xutils.image.ImageOptions;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import me.nereo.multi_image_selector.bean.Image;
 
 /**
  * Created by Administrator on 2017/6/30.
