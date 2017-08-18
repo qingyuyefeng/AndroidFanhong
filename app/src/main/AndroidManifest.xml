@@ -364,6 +364,10 @@
             android:name=".verification.CarFormConfirmActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity
+            android:name=".verification.CarVerificationNotice"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
         <!--快递服务-->
         <activity
             android:name=".expressage.ExpressHomeActivity"

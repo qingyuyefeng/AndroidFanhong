@@ -37,27 +37,27 @@ import java.util.List;
 @ContentView(R.layout.activity_verification_car_form)
 public class CarOrderFormActivity extends Activity {
     @ViewInject(R.id.tv_title)
-    TextView title;
+    private TextView title;
     @ViewInject(R.id.edt_input_name)
-    EditText edt_name;
+    private EditText edt_name;
     @ViewInject(R.id.edt_input_phoneNumber)
-    EditText edt_phone;
+    private EditText edt_phone;
     @ViewInject(R.id.tv_input_licence)
-    TextView sb_licence;
+    private TextView sb_licence;
     @ViewInject(R.id.edt_input_licence)
-    EditText edt_licence;
+    private EditText edt_licence;
     @ViewInject(R.id.rg_input_car_type)
-    RadioGroup rg_type;
+    private RadioGroup rg_type;
     @ViewInject(R.id.edt_input_engine)
-    EditText edt_engine;
+    private EditText edt_engine;
     @ViewInject(R.id.edt_input_idCard)
-    EditText edt_idCard;
+    private EditText edt_idCard;
     @ViewInject(R.id.edt_input_getCarAddr)
-    EditText edt_addr;
+    private EditText edt_addr;
     @ViewInject(R.id.edt_input_code)
-    EditText edt_code;
+    private EditText edt_code;
     @ViewInject(R.id.img_input_code)
-    ImageView img_code;
+    private ImageView img_code;
 
     private String[] provinces = {"渝", "京", "津", "冀", "晋", "蒙", "辽", "吉",
             "黑", "沪", "苏", "浙", "皖", "闽", "赣", "鲁", "豫", "鄂", "湘", "粤",
@@ -195,7 +195,7 @@ public class CarOrderFormActivity extends Activity {
             return false;
         }
         String code = edt_code.getText().toString().trim();
-        if (StringUtils.isEmpty(code) || code.equalsIgnoreCase(truecode)) {
+        if (StringUtils.isEmpty(code) || !code.equalsIgnoreCase(truecode)) {
             Toast.makeText(this, getString(R.string.input_randomcode2), Toast.LENGTH_SHORT).show();
             onClicks(img_code);
             return false;
