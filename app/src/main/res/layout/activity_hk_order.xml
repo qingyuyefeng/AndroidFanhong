@@ -47,18 +47,11 @@
         android:gravity="center_vertical">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25px"
-            android:text="默认地址："
-            android:textColor="@color/popular"
-            android:textSize="28px" />
-
-        <TextView
             android:id="@+id/tv_addr_default"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginLeft="25px"
             android:ellipsize="end"
             android:text="重庆市大渡口区春晖路****小区*****"
             android:textColor="@color/popular"

@@ -1,19 +1,13 @@
 package com.fanhong.cn.housekeeping;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.text.format.Time;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
@@ -26,6 +20,7 @@ import android.widget.Toast;
 
 import com.fanhong.cn.R;
 import com.fanhong.cn.listviews.SpinerPopWindow;
+import com.fanhong.cn.shippingaddress.AllAddressActivity;
 import com.fanhong.cn.util.StringUtils;
 
 import org.xutils.view.annotation.ContentView;
@@ -36,8 +31,6 @@ import org.xutils.x;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
-import static com.fanhong.cn.R.id.dialog;
 
 
 /**
@@ -94,6 +87,15 @@ public class HouseKeepingOrderActivity extends Activity {
         initViews();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (resultCode){
+            case 121:
+                String str = data.getStringExtra("address");
+                tv_addr_default.setText(str);
+                break;
+        }
+    }
 
     private void setdayscount(int year, int month, int type) {
         Calendar a = Calendar.getInstance();
@@ -230,6 +232,9 @@ public class HouseKeepingOrderActivity extends Activity {
                 finish();
                 break;
             case R.id.btn_hk_order_addr_default://默认地址
+                Intent intent = new Intent(this, AllAddressActivity.class);
+                intent.putExtra("status",1);
+                startActivityForResult(intent,0);
                 break;
             case R.id.sb_hk_order_year://日期下拉框
                 if (sb_hk_order_year.isChecked()) {

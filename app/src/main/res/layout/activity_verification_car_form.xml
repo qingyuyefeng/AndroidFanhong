@@ -147,6 +147,7 @@
                     android:gravity="center_vertical"
                     android:inputType="textEmailSubject"
                     android:lines="1"
+                    android:maxLength="7"
                     android:padding="15px"
                     android:textColor="@color/text_6"
                     android:textSize="30px" />

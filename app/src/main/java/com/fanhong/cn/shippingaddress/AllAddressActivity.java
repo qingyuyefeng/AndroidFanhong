@@ -47,6 +47,7 @@ public class AllAddressActivity extends Activity {
 
     private SharedPreferences mSettingPref;
     private String uid;
+    private int status = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,7 +58,7 @@ public class AllAddressActivity extends Activity {
         uid = mSettingPref.getString("UserId", "");
 //        Log.i("xq","我的用户id===>"+uid);//uid===>4
 //        Toast.makeText(this,uid,Toast.LENGTH_SHORT).show();
-
+        status = getIntent().getIntExtra("status",0);
         mControl.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -144,10 +145,13 @@ public class AllAddressActivity extends Activity {
         myAddressAdapter = new MyAddressAdapter(this, addressModelList);
         myAddressAdapter.setMyHolderClick(new MyAddressAdapter.MyHolderClick() {
             @Override
-            public void editAddress(String name, String phone, String address, int status) {
+            public void editAddress(String name, String phone, String address, int status,int id) {
                 Intent intent = new Intent(AllAddressActivity.this, EditAddressActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("","");
+                intent.putExtra("adName",name);
+                intent.putExtra("adPhone",phone);
+                intent.putExtra("adAddress",address);
+                intent.putExtra("adStatus",status);
+                intent.putExtra("adrId",id);
                 startActivity(intent);
             }
 
@@ -185,9 +189,14 @@ public class AllAddressActivity extends Activity {
             }
 
             @Override
-            public void holderItemClick() {
-                Toast.makeText(AllAddressActivity.this, "item的点击,", Toast.LENGTH_SHORT).show();
-
+            public void holderItemClick(String string) {
+//                Toast.makeText(AllAddressActivity.this, "item的点击,", Toast.LENGTH_SHORT).show();
+                if(status == 1){
+                    Intent intent = new Intent();
+                    intent.putExtra("address",string);
+                    setResult(121,intent);
+                    finish();
+                }
             }
         });
         addressRecyclerView.setAdapter(myAddressAdapter);

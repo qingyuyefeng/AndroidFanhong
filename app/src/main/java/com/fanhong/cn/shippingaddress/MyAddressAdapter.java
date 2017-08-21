@@ -1,6 +1,8 @@
 package com.fanhong.cn.shippingaddress;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,9 +39,9 @@ public class MyAddressAdapter extends RecyclerView.Adapter<MyAddressAdapter.MyVi
     }
 
     public interface MyHolderClick{
-        void editAddress(String name,String phone,String address,int status);
+        void editAddress(String name,String phone,String address,int status,int id);
         void deleteAddress(int id,int pos);
-        void holderItemClick();
+        void holderItemClick(String string);
     }
 
     public MyAddressAdapter(Context context,List<AddressModel> addressList){
@@ -79,7 +81,7 @@ public class MyAddressAdapter extends RecyclerView.Adapter<MyAddressAdapter.MyVi
                 myHolderClick.editAddress(holder.tvName.getText().toString(),
                         holder.tvPhone.getText().toString(),
                         holder.tvAddress.getText().toString(),
-                        status);
+                        status,id);
             }
         });
         holder.tvDelete.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +97,7 @@ public class MyAddressAdapter extends RecyclerView.Adapter<MyAddressAdapter.MyVi
             @Override
             public void onClick(View v) {
                 //item的点击
-                myHolderClick.holderItemClick();
+                myHolderClick.holderItemClick(holder.tvAddress.getText().toString());
             }
         });
         //是否可管理
