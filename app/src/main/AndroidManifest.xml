@@ -244,15 +244,7 @@
             android:name=".usedmarket.GoodsselectActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
-        <activity
-            android:name=".synctaskpicture.RepairLinesActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
         <!-- 紧急开门 -->
-        <activity
-            android:name=".synctaskpicture.UrgentOpenDoorActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
 
         <!-- 添加门禁区域 -->
         <activity
@@ -387,6 +379,15 @@
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
             android:name=".expressage.FollowOrderActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <!--管线维修-->
+        <activity
+            android:name=".repair.RepairActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity
+            android:name=".repair.RepairSuccessActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <!-- alipay sdk end -->

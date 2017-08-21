@@ -39,7 +39,7 @@ import com.fanhong.cn.housekeeping.HouseKeepingActivity;
 import com.fanhong.cn.models.BannerModel;
 import com.fanhong.cn.models.HomeNews;
 import com.fanhong.cn.models.Homelife;
-import com.fanhong.cn.shippingaddress.BaiduMapActivity;
+import com.fanhong.cn.repair.RepairActivity;
 import com.fanhong.cn.usedmarket.ShopActivity;
 import com.fanhong.cn.verification.VerificationIndexActivity;
 import com.sivin.Banner;
@@ -337,9 +337,9 @@ public class HomeView1 extends BaseFragment {
 //                    startActivity(intent);
                     break;
                 case R.id.repair_layout:
-//                    intent.setClass(HomeView1.this.getActivity(), RepairLinesActivity.class);
-//                    startActivity(intent);
-                    Toast.makeText(getActivity(), R.string.starting, Toast.LENGTH_SHORT).show();
+                    intent.setClass(HomeView1.this.getActivity(), RepairActivity.class);
+                    startActivity(intent);
+//                    Toast.makeText(getActivity(), R.string.starting, Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.kuaidi_layout:
                     intent.setClass(HomeView1.this.getActivity(), ExpressHomeActivity.class);

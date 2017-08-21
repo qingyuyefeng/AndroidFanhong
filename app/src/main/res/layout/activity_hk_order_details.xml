@@ -10,16 +10,6 @@
         android:layout_height="100px"
         android:background="@color/skyblue">
 
-
-        <ImageView
-            android:id="@+id/tv_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:padding="30px"
-            android:src="@drawable/btn_back" />
-
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="400px"
