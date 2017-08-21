@@ -29,27 +29,27 @@ import org.xutils.x;
 @ContentView(R.layout.activity_verification_car_form_confirm)
 public class CarFormConfirmActivity extends Activity {
     @ViewInject(R.id.tv_title)
-    TextView title;
+    private TextView title;
     @ViewInject(R.id.tv_form_name)
-    TextView tv_name;
+    private TextView tv_name;
     @ViewInject(R.id.tv_form_phone)
-    TextView tv_phone;
+    private TextView tv_phone;
     @ViewInject(R.id.tv_form_licence)
-    TextView tv_licence;
+    private TextView tv_licence;
     @ViewInject(R.id.tv_form_type)
-    TextView tv_type;
+    private TextView tv_type;
     @ViewInject(R.id.tv_form_engine)
-    TextView tv_engine;
+    private TextView tv_engine;
     @ViewInject(R.id.tv_form_idCard)
-    TextView tv_idCard;
+    private TextView tv_idCard;
     @ViewInject(R.id.tv_form_address)
-    TextView tv_addr;
+    private TextView tv_addr;
     @ViewInject(R.id.box_read)
-    CheckBox cbox_read;
+    private CheckBox cbox_read;
     @ViewInject(R.id.btn_commit)
-    Button btn_commit;
+    private Button btn_commit;
 
-    CarOrderForm form;
+    private CarOrderForm form;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,14 +72,17 @@ public class CarFormConfirmActivity extends Activity {
 
     @Event(value = R.id.box_read, type = CompoundButton.OnCheckedChangeListener.class)
     private void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            btn_commit.setEnabled(isChecked);
+        btn_commit.setEnabled(isChecked);
     }
 
-    @Event({R.id.img_back, R.id.btn_commit})
+    @Event({R.id.img_back, R.id.tv_read, R.id.btn_commit})
     private void onClicks(View v) {
         switch (v.getId()) {
             case R.id.img_back:
                 finish();
+                break;
+            case R.id.tv_read:
+                startActivityForResult(new Intent(this, CarVerificationNotice.class),11);
                 break;
             case R.id.btn_commit:
                 if (cbox_read.isChecked())
@@ -88,12 +91,20 @@ public class CarFormConfirmActivity extends Activity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == 11)
+            if (!cbox_read.isChecked())
+                cbox_read.setChecked(true);
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
     private void commitForm() {
 //        Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
         RequestParams param = new RequestParams(App.CMDURL);
         param.addParameter("cmd", "");
-        Intent intent=new Intent(CarFormConfirmActivity.this, PostSuccessActivity.class);
-        intent.putExtra("fromVerification",true);
+        Intent intent = new Intent(CarFormConfirmActivity.this, PostSuccessActivity.class);
+        intent.putExtra("fromVerification", true);
         startActivity(intent);
         /*  x.http().post(param, new Callback.CommonCallback<String>() {
             @Override

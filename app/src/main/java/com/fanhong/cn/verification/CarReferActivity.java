@@ -26,35 +26,35 @@ import static com.fanhong.cn.R.id.tv_title;
 @ContentView(R.layout.activity_verification_car_refer)
 public class CarReferActivity extends Activity {
     @ViewInject(R.id.tv_title)
-    TextView tv_title;
+    private TextView tv_title;
     @ViewInject(R.id.img_order_step_1)
-    ImageView img_step_1;
+    private ImageView img_step_1;
     @ViewInject(R.id.tv_order_step_1)
-    ImageView tv_step_1;
+    private ImageView tv_step_1;
     @ViewInject(R.id.img_order_step_1)
-    ImageView img_step_2;
+    private ImageView img_step_2;
     @ViewInject(R.id.tv_order_step_1)
-    ImageView tv_step_2;
+    private ImageView tv_step_2;
     @ViewInject(R.id.img_order_step_1)
-    ImageView img_step_3;
+    private ImageView img_step_3;
     @ViewInject(R.id.tv_order_step_1)
-    ImageView tv_step_3;
+    private ImageView tv_step_3;
     @ViewInject(R.id.img_order_step_1)
-    ImageView img_step_4;
+    private ImageView img_step_4;
     @ViewInject(R.id.tv_order_step_1)
-    ImageView tv_step_4;
+    private ImageView tv_step_4;
     @ViewInject(R.id.img_order_step_1)
-    ImageView img_step_5;
+    private ImageView img_step_5;
     @ViewInject(R.id.tv_order_step_1)
-    ImageView tv_step_5;
+    private ImageView tv_step_5;
     @ViewInject(R.id.img_order_step_1)
-    ImageView img_step_6;
+    private ImageView img_step_6;
     @ViewInject(R.id.tv_order_step_1)
-    ImageView tv_step_6;
+    private ImageView tv_step_6;
     @ViewInject(R.id.img_order_step_1)
-    ImageView img_step_7;
+    private ImageView img_step_7;
     @ViewInject(R.id.tv_order_step_1)
-    ImageView tv_step_7;
+    private ImageView tv_step_7;
 
     private int[] STATE_PAST = {R.drawable.order_state_past, R.color.text_9},
             STATE_NOW = {R.drawable.order_state_now, R.color.skyblue},

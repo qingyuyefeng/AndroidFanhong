@@ -20,7 +20,7 @@ import org.xutils.x;
 @ContentView(R.layout.activity_verification_index)
 public class VerificationIndexActivity extends Activity {
     @ViewInject(R.id.tv_title)
-    TextView tv_title;
+    private TextView tv_title;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
