@@ -114,13 +114,10 @@ initDatas();
         tv_step_phone.setText(phone);
     }
 
-    @Event({R.id.tv_back, R.id.layout_hk_order_details, R.id.btn_hk_order_return})
+    @Event({R.id.layout_hk_order_details, R.id.btn_hk_order_return})
     private void onClicks(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {
-            case R.id.tv_back:
-                finish();
-                break;
             case R.id.layout_hk_order_details:
                 intent.setClass(this, HouseKeepingServiceDetailsActivity.class);
                 intent.putExtra("single", true);
@@ -134,5 +131,10 @@ initDatas();
                 startActivity(intent);
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        onClicks(findViewById(R.id.btn_hk_order_return));
     }
 }

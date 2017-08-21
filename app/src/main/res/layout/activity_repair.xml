@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_top" />
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_jdwx"
+        android:padding="40px">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="60px"
+            android:alpha="0.72"
+            android:background="@color/white" />
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="60px"
+            android:orientation="vertical">
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingBottom="20px"
+                android:paddingLeft="30px"
+                android:paddingRight="30px"
+                android:paddingTop="20px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="姓名："
+                    android:textColor="@color/text_6"
+                    android:textSize="30px" />
+
+                <EditText
+                    android:id="@+id/edt_input_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_comment_choose_bg"
+                    android:ems="6"
+                    android:padding="10px"
+                    android:textColor="@color/text_6"
+                    android:textSize="30px" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/dividerline_D" />
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingBottom="20px"
+                android:paddingLeft="30px"
+                android:paddingRight="30px"
+                android:paddingTop="20px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="联系电话："
+                    android:textColor="@color/text_6"
+                    android:textSize="30px" />
+
+                <EditText
+                    android:id="@+id/edt_input_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_comment_choose_bg"
+                    android:ems="7"
+                    android:inputType="phone"
+                    android:maxLength="11"
+                    android:padding="10px"
+                    android:textColor="@color/text_6"
+                    android:textSize="30px" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/dividerline_D" />
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingBottom="10px"
+                android:paddingLeft="30px"
+                android:paddingRight="30px"
+                android:paddingTop="20px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="地址："
+                    android:textColor="@color/text_6"
+                    android:textSize="30px" />
+
+                <CheckedTextView
+                    android:id="@+id/ctv_province"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10px"
+                    android:background="@drawable/shape_comment_choose_bg"
+                    android:drawablePadding="5px"
+                    android:drawableRight="@drawable/spinner_arrow_selector"
+                    android:padding="10px"
+                    android:text="重庆市"
+                    android:textColor="@color/text_6"
+                    android:textSize="28px" />
+
+                <CheckedTextView
+                    android:id="@+id/ctv_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10px"
+                    android:background="@drawable/shape_comment_choose_bg"
+                    android:drawablePadding="5px"
+                    android:drawableRight="@drawable/spinner_arrow_selector"
+                    android:padding="10px"
+                    android:text="重庆市"
+                    android:textColor="@color/text_6"
+                    android:textSize="28px" />
+
+                <CheckedTextView
+                    android:id="@+id/ctv_area"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_comment_choose_bg"
+                    android:drawablePadding="5px"
+                    android:drawableRight="@drawable/spinner_arrow_selector"
+                    android:padding="10px"
+                    android:text="大渡口区"
+                    android:textColor="@color/text_6"
+                    android:textSize="28px" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingBottom="20px"
+                android:paddingLeft="30px"
+                android:paddingRight="30px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="地址："
+                    android:textColor="@color/text_6"
+                    android:textSize="30px"
+                    android:visibility="invisible" />
+
+                <EditText
+                    android:id="@+id/edt_input_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_comment_choose_bg"
+                    android:hint="请输入详细门牌信息"
+                    android:inputType="phone"
+                    android:maxLength="11"
+                    android:padding="10px"
+                    android:textColor="@color/text_9"
+                    android:textColorHint="@color/text_9"
+                    android:textSize="30px" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/dividerline_D" />
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="20px"
+                android:paddingLeft="30px"
+                android:paddingRight="30px"
+                android:paddingTop="20px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10px"
+                    android:text="描述："
+                    android:textColor="@color/text_6"
+                    android:textSize="30px" />
+
+                <EditText
+                    android:id="@+id/edt_input_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_comment_choose_bg"
+                    android:gravity="start"
+                    android:hint="请描述详细情况"
+                    android:padding="4px"
+                    android:lines="6"
+                    android:lineSpacingExtra="4px"
+                    android:textColor="@color/text_6"
+                    android:textColorHint="@color/text_9"
+                    android:textSize="30px" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <Button
+                android:id="@+id/btn_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="85px"
+                android:layout_marginLeft="40px"
+                android:layout_marginRight="40px"
+                android:layout_marginTop="50px"
+                android:background="@drawable/btn_radius_red"
+                android:text="提交"
+                android:textColor="@color/white"
+                android:textSize="35px" />
+        </com.zhy.autolayout.AutoLinearLayout>
+    </com.zhy.autolayout.AutoRelativeLayout>
+</com.zhy.autolayout.AutoLinearLayout>
