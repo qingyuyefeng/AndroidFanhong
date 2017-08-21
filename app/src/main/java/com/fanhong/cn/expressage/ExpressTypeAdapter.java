@@ -22,9 +22,12 @@ public class ExpressTypeAdapter extends RecyclerView.Adapter<ExpressTypeAdapter.
     private Context context;
     private List<String> list;
     private LayoutInflater inflater;
-    public ExpressTypeAdapter(Context context, List<String> list){
+
+    private int status;
+    public ExpressTypeAdapter(Context context, List<String> list,int status){
         this.context = context;
         this.list = list;
+        this.status = status;
         inflater = LayoutInflater.from(context);
     }
     @Override
@@ -42,9 +45,14 @@ public class ExpressTypeAdapter extends RecyclerView.Adapter<ExpressTypeAdapter.
             public void onClick(View v) {
                 int pos = holder.getLayoutPosition();
                 Intent intent = new Intent();
-                intent.putExtra("expresstype",list.get(pos));
-                ((Activity) context).setResult(46,intent);
-                ((Activity) context).finish();
+                intent.putExtra("string",list.get(pos));
+                if(status == 2){
+                    ((Activity) context).setResult(46,intent);
+                    ((Activity) context).finish();
+                }else if (status == 1){
+                    ((Activity) context).setResult(45,intent);
+                    ((Activity) context).finish();
+                }
             }
         });
     }

@@ -131,8 +131,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
-                android:divider="@color/darkgray"
-                android:dividerHeight="6px"
+                android:divider="@color/bg1"
+                android:dividerHeight="18px"
                 android:layout_alignParentBottom="true"
                 android:layout_toRightOf="@+id/layout_ms_sort"
                 android:layout_toEndOf="@+id/layout_ms_sort" />
