@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@color/white"
-        android:paddingLeft="30px"
+        android:paddingLeft="20px"
         android:paddingTop="25px"
         android:paddingBottom="30px">
             <ImageView
@@ -18,48 +18,48 @@
                 android:src="@drawable/ilon_ji" />
             <TextView
                 android:id="@+id/send_express_province"
-                android:layout_width="wrap_content"
+                android:layout_width="130px"
                 android:layout_toRightOf="@id/icon_ji"
                 android:layout_height="60px"
                 android:layout_marginLeft="10px"
                 android:paddingLeft="5px"
                 android:paddingRight="5px"
                 android:maxEms="5"
-                android:text="重庆市"
+                android:text="贵州省"
                 android:textSize="25px"
                 android:gravity="center_vertical"
                 android:drawableRight="@drawable/icon_down"
-                android:drawablePadding="5px"
+                android:drawablePadding="10px"
                 android:background="@drawable/postpicture_biankuang"/>
             <TextView
                 android:id="@+id/send_express_city"
-                android:layout_width="wrap_content"
+                android:layout_width="130px"
                 android:layout_toRightOf="@id/send_express_province"
                 android:layout_height="60px"
                 android:paddingLeft="5px"
                 android:paddingRight="5px"
                 android:layout_marginLeft="20px"
                 android:maxEms="5"
-                android:text="重庆市"
+                android:text="遵义市"
                 android:textSize="25px"
                 android:gravity="center_vertical"
                 android:drawableRight="@drawable/icon_down"
-                android:drawablePadding="5px"
+                android:drawablePadding="10px"
                 android:background="@drawable/postpicture_biankuang"/>
             <TextView
                 android:id="@+id/send_express_district"
-                android:layout_width="wrap_content"
+                android:layout_width="150px"
                 android:layout_toRightOf="@id/send_express_city"
                 android:layout_height="60px"
                 android:paddingLeft="5px"
                 android:paddingRight="5px"
                 android:layout_marginLeft="20px"
                 android:maxEms="5"
-                android:text="大渡口区"
+                android:text="开阳县"
                 android:textSize="25px"
                 android:gravity="center_vertical"
                 android:drawableRight="@drawable/icon_down"
-                android:drawablePadding="5px"
+                android:drawablePadding="10px"
                 android:background="@drawable/postpicture_biankuang"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -88,7 +88,7 @@
         android:layout_marginTop="25px"
         android:orientation="vertical"
         android:background="@color/white"
-        android:paddingLeft="30px"
+        android:paddingLeft="20px"
         android:paddingTop="25px"
         android:paddingBottom="30px">
 
@@ -99,7 +99,7 @@
             android:src="@drawable/ilon_shou" />
         <TextView
             android:id="@+id/get_express_province"
-            android:layout_width="wrap_content"
+            android:layout_width="130px"
             android:layout_toRightOf="@id/icon_shou"
             android:layout_height="60px"
             android:layout_marginLeft="10px"
@@ -110,17 +110,18 @@
             android:textSize="25px"
             android:gravity="center_vertical"
             android:drawableRight="@drawable/icon_down"
-            android:drawablePadding="5px"
+            android:drawablePadding="10px"
             android:background="@drawable/postpicture_biankuang"/>
         <TextView
             android:id="@+id/get_express_city"
-            android:layout_width="wrap_content"
+            android:layout_width="130px"
             android:layout_toRightOf="@id/get_express_province"
             android:layout_height="60px"
             android:paddingLeft="5px"
             android:paddingRight="5px"
             android:layout_marginLeft="20px"
             android:maxEms="5"
+            android:ellipsize="end"
             android:text="重庆市"
             android:textSize="25px"
             android:gravity="center_vertical"
@@ -129,7 +130,7 @@
             android:background="@drawable/postpicture_biankuang"/>
         <TextView
             android:id="@+id/get_express_district"
-            android:layout_width="wrap_content"
+            android:layout_width="150px"
             android:layout_toRightOf="@id/get_express_city"
             android:layout_height="60px"
             android:paddingLeft="5px"
@@ -165,9 +166,10 @@
     </com.zhy.autolayout.AutoRelativeLayout>
 
     <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/ll_express_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="30px"
+        android:paddingLeft="20px"
         android:paddingRight="30px"
         android:layout_marginTop="30px"
         android:background="@color/white"
@@ -186,6 +188,7 @@
             android:text="上门时间" />
 
         <TextView
+            android:id="@+id/tv_ex_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20px"
@@ -198,7 +201,7 @@
         android:id="@+id/ll_express_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="30px"
+        android:paddingLeft="20px"
         android:paddingRight="30px"
         android:layout_marginTop="30px"
         android:background="@color/white"
