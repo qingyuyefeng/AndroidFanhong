@@ -10,15 +10,12 @@ import android.widget.TextView;
 
 import com.fanhong.cn.R;
 import com.fanhong.cn.models.HomeNews;
-import com.fanhong.cn.synctaskpicture.LoadImage;
 
 import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import me.nereo.multi_image_selector.bean.Image;
 
 /**
  * Created by Administrator on 2017/7/5.

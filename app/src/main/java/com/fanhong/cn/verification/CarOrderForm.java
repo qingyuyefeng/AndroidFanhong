@@ -1,10 +1,6 @@
 package com.fanhong.cn.verification;
 
-import android.os.Parcelable;
-
 import java.io.Serializable;
-
-import static com.baidu.location.h.j.P;
 
 /**
  * Created by Administrator on 2017/8/14.
