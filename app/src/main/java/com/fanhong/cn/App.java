@@ -4,15 +4,11 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 
-import com.baidu.mapapi.SDKInitializer;
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.fanhong.cn.synctaskpicture.SaveInMemery;
 
 import org.xutils.x;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import io.rong.imlib.RongIMClient;
@@ -35,7 +31,6 @@ public class App extends Application {
     }
 
     public static String CMDURL = "http://m.wuyebest.com/index.php/App/index";
-    public static SaveInMemery memery = SaveInMemery.getMemoryCache(50);
 
     public static Set<Long> old_msg_times=new HashSet<>();
 //    public static List<Long> old_msg_times=new ArrayList<>();
@@ -49,7 +44,7 @@ public class App extends Application {
         //xUtils初始化
         x.Ext.init(this);
         //百度sdk初始化
-        SDKInitializer.initialize(getApplicationContext());
+//        SDKInitializer.initialize(getApplicationContext());
         /**
          * OnCreate 会被多个进程重入，这段保护代码，确保只有您需要使用 RongIMClient 的进程和 Push 进程执行了 init。
          * io.rong.push 为融云 push 进程名称，不可修改。

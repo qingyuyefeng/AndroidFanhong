@@ -21,7 +21,6 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -34,11 +33,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fanhong.cn.shippingaddress.AllAddressActivity;
-import com.fanhong.cn.synctaskpicture.LoadImage;
 import com.fanhong.cn.util.FileUtil;
 import com.fanhong.cn.util.HttpUtil;
 import com.fanhong.cn.util.JsonSyncUtils;
-import com.fanhong.cn.util.NetUtil;
 import com.fanhong.cn.view.CircleImg;
 import com.fanhong.cn.view.SelectPicPopupWindow;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -51,13 +48,8 @@ import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.x;
 
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 

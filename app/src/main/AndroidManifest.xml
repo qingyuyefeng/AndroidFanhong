@@ -331,10 +331,6 @@
             android:theme="@android:style/Theme.Light.NoTitleBar" />
 
 
-        <activity
-            android:name=".shippingaddress.BaiduMapActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
         <!--代办年审-->
         <activity
             android:name=".verification.VerificationIndexActivity"
@@ -392,6 +388,9 @@
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <!-- alipay sdk end -->
 
+        <activity android:name=".shippingaddress.TestAmapActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
 
         <!-- imlib config begin -->
         <meta-data
@@ -456,16 +455,16 @@
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
             </intent-filter>
         </receiver>
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote" />
-        <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="OCERegGLnvKmrUK8ENrHYzfotnUQPCdl" />
 
-        <!-- 必选： SDK 核心功能 -->
+        <!--高德sdk-->
+        <service android:name="com.amap.api.location.APSService" >
+        </service>
+        <meta-data android:name="com.amap.api.v2.apikey"
+            android:value="536071745ff0a51f664b5cdb2c789ba6">
+        </meta-data>
 
+
+        <!-- android7.0拍照权限调取 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.xqyh.customview.fileprovider"
