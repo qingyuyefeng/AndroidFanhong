@@ -9,4 +9,4 @@
 .externalNativeBuild
 /.idea/misc.xml
 /.IMLib/*
-imlib/
+/imlib/*
