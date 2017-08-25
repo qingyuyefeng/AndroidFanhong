@@ -64,7 +64,7 @@ public class ConfirmOrderActivity extends SampleActivity implements PayMoney,OnC
 	private Context mcontext;
 	Cartdb _dbad;
 	private LinearLayout ll_addaddress;
-	private TextView tv_person,tv_phone,tv_address;
+	private TextView tvShow,tv_person,tv_phone,tv_address;
 	float fl_total = 0.0f;  //合计价格
 	private CheckBox checkbox_zfb,checkbox_wx;
 	private String id = null;
@@ -177,6 +177,7 @@ public class ConfirmOrderActivity extends SampleActivity implements PayMoney,OnC
 		mcontext = getApplicationContext();
 		mSettingPref = getSharedPreferences("Setting", Context.MODE_PRIVATE);
 
+		tvShow = (TextView) findViewById(R.id.show_address);
 		tv_person = (TextView)findViewById(R.id.tv_person);
 		tv_phone = (TextView)findViewById(R.id.tv_phone);
 		tv_address = (TextView)findViewById(R.id.tv_address);
@@ -218,6 +219,7 @@ public class ConfirmOrderActivity extends SampleActivity implements PayMoney,OnC
 			@Override
 			public void onClick(View v) {
 				Intent intent2 = new Intent();
+				intent2.putExtra("status",1);
 				intent2.setClass(ConfirmOrderActivity.this, AllAddressActivity.class);
 				startActivityForResult(intent2, 1);
 			}
@@ -384,6 +386,10 @@ public class ConfirmOrderActivity extends SampleActivity implements PayMoney,OnC
 				}
 				break;
 			case 21:  //登录返回
+				break;
+			case 121: //选择地址返回
+				String str = data.getStringExtra("address");
+				tvShow.setText(str);
 				break;
 		}
 	}

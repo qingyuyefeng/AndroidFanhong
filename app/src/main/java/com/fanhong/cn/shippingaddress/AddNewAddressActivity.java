@@ -154,6 +154,7 @@ public class AddNewAddressActivity extends Activity{
         RequestParams params = new RequestParams(App.CMDURL);
         params.addParameter("cmd","59");
         params.addParameter("uid",uid);
+        params.addParameter("mr",checked);
         params.addParameter("xid",cellId);
         params.addParameter("ldh",louId);
         params.addParameter("dizhi",inputAddress.getText().toString());

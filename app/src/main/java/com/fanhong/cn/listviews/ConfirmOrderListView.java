@@ -22,6 +22,8 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.xutils.x;
+
 /**
  * 设备列表类
  * @author zk
@@ -127,9 +129,10 @@ public class ConfirmOrderListView  extends  android.widget.ListView{
 
 
 			//用ImageLoader加载图片
-			ImageLoader.getInstance().displayImage((String) listItems.get(position).get("url"), listItemView.ItemImage
-					,new ImageLoaderPicture(m_context).getOptions(),new SimpleImageLoadingListener());
+//			ImageLoader.getInstance().displayImage((String) listItems.get(position).get("url"), listItemView.ItemImage
+//					,new ImageLoaderPicture(m_context).getOptions(),new SimpleImageLoadingListener());
 
+			x.image().bind(listItemView.ItemImage,(String)listItems.get(position).get("url"));
 			return convertView;
 		}
 

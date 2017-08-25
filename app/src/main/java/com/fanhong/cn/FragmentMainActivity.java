@@ -146,19 +146,7 @@ public class FragmentMainActivity extends SampleActivity {
         }
         return false;
     }
-//    private static final int Permission_Request_Code = 1000;
-//    public void requestPermission(String[] permissions) {
-//        ActivityCompat.requestPermissions(this, permissions, Permission_Request_Code);
-//    }
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//    }
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[]
-//            grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//    }
+
     private void wellcom() {
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -391,10 +379,6 @@ public class FragmentMainActivity extends SampleActivity {
             } else {
                 Toast.makeText(this, "门禁钥匙数据异常", Toast.LENGTH_SHORT).show();
             }
-        } else if (cmd == 34) {//二手卖品展示
-            mTab01.setFragment(33, json.toString());
-//        }else if(cmd == 50){//主页新闻和品味生活展示
-//            mTab01.setFragment(49,json.toString());
         } else if (cmd == 44) {//主页最新公告展示
             mTab01.setFragment(43, json.toString());
         } else {
@@ -506,18 +490,6 @@ public class FragmentMainActivity extends SampleActivity {
         listView.setLayoutParams(params);
     }
 
-
-    public void hiddenBottom(boolean hidden) {
-        if (hidden) {
-            this.bottomRadioGroup.setVisibility(View.GONE);
-            if (this.imageViews[3].getVisibility() == View.VISIBLE)
-                this.imageViews[3].setVisibility(View.GONE);
-        } else {
-            this.bottomRadioGroup.setVisibility(View.VISIBLE);
-            if (this.imageViews[3].getVisibility() == View.GONE)
-                this.imageViews[3].setVisibility(View.VISIBLE);
-        }
-    }
 
     private void createDialog(int i) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

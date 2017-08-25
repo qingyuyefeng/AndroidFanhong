@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class Code {
 
-    //随机数数绿
+    //随机数数组
     private static final char[] CHARS = {
             '2', '3', '4', '5', '6', '7', '8', '9',
             'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'm',
@@ -29,13 +29,13 @@ public class Code {
     }
 
     //default settings
-    //验证码默认随机数的个敿
+    //验证码默认随机数的个数
     private static final int DEFAULT_CODE_LENGTH = 4;
     //默认字体大小
     private static final int DEFAULT_FONT_SIZE = 25;
-    //默认线条的条敿
+    //默认线条的条数
     private static final int DEFAULT_LINE_NUMBER = 5;
-    //padding倿
+    //padding值
     private static final int BASE_PADDING_LEFT = 10, RANGE_PADDING_LEFT = 15, BASE_PADDING_TOP = 15, RANGE_PADDING_TOP = 20;
     //验证码的默认宽高
     private static final int DEFAULT_WIDTH = 110, DEFAULT_HEIGHT = 46;
@@ -55,7 +55,7 @@ public class Code {
     private String code;
     private int padding_left, padding_top;
     private Random random = new Random();
-    //验证码图牿
+    //验证码图案
     public Bitmap createBitmap() {
         padding_left = 0;
 
@@ -89,7 +89,7 @@ public class Code {
         return code;
     }
 
-    //生成验证砿
+    //生成验证码
     private String createCode() {
         StringBuilder buffer = new StringBuilder();
         for (int i = 0; i < codeLength; i++) {
@@ -119,7 +119,7 @@ public class Code {
         int blue = random.nextInt(256) / rate;
         return Color.rgb(red, green, blue);
     }
-    //随机生成文字样式，颜色，粗细，忾斜庿
+    //随机生成文字样式，颜色，粗细，倾斜度
     private void randomTextStyle(Paint paint) {
         int color = randomColor();
         paint.setColor(color);
@@ -130,7 +130,7 @@ public class Code {
         //paint.setUnderlineText(true); //true为下划线，false为非下划线
         //paint.setStrikeThruText(true); //true为删除线，false为非删除线
     }
-    //随机生成padding倿
+    //随机生成padding值
     private void randomPadding() {
         padding_left += base_padding_left + random.nextInt(range_padding_left);
         padding_top = base_padding_top + random.nextInt(range_padding_top);

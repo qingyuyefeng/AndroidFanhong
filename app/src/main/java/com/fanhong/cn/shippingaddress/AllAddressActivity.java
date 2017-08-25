@@ -82,8 +82,8 @@ public class AllAddressActivity extends Activity {
                 AllAddressActivity.this.finish();
                 break;
             case R.id.add_new_address:
-//                startActivity(new Intent(AllAddressActivity.this, AddNewAddressActivity.class));
-                startActivity(new Intent(AllAddressActivity.this, TestAmapActivity.class));
+                startActivity(new Intent(AllAddressActivity.this, AddNewAddressActivity.class));
+//                startActivity(new Intent(AllAddressActivity.this, TestAmapActivity.class));
                 break;
         }
     }
