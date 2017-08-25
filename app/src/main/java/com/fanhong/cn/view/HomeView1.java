@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fanhong.cn.AgentWebActivity;
+import com.fanhong.cn.App;
 import com.fanhong.cn.CommStoreDetailsActivity;
 import com.fanhong.cn.FaceRecognitionIntroductionActivity;
 import com.fanhong.cn.GardenSelecterActivity;
@@ -48,6 +49,8 @@ import com.sivin.BannerAdapter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
 import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
@@ -574,6 +577,29 @@ public class HomeView1 extends BaseFragment {
     }
 
     private void getEsGoodsDatas() {
+        RequestParams params = new RequestParams(App.CMDURL);
+        params.addParameter("cmd","33");
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String s) {
+                setFragment(33,s);
+            }
+
+            @Override
+            public void onError(Throwable throwable, boolean b) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException e) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
         Map<String, Object> map = new HashMap<>();
         map.put("cmd", "33");
         if (mSample == null) {
@@ -582,50 +608,29 @@ public class HomeView1 extends BaseFragment {
         mSample.connectService1(map);
     }
 
-    private void getNewsDatas() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("cmd", "49");
-        if (mSample == null) {
-            mSample = new SampleConnection(getBaseActivity(), 49);
-        }
-        mSample.connectService1(map);
-    }
-
     private void getnewsandlife() {
-        String url = SampleConnection.url;
-        OutputStream os = null;
-        try {
-            URL url1 = new URL(url);
-            HttpURLConnection httpURLConnection = (HttpURLConnection) url1.openConnection();
-            httpURLConnection.setRequestMethod("POST");
-            httpURLConnection.setConnectTimeout(5000);
-            httpURLConnection.setReadTimeout(5000);
-            String content = "cmd=" + 49;
-            os = httpURLConnection.getOutputStream();
-            os.write(content.getBytes());
-            os.flush();
-            int res = httpURLConnection.getResponseCode();
-            if (res == 200) {
-                BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream(), "utf-8"));
-                StringBuffer sb = new StringBuffer();
-                String s;
-                while ((s = br.readLine()) != null) {
-                    sb.append(s);
-                }
-                setFragment(49, sb.toString());
+        RequestParams params = new RequestParams(App.CMDURL);
+        params.addParameter("cmd","49");
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String s) {
+                setFragment(49,s);
             }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (os != null) {
-                try {
-                    os.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
+            @Override
+            public void onError(Throwable throwable, boolean b) {
+
             }
-        }
+
+            @Override
+            public void onCancelled(CancelledException e) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 }

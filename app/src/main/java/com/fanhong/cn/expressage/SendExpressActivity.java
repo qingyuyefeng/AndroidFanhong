@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
 import com.fanhong.cn.R;
 
 import org.xutils.view.annotation.ContentView;
@@ -34,6 +36,9 @@ public class SendExpressActivity extends Activity {
     @ViewInject(R.id.tv_ex_type)
     private TextView exType;
 
+//    private String str1,str2,str3;
+    private AMapLocationClient client;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,10 +46,18 @@ public class SendExpressActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         x.view().inject(this);
         title.setText("寄快递");
-
+        client = new AMapLocationClient(getApplicationContext());
+        getLocation();
     }
 
-
+    private void getLocation(){
+        AMapLocation location = client.getLastKnownLocation();
+        if(location!=null && location.getErrorCode()==0){
+            sProvince.setText(location.getProvince());
+            sCity.setText(location.getCity());
+            sDistrict.setText(location.getDistrict());
+        }
+    }
 
     @Event({R.id.img_back, R.id.ll_express_time, R.id.ll_express_type})
     private void onClick(View v) {

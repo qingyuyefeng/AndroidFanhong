@@ -96,7 +96,7 @@ public class CheckExpressActivity extends Activity{
         }
     }
     private void initData(){
-        for(int i=0;i<3;i++){
+        for(int i=0;i<1;i++){
             MysendModel mysendModel = new MysendModel();
             mysendModelList.add(mysendModel);
         }

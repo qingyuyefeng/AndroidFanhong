@@ -3,19 +3,8 @@
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
-
-    <com.zhy.autolayout.AutoLinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="100px"
-        android:layout_alignParentTop="true"
-        android:background="@color/skyblue"></com.zhy.autolayout.AutoLinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/black"></LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -26,29 +15,22 @@
 
         <com.zhy.autolayout.AutoRelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="48dp"
+            android:layout_height="100px"
             android:background="@color/skyblue">
 
-            <LinearLayout
+            <Button
+                android:id="@+id/btn_back"
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_centerInParent="true"
-                android:gravity="center">
-
-                <Button
-                    android:id="@+id/btn_back"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/style_button_back_gray" />
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:padding="5px"
+                android:background="@drawable/style_button_back_gray"
+                android:layout_centerVertical="true"/>
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:gravity="center"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:text="@string/confirmorder"
                 android:textColor="@color/white"
                 android:textSize="38px" />
@@ -79,7 +61,7 @@
                         android:layout_marginTop="0px"
                         android:cacheColorHint="#00000000"
                         android:divider="#00000000"
-                        android:dividerHeight="6dip"
+                        android:dividerHeight="6dp"
                         android:listSelector="#CCFFFF" />
                 </LinearLayout>
 
@@ -101,9 +83,9 @@
                     <TextView
                         android:id="@+id/show_address"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="12dp"
+                        android:layout_weight="1"
                         android:text="@string/addaddress"
                         android:textColor="@color/textgray"
                         android:textSize="15sp" />
