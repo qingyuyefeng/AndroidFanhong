@@ -168,8 +168,6 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/shape_comment_choose_bg"
                     android:hint="请输入详细门牌信息"
-                    android:inputType="phone"
-                    android:maxLength="11"
                     android:padding="10px"
                     android:textColor="@color/text_9"
                     android:textColorHint="@color/text_9"
