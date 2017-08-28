@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<resources>
-    <external-path
-        name="images"
-        path="test/" />
+<!--<resources>-->
+    <!--<external-path-->
+        <!--name="images"-->
+        <!--path="test/" />-->
     <!--<files-path/> //代表的根目录： Context.getFilesDir()-->
     <!--<external-path/> //代表的根目录: Environment.getExternalStorageDirectory()-->
     <!--<cache-path/> //代表的根目录: getCacheDir()-->
-</resources>
+<!--</resources>-->
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+<external-path path="" name="camera_photos" />
+<external-path name="my_images" path="Android/data/com.fanhong.cn/files/Pictures/" />
+<external-path name="images" path="Pictures/" />
+<external-path name="dcim" path="DCIM/" />
+</paths>
 

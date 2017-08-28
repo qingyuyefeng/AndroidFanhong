@@ -334,44 +334,45 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
             switch (v.getId()) {
                 // 拍照
                 case R.id.takePhotoBtn:
-//                    Intent takeIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                    //下面这句指定调用相机拍照后的照片存储的路径
-//                    takeIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-//                            Uri.fromFile(new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
-//                    startActivityForResult(takeIntent, REQUESTCODE_TAKE);
-                    String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                    if (Build.VERSION.SDK_INT >= 23) {
-                        int check = ContextCompat.checkSelfPermission(AccountSettingsActivity.this, permissions[0]);
-                        // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
-                        if (check == PackageManager.PERMISSION_GRANTED) {
-                            //调用相机
-                            useCamera();
-                        } else {
-                            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                        }
-                    } else {
-                        useCamera();
-                    }
+                    Intent takeIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    //下面这句指定调用相机拍照后的照片存储的路径
+                    file = new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME);
+                    takeIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+                            Uri.fromFile(file));
+                    startActivityForResult(takeIntent, REQUESTCODE_TAKE);
+//                    String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+//                    if (Build.VERSION.SDK_INT >= 23) {
+//                        int check = ContextCompat.checkSelfPermission(AccountSettingsActivity.this, permissions[0]);
+//                        // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
+//                        if (check == PackageManager.PERMISSION_GRANTED) {
+//                            //调用相机
+//                            useCamera();
+//                        } else {
+//                            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+//                        }
+//                    } else {
+//                        useCamera();
+//                    }
                     break;
                 // 相册选择图片
                 case R.id.pickPhotoBtn:
-//                    Intent pickIntent = new Intent(Intent.ACTION_PICK, null);
-//                    // 如果朋友们要限制上传到服务器的图片类型时可以直接写如："image/jpeg 、image/png"等的类型
-//                    pickIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-//                    startActivityForResult(pickIntent, REQUESTCODE_PICK);
-                    String[] permissions1 = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                    if (Build.VERSION.SDK_INT >= 23) {
-                        int check = ContextCompat.checkSelfPermission(AccountSettingsActivity.this, permissions1[0]);
-                        // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
-                        if (check == PackageManager.PERMISSION_GRANTED) {
-                            //调用相册选择
-                            choosePhoto();
-                        } else {
-                            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},2);
-                        }
-                    } else {
-                        choosePhoto();
-                    }
+                    Intent pickIntent = new Intent(Intent.ACTION_PICK, null);
+                    // 如果要限制上传到服务器的图片类型时可以直接写如："image/jpeg 、image/png"等的类型
+                    pickIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                    startActivityForResult(pickIntent, REQUESTCODE_PICK);
+//                    String[] permissions1 = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+//                    if (Build.VERSION.SDK_INT >= 23) {
+//                        int check = ContextCompat.checkSelfPermission(AccountSettingsActivity.this, permissions1[0]);
+//                        // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
+//                        if (check == PackageManager.PERMISSION_GRANTED) {
+//                            //调用相册选择
+//                            choosePhoto();
+//                        } else {
+//                            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},2);
+//                        }
+//                    } else {
+//                        choosePhoto();
+//                    }
                     break;
                 default:
                     break;
@@ -379,32 +380,32 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
         }
     };
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            useCamera();
-        }else if(requestCode == 2 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            choosePhoto();
-        }else {
-            // 没有获取 到权限，从新请求，或者关闭app
-            Toast.makeText(this, "需要存储权限", Toast.LENGTH_SHORT).show();
-        }
-    }
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+//                                           @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        if (requestCode == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//            useCamera();
+//        }else if(requestCode == 2 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//            choosePhoto();
+//        }else {
+//            // 没有获取 到权限，从新请求，或者关闭app
+//            Toast.makeText(this, "需要存储权限", Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
     /**
      * 使用相机
      */
     private void useCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        file = new File(Environment.getExternalStorageDirectory() + "/" + IMAGE_FILE_NAME);
+        file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/test/" + IMAGE_FILE_NAME);
         if (!file.getParentFile().exists()) {
             file.getParentFile().mkdirs();
         }
 
         //改变Uri  com.xykj.customview.fileprovider注意和xml中的一致
-        Uri uri = FileProvider.getUriForFile(this, "com.xqyh.customview.fileprovider", file);
+        Uri uri = FileProvider.getUriForFile(this, "com.xykj.customview.fileprovider", file);
         //添加权限
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);//添加这一句表示对目标应用临时授权该Uri所代表的文件
 
@@ -519,42 +520,4 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
             mSafoneConnection = new SampleConnection(AccountSettingsActivity.this, 0);
         mSafoneConnection.connectService1(map);
     }
-
-    Handler handler = new Handler(new Handler.Callback() {
-
-        @Override
-        public boolean handleMessage(Message msg) {
-            switch (msg.what) {
-                case 0:
-                    pd.dismiss();
-                    try {
-                        // 返回数据示例，根据需求和后台数据灵活处理
-                        // {"status":"1","statusMessage":"上传成功","imageUrl":"http://120.24.219.49/726287_temphead.jpg"}
-                        JSONObject jsonObject = new JSONObject(resultStr);
-                        Log.i("hu", "*****8***resultStr=" + resultStr);
-                        // 服务端以字符串“1”作为操作成功标记
-                        if (jsonObject.optString("status").equals("1")) {
-                            BitmapFactory.Options option = new BitmapFactory.Options();
-                            // 压缩图片:表示缩略图大小为原始图片大小的几分之一，1为原图，3为三分之一
-                            option.inSampleSize = 1;
-
-                            // 服务端返回的JsonObject对象中提取到图片的网络URL路径
-                            String imageUrl = jsonObject.optString("imageUrl");
-                            Toast.makeText(context, imageUrl, Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(context, jsonObject.optString("statusMessage"), Toast.LENGTH_SHORT).show();
-                        }
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                    break;
-
-                default:
-                    break;
-            }
-            return false;
-        }
-    });
 }
