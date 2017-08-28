@@ -312,13 +312,6 @@ public class ServiceView1 extends BaseFragment {
             case 1:
                 startActivity(new Intent(ServiceView1.this.getActivity(), ShopActivity.class));
                 break;
-//			case 2:
-//				Toast.makeText(ServiceView1.this.getActivity(),R.string.starting,Toast.LENGTH_SHORT).show();
-//				break;
-//			//紧急开锁
-//			case 3:
-//				startActivity(new Intent(ServiceView1.this.getActivity(), UrgentOpenDoorActivity.class));
-//				break;
             //二手货市场
             case 2:
 //				Toast.makeText(ServiceView1.this.getActivity(),R.string.starting,Toast.LENGTH_SHORT).show();
