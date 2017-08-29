@@ -2,9 +2,6 @@ package com.fanhong.cn.adapters;
 
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,9 +26,6 @@ import org.xutils.x;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-import static com.fanhong.cn.R.id.imageView;
-import static com.fanhong.cn.SampleConnection.url;
 
 
 /**
@@ -153,7 +147,7 @@ public class CommunityChatAdapter extends BaseAdapter {
 //                });
 
 //                x.image().bind(holderRight.img_head, bean.getHeadUrl(), options);
-                ImageLoader.getInstance().displayImage(SampleConnection.LOGO_URL, holderRight.img_head,new ImageLoaderPicture(context).getOptions(),new SimpleImageLoadingListener());
+                ImageLoader.getInstance().displayImage(SampleConnection.LOGO_URL, holderRight.img_head, new ImageLoaderPicture(context).getOptions(), new SimpleImageLoadingListener());
             default:
                 break;
         }
