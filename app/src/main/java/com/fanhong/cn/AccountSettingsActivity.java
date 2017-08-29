@@ -3,6 +3,7 @@ package com.fanhong.cn;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -50,8 +51,12 @@ import org.xutils.x;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import static android.net.Uri.fromFile;
+import static com.fanhong.cn.R.drawable.check;
 
 public class AccountSettingsActivity extends SampleActivity implements OnClickListener {
     private TextView tv_nickname;
@@ -267,7 +272,14 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
                 }
                 break;
             case REQUESTCODE_TAKE: // 调用相机拍照
-                startPhotoZoom(Uri.fromFile(file));
+                Uri uri = fromFile(file);
+                if (Build.VERSION.SDK_INT >= 24) {
+                uri = FileProvider.getUriForFile(this, "com.xqyh.customview.fileprovider", file);
+//                    ContentValues contentValues = new ContentValues(1);
+//                    contentValues.put(MediaStore.Images.Media.DATA, file.getAbsolutePath());
+//                    uri = getApplication().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+                }
+                startPhotoZoom(uri);
                 break;
             case REQUESTCODE_CUTTING: //取得裁剪后的图片
                 if (data != null) {
@@ -334,20 +346,28 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
             switch (v.getId()) {
                 // 拍照
                 case R.id.takePhotoBtn:
-//                    Intent takeIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                    //下面这句指定调用相机拍照后的照片存储的路径
-//                    takeIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-//                            Uri.fromFile(new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
-//                    startActivityForResult(takeIntent, REQUESTCODE_TAKE);
-                    String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                    if (Build.VERSION.SDK_INT >= 23) {
+//                    String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+//                    if (Build.VERSION.SDK_INT >= 23) {
+//                        int check = ContextCompat.checkSelfPermission(AccountSettingsActivity.this, permissions[0]);
+//                        // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
+//                        if (check == PackageManager.PERMISSION_GRANTED) {
+//                            //调用相机
+//                            useCamera();
+//                        } else {
+//                            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+//                        }
+//                    } else {
+//                        useCamera();
+//                    }
+                    String[] permissions = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                    if (Build.VERSION.SDK_INT >= 24) {
                         int check = ContextCompat.checkSelfPermission(AccountSettingsActivity.this, permissions[0]);
                         // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
                         if (check == PackageManager.PERMISSION_GRANTED) {
                             //调用相机
                             useCamera();
                         } else {
-                            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 1);
                         }
                     } else {
                         useCamera();
@@ -360,14 +380,14 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
 //                    pickIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
 //                    startActivityForResult(pickIntent, REQUESTCODE_PICK);
                     String[] permissions1 = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                    if (Build.VERSION.SDK_INT >= 23) {
+                    if (Build.VERSION.SDK_INT >= 24) {
                         int check = ContextCompat.checkSelfPermission(AccountSettingsActivity.this, permissions1[0]);
                         // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
                         if (check == PackageManager.PERMISSION_GRANTED) {
                             //调用相册选择
                             choosePhoto();
                         } else {
-                            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},2);
+                            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
                         }
                     } else {
                         choosePhoto();
@@ -379,15 +399,16 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
         }
     };
 
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             useCamera();
-        }else if(requestCode == 2 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        } else if (requestCode == 2 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             choosePhoto();
-        }else {
+        } else {
             // 没有获取 到权限，从新请求，或者关闭app
             Toast.makeText(this, "需要存储权限", Toast.LENGTH_SHORT).show();
         }
@@ -401,19 +422,31 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
         file = new File(Environment.getExternalStorageDirectory() + "/" + IMAGE_FILE_NAME);
         if (!file.getParentFile().exists()) {
             file.getParentFile().mkdirs();
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
-        //改变Uri  com.xykj.customview.fileprovider注意和xml中的一致
-        Uri uri = FileProvider.getUriForFile(this, "com.xqyh.customview.fileprovider", file);
+        Uri uri = null;
+        if (Build.VERSION.SDK_INT >= 24) {
+//            ContentValues contentValues = new ContentValues(1);
+//            contentValues.put(MediaStore.Images.Media.DATA, file.getAbsolutePath());
+//            uri = getApplication().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+            uri = FileProvider.getUriForFile(this, "com.xqyh.customview.fileprovider", file);
+        } else {
+            uri = Uri.fromFile(file);
+        }
         //添加权限
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);//添加这一句表示对目标应用临时授权该Uri所代表的文件
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);//添加这一句表示对目标应用临时授权该Uri所代表的文件
 
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);//将拍取的照片保存到指定URI
         startActivityForResult(intent, REQUESTCODE_TAKE);
 
     }
 
-    private void choosePhoto(){
+    private void choosePhoto() {
         Intent intent1 = new Intent(Intent.ACTION_PICK, null);
         intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
         startActivityForResult(intent1, REQUESTCODE_PICK);
@@ -426,6 +459,12 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
      */
     public void startPhotoZoom(Uri uri) {
         Intent intent = new Intent("com.android.camera.action.CROP");
+        if (Build.VERSION.SDK_INT >= 24) {
+//            uri=FileProvider.getUriForFile(this,getPackageName()+".fileprovider",file);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT,uri);
+        }
         intent.setDataAndType(uri, "image/*");
         // crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
         intent.putExtra("crop", "true");
