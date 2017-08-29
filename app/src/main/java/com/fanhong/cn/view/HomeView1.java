@@ -104,13 +104,10 @@ public class HomeView1 extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         homeView1 = inflater.inflate(R.layout.fragment_home, null);
+
         getGonggaoData();
-        new Thread() {
-            @Override
-            public void run() {
-                getnewsandlife();
-            }
-        }.start();
+        getnewsandlife();
+
         return homeView1;
     }
 
@@ -523,10 +520,10 @@ public class HomeView1 extends BaseFragment {
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
-            newsAdapter.notifyDataSetChanged();
-            lifeAdapter.notifyDataSetChanged();
             getBaseActivity().setListViewHeight(newsListview);
             getBaseActivity().setListViewHeight(lifeListview);
+            newsAdapter.notifyDataSetChanged();
+            lifeAdapter.notifyDataSetChanged();
             return true;
         }
     });

@@ -21,33 +21,7 @@ public class ParameterConfig {
     /**
      * 支付宝
      */
- /*
-  //合作身份者id，以2088开头的16位纯数字，申请支付宝签约成功后就会看见   商户PID
-  	public static final String PARTNER = "2088801938414822";
-  	//填写收款支付宝账号，即付款后到账的支付宝账号    商户收款账号
-  	public static final String SELLER = "linjianhua@chinabird.com";
-  	//商户私钥，自助生成，即rsa_private_key.pem中去掉首行，最后一行，空格和换行最后拼成一行的字符串；
-  	//如果android版本太高，要用PKCS8格式用户私钥   商户私钥，pkcs8格式
-  	public static final String RSA_PRIVATE = "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAKzXAqmo1On94CQZ"+
-  			"MQloJgcFW6FaVWSJQp9Fy44j0pZqnaSqKUhHn51ihl1FB0ealOCpJgyjDf5/jK53"+
-  			"6rrs2hLKenTLsUbJ/OMGRZNkquDQvN6nx+FDCJum3aSWRv//Ldk64hMatIXfxtMT"+
-  			"PnscOvhUGFOpDwqE1nc4epxv03srAgMBAAECgYAVRF+PgLayFAsAZhkijy4erwoX"+
-  			"UIYxWLJZ5rylQMMovvWmzUlHG4kIVJcz4sqChQLMogOMioOuTQOCdD7twTcT5QCG"+
-  			"MgDWqRZ3of3o+hJCBQnvWJCL39hDm+M94CgcxogoBsuaRbttYbrbgfM6LgObdvdg"+
-  			"GMb0wKqyntDtU5s0AQJBAN16mnLDI+s1egMoKwJI2tmze/EX6V+DhuVNJtRDee/b"+
-  			"rqQ9qtx7L8/cvcYE0vWr5+wVIWDBwbxRBnj8wXr4JnUCQQDHx5/avRlpiWtIhrXY"+
-  			"YB2bOoQod/RSHl5GbSI4rkmoj6wlQdVoM6ZoCKWoL5735iDVIPDA94V+YUXHgYiG"+
-  			"3ycfAkEA1NBjKhUCJZd8Bx6IvSg+SmOhm5eLYoDilODeh6XSvDyOAjlTPYqM9aG5"+
-  			"JFYsU238aygeq3dibk449vZ//2YEpQJAd7DBtOtWLkSGYg1TJS9wjW+hfh1f41MO"+
-  			"aGM5/Xtt5e8t06R9ltBbAjksBneBZkQZp5b0pqek8vKUO9L/WM6ZQQJBAJ3BWzuR"+
-  			"RNFjTjcXFbOESB97080iXNuVSwwz6fExO1nl/qJxEnIhtL3JGP4nk2yHJ7nKE6Yw"+
-  			"d+TY0+3jKAaebHU=";
-  	//支付宝（RSA）公钥，用签约支付宝账号登录ms.alipay.com后，在密钥管理页面上传生成的公钥并获取   支付宝公钥
-  	public static final String RSA_PUBLIC = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQ" +
-  			"KBgQCs1wKpqNTp/eAkGTEJaCYHBVuhWlVkiUKfRcuOI9KWap2kqilIR5+dYoZdRQdH" +
-  			"mpTgqSYMow3+f4yud+q67NoSynp0y7FGyfzjBkWTZKrg0Lzep8fhQwibpt2klkb//y" +
-  			"3ZOuITGrSF38bTEz57HDr4VBhTqQ8KhNZ3OHqcb9N7KwIDAQAB";
-     */
+
 
 
     /** 支付宝支付业务：入参app_id */

@@ -39,37 +39,27 @@ import com.fanhong.cn.R;
 import com.fanhong.cn.SampleActivity;
 import com.fanhong.cn.SampleConnection;
 import com.fanhong.cn.util.FileUtil;
-import com.fanhong.cn.util.HttpUtil;
+import com.fanhong.cn.util.JsonSyncUtils;
 import com.fanhong.cn.view.SelectPicPopupWindow;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 import com.zhy.autolayout.AutoLinearLayout;
 import com.zhy.autolayout.AutoRelativeLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-
-import static android.R.attr.delay;
 
 /**
  * Created by Administrator on 2017/5/15.
@@ -142,14 +132,11 @@ public class ShopActivity extends SampleActivity {
     private static final int REQUESTCODE_CUTTING = 62;    // 剪切
     private File file;//拍照指定保存
     private String urlpath;//图片的路径
-    private String status;//resultStr中的状态值
     private String picmsg; //resultStr中的图片名
     private String uid;//登录时的id
     //    String goodsUrl = "http://m.wuyebest.com/index.php/App/index/goods2";
     private String goodsUrl = SampleConnection.GOODS_PICTURE_URL;
     //    String cmdUrl = "http://m.wuyebest.com/index.php/App/index";
-    private String cmdUrl = SampleConnection.url;
-    String resultStr;//上传图片返回的数据
     private Context context;
     private Intent intent = null;
     private SelectPicPopupWindow pictureWindow;
@@ -699,68 +686,56 @@ public class ShopActivity extends SampleActivity {
     }
 
     private void asynchttpUpload(String url, File myFile) {
-//        Log.i("xq", "*****path=" + url + " myFile=" + myFile);
-        RequestParams params = new RequestParams();
-        try {
-            params.put("touxiang", myFile);
-            //AsyncHttpClient client = new AsyncHttpClient();
-            HttpUtil.post(url, params, new AsyncHttpResponseHandler() {
-                @Override
-                public void onSuccess(int statusCode, String content) {
-                    dealResult(content);
+        RequestParams params = new RequestParams(url);
+        //使用表单上传，否则会导致服务器接收失败
+        params.setMultipart(true);
+        params.addBodyParameter("touxiang", myFile);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String s) {
+//                Log.i("postgoods2", s);
+                String status = JsonSyncUtils.getJsonValue(s, "status");
+                picmsg = JsonSyncUtils.getJsonValue(s, "msg");
+                if (status.equals("true")) {
+                    postData();
+                } else {
+                    Toast.makeText(ShopActivity.this, "上传图片异常", Toast.LENGTH_SHORT).show();
                 }
-            });
-        } catch (FileNotFoundException e) {
-        }
-    }
-
-    private void dealResult(String content) {
-        try {
-            JSONObject json = new JSONObject(content);
-            String status = json.getString("status");
-            String pig = json.getString("msg");
-            picmsg = pig;
-            if (status.equals("true")) {
-                new Thread() {
-                    @Override
-                    public void run() {
-                        postData();
-                    }
-                }.start();
             }
-        } catch (Exception e) {
 
-        }
+            @Override
+            public void onError(Throwable throwable, boolean b) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException e) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
+
 
     //上传卖品文字信息
     private void postData() {
-        OutputStream os = null;
-        try {
-            URL url = new URL(cmdUrl);
-            HttpURLConnection http = (HttpURLConnection) url.openConnection();
-            http.setConnectTimeout(5000);
-            http.setReadTimeout(5000);
-            http.setRequestMethod("POST");
-            http.setDoOutput(true);
-            http.setDoInput(true);
-            http.setUseCaches(false);
-            String content = "cmd=" + 31 + "&name=" + edittext[0].getText() + "&tupian=" + picmsg +
-                    "&ms=" + edittext[1].getText() + "&jg=" + edittext[2].getText() +
-                    "&user=" + edittext[3].getText() + "&dh=" + edittext[4].getText() + "&uid=" + uid;
-            os = http.getOutputStream();
-            os.write(content.getBytes());
-            os.flush();
-            if (http.getResponseCode() == 200) {
-                BufferedReader br = new BufferedReader(new InputStreamReader(http.getInputStream(), "utf-8"));
-                StringBuffer sb = new StringBuffer();
-                String str;
-                while ((str = br.readLine()) != null) {
-                    sb.append(str);
-                }
-                JSONObject object = new JSONObject(sb.toString());
-                int cmd = object.optInt("cmd");
-                int cw = object.optInt("cw");
+        RequestParams params = new RequestParams(App.CMDURL);
+        params.addBodyParameter("cmd", "31");
+        params.addBodyParameter("name", edittext[0].getText().toString());
+        params.addBodyParameter("tupian", picmsg);
+        params.addBodyParameter("ms", edittext[1].getText().toString());
+        params.addBodyParameter("jg", edittext[2].getText().toString());
+        params.addBodyParameter("user", edittext[3].getText().toString());
+        params.addBodyParameter("dh", edittext[4].getText().toString());
+        params.addBodyParameter("uid", uid);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String s) {
+                int cw = Integer.parseInt(JsonSyncUtils.getJsonValue(s, "cw"));
                 if (cw == 0) {
                     Message m = handler.obtainMessage();
                     m.what = 2;
@@ -771,21 +746,22 @@ public class ShopActivity extends SampleActivity {
                     handler.sendMessage(m1);
                 }
             }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } finally {
-            if (os != null) {
-                try {
-                    os.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
+            @Override
+            public void onError(Throwable throwable, boolean b) {
+
             }
-        }
+
+            @Override
+            public void onCancelled(CancelledException e) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 
     private int isLogined() {
@@ -798,71 +774,58 @@ public class ShopActivity extends SampleActivity {
     }
 
     public synchronized void seleteAllpostgoods() {
-        String string = App.CMDURL; //接口地址，传入cmd参数，返回数据data
-        OutputStream os = null;
-        try {
-            URL url = new URL(string);
-            HttpURLConnection http = (HttpURLConnection) url.openConnection();
-            http.setConnectTimeout(5000);
-            http.setReadTimeout(5000);
-            http.setRequestMethod("POST");
-            http.setDoOutput(true);
-            http.setDoInput(true);
-            String content = "cmd=" + 33;
-            os = http.getOutputStream();
-            os.write(content.getBytes());
-            os.flush();
-            int res = http.getResponseCode();
-            if (res == HttpURLConnection.HTTP_OK) {
-                BufferedReader br = new BufferedReader(new InputStreamReader(http.getInputStream(), "utf-8"));
-                StringBuffer sb = new StringBuffer();
-                String s;
-                while ((s = br.readLine()) != null) {
-                    sb.append(s);
-                }
-                Log.i("xq", "es_data===>" + sb.toString());
-                JSONObject jsonObject = new JSONObject(sb.toString());
-
-                JSONArray jsonArray = jsonObject.optJSONArray("data");
-                if (jsonArray == null || jsonArray.length() == 0) {
+        //接口地址，传入cmd参数，返回数据data
+        RequestParams params = new RequestParams(App.CMDURL);
+        params.addBodyParameter("cmd", "33");
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String s) {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    JSONArray jsonArray = jsonObject.optJSONArray("data");
+                    if (jsonArray == null || jsonArray.length() == 0) {
 //                        Message message0 = handler.obtainMessage();
 //                        message0.what = 0;
 //                        handler.sendMessage(message0);
-                } else {
-                    //name: tupian: ms: dh: dz: (uid)
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonObject1 = jsonArray.optJSONObject(i);
-                        ShopModel shopModel = new ShopModel();
-                        shopModel.setGoodsName(jsonObject1.optString("name"));
-                        shopModel.setPrice(jsonObject1.optString("jg"));
-                        shopModel.setGoodsPicture(jsonObject1.optString("tupian"));
-                        shopModel.setGoodsMessages(jsonObject1.optString("ms"));
-                        shopModel.setOwnerPhone("卖家电话：" + jsonObject1.optString("dh"));
-                        shopModel.setOwnerName("卖家姓名：" + jsonObject1.optString("user"));
-                        //商品有id,字符串类型
-                        shopModel.setId(jsonObject1.optString("id"));
-                        shopModels.add(shopModel);
+                    } else {
+                        //name: tupian: ms: dh: dz: (uid)
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject1 = jsonArray.optJSONObject(i);
+                            ShopModel shopModel = new ShopModel();
+                            shopModel.setGoodsName(jsonObject1.optString("name"));
+                            shopModel.setPrice(jsonObject1.optString("jg"));
+                            shopModel.setGoodsPicture(jsonObject1.optString("tupian"));
+                            shopModel.setGoodsMessages(jsonObject1.optString("ms"));
+                            shopModel.setOwnerPhone("卖家电话：" + jsonObject1.optString("dh"));
+                            shopModel.setOwnerName("卖家姓名：" + jsonObject1.optString("user"));
+                            //商品有id,字符串类型
+                            shopModel.setId(jsonObject1.optString("id"));
+                            shopModels.add(shopModel);
+                        }
+                        Message message1 = handler.obtainMessage();
+                        message1.what = 1;
+                        handler.sendMessage(message1);
                     }
-                    Message message1 = handler.obtainMessage();
-                    message1.what = 1;
-                    handler.sendMessage(message1);
-                }
-            }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } finally {
-            if (os != null) {
-                try {
-                    os.close();
-                } catch (IOException e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-        }
+
+            @Override
+            public void onError(Throwable throwable, boolean b) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException e) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 
     @Override
