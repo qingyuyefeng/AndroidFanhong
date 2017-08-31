@@ -34,7 +34,7 @@ public class CommunityNewsAdapter extends BaseAdapter {
         this.context = context;
         this.list = list;
         this.mInflater = LayoutInflater.from(context);
-        options = new ImageOptions.Builder().setLoadingDrawableId(R.drawable.ilon_yh).setFailureDrawableId(R.drawable.ilon_yh).setUseMemCache(true).build();
+        options = new ImageOptions.Builder().setLoadingDrawableId(R.drawable.img_default).setFailureDrawableId(R.drawable.img_default).setUseMemCache(true).build();
     }
 
     @Override
