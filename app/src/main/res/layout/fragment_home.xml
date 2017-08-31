@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/homeview_layout"
     android:layout_width="match_parent"
@@ -123,7 +124,7 @@
                     android:drawablePadding="5dp"
                     android:drawableTop="@drawable/button_sign"
                     android:gravity="center"
-                    android:text="@string/qiandao"
+                    android:text=""
                     android:textColor="@color/textgray"
                     android:textSize="11sp" />
 
@@ -147,7 +148,7 @@
                     android:drawablePadding="5dp"
                     android:drawableTop="@drawable/button_integral"
                     android:gravity="center"
-                    android:text="@string/jifen"
+                    android:text=""
                     android:textColor="@color/textgray"
                     android:textSize="11sp" />
 
@@ -159,7 +160,7 @@
                     android:drawablePadding="5dp"
                     android:drawableTop="@drawable/button_search"
                     android:gravity="center"
-                    android:text="@string/search"
+                    android:text=""
                     android:textColor="@color/textgray"
                     android:textSize="11sp" />
             </LinearLayout>

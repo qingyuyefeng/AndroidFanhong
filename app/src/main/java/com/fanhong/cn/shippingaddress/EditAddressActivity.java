@@ -119,6 +119,8 @@ public class EditAddressActivity extends Activity{
         RequestParams params = new RequestParams(App.CMDURL);
         params.addBodyParameter("cmd","61");
         params.addBodyParameter("uid",mSharedPref.getString("UserId",""));
+        params.addBodyParameter("id",addId+"");
+//        params.addBodyParameter("xid",);
     }
     private void setEnableds(boolean louClick,boolean editAdress,boolean canChecked){
         changelou.setEnabled(louClick);

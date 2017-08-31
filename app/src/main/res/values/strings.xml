@@ -41,10 +41,19 @@
     <string name="refuse">拒绝</string>
     <string name="receive">接受</string>
 
-    <string name="qiandao">签到</string>
+    <string name="shequgonggao">社区公告</string>
     <string name="wuyezhixing">物业之星</string>
-    <string name="jifen">积分</string>
-    <string name="search">搜索</string>
+    <string name="zhaoshangdaili">招商代理</string>
+    <string name="super_service">特色服务</string>
+    <string name="often_service">常用服务</string>
+    <string name="ylgh">医疗挂号</string>
+    <string name="lygg">旅游观光</string>
+    <string name="hwkg">海外狂购</string>
+    <string name="jszb">讲师直播</string>
+    <string name="jkzs">健康知识</string>
+    <string name="xxyl">休闲娱乐</string>
+    <string name="mydy">猫眼电影</string>
+    <string name="hwwl">海外玩乐</string>
 
     <string name="shangmenweixiu">上门维修</string>
     <string name="guoyingjishu">过硬技术</string>

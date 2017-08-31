@@ -27,7 +27,6 @@ import com.fanhong.cn.util.JsonSyncUtils;
 import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
-import org.xutils.http.request.HttpRequest;
 import org.xutils.x;
 
 import java.util.HashMap;

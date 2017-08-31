@@ -188,8 +188,7 @@
 				android:text="@string/login"	
 				android:textSize="19.0sp"
 				android:textColor="@color/white"		
-				android:background="@drawable/denglu_selector" >
-			</Button>
+				android:background="@drawable/denglu_selector" />
 		<!-- 	<View 
 			    android:layout_width="10.0dip"
 			    android:layout_height="fill_parent"/> -->
@@ -223,10 +222,12 @@
 			    android:id="@+id/tv_startregister"
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
-			    android:layout_alignParentRight="true"
-			    android:textSize="15sp"
+				android:textSize="15sp"
 			    android:textColor="@drawable/textcolorchange"
-			    android:text="@string/startlogin"/>
+			    android:text="@string/startlogin"
+				android:layout_alignParentTop="true"
+				android:layout_alignParentRight="true"
+				android:layout_alignParentEnd="true" />
 	    </RelativeLayout>
 	    </LinearLayout>
 	    </LinearLayout>
