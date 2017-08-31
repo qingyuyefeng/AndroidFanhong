@@ -63,8 +63,7 @@
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
             android:name=".RegisterActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ResetPswActivity"
             android:screenOrientation="portrait"

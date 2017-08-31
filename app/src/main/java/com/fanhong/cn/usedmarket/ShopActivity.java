@@ -40,6 +40,7 @@ import com.fanhong.cn.SampleActivity;
 import com.fanhong.cn.SampleConnection;
 import com.fanhong.cn.util.FileUtil;
 import com.fanhong.cn.util.JsonSyncUtils;
+import com.fanhong.cn.util.StringUtils;
 import com.fanhong.cn.view.SelectPicPopupWindow;
 import com.zhy.autolayout.AutoLinearLayout;
 import com.zhy.autolayout.AutoRelativeLayout;
@@ -527,15 +528,18 @@ public class ShopActivity extends SampleActivity {
                     break;
                 case R.id.sure_to_postgoods://确定上传
                     sureToPost.setEnabled(false);
-                    if (urlpath != null && !TextUtils.isEmpty(edittext[0].getText().toString())
-                            && !TextUtils.isEmpty(edittext[1].getText().toString())
-                            && !TextUtils.isEmpty(edittext[2].getText().toString())
-                            && !TextUtils.isEmpty(edittext[3].getText().toString())
-                            && !TextUtils.isEmpty(edittext[4].getText().toString())) {
+                    if (urlpath == null
+                            || TextUtils.isEmpty(edittext[0].getText().toString())
+                            || TextUtils.isEmpty(edittext[1].getText().toString())
+                            || TextUtils.isEmpty(edittext[2].getText().toString())
+                            || TextUtils.isEmpty(edittext[3].getText().toString())
+                            || TextUtils.isEmpty(edittext[4].getText().toString())) {
+                        Toast.makeText(context, "传入数据不完整", Toast.LENGTH_SHORT).show();
+                    }else if(!StringUtils.validPhoneNum("2",edittext[4].getText().toString())){
+                    Toast.makeText(context,"请输入正确的电话号码",Toast.LENGTH_SHORT).show();
+                }else {
                         File file1 = new File(urlpath);
                         asynchttpUpload(goodsUrl, file1);
-                    } else {
-                        Toast.makeText(context, "传入数据不完整", Toast.LENGTH_SHORT).show();
                     }
                     new Handler().postDelayed(new Runnable() {
                         @Override

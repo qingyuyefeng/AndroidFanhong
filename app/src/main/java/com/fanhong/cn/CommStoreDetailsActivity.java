@@ -29,6 +29,8 @@ public class CommStoreDetailsActivity extends Activity {
 //    TextView tv_uername;
 //    @ViewInject(R.id.tv_ms_detail_send_time)
 //    TextView tv_time;
+    @ViewInject(R.id.tv_title)
+    private TextView title;
     @ViewInject(R.id.tv_ms_detail_price)
     TextView tv_price;
     @ViewInject(R.id.tv_ms_detail_title)
@@ -47,6 +49,7 @@ public class CommStoreDetailsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
+        title.setText("物品详情");
         bundle = getIntent().getExtras();
         initDetails();
     }
@@ -110,24 +113,4 @@ public class CommStoreDetailsActivity extends Activity {
                 .setFailureDrawableId(R.drawable.img_default).setUseMemCache(true).build();
         x.image().bind(img_goods, bundle.getString("img"), options);
     }
-//    String url="http://api.k780.com:88/?app=idcard.get";
-//    Map<String,Object> map=new HashMap<>();
-//        map.put("appkey", "10003");
-//        map.put("sign", "b59bc3ef6191eb9f747dd4e83c99f2a4");
-//        map.put("format", "json");
-//        map.put("idcard", "110101199001011114");
-//        XUtil.Post(url, map, new MyCallBack<PersonInfoBean>(){
-//
-//        @Override
-//        public void onSuccess(PersonInfoBean result) {
-//            super.onSuccess(result);
-//            Log.e("result", result.toString());
-//        }
-//
-//        @Override
-//        public void onError(Throwable ex, boolean isOnCallback) {
-//            super.onError(ex, isOnCallback);
-//
-//        }
-//    });
 }
