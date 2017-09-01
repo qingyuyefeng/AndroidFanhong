@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import com.fanhong.cn.App;
 import com.fanhong.cn.R;
 import com.fanhong.cn.fenxiao.PostSuccessActivity;
+import com.fanhong.cn.util.JsonSyncUtils;
 import com.fanhong.cn.util.StringUtils;
 
 import org.xutils.common.Callback;
@@ -82,7 +84,7 @@ public class CarFormConfirmActivity extends Activity {
                 finish();
                 break;
             case R.id.tv_read:
-                startActivityForResult(new Intent(this, CarVerificationNotice.class),11);
+                startActivityForResult(new Intent(this, CarVerificationNotice.class), 11);
                 break;
             case R.id.btn_commit:
                 if (cbox_read.isChecked())
@@ -102,14 +104,24 @@ public class CarFormConfirmActivity extends Activity {
     private void commitForm() {
 //        Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
         RequestParams param = new RequestParams(App.CMDURL);
-        param.addParameter("cmd", "");
-        Intent intent = new Intent(CarFormConfirmActivity.this, PostSuccessActivity.class);
-        intent.putExtra("fromVerification", true);
-        startActivity(intent);
-        /*  x.http().post(param, new Callback.CommonCallback<String>() {
+        param.addParameter("cmd", "75");
+        param.addParameter("name", form.getName());
+        param.addParameter("phone", form.getPhone());
+        param.addParameter("carid", form.getLicence());
+        param.addParameter("type", form.getType());
+        param.addParameter("price", form.getPrice());
+        param.addParameter("four", form.getEngine());
+        param.addParameter("renid", form.getIdCard());
+        param.addParameter("smdz", form.getAddress());
+        x.http().post(param, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String s) {
-
+                Log.e("CarFormLog",s);
+                if (JsonSyncUtils.getJsonValue(s, "cw").equals("0")) {
+                    Intent intent = new Intent(CarFormConfirmActivity.this, PostSuccessActivity.class);
+                    intent.putExtra("fromVerification", true);
+                    startActivity(intent);
+                }
             }
 
             @Override
@@ -126,6 +138,6 @@ public class CarFormConfirmActivity extends Activity {
             public void onFinished() {
 
             }
-        });*/
+        });
     }
 }

@@ -48,6 +48,8 @@ public class CarOrderFormActivity extends Activity {
     private EditText edt_licence;
     @ViewInject(R.id.rg_input_car_type)
     private RadioGroup rg_type;
+    @ViewInject(R.id.tv_input_price)
+    private TextView tv_price;
     @ViewInject(R.id.edt_input_engine)
     private EditText edt_engine;
     @ViewInject(R.id.edt_input_idCard)
@@ -203,6 +205,7 @@ public class CarOrderFormActivity extends Activity {
         formModel.setName(name);
         formModel.setPhone(phone);
         formModel.setLicence(licence0 + licence1);
+        formModel.setPrice("50元/次");
         formModel.setEngine(engine);
         formModel.setIdCard(idCard);
         formModel.setAddress(addr);

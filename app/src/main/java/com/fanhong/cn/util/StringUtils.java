@@ -33,10 +33,11 @@ public class StringUtils {
      * 此方法适用于各种数字账号显示的格式化，因为会去除所有原有空格，如用于文本的话，可能会导致排版出现混乱
      *
      * @param string 默认开头保留的长度为4 需要格式化的字符串
+     * @param c
      * @return 返回开头及之后每隔4位添加一个空格的新字符串
      */
-    public static String addChar(String string) {
-        return addChar(4, string, '-');
+    public static String addChar(String string, char c) {
+        return addChar(4, string, c);
     }
 
     /**

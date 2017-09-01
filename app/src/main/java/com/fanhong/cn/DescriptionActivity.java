@@ -42,6 +42,8 @@ import com.fanhong.cn.listviews.ChangeListView;
 import com.jauker.widget.BadgeView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
+import com.sivin.Banner;
+import com.sivin.BannerAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -88,10 +90,10 @@ public class DescriptionActivity extends SampleActivity implements OnPageChangeL
      */
     private int[] imgIdArray = {R.drawable.goods, R.drawable.top_banner, R.drawable.banner_02, R.drawable.banner_03};
     private int mImageViewArray[] = {R.drawable.banner_02, R.drawable.banner_03, R.drawable.goods};
-    private TextView tv_detail, tv_discuss,tv_guige;
+    private TextView tv_detail, tv_discuss, tv_guige;
     private int selectedBtn = R.id.tv_detail;
     private String ID; //商品id
-    private ImageView iv_logo, iv_detail;
+    private ImageView /*iv_logo, */iv_detail;
     String pictureurl = null;
     String name = null;
     String describe = null;
@@ -113,6 +115,10 @@ public class DescriptionActivity extends SampleActivity implements OnPageChangeL
     List<String> date1 = new ArrayList<String>();
     private ProgressBar progressBar;
     private TextView tv_next;
+
+    private Banner bannerLogo;
+    private BannerAdapter<String> bannerAdapter;
+    private List<String> bannerImages = new ArrayList<>();
 
     public synchronized void connectFail(int type) {
         Log.i("hu", "*******connectFail");
@@ -202,7 +208,7 @@ public class DescriptionActivity extends SampleActivity implements OnPageChangeL
         ll_addcart.setOnClickListener(this);
         iv_addcart = (ImageView) findViewById(R.id.iv_addcart);
 
-        iv_logo = (ImageView) findViewById(R.id.iv_logo);
+//        iv_logo = (ImageView) findViewById(R.id.iv_logo);
         iv_detail = (ImageView) findViewById(R.id.iv_detail);
 
         tv_title = (TextView) findViewById(R.id.tv_title);
@@ -244,6 +250,21 @@ public class DescriptionActivity extends SampleActivity implements OnPageChangeL
         tv_guige = (TextView) findViewById(R.id.tv_guige);
         tv_detail.setOnClickListener(this);
         tv_discuss.setOnClickListener(this);
+
+        bannerLogo = (Banner) findViewById(R.id.banner_logo);
+        bannerAdapter = new BannerAdapter<String>(bannerImages) {
+            @Override
+            protected void bindTips(TextView tv, String s) {
+
+            }
+
+            @Override
+            public void bindImage(ImageView imageView, String s) {
+                x.image().bind(imageView, s, new ImageOptions.Builder().setLoadingDrawableId(R.drawable.img_default).setFailureDrawableId(R.drawable.img_default).setUseMemCache(true).build());
+            }
+        };
+        bannerLogo.setBannerAdapter(bannerAdapter);
+
     }
 
     private void getDiscussData(int number) { //从第1页开始
@@ -612,23 +633,25 @@ public class DescriptionActivity extends SampleActivity implements OnPageChangeL
                 + logourl + " price=" + price + " normal=" + normal + " pictureurl=" + pictureurl);
 
         tv_guige.setText(normal);
-        ImageOptions options = new ImageOptions.Builder().setLoadingDrawableId(R.drawable.img_default)
-                .setFailureDrawableId(R.drawable.img_default).setUseMemCache(true)
-                .setImageScaleType(ImageView.ScaleType.FIT_CENTER).build();
         //用ImageLoader加载图片
 //		ImageLoader.getInstance().displayImage(logourl, iv_logo
 //				,new ImageLoaderPicture(this).getOptions(),new SimpleImageLoadingListener());
-        x.image().bind(iv_logo, logourl, options);
+//        ImageOptions options = new ImageOptions.Builder().setLoadingDrawableId(R.drawable.img_default)
+//                .setFailureDrawableId(R.drawable.img_default).setUseMemCache(true)
+//                .setImageScaleType(ImageView.ScaleType.FIT_CENTER).build();
+//        x.image().bind(iv_logo, logourl, options);
+        bannerImages.add(logourl);
+        bannerLogo.notifyDataHasChanged();
         //用ImageLoader加载图片
 //        ImageLoader.getInstance().displayImage(pictureurl, iv_detail
 //                , new ImageLoaderPicture(this).getOptions(), new SimpleImageLoadingListener());
         ImageOptions options1 = new ImageOptions.Builder().setLoadingDrawableId(R.drawable.img_default)
-                 .setFailureDrawableId(R.drawable.img_default).setUseMemCache(true).build();
+                .setFailureDrawableId(R.drawable.img_default).setUseMemCache(true).build();
         x.image().loadDrawable(pictureurl, options1, new Callback.CommonCallback<Drawable>() {
             @Override
             public void onSuccess(Drawable drawable) {
-                int MaxHeight=iv_detail.getWidth()*10;
-                int picheight = (int) ((float) iv_detail.getWidth()/drawable.getMinimumWidth() * drawable.getMinimumHeight());
+                int MaxHeight = iv_detail.getWidth() * 10;
+                int picheight = (int) ((float) iv_detail.getWidth() / drawable.getMinimumWidth() * drawable.getMinimumHeight());
                 iv_detail.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, picheight));
                 iv_detail.setMaxHeight(MaxHeight);
                 iv_detail.setImageDrawable(drawable);

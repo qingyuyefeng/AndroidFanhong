@@ -101,6 +101,26 @@
                     android:textColor="@color/text_3"
                     android:textSize="26px" />
             </com.zhy.autolayout.AutoLinearLayout>
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="价格："
+                    android:textColor="@color/text_3"
+                    android:textSize="26px" />
+
+                <TextView
+                    android:id="@+id/tv_form_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/red"
+                    android:text="50元/次"
+                    android:textSize="26px" />
+            </com.zhy.autolayout.AutoLinearLayout>
 
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="wrap_content"
