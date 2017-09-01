@@ -36,15 +36,15 @@ import java.util.List;
 @ContentView(R.layout.fragment_hk_recommend)
 public class HouseKeepingRecommendFragment extends Fragment {
     @ViewInject(R.id.rv_hk_recommend)
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
     @ViewInject(R.id.banner_hk_recommend)
-    Banner banner;
+    private Banner banner;
 
     private List<BannerModel> bannerModels = new ArrayList<>();
-    BannerAdapter bannerAdapter;
-    HKRecyclerViewAdapter adapter;
+    private BannerAdapter bannerAdapter;
+    private HKRecyclerViewAdapter adapter;
 
-    List<HousekeepingRecommendBean> recommendDatas = new ArrayList<>();
+    private List<HousekeepingRecommendBean> recommendDatas = new ArrayList<>();
 
     @Nullable
     @Override

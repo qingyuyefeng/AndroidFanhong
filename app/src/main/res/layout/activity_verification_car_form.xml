@@ -89,10 +89,10 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/shape_comment_choose_bg"
                     android:ems="11"
-                    android:maxLength="13"
                     android:gravity="center_vertical"
                     android:inputType="phone"
                     android:lines="1"
+                    android:maxLength="13"
                     android:padding="15px"
                     android:textColor="@color/text_6"
                     android:textSize="30px" />
@@ -219,6 +219,39 @@
                         android:textColor="@color/text_6"
                         android:textSize="12sp" />
                 </RadioGroup>
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1.3dip"
+                android:layout_marginLeft="40px"
+                android:layout_marginRight="40px"
+                android:background="@drawable/xuxian_ccc" />
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60px"
+                android:gravity="center_vertical|left"
+                android:paddingLeft="40px"
+                android:paddingRight="40px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="价格："
+                    android:textColor="@color/text_6"
+                    android:textSize="26px" />
+
+                <TextView
+                    android:id="@+id/tv_input_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10px"
+                    android:text="50元/次"
+                    android:textColor="@color/red"
+                    android:textSize="27px" />
+
+
             </com.zhy.autolayout.AutoLinearLayout>
 
             <TextView

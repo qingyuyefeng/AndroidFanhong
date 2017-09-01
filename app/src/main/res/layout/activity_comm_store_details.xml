@@ -73,6 +73,11 @@
         android:layout_below="@id/layout_title_"
         android:scaleType="centerInside"
         android:src="@drawable/img_default" />
+    <!--<com.sivin.Banner-->
+        <!--android:id="@+id/banner_ms_detail_goods"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="720px"-->
+        <!--android:layout_below="@id/layout_title_" />-->
 
     <TextView
         android:id="@+id/tv_ms_detail_title"

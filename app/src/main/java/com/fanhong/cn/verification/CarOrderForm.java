@@ -12,12 +12,14 @@ public class CarOrderForm implements Serializable {
     private String phone = "";//联系电话
     private String licence = "";//车牌号
     private String type = "";//车辆类型
+    private String price = "";//价格
     private String engine = "";//发动机号（后四位）
     private String idCard = "";//身份证号
     private String address = "";//取车地址
 
     public CarOrderForm() {
     }
+
 
     public CarOrderForm(String id, String name, String phone, String licence, String type, String engine, String idcard, String address) {
         this.id = id;
@@ -68,6 +70,15 @@ public class CarOrderForm implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     public String getEngine() {

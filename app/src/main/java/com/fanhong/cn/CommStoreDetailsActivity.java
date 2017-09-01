@@ -14,12 +14,18 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.sivin.Banner;
+import com.sivin.BannerAdapter;
+
 import org.xutils.common.Callback;
 import org.xutils.image.ImageOptions;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @ContentView(R.layout.activity_comm_store_details)
 public class CommStoreDetailsActivity extends Activity {
@@ -30,18 +36,23 @@ public class CommStoreDetailsActivity extends Activity {
 //    @ViewInject(R.id.tv_ms_detail_send_time)
 //    TextView tv_time;
     @ViewInject(R.id.tv_ms_detail_price)
-    TextView tv_price;
+    private TextView tv_price;
     @ViewInject(R.id.tv_ms_detail_title)
-    TextView tv_title;
-    @ViewInject(R.id.img_ms_detail_goods)
+    private TextView tv_title;
+        @ViewInject(R.id.img_ms_detail_goods)
     ImageView img_goods;
+//    @ViewInject(R.id.banner_ms_detail_goods)
+//    private Banner banner_goods;
     @ViewInject(R.id.lv_ms_detail_details)
-    TextView tv_details;
+    private TextView tv_details;
     @ViewInject(R.id.tv_ms_detail_senderaddr)
-    TextView tv_addr;
+    private TextView tv_addr;
     @ViewInject(R.id.tv_ms_detail_phonenum)
-    TextView tv_phonenum;
-    Bundle bundle;
+    private TextView tv_phonenum;
+
+    private Bundle bundle;
+//    private List<String> images = new ArrayList<>();
+//    private BannerAdapter bannerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +73,7 @@ public class CommStoreDetailsActivity extends Activity {
                 break;
         }
     }
+
     private void showDialog(final String str) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("将要拨打" + str);
@@ -82,6 +94,7 @@ public class CommStoreDetailsActivity extends Activity {
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
+
     private void callNumber(String num) {
         Intent intent = new Intent(Intent.ACTION_CALL);
         Uri data = Uri.parse("tel:" + num);
@@ -107,8 +120,22 @@ public class CommStoreDetailsActivity extends Activity {
         tv_addr.setText(bundle.getString("user"));
         tv_phonenum.setText(bundle.getString("phone"));
         ImageOptions options = new ImageOptions.Builder().setLoadingDrawableId(R.drawable.img_default)
-                .setFailureDrawableId(R.drawable.img_default).setUseMemCache(true).build();
+                        .setFailureDrawableId(R.drawable.img_default).setUseMemCache(true).build();
         x.image().bind(img_goods, bundle.getString("img"), options);
+//        bannerAdapter=new BannerAdapter<String>(images) {
+//            @Override
+//            protected void bindTips(TextView tv, String s) {
+//
+//            }
+//
+//            @Override
+//            public void bindImage(ImageView imageView, String s) {
+//                x.image().bind(imageView, s,options);
+//            }
+//        };
+//        banner_goods.setBannerAdapter(bannerAdapter);
+//        images.add(bundle.getString("img"));
+//        banner_goods.notifyDataHasChanged();
     }
 //    String url="http://api.k780.com:88/?app=idcard.get";
 //    Map<String,Object> map=new HashMap<>();
