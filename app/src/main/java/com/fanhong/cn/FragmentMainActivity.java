@@ -31,6 +31,7 @@ import com.fanhong.cn.view.AccesscontrolView1;
 import com.fanhong.cn.community.CommunityIndexFragment;
 import com.fanhong.cn.view.FixedViewPager;
 import com.fanhong.cn.view.HomeView1;
+import com.fanhong.cn.view.HomeView2;
 import com.fanhong.cn.view.MineView1;
 import com.fanhong.cn.view.ServiceView1;
 
@@ -44,7 +45,7 @@ import java.util.Map;
 import io.rong.imlib.RongIMClient;
 
 public class FragmentMainActivity extends SampleActivity {
-    private HomeView1 mTab01;
+    private HomeView2 mTab01;
     private AccesscontrolView1 mTab02;
     private ServiceView1 mTab03;
     private MineView1 mTab04;
@@ -87,7 +88,7 @@ public class FragmentMainActivity extends SampleActivity {
 //	        //透明导航栏
 //	        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 //		}
-        wellcom();
+        welcome();
         initViews();
 
         if(!isNetworkAvailable(this)){
@@ -147,7 +148,7 @@ public class FragmentMainActivity extends SampleActivity {
         return false;
     }
 
-    private void wellcom() {
+    private void welcome() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -256,7 +257,8 @@ public class FragmentMainActivity extends SampleActivity {
                                 bottomRadioGroup.check(lastCheckedPage);
                             }
                         } else {
-                            createDialog(0);
+//                            createDialog(0);
+                            Toast.makeText(FragmentMainActivity.this,R.string.pleaselogin,Toast.LENGTH_SHORT).show();
                             bottomRadioGroup.check(lastCheckedPage);
                         }
                         break;
@@ -282,7 +284,7 @@ public class FragmentMainActivity extends SampleActivity {
 
 
     private void initData() {
-        mTab01 = new HomeView1();
+        mTab01 = new HomeView2();
         mTab02 = new AccesscontrolView1();
         mTab03 = new ServiceView1();
         mTab04 = new MineView1();
@@ -457,13 +459,13 @@ public class FragmentMainActivity extends SampleActivity {
             case 24:   //添加小区门禁成功后返回
                 getAccessControl();
                 break;
-            case 112:
-                String location = data.getStringExtra("location");
-                Toast.makeText(this,location+" ",Toast.LENGTH_SHORT).show();
-                if(location!=null && location.length()>0){
-                    mTab01.setFragment(11, location);
-                }
-                break;
+//            case 112:
+//                String location = data.getStringExtra("location");
+//                Toast.makeText(this,location+" ",Toast.LENGTH_SHORT).show();
+//                if(location!=null && location.length()>0){
+//                    mTab01.setFragment(11, location);
+//                }
+//                break;
             case 555:        //注销登录的回调
                 mTab01.setFragment(11, mSettingPref.getString("gardenName", ""));
                 mTab05.setFragment(mSettingPref.getString("gardenName", ""));

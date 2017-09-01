@@ -837,12 +837,8 @@ public class ShopActivity extends SampleActivity {
         super.onResume();
         shopModels.clear();
         //加载数据
-        new Thread() {
-            @Override
-            public void run() {
-                seleteAllpostgoods();
-            }
-        }.start();
+        seleteAllpostgoods();
+
         shopAdapter = new ShopAdapter(shopModels, ShopActivity.this);
         shopAdapter.setCallseller(new ShopAdapter.Callseller() {
             @Override

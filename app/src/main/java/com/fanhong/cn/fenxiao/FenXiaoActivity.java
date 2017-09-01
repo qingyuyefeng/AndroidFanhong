@@ -38,8 +38,8 @@ import org.xutils.x;
 public class FenXiaoActivity extends Activity {
     @ViewInject(R.id.scroll_fenxiao)
     private ScrollView scrollView;
-    @ViewInject(R.id.back_button)
-    private ImageView backBtn;
+    @ViewInject(R.id.tv_title)
+    private TextView title;
     @ViewInject(R.id.iv_fenxiao1)
     private ImageView distribution1;
     @ViewInject(R.id.iv_fenxiao2)
@@ -57,6 +57,7 @@ public class FenXiaoActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
+        title.setText("招募");
         setImage(distribution1, 720, 1139);
         setImage(distribution2, 540, 858);
         mSharedPref = getSharedPreferences("Setting", Context.MODE_PRIVATE);
@@ -93,10 +94,10 @@ public class FenXiaoActivity extends Activity {
         });
     }
 
-    @Event(value = {R.id.back_button,/* R.id.iv_fenxiao1 ,*/R.id.iv_fenxiao2, R.id.tv_lijicanyu})
+    @Event(value = {R.id.img_back,/* R.id.iv_fenxiao1 ,*/R.id.iv_fenxiao2, R.id.tv_lijicanyu})
     private void onClick(View v) {
         switch (v.getId()) {
-            case R.id.back_button:
+            case R.id.img_back:
                 finish();
                 break;
 //            case R.id.iv_fenxiao1:
@@ -172,10 +173,6 @@ public class FenXiaoActivity extends Activity {
                 } else if (data.equals("1")) {
                     Message msg = new Message();
                     msg.what = 1;
-                    handler.sendMessage(msg);
-                } else {
-                    Message msg = new Message();
-                    msg.what = 2;
                     handler.sendMessage(msg);
                 }
             }
