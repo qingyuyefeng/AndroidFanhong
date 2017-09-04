@@ -363,6 +363,5 @@ public class HomeView2 extends BaseFragment {
         uid = mSharedPref.getString("UserId","");
         String str = mSharedPref.getString("gardenName", "");
         cellName.setText(str);
-
     }
 }

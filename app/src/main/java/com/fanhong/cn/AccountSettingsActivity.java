@@ -3,7 +3,6 @@ package com.fanhong.cn;
 
 import android.Manifest;
 import android.app.ProgressDialog;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -56,7 +55,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static android.net.Uri.fromFile;
-import static com.fanhong.cn.R.drawable.check;
 
 public class AccountSettingsActivity extends SampleActivity implements OnClickListener {
     private TextView tv_nickname;
@@ -204,7 +202,6 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
                 if (ul != null && ul.length() > 0) {
                     //用ImageLoader加载图片
                     ImageLoader.getInstance().displayImage(ul, avatarImg, new ImageLoaderPicture(context).getOptions(), new SimpleImageLoadingListener());
-//			LoadImage.Load(avatarImg,ul,context);
                 }
             } catch (Exception e) {
             }
@@ -274,10 +271,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
             case REQUESTCODE_TAKE: // 调用相机拍照
                 Uri uri = fromFile(file);
                 if (Build.VERSION.SDK_INT >= 24) {
-                uri = FileProvider.getUriForFile(this, "com.xqyh.customview.fileprovider", file);
-//                    ContentValues contentValues = new ContentValues(1);
-//                    contentValues.put(MediaStore.Images.Media.DATA, file.getAbsolutePath());
-//                    uri = getApplication().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+                    uri = FileProvider.getUriForFile(this, "com.xqyh.customview.fileprovider", file);
                 }
                 startPhotoZoom(uri);
                 break;
@@ -463,7 +457,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
 //            uri=FileProvider.getUriForFile(this,getPackageName()+".fileprovider",file);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
                     | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT,uri);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         }
         intent.setDataAndType(uri, "image/*");
         // crop=true是设置在开启的Intent中设置显示的VIEW可裁剪

@@ -17,12 +17,11 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.fanhong.cn.AgentWebActivity;
 import com.fanhong.cn.LoginActivity;
 import com.fanhong.cn.R;
 import com.fanhong.cn.StoreActivity;
-import com.fanhong.cn.WebViewActivity;
 import com.fanhong.cn.fenxiao.FenXiaoActivity;
 import com.fanhong.cn.listviews.MyGridView;
 import com.fanhong.cn.repair.RepairActivity;
@@ -330,7 +329,7 @@ public class ServiceView1 extends BaseFragment {
     private void oper2(int arg) {
         String url = ServiceView1.this.getString(mUrlArray2[arg]);
         String str = getString(mTextviewArray2[arg]);
-        Intent intent2 = new Intent(ServiceView1.this.getActivity(), WebViewActivity.class);
+        Intent intent2 = new Intent(ServiceView1.this.getActivity(), AgentWebActivity.class);
         intent2.putExtra("url", url);
         intent2.putExtra("title", str);
         startActivityForResult(intent2, 1);
@@ -339,7 +338,7 @@ public class ServiceView1 extends BaseFragment {
     private void oper3(int arg) {
         String url = ServiceView1.this.getString(mUrlArray3[arg]);
         String str = getString(mTextviewArray3[arg]);
-        Intent intent2 = new Intent(ServiceView1.this.getActivity(), WebViewActivity.class);
+        Intent intent2 = new Intent(ServiceView1.this.getActivity(), AgentWebActivity.class);
         intent2.putExtra("url", url);
         intent2.putExtra("title", str);
         startActivityForResult(intent2, 1);

@@ -35,7 +35,7 @@
                 android:layout_toRightOf="@+id/num1" />
 
             <TextView
-                android:id="@+id/send_express_address"
+                android:id="@+id/send_express_city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/num1"
@@ -48,7 +48,7 @@
                 android:id="@+id/send_express_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/send_express_address"
+                android:layout_below="@id/send_express_city"
                 android:layout_marginTop="15px"
                 android:layout_alignLeft="@id/num1"
                 android:text="湛洋"
@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/num1"
                 android:layout_marginTop="20px"
-                android:layout_toRightOf="@id/send_express_address"
+                android:layout_toRightOf="@id/send_express_city"
                 android:drawableBottom="@drawable/ilon_jiantou"
                 android:gravity="center"
                 android:text="正在运输"
@@ -69,10 +69,10 @@
                 android:textSize="20px" />
 
             <TextView
-                android:id="@+id/get_express_address"
+                android:id="@+id/get_express_city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@id/send_express_address"
+                android:layout_alignTop="@id/send_express_city"
                 android:layout_toRightOf="@id/express_status"
                 android:text="重庆市"
                 android:textColor="@color/popular"

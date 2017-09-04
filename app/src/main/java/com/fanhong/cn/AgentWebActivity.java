@@ -33,9 +33,8 @@ public class AgentWebActivity extends Activity{
         webTitle = (TextView) findViewById(R.id.web_title);
         titleLayout = (AutoLinearLayout) findViewById(R.id.title_llayout);
 
-
-        Intent intent = getIntent();
-        String str = intent.getStringExtra("url");
+        webTitle.setText(getIntent().getStringExtra("title"));
+        String str = getIntent().getStringExtra("url");
         //检测网站的合法性
         if(URLUtil.isNetworkUrl(str)){
             goWeb(str);
@@ -71,19 +70,19 @@ public class AgentWebActivity extends Activity{
                             .setAgentWebParent(mRelativeLayout,new RelativeLayout.LayoutParams(-1,-1))
                             .useDefaultIndicator()      //使用默认进度条
                             .defaultProgressBarColor()  //使用默认进度条的颜色
-                            .setReceivedTitleCallback(mCallback)    //设置web页面title的回调
+//                            .setReceivedTitleCallback(mCallback)    //设置web页面title的回调
                             .createAgentWeb()
                             .ready()
                             .go(url);
         mAgentWeb.getJsEntraceAccess().quickCallJs("callByAndroid");
     }
-    private ChromeClientCallbackManager.ReceivedTitleCallback mCallback = new ChromeClientCallbackManager.ReceivedTitleCallback() {
-        @Override
-        public void onReceivedTitle(WebView view, String title) {
-//            Toast.makeText(AgentWebActivity.this,title,Toast.LENGTH_SHORT).show();
-            webTitle.setText(title);
-        }
-    };
+//    private ChromeClientCallbackManager.ReceivedTitleCallback mCallback = new ChromeClientCallbackManager.ReceivedTitleCallback() {
+//        @Override
+//        public void onReceivedTitle(WebView view, String title) {
+////            Toast.makeText(AgentWebActivity.this,title,Toast.LENGTH_SHORT).show();
+////            webTitle.setText(title);
+//        }
+//    };
 
 
     //封装的返回键监听

@@ -32,6 +32,8 @@ public class PostSuccessActivity extends Activity{
         if (getIntent().getBooleanExtra("fromVerification",false)){
             tv_tips.setText("预约成功");
             tv_label.setVisibility(View.GONE);
+        }else if (getIntent().getBooleanExtra("fromExpress",false)){
+            tv_label.setVisibility(View.GONE);
         }
     }
     @Event(R.id.tv_back_homepage)

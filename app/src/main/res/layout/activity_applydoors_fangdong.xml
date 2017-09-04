@@ -1,38 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:id="@+id/mainLayout">
-    <LinearLayout
-        android:id="@+id/toplayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/skyblue"
-        android:orientation="horizontal">
-        <ImageView
-            android:id="@+id/fangdong_messages_backbtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="3dp"
-            android:src="@drawable/style_button_back_gray" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/postmessages"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-    </LinearLayout>
+    <include layout="@layout/activity_top"
+        android:id="@+id/toplayout"/>
     <ScrollView
         android:id="@+id/svmidlayout"
         android:layout_below="@id/toplayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-            <LinearLayout
+            <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -155,8 +134,8 @@
                         android:id="@+id/fangdong_sfzbm"
                         android:layout_width="0dp"
                         android:layout_weight="6"
-                        android:layout_height="150dp"
-                        android:padding="5dp"
+                        android:layout_height="300px"
+                        android:padding="8px"
                         android:scaleType="centerInside"
                         android:src="@drawable/button_sfzbm"/>
                     <LinearLayout
@@ -186,8 +165,8 @@
                         android:id="@+id/fangdong_photo"
                         android:layout_width="0dp"
                         android:layout_weight="6"
-                        android:layout_height="150dp"
-                        android:padding="5dp"
+                        android:layout_height="300px"
+                        android:padding="8px"
                         android:scaleType="centerInside"
                         android:src="@drawable/button_mgz"/>
                     <LinearLayout
@@ -217,11 +196,11 @@
                         android:id="@+id/house_property_card"
                         android:layout_width="0dp"
                         android:layout_weight="6"
-                        android:layout_height="150dp"
-                        android:padding="5dp"
+                        android:layout_height="300px"
+                        android:padding="8px"
                         android:scaleType="centerInside"
                         android:src="@drawable/font_fcz"/>
-                    <LinearLayout
+                    <com.zhy.autolayout.AutoLinearLayout
                         android:layout_width="0dp"
                         android:layout_weight="3"
                         android:layout_height="match_parent"
@@ -234,10 +213,36 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/test_fcz"
-                            android:paddingRight="10dp"
+                            android:paddingRight="19px"
                             android:scaleType="centerInside"/>
-                    </LinearLayout>
+                    </com.zhy.autolayout.AutoLinearLayout>
                 </LinearLayout>
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10px"
+                    android:layout_marginTop="10px"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/agree_protocol"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginLeft="20px"
+                        android:text="@string/readandagree"
+                        android:textColor="@color/texthint"
+                        android:textSize="28px" />
+
+                    <TextView
+                        android:id="@+id/guard_protocol"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="《用户须知》"
+                        android:textColor="@drawable/textcolorchange"
+                        android:textSize="28px" />
+                </com.zhy.autolayout.AutoLinearLayout>
                 <Button
                     android:id="@+id/fangdong_submit_applydoors"
                     android:layout_width="match_parent"
@@ -249,14 +254,7 @@
                     android:paddingBottom="5dp"
                     android:textColor="@color/white"
                     android:text="提交"/>
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/text_xuzi"/>
-            </LinearLayout>
+
+            </com.zhy.autolayout.AutoLinearLayout>
     </ScrollView>
-</RelativeLayout>
+</com.zhy.autolayout.AutoRelativeLayout>
