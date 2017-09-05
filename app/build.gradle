@@ -66,15 +66,14 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile files('libs/alipaySdk-20170407.jar')
     compile files('libs/badgeview.jar')
     compile files('libs/httpmime-4.1.2.jar')
     compile files('libs/libammsdk.jar')
     compile files('libs/universal-image-loader-1.8.4-with-sources.jar')
     compile files('libs/Volley.jar')
-    /** 第三方屏幕适配        */
-    /** 第三方图片缓存                    */
-    /** 图片缩放的第三方框架       */
+    /** 第三方屏幕适配         */
+    /** 第三方图片缓存                     */
+    /** 图片缩放的第三方框架        */
     compile project(':multi-image-selector')
     compile files('libs/xUtils-3.1.22.jar')
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -96,7 +95,7 @@ dependencies {
     compile 'com.amap.api:3dmap:latest.integration'
     //2D地图
     compile 'com.amap.api:map2d:latest.integration'
-
+    compile files('libs/alipaySdk-20170725.jar')
 }
 
 

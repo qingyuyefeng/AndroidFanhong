@@ -260,7 +260,11 @@ public class DescriptionActivity extends SampleActivity implements OnPageChangeL
 
             @Override
             public void bindImage(ImageView imageView, String s) {
-                x.image().bind(imageView, s, new ImageOptions.Builder().setLoadingDrawableId(R.drawable.img_default).setFailureDrawableId(R.drawable.img_default).setUseMemCache(true).build());
+                x.image().bind(imageView, s, new ImageOptions.Builder()
+                        .setLoadingDrawableId(R.drawable.img_default)
+                        .setFailureDrawableId(R.drawable.img_default)
+                        .setImageScaleType(ImageView.ScaleType.CENTER_INSIDE)
+                        .setUseMemCache(true).build());
             }
         };
         bannerLogo.setBannerAdapter(bannerAdapter);
