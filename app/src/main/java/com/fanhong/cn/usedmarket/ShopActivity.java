@@ -10,14 +10,18 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -33,6 +37,7 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.fanhong.cn.AccountSettingsActivity;
 import com.fanhong.cn.App;
 import com.fanhong.cn.CommStoreDetailsActivity;
 import com.fanhong.cn.R;
@@ -56,11 +61,14 @@ import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+
+import static android.net.Uri.fromFile;
 
 /**
  * Created by Administrator on 2017/5/15.
@@ -535,9 +543,9 @@ public class ShopActivity extends SampleActivity {
                             || TextUtils.isEmpty(edittext[3].getText().toString())
                             || TextUtils.isEmpty(edittext[4].getText().toString())) {
                         Toast.makeText(context, "传入数据不完整", Toast.LENGTH_SHORT).show();
-                    }else if(!StringUtils.validPhoneNum("2",edittext[4].getText().toString())){
-                    Toast.makeText(context,"请输入正确的电话号码",Toast.LENGTH_SHORT).show();
-                }else {
+                    } else if (!StringUtils.validPhoneNum("2", edittext[4].getText().toString())) {
+                        Toast.makeText(context, "请输入正确的电话号码", Toast.LENGTH_SHORT).show();
+                    } else {
                         File file1 = new File(urlpath);
                         asynchttpUpload(goodsUrl, file1);
                     }
@@ -561,18 +569,44 @@ public class ShopActivity extends SampleActivity {
                 switch (v.getId()) {
                     // 拍照
                     case R.id.takePhotoBtn:
-                        Intent takeIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-                        file = new File(Environment.getExternalStorageDirectory(), getPhotoFileName());
-                        takeIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-                                Uri.fromFile(file));
-                        startActivityForResult(takeIntent, REQUESTCODE_TAKE);
+//                        Intent takeIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//
+//                        file = new File(Environment.getExternalStorageDirectory(), getPhotoFileName());
+//                        takeIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+//                                Uri.fromFile(file));
+//                        startActivityForResult(takeIntent, REQUESTCODE_TAKE);
+                        String[] permissions = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                        if (Build.VERSION.SDK_INT >= 24) {
+                            int check = ContextCompat.checkSelfPermission(ShopActivity.this, permissions[0]);
+                            // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
+                            if (check == PackageManager.PERMISSION_GRANTED) {
+                                //调用相机
+                                useCamera();
+                            } else {
+                                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 1);
+                            }
+                        } else {
+                            useCamera();
+                        }
                         break;
                     // 选择相册
                     case R.id.pickPhotoBtn:
-                        Intent pickIntent = new Intent(Intent.ACTION_PICK, null);
-                        pickIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-                        startActivityForResult(pickIntent, REQUESTCODE_PICK);
+//                        Intent pickIntent = new Intent(Intent.ACTION_PICK, null);
+//                        pickIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+//                        startActivityForResult(pickIntent, REQUESTCODE_PICK);
+                        String[] permissions1 = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                        if (Build.VERSION.SDK_INT >= 24) {
+                            int check = ContextCompat.checkSelfPermission(ShopActivity.this, permissions1[0]);
+                            // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
+                            if (check == PackageManager.PERMISSION_GRANTED) {
+                                //调用相册选择
+                                choosePhoto();
+                            } else {
+                                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
+                            }
+                        } else {
+                            choosePhoto();
+                        }
                         break;
                     default:
                         break;
@@ -581,6 +615,58 @@ public class ShopActivity extends SampleActivity {
         });
         pictureWindow.showAtLocation(findViewById(R.id.ershopmainLayout),
                 Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            useCamera();
+        } else if (requestCode == 2 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            choosePhoto();
+        } else {
+            // 没有获取 到权限，从新请求，或者关闭app
+            Toast.makeText(this, "需要存储权限", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * 使用相机
+     */
+    private void useCamera() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        file = new File(Environment.getExternalStorageDirectory() + "/" + getPhotoFileName());
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        Uri uri = null;
+        if (Build.VERSION.SDK_INT >= 24) {
+            uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", file);
+        } else {
+            uri = Uri.fromFile(file);
+        }
+        //添加权限
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);//添加这一句表示对目标应用临时授权该Uri所代表的文件
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);//添加这一句表示对目标应用临时授权该Uri所代表的文件
+
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);//将拍取的照片保存到指定URI
+        startActivityForResult(intent, REQUESTCODE_TAKE);
+
+    }
+
+    /**
+     * 相册选择
+     */
+    private void choosePhoto() {
+        Intent intent1 = new Intent(Intent.ACTION_PICK, null);
+        intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        startActivityForResult(intent1, REQUESTCODE_PICK);
     }
 
     private void showDialog(final String str) {
@@ -626,10 +712,8 @@ public class ShopActivity extends SampleActivity {
      * 剪切图片
      *
      * @param uri
-     * @param type
-     * @param data
      */
-    public void startPhotoZoom(Uri uri, int type, Intent data) {
+    public void startPhotoZoom(Uri uri) {
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");
         intent.putExtra("crop", "true");
@@ -653,16 +737,20 @@ public class ShopActivity extends SampleActivity {
             return;
         switch (requestCode) {
             case REQUESTCODE_TAKE://拍照的回调
-                startPhotoZoom(Uri.fromFile(file), REQUESTCODE_TAKE, data);
+//                startPhotoZoom(Uri.fromFile(file), REQUESTCODE_TAKE, data);
+                Uri uri = Uri.fromFile(file);
+                if (Build.VERSION.SDK_INT >= 24) {
+                    uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", file);
+                }
+                startPhotoZoom(uri);
                 break;
             case REQUESTCODE_PICK://选择图片的回调
                 if (data != null)
-                    startPhotoZoom(data.getData(), REQUESTCODE_PICK, data);
+                    startPhotoZoom(data.getData());
                 break;
             case REQUESTCODE_CUTTING://剪切
-                if (data == null)
-                    return;
-                setPicToView(data);
+                if (data != null)
+                    setPicToView(data);
 //                sureToPost.setEnabled(true);
                 break;
         }
@@ -686,7 +774,6 @@ public class ShopActivity extends SampleActivity {
         Bitmap bitmap = extras.getParcelable("data");
         yourGoodspicture.setImageBitmap(bitmap);
         urlpath = FileUtil.saveFile(context, getPhotoFileName(), bitmap);
-//        urlpath = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(),bitmap,null,null))+".jpg";
     }
 
     private void asynchttpUpload(String url, File myFile) {

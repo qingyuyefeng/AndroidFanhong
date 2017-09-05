@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fanhong.cn.AgentWebActivity;
 import com.fanhong.cn.App;
 import com.fanhong.cn.FaceRecognitionIntroductionActivity;
 import com.fanhong.cn.FragmentMainActivity;
@@ -61,6 +62,20 @@ public class HomeView2 extends BaseFragment {
     private TextView showNotice;
     @ViewInject(R.id.home_banner)
     private Banner banner;
+    @ViewInject(R.id.ylgh)
+    private TextView ylgh;
+    @ViewInject(R.id.xxyl)
+    private TextView xxyl;
+    @ViewInject(R.id.mydy)
+    private TextView mydy;
+    @ViewInject(R.id.hwwl)
+    private TextView hwwl;
+
+    private TextView[] textViews;
+    private String[] urls = {"https://m.quyiyuan.com",
+            "http://i.meituan.com/chongqing?cid=2&stid_b=1&cateType=poi",
+            "https://m.maoyan.com",
+            "http://m.ctrip.com/webapp/attractions/index.html#!/index?from=http%3A%2F%2Fm.ctrip.com%2Fhtml5%2F"};
 
     private List<String> strings = new ArrayList<>();
 
@@ -117,6 +132,19 @@ public class HomeView2 extends BaseFragment {
                 }
             }
         });
+        textViews = new TextView[]{ylgh,xxyl,mydy,hwwl};
+        for (int i=0;i<textViews.length;i++){
+            final int finalI = i;
+            textViews[finalI].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), AgentWebActivity.class);
+                    intent.putExtra("title",textViews[finalI].getText().toString());
+                    intent.putExtra("url",urls[finalI]);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     @Event({R.id.image_choosecell, R.id.textView0, R.id.textView1, R.id.textView2,
@@ -363,6 +391,5 @@ public class HomeView2 extends BaseFragment {
         uid = mSharedPref.getString("UserId","");
         String str = mSharedPref.getString("gardenName", "");
         cellName.setText(str);
-
     }
 }

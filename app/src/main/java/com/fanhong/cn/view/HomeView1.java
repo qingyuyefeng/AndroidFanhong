@@ -550,7 +550,6 @@ public class HomeView1 extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String url = newsList.get(position).getNewsUrl();
-//                Intent intent = new Intent(HomeView1.this.getActivity(), WebViewActivity.class);
                 Intent intent = new Intent(HomeView1.this.getActivity(), AgentWebActivity.class);
                 intent.putExtra("url", url);
                 startActivityForResult(intent, 1);
@@ -563,7 +562,6 @@ public class HomeView1 extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String url = lifeList.get(position).getUrl();
-//                Intent intent = new Intent(HomeView1.this.getActivity(), WebViewActivity.class);
                 Intent intent = new Intent(HomeView1.this.getActivity(), AgentWebActivity.class);
                 intent.putExtra("url", url);
                 startActivityForResult(intent, 1);

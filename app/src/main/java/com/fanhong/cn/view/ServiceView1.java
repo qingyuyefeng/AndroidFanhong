@@ -17,12 +17,11 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.fanhong.cn.AgentWebActivity;
 import com.fanhong.cn.LoginActivity;
 import com.fanhong.cn.R;
 import com.fanhong.cn.StoreActivity;
-import com.fanhong.cn.WebViewActivity;
 import com.fanhong.cn.fenxiao.FenXiaoActivity;
 import com.fanhong.cn.listviews.MyGridView;
 import com.fanhong.cn.repair.RepairActivity;
@@ -330,51 +329,19 @@ public class ServiceView1 extends BaseFragment {
     private void oper2(int arg) {
         String url = ServiceView1.this.getString(mUrlArray2[arg]);
         String str = getString(mTextviewArray2[arg]);
-        Intent intent2 = new Intent(ServiceView1.this.getActivity(), WebViewActivity.class);
+        Intent intent2 = new Intent(ServiceView1.this.getActivity(), AgentWebActivity.class);
         intent2.putExtra("url", url);
         intent2.putExtra("title", str);
-        startActivityForResult(intent2, 1);
+        startActivity(intent2);
     }
 
     private void oper3(int arg) {
         String url = ServiceView1.this.getString(mUrlArray3[arg]);
         String str = getString(mTextviewArray3[arg]);
-        Intent intent2 = new Intent(ServiceView1.this.getActivity(), WebViewActivity.class);
+        Intent intent2 = new Intent(ServiceView1.this.getActivity(), AgentWebActivity.class);
         intent2.putExtra("url", url);
         intent2.putExtra("title", str);
-        startActivityForResult(intent2, 1);
+        startActivity(intent2);
     }
 
-    public synchronized void setFragment(int type, String str) {
-        switch (type) {
-            case 11:
-//				tv_choosecell.setText(str);
-                break;
-        }
-    }
-
-    private int isLogined() {
-        int result = 0;
-        try {
-            result = mSettingPref.getInt("Status", 0);
-        } catch (Exception e) {
-        }
-        return result;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-//		mSettingPref = this.getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
-//		tv_choosecell = (TextView) serView.findViewById(R.id.tv_choosecell);
-//		try{
-//			String str = mSettingPref.getString("gardenName", "");
-//
-//			if(str.length() > 0){
-//				tv_choosecell.setText(str);
-//			}else {
-//				tv_choosecell.setText(R.string.choosecell);
-//			}
-//		}catch (Exception e){}
-    }
 }
