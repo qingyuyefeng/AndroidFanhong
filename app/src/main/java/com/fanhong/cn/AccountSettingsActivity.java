@@ -271,7 +271,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
             case REQUESTCODE_TAKE: // 调用相机拍照
                 Uri uri = fromFile(file);
                 if (Build.VERSION.SDK_INT >= 24) {
-                    uri = FileProvider.getUriForFile(this, "com.xqyh.customview.fileprovider", file);
+                    uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", file);
                 }
                 startPhotoZoom(uri);
                 break;
@@ -340,19 +340,6 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
             switch (v.getId()) {
                 // 拍照
                 case R.id.takePhotoBtn:
-//                    String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-//                    if (Build.VERSION.SDK_INT >= 23) {
-//                        int check = ContextCompat.checkSelfPermission(AccountSettingsActivity.this, permissions[0]);
-//                        // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
-//                        if (check == PackageManager.PERMISSION_GRANTED) {
-//                            //调用相机
-//                            useCamera();
-//                        } else {
-//                            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-//                        }
-//                    } else {
-//                        useCamera();
-//                    }
                     String[] permissions = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
                     if (Build.VERSION.SDK_INT >= 24) {
                         int check = ContextCompat.checkSelfPermission(AccountSettingsActivity.this, permissions[0]);
@@ -424,10 +411,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
         }
         Uri uri = null;
         if (Build.VERSION.SDK_INT >= 24) {
-//            ContentValues contentValues = new ContentValues(1);
-//            contentValues.put(MediaStore.Images.Media.DATA, file.getAbsolutePath());
-//            uri = getApplication().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-            uri = FileProvider.getUriForFile(this, "com.xqyh.customview.fileprovider", file);
+            uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", file);
         } else {
             uri = Uri.fromFile(file);
         }
@@ -440,6 +424,9 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
 
     }
 
+    /**
+     * 相册选择
+     */
     private void choosePhoto() {
         Intent intent1 = new Intent(Intent.ACTION_PICK, null);
         intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");

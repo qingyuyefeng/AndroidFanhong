@@ -329,7 +329,7 @@ public class AddGuardActivity extends SampleActivity {
         }
         Uri uri = null;
         if (Build.VERSION.SDK_INT >= 24) {
-            uri = FileProvider.getUriForFile(this, "com.xqyh.customview.fileprovider", file);
+            uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", file);
         } else {
             uri = Uri.fromFile(file);
         }
@@ -407,7 +407,7 @@ public class AddGuardActivity extends SampleActivity {
 //                            startPhotoZoom(picUri);
                         Uri uri1 = Uri.fromFile(file);
                         if (Build.VERSION.SDK_INT >= 24) {
-                            uri1 = FileProvider.getUriForFile(this, "com.xqyh.customview.fileprovider", file);
+                            uri1 = FileProvider.getUriForFile(this, "applicationId.fileprovider", file);
                         }
                         startPhotoZoom(uri1);
                         break;

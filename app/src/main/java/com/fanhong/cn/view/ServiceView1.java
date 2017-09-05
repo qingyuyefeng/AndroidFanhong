@@ -332,7 +332,7 @@ public class ServiceView1 extends BaseFragment {
         Intent intent2 = new Intent(ServiceView1.this.getActivity(), AgentWebActivity.class);
         intent2.putExtra("url", url);
         intent2.putExtra("title", str);
-        startActivityForResult(intent2, 1);
+        startActivity(intent2);
     }
 
     private void oper3(int arg) {
@@ -341,39 +341,7 @@ public class ServiceView1 extends BaseFragment {
         Intent intent2 = new Intent(ServiceView1.this.getActivity(), AgentWebActivity.class);
         intent2.putExtra("url", url);
         intent2.putExtra("title", str);
-        startActivityForResult(intent2, 1);
+        startActivity(intent2);
     }
 
-    public synchronized void setFragment(int type, String str) {
-        switch (type) {
-            case 11:
-//				tv_choosecell.setText(str);
-                break;
-        }
-    }
-
-    private int isLogined() {
-        int result = 0;
-        try {
-            result = mSettingPref.getInt("Status", 0);
-        } catch (Exception e) {
-        }
-        return result;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-//		mSettingPref = this.getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
-//		tv_choosecell = (TextView) serView.findViewById(R.id.tv_choosecell);
-//		try{
-//			String str = mSettingPref.getString("gardenName", "");
-//
-//			if(str.length() > 0){
-//				tv_choosecell.setText(str);
-//			}else {
-//				tv_choosecell.setText(R.string.choosecell);
-//			}
-//		}catch (Exception e){}
-    }
 }
