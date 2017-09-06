@@ -3,6 +3,7 @@ package com.fanhong.cn;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,6 +35,7 @@ import android.widget.Toast;
 
 import com.fanhong.cn.shippingaddress.AllAddressActivity;
 import com.fanhong.cn.util.FileUtil;
+import com.fanhong.cn.util.GetImagePath;
 import com.fanhong.cn.util.HttpUtil;
 import com.fanhong.cn.util.JsonSyncUtils;
 import com.fanhong.cn.view.CircleImg;
@@ -55,6 +57,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static android.net.Uri.fromFile;
+import static com.fanhong.cn.R.drawable.check;
+import static com.fanhong.cn.SampleConnection.url;
+import static java.security.AccessController.getContext;
 
 public class AccountSettingsActivity extends SampleActivity implements OnClickListener {
     private TextView tv_nickname;
@@ -74,7 +79,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
     private static final int REQUESTCODE_TAKE = 61;        // 相机拍照标记
     private static final int REQUESTCODE_CUTTING = 62;    // 图片裁切标记
     private static final String IMAGE_FILE_NAME = "avatarImage.jpg";// 头像文件名称
-    private File file;
+    private File file, cropFile;//cropFIle:剪切的图片文件
     private String urlpath;            // 图片本地路径
     // 上传服务器的路径【一般不硬编码到程序中】
     private String imgUrl = null;
@@ -183,6 +188,15 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
 
         titleBackImageBtn = (ImageView) findViewById(R.id.titleBackImageBtn);
         titleBackImageBtn.setOnClickListener(this);
+        file = new File(Environment.getExternalStorageDirectory() + "/" + IMAGE_FILE_NAME);
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         mSettingPref = getSharedPreferences("Setting", Context.MODE_PRIVATE);
         if (mSettingPref.getInt("Status", 0) == 1) {
@@ -202,6 +216,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
                 if (ul != null && ul.length() > 0) {
                     //用ImageLoader加载图片
                     ImageLoader.getInstance().displayImage(ul, avatarImg, new ImageLoaderPicture(context).getOptions(), new SimpleImageLoadingListener());
+//			LoadImage.Load(avatarImg,ul,context);
                 }
             } catch (Exception e) {
             }
@@ -263,15 +278,23 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
         switch (requestCode) {
             case REQUESTCODE_PICK:// 直接从相册获取
                 try {
-                    startPhotoZoom(data.getData());
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        File imgUri = new File(GetImagePath.getPath(this, data.getData()));
+                        Uri uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", imgUri);
+                        startPhotoZoom(uri);
+                    } else
+                        startPhotoZoom(data.getData());
                 } catch (NullPointerException e) {
                     e.printStackTrace(); // 用户点击取消操作
                 }
                 break;
             case REQUESTCODE_TAKE: // 调用相机拍照
                 Uri uri = fromFile(file);
-                if (Build.VERSION.SDK_INT >= 24) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", file);
+//                    ContentValues contentValues = new ContentValues(1);
+//                    contentValues.put(MediaStore.Images.Media.DATA, file.getAbsolutePath());
+//                    uri = getApplication().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
                 }
                 startPhotoZoom(uri);
                 break;
@@ -340,8 +363,8 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
             switch (v.getId()) {
                 // 拍照
                 case R.id.takePhotoBtn:
-                    String[] permissions = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                    if (Build.VERSION.SDK_INT >= 24) {
+                    String[] permissions = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                         int check = ContextCompat.checkSelfPermission(AccountSettingsActivity.this, permissions[0]);
                         // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
                         if (check == PackageManager.PERMISSION_GRANTED) {
@@ -361,7 +384,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
 //                    pickIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
 //                    startActivityForResult(pickIntent, REQUESTCODE_PICK);
                     String[] permissions1 = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                    if (Build.VERSION.SDK_INT >= 24) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                         int check = ContextCompat.checkSelfPermission(AccountSettingsActivity.this, permissions1[0]);
                         // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
                         if (check == PackageManager.PERMISSION_GRANTED) {
@@ -400,17 +423,11 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
      */
     private void useCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        file = new File(Environment.getExternalStorageDirectory() + "/" + IMAGE_FILE_NAME);
-        if (!file.getParentFile().exists()) {
-            file.getParentFile().mkdirs();
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
         Uri uri = null;
-        if (Build.VERSION.SDK_INT >= 24) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//            ContentValues contentValues = new ContentValues(1);
+//            contentValues.put(MediaStore.Images.Media.DATA, file.getAbsolutePath());
+//            uri = getApplication().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
             uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", file);
         } else {
             uri = Uri.fromFile(file);
@@ -424,13 +441,20 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
 
     }
 
-    /**
-     * 相册选择
-     */
     private void choosePhoto() {
-        Intent intent1 = new Intent(Intent.ACTION_PICK, null);
-        intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-        startActivityForResult(intent1, REQUESTCODE_PICK);
+//        Intent intent1 = new Intent(Intent.ACTION_PICK, null);
+//        intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+//        startActivityForResult(intent1, REQUESTCODE_PICK);
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("image/*");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Uri uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", file);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }
+        startActivityForResult(intent, REQUESTCODE_PICK);
     }
 
     /**
@@ -439,14 +463,32 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
      * @param uri
      */
     public void startPhotoZoom(Uri uri) {
+        cropFile = new File(Environment.getExternalStorageDirectory() + "/crop" + IMAGE_FILE_NAME);
+        if (!cropFile.getParentFile().exists()) {
+            cropFile.getParentFile().mkdirs();
+            try {
+                cropFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        Uri outputUri = fromFile(cropFile);
         Intent intent = new Intent("com.android.camera.action.CROP");
-        if (Build.VERSION.SDK_INT >= 24) {
-//            uri=FileProvider.getUriForFile(this,getPackageName()+".fileprovider",file);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
                     | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
+            intent.setDataAndType(uri, "image/*");
+            intent.putExtra("noFaceDetection", false);//去除默认的人脸识别，否则和剪裁匡重叠
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                String url = GetImagePath.getPath(this, uri);//这个方法是处理4.4以上图片返回的Uri对象不同的处理方法
+                intent.setDataAndType(Uri.fromFile(new File(url)), "image/*");
+            } else {
+                intent.setDataAndType(uri, "image/*");
+            }
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
         }
-        intent.setDataAndType(uri, "image/*");
         // crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
         intent.putExtra("crop", "true");
         // aspectX aspectY 是宽高的比例
@@ -455,7 +497,9 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
         // outputX outputY 是裁剪图片宽高
         intent.putExtra("outputX", 300);
         intent.putExtra("outputY", 300);
-        intent.putExtra("return-data", true);
+         intent.putExtra("return-data", true);
+//        intent.putExtra("return-data", false);
+//        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());// 图片格式
         startActivityForResult(intent, REQUESTCODE_CUTTING);
     }
 
