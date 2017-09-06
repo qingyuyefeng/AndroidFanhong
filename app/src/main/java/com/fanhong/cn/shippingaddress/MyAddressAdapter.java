@@ -39,7 +39,7 @@ public class MyAddressAdapter extends RecyclerView.Adapter<MyAddressAdapter.MyVi
     }
 
     public interface MyHolderClick{
-        void editAddress(String name,String phone,String address,int status,int id);
+        void editAddress(String name,String phone,int status,int id);
         void deleteAddress(int id,int pos);
         void holderItemClick(String string);
     }
@@ -76,11 +76,10 @@ public class MyAddressAdapter extends RecyclerView.Adapter<MyAddressAdapter.MyVi
             public void onClick(View v) {
                 /*
                 接编辑地址接口
-                传入姓名、电话、地址、是否默认
+                传入姓名、电话、是否默认
                  */
                 myHolderClick.editAddress(holder.tvName.getText().toString(),
                         holder.tvPhone.getText().toString(),
-                        holder.tvAddress.getText().toString(),
                         status,id);
             }
         });

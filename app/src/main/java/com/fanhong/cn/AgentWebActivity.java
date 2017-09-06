@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.URLUtil;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ public class AgentWebActivity extends Activity{
     private RelativeLayout mRelativeLayout;
     private AutoLinearLayout titleLayout;
     private TextView webTitle;
+    private ImageView backBtn;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,8 +34,21 @@ public class AgentWebActivity extends Activity{
         mRelativeLayout = (RelativeLayout) findViewById(R.id.rl_client);
         webTitle = (TextView) findViewById(R.id.web_title);
         titleLayout = (AutoLinearLayout) findViewById(R.id.title_llayout);
+        backBtn = (ImageView) findViewById(R.id.back_button);
 
-        webTitle.setText(getIntent().getStringExtra("title"));
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AgentWebActivity.this.finish();
+            }
+        });
+
+        if(getIntent().getBooleanExtra("ishome",false)){
+            backBtn.setVisibility(View.VISIBLE);
+            titleLayout.setVisibility(View.GONE);
+        }else {
+            webTitle.setText(getIntent().getStringExtra("title"));
+        }
         String str = getIntent().getStringExtra("url");
         //检测网站的合法性
         if(URLUtil.isNetworkUrl(str)){

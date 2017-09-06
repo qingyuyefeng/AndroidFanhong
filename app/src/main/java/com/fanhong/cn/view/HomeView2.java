@@ -139,7 +139,7 @@ public class HomeView2 extends BaseFragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), AgentWebActivity.class);
-                    intent.putExtra("title",textViews[finalI].getText().toString());
+                    intent.putExtra("ishome",true);
                     intent.putExtra("url",urls[finalI]);
                     startActivity(intent);
                 }

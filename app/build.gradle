@@ -73,11 +73,10 @@ dependencies {
     compile files('libs/universal-image-loader-1.8.4-with-sources.jar')
     compile files('libs/Volley.jar')
     /** 第三方屏幕适配        */
-    /** 第三方图片缓存                    */
     /** 图片缩放的第三方框架       */
     compile project(':multi-image-selector')
-    compile files('libs/xUtils-3.1.22.jar')
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    /** 第三方图片缓存                    */
     compile 'com.zhy:autolayout:1.4.5'
     compile 'com.facebook.fresco:fresco:1.0.1'
     compile 'me.relex:photodraweeview:1.1.0'
@@ -96,7 +95,8 @@ dependencies {
     compile 'com.amap.api:3dmap:latest.integration'
     //2D地图
     compile 'com.amap.api:map2d:latest.integration'
-
+    //xutils 3
+    compile 'org.xutils:xutils:3.5.0'
 }
 
 

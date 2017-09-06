@@ -118,9 +118,9 @@ public class AccesscontrolView1 extends BaseFragment {
         try {
             JSONObject jsonObject = new JSONObject(string);
             String data = jsonObject.optString("data","");
-            Log.i("xq",data);
+//            Log.i("xq",data);
             String data1 = jsonObject.optString("data1","");
-            Log.i("xq",data1);
+//            Log.i("xq",data1);
             if(!data.equals("0")){
                 String[] array1 = data.split(",");
                 for (int i = 0; i < array1.length; i++) {

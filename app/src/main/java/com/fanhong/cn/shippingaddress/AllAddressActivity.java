@@ -57,7 +57,7 @@ public class AllAddressActivity extends Activity {
         mSettingPref = getSharedPreferences("Setting", Context.MODE_PRIVATE);
         uid = mSettingPref.getString("UserId", "");
 //        Log.i("xq","我的用户id===>"+uid);//uid===>4
-//        Toast.makeText(this,uid,Toast.LENGTH_SHORT).show();
+
         status = getIntent().getIntExtra("status",0);
         mControl.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -146,11 +146,10 @@ public class AllAddressActivity extends Activity {
         myAddressAdapter = new MyAddressAdapter(this, addressModelList);
         myAddressAdapter.setMyHolderClick(new MyAddressAdapter.MyHolderClick() {
             @Override
-            public void editAddress(String name, String phone, String address, int status,int id) {
+            public void editAddress(String name, String phone, int status,int id) {
                 Intent intent = new Intent(AllAddressActivity.this, EditAddressActivity.class);
                 intent.putExtra("adName",name);
                 intent.putExtra("adPhone",phone);
-                intent.putExtra("adAddress",address);
                 intent.putExtra("adStatus",status);
                 intent.putExtra("adrId",id);
                 startActivity(intent);
