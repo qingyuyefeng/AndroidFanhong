@@ -26,6 +26,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.fanhong.cn.applydoors.AddGuardActivity;
 import com.fanhong.cn.listviews.MyFragmentPagerAdapter;
 import com.fanhong.cn.view.AccesscontrolView1;
 import com.fanhong.cn.community.CommunityIndexFragment;
@@ -90,6 +91,7 @@ public class FragmentMainActivity extends SampleActivity {
 //		}
         welcome();
         initViews();
+        getAccessControl();
 
         if(!isNetworkAvailable(this)){
             Toast.makeText(this,R.string.nonetwork,Toast.LENGTH_SHORT).show();
@@ -216,6 +218,9 @@ public class FragmentMainActivity extends SampleActivity {
                         break;
                     case R.id.door_page:
 //                        showFragment(fragmentTransaction,2);
+                        if(mTab02.list.size()==0){
+                            createDialog(2);
+                        }
                         viewPager.setCurrentItem(2);
                         radioButtons[0].setTextColor(getResources().getColor(R.color.notchecked));
                         radioButtons[1].setTextColor(getResources().getColor(R.color.notchecked));
@@ -378,9 +383,10 @@ public class FragmentMainActivity extends SampleActivity {
             if (result == 0) {
 //                setDoorsKey(json);
                 mTab02.setFragment(21, json.toString());
-            } else {
-                Toast.makeText(this, "门禁钥匙数据异常", Toast.LENGTH_SHORT).show();
             }
+//            else {
+//                Toast.makeText(this, "门禁钥匙数据异常", Toast.LENGTH_SHORT).show();
+//            }
         } else if (cmd == 44) {//主页最新公告展示
             mTab01.setFragment(43, json.toString());
         } else {
@@ -456,9 +462,6 @@ public class FragmentMainActivity extends SampleActivity {
                     }
                 }
                 break;
-            case 24:   //添加小区门禁成功后返回
-                getAccessControl();
-                break;
 //            case 112:
 //                String location = data.getStringExtra("location");
 //                Toast.makeText(this,location+" ",Toast.LENGTH_SHORT).show();
@@ -515,6 +518,17 @@ public class FragmentMainActivity extends SampleActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(FragmentMainActivity.this, GardenSelecterActivity.class);
                         startActivityForResult(intent, 12);
+                    }
+                });
+                break;
+            case 2:
+                builder.setTitle("提示");
+                builder.setMessage("你还没有绑定钥匙，\n快去绑定吧！");
+                builder.setPositiveButton("去绑定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(FragmentMainActivity.this, AddGuardActivity.class);
+                        startActivity(intent);
                     }
                 });
                 break;

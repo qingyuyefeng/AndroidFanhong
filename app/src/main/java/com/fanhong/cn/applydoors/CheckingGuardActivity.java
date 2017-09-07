@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.fanhong.cn.FragmentMainActivity;
 import com.fanhong.cn.R;
+import com.fanhong.cn.view.AccesscontrolView1;
 
 /**
  * Created by Administrator on 2017/6/12.
@@ -39,7 +40,9 @@ public class CheckingGuardActivity extends Activity{
                     finish();
                     break;
                 case R.id.back_to_mainpage:
-                    startActivity(new Intent(CheckingGuardActivity.this, FragmentMainActivity.class));
+                    Intent intent = new Intent(CheckingGuardActivity.this, FragmentMainActivity.class);
+                    intent.putExtra("addguard",true);
+                    startActivity(intent);
                     break;
             }
         }
