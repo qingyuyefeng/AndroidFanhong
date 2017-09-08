@@ -1,4 +1,4 @@
-package com.fanhong.cn.adapters;
+package com.fanhong.cn.applydoors;
 
 import android.content.Context;
 import android.view.LayoutInflater;

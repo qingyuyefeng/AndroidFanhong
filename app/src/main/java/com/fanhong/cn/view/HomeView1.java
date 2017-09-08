@@ -42,7 +42,6 @@ import com.fanhong.cn.models.HomeNews;
 import com.fanhong.cn.models.Homelife;
 import com.fanhong.cn.repair.RepairActivity;
 import com.fanhong.cn.usedmarket.ShopActivity;
-import com.fanhong.cn.verification.VerificationIndexActivity;
 import com.sivin.Banner;
 import com.sivin.BannerAdapter;
 
@@ -54,13 +53,6 @@ import org.xutils.http.RequestParams;
 import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

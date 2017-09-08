@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -19,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fanhong.cn.R;
-import com.fanhong.cn.adapters.DoorApplyAdapter;
+import com.fanhong.cn.applydoors.DoorApplyAdapter;
 import com.fanhong.cn.applydoors.AddGuardActivity;
 import com.fanhong.cn.applydoors.OpenDoorActivity;
 import com.fanhong.cn.models.DoorcheckModel;
@@ -51,39 +50,9 @@ public class AccesscontrolView1 extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
-        // 启动activity时隐藏软键盘
-        this.getActivity().getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
         mSettingPref = this.getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
 
         noControl = (TextView) view.findViewById(R.id.no_accesscontrol);
-
-        getBaseActivity().getAccessControl();
-        doorapplyListview = (ListView) accView.findViewById(R.id.applydoors_listview);
-        doorApplyAdapter = new DoorApplyAdapter(getActivity(), list);
-        doorApplyAdapter.setOpenDoor(new DoorApplyAdapter.OpenDoor() {
-            @Override
-            public void openBtnClick(String str1, String str2, String str3) {
-                Intent intent = new Intent();
-                intent.putExtra("cellName", str1);
-                intent.putExtra("louNumber", str2);
-                intent.putExtra("miyue", str3);
-                intent.setClass(AccesscontrolView1.this.getActivity(), OpenDoorActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        handler.sendEmptyMessage(0);
-        doorapplyListview.setAdapter(doorApplyAdapter);
-        Log.i("xq","list.size()==>"+list.size());
-        if (list.size() > 0) {
-            doorapplyListview.setVisibility(View.VISIBLE);
-            noControl.setVisibility(View.GONE);
-        } else {
-            doorapplyListview.setVisibility(View.GONE);
-            noControl.setVisibility(View.VISIBLE);
-        }
 
         btn_add = (Button) view.findViewById(R.id.btn_add);
         btn_add.setOnClickListener(new OnClickListener() {
@@ -97,24 +66,21 @@ public class AccesscontrolView1 extends BaseFragment {
                 }
             }
         });
-//        btn_reflush = (ImageView) view.findViewById(R.id.btn_reflush);
-//        btn_reflush.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //刷新显示钥匙
-//                if (isLogined() == 1) {
-//                    AccesscontrolView1.this.getBaseActivity().getAccessControl();
-//                } else {
-//                    Toast.makeText(AccesscontrolView1.this.getActivity(), getString(R.string.pleaselogin), Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
+        btn_reflush = (ImageView) view.findViewById(R.id.btn_reflush);
+        btn_reflush.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //刷新显示钥匙
+//                AccesscontrolView1.this.getBaseActivity().getAccessControl();
+                AccesscontrolView1.this.onResume();
+            }
+        });
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        getBaseActivity().getAccessControl();
+        AccesscontrolView1.this.getBaseActivity().getAccessControl();
         doorapplyListview = (ListView) accView.findViewById(R.id.applydoors_listview);
         doorApplyAdapter = new DoorApplyAdapter(getActivity(), list);
         doorApplyAdapter.setOpenDoor(new DoorApplyAdapter.OpenDoor() {
@@ -131,7 +97,6 @@ public class AccesscontrolView1 extends BaseFragment {
 
         handler.sendEmptyMessage(0);
         doorapplyListview.setAdapter(doorApplyAdapter);
-        Log.i("xq","list.size()==>"+list.size());
         if (list.size() > 0) {
             doorapplyListview.setVisibility(View.VISIBLE);
             noControl.setVisibility(View.GONE);

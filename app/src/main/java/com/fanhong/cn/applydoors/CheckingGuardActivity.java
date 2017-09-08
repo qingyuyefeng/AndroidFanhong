@@ -17,7 +17,6 @@ import com.fanhong.cn.view.AccesscontrolView1;
  */
 
 public class CheckingGuardActivity extends Activity{
-    private ImageView backBtn;
     private Button backMainpage;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,23 +25,16 @@ public class CheckingGuardActivity extends Activity{
         init();
     }
     private void init(){
-        backBtn = (ImageView) findViewById(R.id.checking_backbtn);
         backMainpage = (Button) findViewById(R.id.back_to_mainpage);
 
-        backBtn.setOnClickListener(ocl);
         backMainpage.setOnClickListener(ocl);
     }
     View.OnClickListener ocl = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             switch (v.getId()){
-                case R.id.checking_backbtn:
-                    finish();
-                    break;
                 case R.id.back_to_mainpage:
-                    Intent intent = new Intent(CheckingGuardActivity.this, FragmentMainActivity.class);
-                    intent.putExtra("addguard",true);
-                    startActivity(intent);
+                    finish();
                     break;
             }
         }

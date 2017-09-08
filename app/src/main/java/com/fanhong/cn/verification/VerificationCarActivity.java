@@ -40,7 +40,7 @@ public class VerificationCarActivity extends Activity{
                 finish();
                 break;
             case R.id.btn_verification_order:
-                startActivity(new Intent(this,CarOrderFormActivity.class));
+                startActivity(new Intent(this,InputYuyueActivity.class));
                 break;
             case R.id.btn_verification_refer:
                 startActivity(new Intent(this,CarReferActivity.class));
