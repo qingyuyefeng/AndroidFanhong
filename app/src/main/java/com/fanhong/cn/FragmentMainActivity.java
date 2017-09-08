@@ -26,6 +26,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.fanhong.cn.applydoors.AddGuardActivity;
 import com.fanhong.cn.listviews.MyFragmentPagerAdapter;
 import com.fanhong.cn.view.AccesscontrolView1;
 import com.fanhong.cn.community.CommunityIndexFragment;
@@ -36,6 +37,9 @@ import com.fanhong.cn.view.MineView1;
 import com.fanhong.cn.view.ServiceView1;
 
 import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -91,8 +95,8 @@ public class FragmentMainActivity extends SampleActivity {
         welcome();
         initViews();
 
-        if(!isNetworkAvailable(this)){
-            Toast.makeText(this,R.string.nonetwork,Toast.LENGTH_SHORT).show();
+        if (!isNetworkAvailable(this)) {
+            Toast.makeText(this, R.string.nonetwork, Toast.LENGTH_SHORT).show();
         }
 
         fragmentManager = getFragmentManager();
@@ -137,6 +141,7 @@ public class FragmentMainActivity extends SampleActivity {
         }
         return false;
     }
+
     public static boolean isWifi(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -216,19 +221,30 @@ public class FragmentMainActivity extends SampleActivity {
                         break;
                     case R.id.door_page:
 //                        showFragment(fragmentTransaction,2);
-                        viewPager.setCurrentItem(2);
-                        radioButtons[0].setTextColor(getResources().getColor(R.color.notchecked));
-                        radioButtons[1].setTextColor(getResources().getColor(R.color.notchecked));
-                        radioButtons[2].setTextColor(getResources().getColor(R.color.skyblue));
-                        radioButtons[3].setTextColor(getResources().getColor(R.color.notchecked));
-                        radioButtons[4].setTextColor(getResources().getColor(R.color.notchecked));
-                        imageViews[0].setVisibility(View.INVISIBLE);
-                        imageViews[1].setVisibility(View.INVISIBLE);
-                        imageViews[2].setVisibility(View.VISIBLE);
-                        imageViews[3].setVisibility(View.INVISIBLE);
-                        imageViews[4].setVisibility(View.INVISIBLE);
-                        lastCheckedPage = R.id.door_page;
-                        FORCE_FRAGMENT = FRAGMENT_OPENDOOR;
+                        if (isLogined() == 1) {
+                            mTab02.onResume();
+                            Log.i("xq","门禁list.size()==>"+mTab02.list.size());
+                            if (mTab02.list.size() == 0) {
+                                createDialog(2);
+                            }
+                            viewPager.setCurrentItem(2);
+                            radioButtons[0].setTextColor(getResources().getColor(R.color.notchecked));
+                            radioButtons[1].setTextColor(getResources().getColor(R.color.notchecked));
+                            radioButtons[2].setTextColor(getResources().getColor(R.color.skyblue));
+                            radioButtons[3].setTextColor(getResources().getColor(R.color.notchecked));
+                            radioButtons[4].setTextColor(getResources().getColor(R.color.notchecked));
+                            imageViews[0].setVisibility(View.INVISIBLE);
+                            imageViews[1].setVisibility(View.INVISIBLE);
+                            imageViews[2].setVisibility(View.VISIBLE);
+                            imageViews[3].setVisibility(View.INVISIBLE);
+                            imageViews[4].setVisibility(View.INVISIBLE);
+                            lastCheckedPage = R.id.door_page;
+                            FORCE_FRAGMENT = FRAGMENT_OPENDOOR;
+                        } else {
+                            createDialog(0);
+                            bottomRadioGroup.check(lastCheckedPage);
+                        }
+
                         break;
                     case R.id.interact_page:
 //                        showFragment(fragmentTransaction,3);
@@ -258,7 +274,7 @@ public class FragmentMainActivity extends SampleActivity {
                             }
                         } else {
 //                            createDialog(0);
-                            Toast.makeText(FragmentMainActivity.this,R.string.pleaselogin,Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FragmentMainActivity.this, R.string.pleaselogin, Toast.LENGTH_SHORT).show();
                             bottomRadioGroup.check(lastCheckedPage);
                         }
                         break;
@@ -374,13 +390,6 @@ public class FragmentMainActivity extends SampleActivity {
             mSettingPref.edit().putString("Nick", nick).commit();
             mTab04.setFragment(1, 1);
             getAccessControl();
-        } else if (cmd == 42) {
-            if (result == 0) {
-//                setDoorsKey(json);
-                mTab02.setFragment(21, json.toString());
-            } else {
-                Toast.makeText(this, "门禁钥匙数据异常", Toast.LENGTH_SHORT).show();
-            }
         } else if (cmd == 44) {//主页最新公告展示
             mTab01.setFragment(43, json.toString());
         } else {
@@ -416,13 +425,30 @@ public class FragmentMainActivity extends SampleActivity {
     public void getAccessControl() {
         if (isLogined() == 1) {
             String userid = mSettingPref.getString("UserId", "");
-//            Log.i("menjin", "userid===>" + userid);
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("cmd", "41");
-            map.put("uid", userid);
-            if (mSampleConnection == null)
-                mSampleConnection = new SampleConnection(this, 0);
-            mSampleConnection.connectService1(map);
+            RequestParams params = new RequestParams(App.CMDURL);
+            params.addBodyParameter("cmd", "41");
+            params.addBodyParameter("uid", userid);
+            x.http().post(params, new Callback.CommonCallback<String>() {
+                @Override
+                public void onSuccess(String s) {
+                    mTab02.setFragment(21, s);
+                }
+
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+
+                }
+
+                @Override
+                public void onCancelled(CancelledException cex) {
+
+                }
+
+                @Override
+                public void onFinished() {
+
+                }
+            });
         }
     }
 
@@ -455,9 +481,6 @@ public class FragmentMainActivity extends SampleActivity {
                         mTab05.setFragment(name);
                     }
                 }
-                break;
-            case 24:   //添加小区门禁成功后返回
-                getAccessControl();
                 break;
 //            case 112:
 //                String location = data.getStringExtra("location");
@@ -515,6 +538,17 @@ public class FragmentMainActivity extends SampleActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(FragmentMainActivity.this, GardenSelecterActivity.class);
                         startActivityForResult(intent, 12);
+                    }
+                });
+                break;
+            case 2:
+                builder.setTitle("提示");
+                builder.setMessage("你还没有绑定钥匙，\n快去绑定吧！");
+                builder.setPositiveButton("去绑定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(FragmentMainActivity.this, AddGuardActivity.class);
+                        startActivity(intent);
                     }
                 });
                 break;

@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,6 +22,7 @@ import com.fanhong.cn.App;
 import com.fanhong.cn.R;
 import com.fanhong.cn.listviews.SpinerPopWindow;
 import com.fanhong.cn.util.JsonSyncUtils;
+import com.fanhong.cn.util.StringUtils;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -79,7 +81,7 @@ public class AddNewAddressActivity extends Activity{
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s!=null&&s.length()>0){
+                if(!TextUtils.isEmpty(s)){
                     setEnableds(true,true,true);
                 }else {
                     setEnableds(true,true,false);
@@ -122,12 +124,14 @@ public class AddNewAddressActivity extends Activity{
                         checkBox的选中状态
                         选中为1，没选中为0
                     */
-                    if(inputName.length()>0 &&
-                            inputPhone.length()>0 &&
-                            inputAddress.getText().length()>0){
-                        addNewAddress();
+                    if(TextUtils.isEmpty(inputName.getText().toString()) ||
+                            TextUtils.isEmpty(inputPhone.getText().toString()) ||
+                            TextUtils.isEmpty(inputAddress.getText().toString())){
+                        Toast.makeText(AddNewAddressActivity.this,"资料填写不完整",Toast.LENGTH_SHORT).show();
+                    }else if(!StringUtils.validPhoneNum("2",inputPhone.getText().toString())){
+                        Toast.makeText(AddNewAddressActivity.this,"请输入正确的电话号码",Toast.LENGTH_SHORT).show();
                     }else {
-                        Toast.makeText(AddNewAddressActivity.this,"地址填写不完整",Toast.LENGTH_SHORT).show();
+                        addNewAddress();
                     }
                     break;
                 case R.id.address_choosecell:

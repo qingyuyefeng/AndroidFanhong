@@ -319,10 +319,6 @@
 
         <!--代办年审-->
         <activity
-            android:name=".verification.VerificationIndexActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
-        <activity
             android:name=".verification.VerificationCarActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
@@ -373,6 +369,10 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <!-- alipay sdk end -->
+
+        <!-- 紧急开锁 -->
+        <activity android:name=".repair.EmergencyUnlockActivity"
+            android:screenOrientation="portrait"/>
 
         <activity android:name=".shippingaddress.TestAmapActivity"
             android:screenOrientation="portrait"

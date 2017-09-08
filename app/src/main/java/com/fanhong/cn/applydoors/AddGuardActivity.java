@@ -123,6 +123,7 @@ public class AddGuardActivity extends SampleActivity {
                     if (cw == 0) {
                         Intent intent = new Intent(AddGuardActivity.this, CheckingGuardActivity.class);
                         startActivity(intent);
+                        AddGuardActivity.this.finish();
                     } else {
                         connectFail(TJSC);
                     }

@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -22,7 +21,6 @@ import android.widget.Toast;
 import com.fanhong.cn.AgentWebActivity;
 import com.fanhong.cn.App;
 import com.fanhong.cn.FaceRecognitionIntroductionActivity;
-import com.fanhong.cn.FragmentMainActivity;
 import com.fanhong.cn.GardenSelecterActivity;
 import com.fanhong.cn.LoginActivity;
 import com.fanhong.cn.R;
@@ -30,11 +28,11 @@ import com.fanhong.cn.StoreActivity;
 import com.fanhong.cn.expressage.ExpressHomeActivity;
 import com.fanhong.cn.fenxiao.CheckJoinedActivity;
 import com.fanhong.cn.fenxiao.FenXiaoActivity;
-import com.fanhong.cn.fenxiao.InformationActivity;
 import com.fanhong.cn.models.BannerModel;
+import com.fanhong.cn.repair.EmergencyUnlockActivity;
 import com.fanhong.cn.repair.RepairActivity;
 import com.fanhong.cn.util.JsonSyncUtils;
-import com.fanhong.cn.verification.VerificationIndexActivity;
+import com.fanhong.cn.verification.VerificationCarActivity;
 import com.sivin.Banner;
 import com.sivin.BannerAdapter;
 
@@ -139,7 +137,7 @@ public class HomeView2 extends BaseFragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), AgentWebActivity.class);
-                    intent.putExtra("title",textViews[finalI].getText().toString());
+                    intent.putExtra("ishome",true);
                     intent.putExtra("url",urls[finalI]);
                     startActivity(intent);
                 }
@@ -192,7 +190,7 @@ public class HomeView2 extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.tv_homedaiban://代办年审
-                intent.setClass(getActivity(),VerificationIndexActivity.class);
+                intent.setClass(getActivity(),VerificationCarActivity.class);
                 startActivity(intent);
                 break;
             case R.id.tv_homerepair://上门维修
@@ -200,8 +198,8 @@ public class HomeView2 extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.tv_homeunlock://紧急开锁
-//                intent.setClass(getActivity(),ExpressHomeActivity.class);
-//                startActivity(intent);
+                intent.setClass(getActivity(),EmergencyUnlockActivity.class);
+                startActivity(intent);
                 break;
         }
     }
@@ -228,7 +226,7 @@ public class HomeView2 extends BaseFragment {
             public void onSuccess(String s) {
                 try {
                     JSONObject jsonObject = new JSONObject(s);
-                    Log.i("xq","首页公告==>"+s);
+//                    Log.i("xq","首页公告==>"+s);
                     String string = jsonObject.optString("data").replace("[", "").replace("]", "").replace("\"", "");
                     String[] strs = string.split(",");
                     if (strs.length > 0) {

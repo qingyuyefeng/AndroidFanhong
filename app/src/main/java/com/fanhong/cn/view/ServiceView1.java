@@ -26,7 +26,6 @@ import com.fanhong.cn.fenxiao.FenXiaoActivity;
 import com.fanhong.cn.listviews.MyGridView;
 import com.fanhong.cn.repair.RepairActivity;
 import com.fanhong.cn.usedmarket.ShopActivity;
-import com.fanhong.cn.verification.VerificationIndexActivity;
 
 public class ServiceView1 extends BaseFragment {
     public static final int PAGER_INDEX = 2;

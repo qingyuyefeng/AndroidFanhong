@@ -33,6 +33,18 @@
             android:maxLines="1"
             android:ellipsize="end"
             android:gravity="center"
+            android:paddingLeft="-40px"
             android:textColor="@color/white"/>
     </com.zhy.autolayout.AutoLinearLayout>
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:padding="5px"
+        android:alpha="0.5"
+        android:src="@drawable/back_gray"
+        android:background="@color/skyblue"
+        android:layout_alignParentRight="true"
+        android:visibility="gone"/>
 </com.zhy.autolayout.AutoRelativeLayout>

@@ -1,62 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.autolayout.AutoLinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-	android:background="@color/white"
-	android:orientation="vertical">
-	<com.zhy.autolayout.AutoLinearLayout
-    	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-    	android:background="@color/skyblue"
-    	>
-    	<com.zhy.autolayout.AutoRelativeLayout
-	    	android:layout_width="fill_parent"
-	    	android:layout_height="100px">
-			<ImageView
-				android:id="@+id/btn_reflush"
-				android:layout_centerVertical="true"
-				android:layout_marginLeft="6dp"
-				android:src="@drawable/refresh"
-				android:layout_gravity="center"
-				android:layout_width="30dp"
-				android:layout_height="30dp"
-				android:paddingLeft="3dp"
-				android:paddingRight="3dp"
-				android:layout_marginRight="10dp"
-				/>
-			<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="fill_parent"
-				android:singleLine="true"
-				android:gravity="center"
-				android:text="@string/doorkey"
-				android:textColor="@color/white"
-				android:textSize="40px"
-				android:layout_alignParentTop="true"
-				android:layout_alignLeft="@+id/btn_reflush"
-				android:layout_alignStart="@+id/btn_reflush" />
-			<LinearLayout
-			    android:layout_alignParentRight="true"
-	     		android:layout_centerInParent="true"
-	     		android:layout_width="wrap_content"   
-		        android:layout_height="fill_parent">
-				<Button
-					android:id="@+id/btn_add"
-					android:background="@drawable/btn_add_style"
-					android:layout_gravity="center"
-			        android:layout_width="26dp"   
-			        android:layout_height="26dp" 
-			        android:layout_marginRight="10dp"
-			        /> 
-	        </LinearLayout>
-		</com.zhy.autolayout.AutoRelativeLayout>
-	</com.zhy.autolayout.AutoLinearLayout>
-	<ListView
-		android:id="@+id/applydoors_listview"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:layout_margin="8px"
-		android:divider="@color/lightblue"
-		android:dividerHeight="3px"/>
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:background="@color/skyblue">
+
+        <ImageView
+            android:id="@+id/btn_reflush"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:src="@drawable/refresh" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignLeft="@+id/btn_reflush"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/btn_reflush"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/doorkey"
+            android:textColor="@color/white"
+            android:textSize="40px" />
+
+        <Button
+            android:id="@+id/btn_add"
+            android:layout_width="52px"
+            android:layout_height="52px"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginRight="20px"
+            android:background="@drawable/btn_add_style" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+
+    <ListView
+        android:id="@+id/applydoors_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8px"
+        android:divider="@color/lightblue"
+        android:dividerHeight="3px" />
+    <TextView
+        android:id="@+id/no_accesscontrol"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="400px"
+        android:text="暂无钥匙"
+        android:textColor="@color/textgray"
+        android:drawablePadding="10px"
+        android:gravity="center_horizontal"
+        android:drawableTop="@drawable/biaoqing" />
 </com.zhy.autolayout.AutoLinearLayout>
