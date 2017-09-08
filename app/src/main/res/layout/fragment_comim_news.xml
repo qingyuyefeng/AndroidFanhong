@@ -13,20 +13,21 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="14px"
-                android:paddingLeft="20px"
-                android:text="小区新闻"
-                android:textColor="@color/popular"
-                android:textSize="30px" />
-
             <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/layout_comm_news"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="200px"
                 android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="14px"
+                    android:paddingLeft="20px"
+                    android:text="小区新闻"
+                    android:textColor="@color/popular"
+                    android:textSize="30px" />
+
 
                 <com.fanhong.cn.listviews.RealhightListView
                     android:id="@+id/lv_community_news"
@@ -35,20 +36,20 @@
                     android:fastScrollEnabled="true" />
             </com.zhy.autolayout.AutoLinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="14px"
-                android:paddingLeft="20px"
-                android:text="附近新闻"
-                android:textColor="@color/popular"
-                android:textSize="30px" />
-
             <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/layout_nearby_news"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="200px"
                 android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="14px"
+                    android:paddingLeft="20px"
+                    android:text="附近新闻"
+                    android:textColor="@color/popular"
+                    android:textSize="30px" />
 
 
                 <com.fanhong.cn.listviews.RealhightListView
@@ -60,6 +61,29 @@
         </com.zhy.autolayout.AutoLinearLayout>
     </ScrollView>
 
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/news_fail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:background="#e6e6e6">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/biaoqing" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36px"
+            android:textColor="@color/text_6"
+            android:textSize="34px"
+            android:text="暂无数据"
+            android:layout_centerInParent="true" />
+
+    </com.zhy.autolayout.AutoLinearLayout>
     <com.zhy.autolayout.AutoRelativeLayout
         android:id="@+id/progressBar_community"
         android:layout_width="match_parent"
@@ -71,13 +95,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true" />
+
         <ImageView
             android:id="@+id/img_news_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/anim_progressbar"
             android:layout_alignBottom="@id/tv_bar_center"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="-15px"/>
+            android:layout_marginBottom="-15px"
+            android:src="@drawable/anim_progressbar" />
     </com.zhy.autolayout.AutoRelativeLayout>
 </com.zhy.autolayout.AutoRelativeLayout>
