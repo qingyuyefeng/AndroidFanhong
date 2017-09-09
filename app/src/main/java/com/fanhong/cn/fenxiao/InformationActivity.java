@@ -71,7 +71,7 @@ public class InformationActivity extends Activity {
         if (!(s1.length() > 0 && s2.length() > 0 && s3.length() > 0 && s4.length() > 0 && s5.length() > 0)) {
             Toast.makeText(this, "资料填写不完整", Toast.LENGTH_SHORT).show();
         } else if (!checkPhoneNumber(s2)) {
-            Toast.makeText(this, "请输入正确的电话号码", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.phoneiswrong, Toast.LENGTH_SHORT).show();
         } else if (!checkBankcard(s4)) {
             Toast.makeText(this, "请输入正确的银行卡号", Toast.LENGTH_SHORT).show();
         } else {

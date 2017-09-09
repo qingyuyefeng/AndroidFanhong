@@ -25,7 +25,7 @@
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20px">
+                android:layout_marginTop="30px">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20px">
+                android:layout_marginTop="30px">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -65,46 +65,7 @@
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20px">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="车牌号码："
-                    android:textColor="@color/text_3"
-                    android:textSize="26px" />
-
-                <TextView
-                    android:id="@+id/tv_form_licence"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_3"
-                    android:textSize="26px" />
-            </com.zhy.autolayout.AutoLinearLayout>
-
-            <com.zhy.autolayout.AutoLinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20px">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="车辆类型："
-                    android:textColor="@color/text_3"
-                    android:textSize="26px" />
-
-                <TextView
-                    android:id="@+id/tv_form_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_3"
-                    android:textSize="26px" />
-            </com.zhy.autolayout.AutoLinearLayout>
-            <com.zhy.autolayout.AutoLinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20px">
+                android:layout_marginTop="30px">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -118,54 +79,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/red"
-                    android:text="50元/次"
+                    android:text="300元/次"
                     android:textSize="26px" />
             </com.zhy.autolayout.AutoLinearLayout>
+
+
 
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20px">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="发动机后四位："
-                    android:textColor="@color/text_3"
-                    android:textSize="26px" />
-
-                <TextView
-                    android:id="@+id/tv_form_engine"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_3"
-                    android:textSize="26px" />
-            </com.zhy.autolayout.AutoLinearLayout>
-
-            <com.zhy.autolayout.AutoLinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20px">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="身份证号码："
-                    android:textColor="@color/text_3"
-                    android:textSize="26px" />
-
-                <TextView
-                    android:id="@+id/tv_form_idCard"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_3"
-                    android:textSize="26px" />
-            </com.zhy.autolayout.AutoLinearLayout>
-
-            <com.zhy.autolayout.AutoLinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20px">
+                android:layout_marginTop="30px">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -185,27 +108,6 @@
         </com.zhy.autolayout.AutoLinearLayout>
     </com.zhy.autolayout.AutoLinearLayout>
 
-    <com.zhy.autolayout.AutoLinearLayout
-        android:layout_width="match_parent"
-        android:layout_marginLeft="40px"
-        android:layout_marginRight="40px"
-        android:layout_marginTop="30px"
-        android:layout_height="wrap_content">
-
-        <CheckBox
-            android:id="@+id/box_read"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:button="@drawable/checkbox_button_selector"/>
-        <TextView
-            android:id="@+id/tv_read"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10px"
-            android:text="@string/read_order"
-            android:textColor="@color/skyblue"
-            android:textSize="26px" />
-    </com.zhy.autolayout.AutoLinearLayout>
 
     <Button
         android:id="@+id/btn_commit"
@@ -214,8 +116,8 @@
         android:layout_marginLeft="40px"
         android:layout_marginRight="40px"
         android:layout_marginTop="30px"
-        android:background="@drawable/btn_radius_red"
-        android:text="确认并提交"
+        android:background="@drawable/postbtn_dianji"
+        android:text="确认并去付款"
         android:textColor="@color/white"
         android:textSize="35px" />
 </com.zhy.autolayout.AutoLinearLayout>

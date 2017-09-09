@@ -322,6 +322,8 @@
             android:name=".verification.VerificationCarActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity android:name=".verification.InputYuyueActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".verification.CarReferActivity"
             android:screenOrientation="portrait"
@@ -341,8 +343,9 @@
         <!--快递服务-->
         <activity
             android:name=".expressage.ExpressHomeActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait" />
+        <activity android:name=".expressage.ExpressOrderActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".expressage.SendExpressActivity"
             android:screenOrientation="portrait"

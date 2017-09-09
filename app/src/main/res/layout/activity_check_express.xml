@@ -4,6 +4,7 @@
     android:layout_height="match_parent">
     <include layout="@layout/activity_top"/>
     <com.zhy.autolayout.AutoRelativeLayout
+        android:id="@+id/check_layout"
         android:layout_width="match_parent"
         android:padding="40px"
         android:layout_height="wrap_content">
@@ -26,76 +27,20 @@
             android:layout_marginRight="20px"
             android:layout_alignRight="@id/input_express_number"/>
     </com.zhy.autolayout.AutoRelativeLayout>
-    <com.zhy.autolayout.AutoLinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/white"
-        android:layout_marginLeft="40px"
-        android:layout_marginRight="40px">
-        <com.zhy.autolayout.AutoLinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/my_send_express"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="我寄的"
-                android:textSize="30px"
-                android:textColor="@color/popular"
-                android:paddingTop="20px"
-                android:paddingBottom="20px"
-                android:gravity="center"/>
-            <View
-                android:id="@+id/line_send_express"
-                android:layout_width="match_parent"
-                android:layout_height="5px"
-                android:background="@color/red"/>
-        </com.zhy.autolayout.AutoLinearLayout>
-        <com.zhy.autolayout.AutoLinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/my_get_express"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="我收的"
-                android:textColor="@color/popular"
-                android:textSize="30px"
-                android:paddingTop="20px"
-                android:paddingBottom="20px"
-                android:gravity="center"/>
-            <View
-                android:id="@+id/line_get_express"
-                android:layout_width="match_parent"
-                android:layout_height="5px"
-                android:background="@color/red"
-                android:visibility="invisible"/>
-        </com.zhy.autolayout.AutoLinearLayout>
-    </com.zhy.autolayout.AutoLinearLayout>
 
     <com.zhy.autolayout.AutoRelativeLayout
-        android:id="@+id/check_express_relativelayout"
+        android:id="@+id/order_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/white"
         android:layout_marginLeft="40px"
         android:layout_marginRight="40px" >
         <ListView
             android:id="@+id/my_send_ex_recyc"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:dividerHeight="3px"
-            android:divider="@color/alpha_black"/>
-        <ListView
-            android:id="@+id/my_get_ex_recyc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"/>
+            android:layout_height="match_parent"
+            android:dividerHeight="5px"
+            android:divider="@color/press_color"/>
 
         <com.zhy.autolayout.AutoLinearLayout
             android:id="@+id/if_no_express"
@@ -106,6 +51,7 @@
             android:visibility="gone">
 
             <ImageView
+                android:id="@+id/imageView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ilon_empty" />
@@ -114,10 +60,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20px"
-                android:text="没有此类或此条数据"
+                android:text="没有此类别的数据"
                 android:textColor="@color/text_9" />
         </com.zhy.autolayout.AutoLinearLayout>
     </com.zhy.autolayout.AutoRelativeLayout>
-
 
 </com.zhy.autolayout.AutoLinearLayout>

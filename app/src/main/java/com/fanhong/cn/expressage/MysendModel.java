@@ -5,19 +5,11 @@ package com.fanhong.cn.expressage;
  */
 
 public class MysendModel {
-    String trackingNumber,
-            sendCity,
+    String  sendCity,
             receiveCity,
             sendName,
             receiveName;
 
-    public String getTrackingNumber() {
-        return trackingNumber;
-    }
-
-    public void setTrackingNumber(String trackingNumber) {
-        this.trackingNumber = trackingNumber;
-    }
 
     public String getSendCity() {
         return sendCity;
@@ -54,7 +46,6 @@ public class MysendModel {
     @Override
     public String toString() {
         return "MysendModel{" +
-                "trackingNumber='" + trackingNumber + '\'' +
                 ", sendCity='" + sendCity + '\'' +
                 ", receiveCity='" + receiveCity + '\'' +
                 ", sendName='" + sendName + '\'' +

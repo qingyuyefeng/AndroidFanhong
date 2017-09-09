@@ -13,9 +13,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fanhong.cn.R;
 import com.zhy.autolayout.AutoLinearLayout;
+import com.zhy.autolayout.AutoRelativeLayout;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -30,80 +32,34 @@ import java.util.List;
  */
 
 @ContentView(R.layout.activity_check_express)
-public class CheckExpressActivity extends Activity{
+public class CheckExpressActivity extends Activity {
     @ViewInject(R.id.tv_title)
     private TextView title;
     @ViewInject(R.id.input_express_number)
     private EditText edtExpressNumber;
-    @ViewInject(R.id.my_send_express)
-    private TextView tvsend;
-    @ViewInject(R.id.line_send_express)
-    private View linesend;
-    @ViewInject(R.id.my_send_ex_recyc)
-    private ListView msRecyclerView;
-    @ViewInject(R.id.my_get_express)
-    private TextView tvget;
-    @ViewInject(R.id.line_get_express)
-    private View lineget;
-    @ViewInject(R.id.my_get_ex_recyc)
-    private ListView mgRecyclerView;
-    @ViewInject(R.id.if_no_express)
-    private AutoLinearLayout layout;
+    @ViewInject(R.id.order_layout)
+    private AutoRelativeLayout orderLayout;
 
-    private List<MysendModel> mysendModelList = new ArrayList<>();
-    private MySendexpressAdapter mySendexpressAdapter;
-    private List<MysendModel> mygetModelList = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
         title.setText("查快递");
-        initData();
-        mySendexpressAdapter = new MySendexpressAdapter(this,mysendModelList);
-        msRecyclerView.setAdapter(mySendexpressAdapter);
-        tvsend.setText("我寄的（"+mysendModelList.size()+"）");
-        tvget.setText("我收的（"+mygetModelList.size()+"）");
+        orderLayout.setVisibility(View.GONE);
     }
-    @Event({R.id.img_back,R.id.img_search_express,R.id.my_send_express,R.id.my_get_express})
-    private void onClick(View v){
-        switch (v.getId()){
+
+    @Event({R.id.img_back, R.id.img_search_express})
+    private void onClick(View v) {
+        switch (v.getId()) {
             case R.id.img_back:
                 finish();
                 break;
             case R.id.img_search_express:
-                break;
-            case R.id.my_send_express:
-                linesend.setVisibility(View.VISIBLE);
-                lineget.setVisibility(View.INVISIBLE);
-                hideData();
-                if(mysendModelList.size()>0){
-                    msRecyclerView.setVisibility(View.VISIBLE);
-                }else {
-                    layout.setVisibility(View.VISIBLE);
-                }
-                break;
-            case R.id.my_get_express:
-                linesend.setVisibility(View.INVISIBLE);
-                lineget.setVisibility(View.VISIBLE);
-                hideData();
-                if(mygetModelList.size()>0){
-                    mgRecyclerView.setVisibility(View.VISIBLE);
-                }else {
-                    layout.setVisibility(View.VISIBLE);
-                }
+                Toast.makeText(this,"运单号为"+edtExpressNumber.getText().toString(),Toast.LENGTH_SHORT).show();
                 break;
         }
     }
-    private void initData(){
-        for(int i=0;i<1;i++){
-            MysendModel mysendModel = new MysendModel();
-            mysendModelList.add(mysendModel);
-        }
-    }
-    private void hideData(){
-        msRecyclerView.setVisibility(View.GONE);
-        mgRecyclerView.setVisibility(View.GONE);
-        layout.setVisibility(View.GONE);
-    }
+
+
 }
