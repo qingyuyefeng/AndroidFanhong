@@ -21,6 +21,7 @@ import com.fanhong.cn.R;
 import com.fanhong.cn.adapters.CommunityNewsAdapter;
 import com.fanhong.cn.bean.CommunityNewsBean;
 import com.fanhong.cn.util.JsonSyncUtils;
+import com.zhy.autolayout.AutoLinearLayout;
 import com.zhy.autolayout.AutoRelativeLayout;
 
 import org.xutils.common.Callback;
@@ -41,6 +42,12 @@ public class CommunityNewsFragment extends Fragment {
     ListView lv_community_news;
     @ViewInject(R.id.lv_nearby_news)
     ListView lv_nearby_news;
+    @ViewInject(R.id.layout_comm_news)
+    AutoLinearLayout layout_news1;
+    @ViewInject(R.id.layout_nearby_news)
+    AutoLinearLayout layout_news2;
+    @ViewInject(R.id.news_fail)
+    AutoLinearLayout layout_fail;
     @ViewInject(R.id.progressBar_community)
     AutoRelativeLayout bar_community;
     @ViewInject(R.id.img_news_bar)
@@ -56,11 +63,8 @@ public class CommunityNewsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = x.view().inject(this, inflater, container);
         pref = getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
-//        initNewsData(1);
-//        initNewsData(2);
         lv_community_news.setOnItemClickListener(listenerComm);
         lv_nearby_news.setOnItemClickListener(listenerNearby);
-//        x.image().bind(img_bar,"assets://images/progressbar.gif",new ImageOptions.Builder().setIgnoreGif(false).build());
         img_bar.setImageResource(R.drawable.anim_progressbar);
         anim = (AnimationDrawable) img_bar.getDrawable();
 
@@ -85,6 +89,10 @@ public class CommunityNewsFragment extends Fragment {
     };
 
     private void initNewsData() {
+        layout_news1.setVisibility(View.INVISIBLE);
+        layout_news2.setVisibility(View.INVISIBLE);
+        layout_fail.setVisibility(View.VISIBLE);
+        bar_community.setVisibility(View.VISIBLE);
         getCommunityNewsData();
         listcomm = new ArrayList<>();
         adaptercomm = new CommunityNewsAdapter(getActivity(), listcomm);
@@ -98,7 +106,6 @@ public class CommunityNewsFragment extends Fragment {
     @Override
     public void onResume() {
         initNewsData();
-
         anim.start();
         super.onResume();
     }
@@ -115,6 +122,7 @@ public class CommunityNewsFragment extends Fragment {
         if (xid.equals("")) return;
         params.addParameter("cmd", "47");
         params.addParameter("xid", xid);
+        params.setConnectTimeout(3000);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String s) {
@@ -124,40 +132,60 @@ public class CommunityNewsFragment extends Fragment {
                     //添加指定类型的新闻到列表中
                     listcomm = JsonSyncUtils.addNews(listcomm, s, CommunityNewsBean.TYPE_INFORM);//通知
                     listcomm = JsonSyncUtils.addNews(listcomm, s, CommunityNewsBean.TYPE_NOTICE);//公告
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            bar_community.setVisibility(View.GONE);
-                            adaptercomm.notifyDataSetChanged();
-                            anim.stop();
-                        }
-                    });
+                    if (listcomm.size() > 0)
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                layout_news1.setVisibility(View.VISIBLE);
+                                bar_community.setVisibility(View.GONE);
+                                layout_fail.setVisibility(View.GONE);
+                                adaptercomm.notifyDataSetChanged();
+                                anim.stop();
+                            }
+                        });
+                    else {//社区新闻条数为0
+                        layout_news1.setVisibility(View.GONE);
+                    }
                     listnews = JsonSyncUtils.addNews(listnews, s, CommunityNewsBean.TYPE_NEWS);
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            bar_community.setVisibility(View.GONE);
-                            adapternews.notifyDataSetChanged();
-                            anim.stop();
-                        }
-                    });
-
+                    if (listnews.size() > 0)
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                layout_news2.setVisibility(View.VISIBLE);
+                                bar_community.setVisibility(View.GONE);
+                                layout_fail.setVisibility(View.GONE);
+                                adapternews.notifyDataSetChanged();
+                                anim.stop();
+                            }
+                        });
+                    else if (listcomm.size() > 0) {//附近新闻条数为0
+                        layout_news2.setVisibility(View.GONE);
+                    } else {//两种新闻都为0
+                        bar_community.setVisibility(View.GONE);
+                        anim.stop();
+                        layout_fail.setVisibility(View.VISIBLE);
+                    }
                 }
             }
 
             @Override
             public void onError(Throwable throwable, boolean b) {
-
+                bar_community.setVisibility(View.GONE);
+                anim.stop();
+                layout_fail.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onCancelled(CancelledException e) {
-
+                bar_community.setVisibility(View.GONE);
+                anim.stop();
+                layout_fail.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onFinished() {
-
+                bar_community.setVisibility(View.GONE);
+                anim.stop();
             }
         });
     }

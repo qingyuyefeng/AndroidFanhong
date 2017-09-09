@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="220px"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingLeft="30px"
+    android:paddingRight="30px">
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/img_logo"
+            android:layout_width="200px"
+            android:layout_height="200px"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_default" />
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="200px"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/label_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+                android:layout_marginTop="10px"
+                android:text="姓名："
+                android:textColor="@color/text_6"
+                android:textSize="28px" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/label_name"
+                android:layout_toRightOf="@id/label_name"
+                android:text="刘师傅"
+                android:textColor="@color/text_6"
+                android:textSize="28px" />
+
+            <TextView
+                android:id="@+id/tv_far"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/label_name"
+                android:layout_alignParentRight="true"
+                android:text="500m"
+                android:textColor="@color/text_6"
+                android:textSize="20px" />
+
+            <TextView
+                android:id="@+id/label_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/label_name"
+                android:layout_below="@id/label_name"
+                android:layout_marginTop="30px"
+                android:text="电话："
+                android:textColor="@color/text_6"
+                android:textSize="28px" />
+
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/label_phone"
+                android:layout_toRightOf="@id/label_phone"
+                android:text="13000000000"
+                android:textColor="@color/text_6"
+                android:textSize="28px" />
+
+            <TextView
+                android:id="@+id/tv_exp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/label_phone"
+                android:layout_alignParentRight="true"
+                android:text="已开锁 20"
+                android:textColor="@color/text_6"
+                android:textSize="20px" />
+
+            <Button
+                android:id="@+id/btn_call"
+                android:layout_width="156px"
+                android:layout_height="49px"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/button_call" />
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@drawable/xuxian_ccc" />
+</com.zhy.autolayout.AutoLinearLayout>

@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="E:\FanShequ\imlib\src\main\shaders"/></dataSet><dataSet config="release"><source path="E:\FanShequ\imlib\src\release\shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="E:\AndroidStudioProjects\FanShequ\imlib\src\main\shaders"/></dataSet><dataSet config="release"><source path="E:\AndroidStudioProjects\FanShequ\imlib\src\release\shaders"/></dataSet></merger>
