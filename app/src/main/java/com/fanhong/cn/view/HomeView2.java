@@ -198,6 +198,8 @@ public class HomeView2 extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.tv_homeunlock://紧急开锁
+                intent.putExtra("gardenName",mSharedPref.getString("gardenName", ""));
+                intent.putExtra("gardenId",mSharedPref.getString("gardenId", ""));
                 intent.setClass(getActivity(),EmergencyUnlockActivity.class);
                 startActivity(intent);
                 break;
