@@ -20,7 +20,7 @@
 
             <Button
                 android:id="@+id/btn_back"
-                android:layout_width="wrap_content"
+                android:layout_width="100px"
                 android:layout_height="wrap_content"
                 android:padding="5px"
                 android:background="@drawable/style_button_back_gray"
@@ -102,79 +102,79 @@
                 </LinearLayout>
 
 
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal">
+                <!--<LinearLayout-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_marginRight="10dp"-->
+                    <!--android:layout_marginTop="20dp"-->
+                    <!--android:orientation="horizontal">-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:focusable="false"
-                        android:text="联系人："
-                        android:textColor="@color/textgray2"
-                        android:textSize="15sp" />
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:ellipsize="end"-->
+                        <!--android:focusable="false"-->
+                        <!--android:text="联系人："-->
+                        <!--android:textColor="@color/textgray2"-->
+                        <!--android:textSize="15sp" />-->
 
-                    <TextView
-                        android:id="@+id/tv_person"
-                        android:layout_width="84dp"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:drawableBottom="@drawable/linebottom"
-                        android:textColor="@color/textgray2"
-                        android:textSize="15sp" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_person"-->
+                        <!--android:layout_width="84dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:background="@null"-->
+                        <!--android:drawableBottom="@drawable/linebottom"-->
+                        <!--android:textColor="@color/textgray2"-->
+                        <!--android:textSize="15sp" />-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:ellipsize="end"
-                        android:focusable="false"
-                        android:text="联系电话："
-                        android:textColor="@color/textgray2"
-                        android:textSize="15sp" />
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginLeft="10dp"-->
+                        <!--android:ellipsize="end"-->
+                        <!--android:focusable="false"-->
+                        <!--android:text="联系电话："-->
+                        <!--android:textColor="@color/textgray2"-->
+                        <!--android:textSize="15sp" />-->
 
-                    <TextView
-                        android:id="@+id/tv_phone"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:drawableBottom="@drawable/linebottom"
-                        android:textColor="@color/textgray2"
-                        android:textSize="15sp" />
-                </LinearLayout>
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_phone"-->
+                        <!--android:layout_width="100dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:background="@null"-->
+                        <!--android:drawableBottom="@drawable/linebottom"-->
+                        <!--android:textColor="@color/textgray2"-->
+                        <!--android:textSize="15sp" />-->
+                <!--</LinearLayout>-->
 
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="16dp"
-                    android:orientation="horizontal">
+                <!--<LinearLayout-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_marginRight="10dp"-->
+                    <!--android:layout_marginTop="16dp"-->
+                    <!--android:orientation="horizontal">-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:focusable="false"
-                        android:text="联系地址："
-                        android:textColor="@color/textgray2"
-                        android:textSize="15sp" />
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:ellipsize="end"-->
+                        <!--android:focusable="false"-->
+                        <!--android:text="联系地址："-->
+                        <!--android:textColor="@color/textgray2"-->
+                        <!--android:textSize="15sp" />-->
 
-                    <TextView
-                        android:id="@+id/tv_address"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:background="@null"
-                        android:drawableBottom="@drawable/linebottom"
-                        android:textColor="@color/textgray2"
-                        android:textSize="15sp" />
-                </LinearLayout>
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_address"-->
+                        <!--android:layout_width="fill_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginRight="10dp"-->
+                        <!--android:background="@null"-->
+                        <!--android:drawableBottom="@drawable/linebottom"-->
+                        <!--android:textColor="@color/textgray2"-->
+                        <!--android:textSize="15sp" />-->
+                <!--</LinearLayout>-->
 
                 <LinearLayout
                     android:layout_width="fill_parent"

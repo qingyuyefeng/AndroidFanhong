@@ -1,6 +1,6 @@
 package com.fanhong.cn;
 
-
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -8,639 +8,569 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
-import com.alipay.sdk.pay.demo.util.OrderInfoUtil2_0;
+import com.alipay.sdk.auth.AlipaySDK;
 import com.fanhong.cn.database.Cartdb;
-import com.fanhong.cn.pay.OrderInfo;
+import com.fanhong.cn.listviews.ConfirmOrderListView;
 import com.fanhong.cn.pay.ParameterConfig;
 import com.fanhong.cn.pay.PayResult;
-import com.fanhong.cn.pay.WXpayUtil;
+import com.fanhong.cn.pay.SignUtils;
 import com.fanhong.cn.shippingaddress.AllAddressActivity;
+import com.fanhong.cn.util.JsonSyncUtils;
+import com.fanhong.cn.util.StringUtils;
 import com.fanhong.cn.view.PayMoney;
-import com.fanhong.cn.view.PayPopupWindow;
-import com.fanhong.cn.listviews.ConfirmOrderListView;
 
-import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.Event;
+import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.security.KeyFactory;
+import java.security.PrivateKey;
+import java.security.spec.PKCS8EncodedKeySpec;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class ConfirmOrderActivity extends SampleActivity implements PayMoney,OnCheckedChangeListener{
-	private SharedPreferences mSettingPref;
-	private SampleConnection mSafoneConnection;
-	private ConfirmOrderListView lv_list;
-	private TextView tv_totalmoney;
-	private Button btn_ok;
-	private PayPopupWindow menuWindow; // 自定义的立即支付编辑弹出框
-	private Context mcontext;
-	Cartdb _dbad;
-	private LinearLayout ll_addaddress;
-	private TextView tvShow,tv_person,tv_phone,tv_address;
-	float fl_total = 0.0f;  //合计价格
-	private CheckBox checkbox_zfb,checkbox_wx;
-	private String id = null;
-	private String name,descript;
-	private static final int SDK_PAY_FLAG = 1;
-	private static final int SDK_CHECK_FLAG = 2;
-	int isCart = 0;
-	String orderNum = null; //订单号
-	private int payway = 0;   //支付方式    1支付宝，2微信
-	private String goods_str = null;
+import static com.fanhong.cn.R.id.btn_ok;
+import static com.fanhong.cn.R.id.tv_address;
+import static com.fanhong.cn.R.id.tv_person;
+import static com.fanhong.cn.R.id.tv_phone;
 
-	Handler zfb_handler=new Handler(){
-		@Override
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-				case 9000://支付宝支付成功 Intent it;
-					//finish();
-					Log.e("hu","***2222**支付成功");
-					Log.e("hu","*22**支付成功!  orderNum="+orderNum+" name="+name+" descript="+descript+" fl_total="+fl_total);
-					uploadTradeNO();
-					if(isCart == 1)
-						deletCartItem();
-					break;
-				case 8000://支付宝支付失败
-					//finish();
-					Log.e("hu","***2222**支付失败");
-					btn_ok.setEnabled(true);
-					payFailure();
-					break;
-				default:
-					break;
-			}
-		}
-	};
+@ContentView(R.layout.activity_confirmorder)
+public class ConfirmOrderActivity extends Activity {
+    @ViewInject(R.id.show_address)
+    private TextView tvShow;
+    //    @ViewInject(R.id.tv_person)
+//    private TextView tv_person;
+//    @ViewInject(R.id.tv_phone)
+//    private TextView tv_phone;
+//    @ViewInject(R.id.tv_address)
+//    private TextView tv_address;
+    @ViewInject(R.id.tv_totalmoney)
+    private TextView tv_totalmoney;
+    @ViewInject(R.id.checkbox_zfb)
+    private CheckBox checkbox_zfb;
+    @ViewInject(R.id.checkbox_wx)
+    private CheckBox checkbox_wx;
+    @ViewInject(R.id.lv_list)
+    private ConfirmOrderListView lv_list;
+    @ViewInject(R.id.ll_addaddress)
+    private LinearLayout ll_addaddress;
+    @ViewInject(R.id.btn_ok)
+    private Button btn_ok;
 
-	public synchronized void connectFail(int type) {
-		Log.i("hu","*******connectFail");
-		SampleConnection.USER = "";
-		SampleConnection.USER_STATE = 0;
+    private SharedPreferences mSettingPref;
+    private Cartdb _dbad;
+    private float fl_total = 0.0f;  //合计价格
+    private String id = null;
+    private String name, descript;
+    private String user, phone, addr, addrid;
+    private int isCart = 0;
+    private int payway = 0;   //支付方式    1支付宝，2微信
+    private String goods_str = null;
 
-		Toast.makeText(this, getString(R.string.login_fail), Toast.LENGTH_SHORT).show();
-	}
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        x.view().inject(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //透明状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //透明导航栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }
+        mSettingPref = getSharedPreferences("Setting", Context.MODE_PRIVATE);
+        lv_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //重写选项被单击事件的处理方法
+                lv_list.listItemAdapter.setSelectItem(position);
+                lv_list.listItemAdapter.notifyDataSetInvalidated();
+            }
+        });
+        _dbad = new Cartdb(this);
+        initData();
+        //暂不支持微信
+        checkbox_wx.setEnabled(false);
+//        IntentFilter filter = new IntentFilter();
+//        filter.addAction(SampleConnection.MYPAY_RECEIVER);
+//        registerReceiver(myReceiver, filter);
+    }
 
-	public synchronized void connectSuccess(JSONObject json, int type) {
-		int cmd = -1;
-		int result = -1;
-		String str;
-		try {
-			str = json.getString("cmd");
-			cmd = Integer.parseInt(str);
-			str = json.getString("cw");
-			result = Integer.parseInt(str);
-		} catch (Exception e) {
-			connectFail(type);
-			return;
-		}
-		if(cmd == 22){
-			if(result == 0){
-				//finish();
-				paySuccess();
-			}else{
-				Toast.makeText(this, "订单出错！请联系客服人员", Toast.LENGTH_SHORT).show();
-			}
-		} else {
-			connectFail(type);
-		}
-	}
+    private void initData() {
+        lv_list.Bulid();
+        Bundle bundle = this.getIntent().getExtras();
+        if (bundle != null)
+            isCart = bundle.getInt("iscart");
+        StringBuffer buf = new StringBuffer();
+        if (isCart == 0) {
+            id = bundle.getString("id");
+            name = bundle.getString("name");
+            descript = bundle.getString("describe");
+            String logourl = bundle.getString("logourl");
+            String price = bundle.getString("price");
+            int amount = bundle.getInt("amount");
+            float fl = Float.parseFloat(price);
+            fl_total = fl * amount;
+            tv_totalmoney.setText(String.valueOf(fl_total));
+            buf.append(id);
+            buf.append(":");
+            buf.append(amount);
+            lv_list.addItem(id, name, price, amount, logourl);
+        } else {
+            _dbad.open();
+            Cursor cursor = _dbad.selectConversationList();
+            if (cursor.moveToNext()) {
+                if (cursor.getInt(6) == 1) {
+                    lv_list.addItem(cursor.getString(0), cursor.getString(1), cursor.getString(3), cursor.getInt(4), cursor.getString(5));
+                    buf.append(cursor.getString(0));
+                    buf.append(":");
+                    buf.append(cursor.getInt(4));
 
-	private BroadcastReceiver myReceiver = new BroadcastReceiver(){
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			// TODO Auto-generated method stub
-			if(intent.getAction().equals(SampleConnection.MYPAY_RECEIVER)) {
-				Log.e("hu","***********payresult receiver**********");
-				int code = intent.getExtras().getInt("errcode");
-				switch (code) {
-					case 0:
-						// Toast.makeText(this, "支付成功",0).show();
-						uploadTradeNO();
-						if(isCart == 1)
-							deletCartItem();
-						break;
-					case -1:
-						// Toast.makeText(this, "支付失败",0).show();
-						btn_ok.setEnabled(true);
-						payFailure();
-						break;
-					case -2:
-						// Toast.makeText(this, "支付取消",0).show();
-						btn_ok.setEnabled(true);
-						payOrderCancel();
-						break;
-					default:
-						break;
-				}
-			}
-		}
-	};
+                    id = cursor.getString(0);
+                    name = cursor.getString(1);
+                    descript = cursor.getString(2);
+                }
+            }
+            while (cursor.moveToNext()) {
+                if (cursor.getInt(6) == 1) {
+                    lv_list.addItem(cursor.getString(0), cursor.getString(1), cursor.getString(3), cursor.getInt(4), cursor.getString(5));
+                    buf.append(",");
+                    buf.append(cursor.getString(0));
+                    buf.append(":");
+                    buf.append(cursor.getInt(4));
+                }
+            }
+            fl_total = _dbad.getTotalPrice();
+            tv_totalmoney.setText(String.valueOf(fl_total));
+            _dbad.close();
+        }
+        goods_str = buf.toString();
+        lv_list.listItemAdapter.notifyDataSetInvalidated();
+        setListViewHeightBasedOnChildren(lv_list);
+    }
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_confirmorder);
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-			//透明状态栏
-			getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-			//透明导航栏
-			getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-		}
-		mcontext = getApplicationContext();
-		mSettingPref = getSharedPreferences("Setting", Context.MODE_PRIVATE);
+    public void alipay() {
+        final String orderInfo = getOrderInfo();
+        if (orderInfo != null) {
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    PayTask payTask = new PayTask(ConfirmOrderActivity.this);
+                    Map<String, String> result = payTask.payV2(orderInfo, true);//支付
+                    PayResult payResult = new PayResult(result);
+                    /**
+                     对于支付结果，请商户依赖服务端的异步通知结果。同步通知结果，仅作为支付结束的通知。
+                     */
+                    String resultInfo = payResult.getResult();// 同步返回需要验证的信息
+                    String resultStatus = payResult.getResultStatus();
 
-		tvShow = (TextView) findViewById(R.id.show_address);
-		tv_person = (TextView)findViewById(R.id.tv_person);
-		tv_phone = (TextView)findViewById(R.id.tv_phone);
-		tv_address = (TextView)findViewById(R.id.tv_address);
+                    Message msg = new Message();
+                    msg.obj = resultInfo;
+                    Log.e("alipaytest", "resultInfo:" + resultInfo + "\nresultstatus:" + resultStatus);
+                    msg.what=Integer.parseInt(resultStatus);
+                    alipayHandler.sendMessage(msg);
+                }
+            };
+            new Thread(runnable).start();
+        }
+    }
 
-		Button titleBackImageBtn = (Button)findViewById(R.id.btn_back);
-		titleBackImageBtn.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
-		tv_totalmoney = (TextView)findViewById(R.id.tv_totalmoney);
-		btn_ok = (Button)findViewById(R.id.btn_ok);
-		btn_ok.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				//accountPay();
-				if(checkbox_zfb.isChecked()){
-					payway = 1;
-					//pay_zfb(v);
-					v.setEnabled(false);
-					payByzfb(zfb_handler);
-				}else if(checkbox_wx.isChecked()){
-					v.setEnabled(false);
-					payway = 2;
-					//saveOrder();
-					payByWX();
-					//Intent intent = new Intent();
-					//ConfirmOrderActivity.this.setResult(51, intent);
-					//ConfirmOrderActivity.this.finish();
-				}else{
-					Toast.makeText(ConfirmOrderActivity.this, "请先选择支付方式", Toast.LENGTH_SHORT).show();
-				}
-			}
-		});
+    private Handler alipayHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 9000://支付成功
+                    uploadTradeNO(JsonSyncUtils.getJsonValue(msg.obj.toString(),"alipay_trade_app_pay_response"));
+                    if (isCart == 1)
+                        deletCartItem();
+                    break;
+                case 6001://用户中途取消
+                    payOrderCancel();
+                    break;
+                case 8000://正在处理中，支付结果未知（有可能已经支付成功），请查询商户订单列表中订单的支付状态
+                case 4000://订单支付失败
+                case 5000://重复请求
+                case 6002://网络连接出错
+                case 6004://支付结果未知（有可能已经支付成功），请查询商户订单列表中订单的支付状态
+                default://其他支付错误
+                    payFailure();
+                    break;
+            }
+            btn_ok.setEnabled(true);
+        }
+    };
 
-		ll_addaddress = (LinearLayout)findViewById(R.id.ll_addaddress);
-		ll_addaddress.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent2 = new Intent();
-				intent2.putExtra("status",1);
-				intent2.setClass(ConfirmOrderActivity.this, AllAddressActivity.class);
-				startActivityForResult(intent2, 1);
-			}
-		});
+    public void setListViewHeightBasedOnChildren(ConfirmOrderListView listView) {
+        // 获取ListView对应的Adapter
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
 
-		lv_list = (ConfirmOrderListView) findViewById(R.id.lv_list);
-		lv_list.setOnItemClickListener( //设置选项被单击的监听器
-				new OnItemClickListener(){
-					public void onItemClick(AdapterView<?> arg0, View arg1, int position,long arg3) {
-						//重写选项被单击事件的处理方法
-						lv_list.listItemAdapter.setSelectItem(position);
-						lv_list.listItemAdapter.notifyDataSetInvalidated();
-					}
-				});
-		// setList();
-		_dbad = new Cartdb(this);
-		initData();
+        int totalHeight = 0;
+        for (int i = 0, len = listAdapter.getCount(); i < len; i++) {
+            // listAdapter.getCount()返回数据项的数目
+            View listItem = listAdapter.getView(i, null, listView);
+            // 计算子项View 的宽高
+            listItem.measure(0, 0);
+            // 统计所有子项的总高度
+            totalHeight += listItem.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        // listView.getDividerHeight()获取子项间分隔符占用的高度
+        // params.height最后得到整个ListView完整显示需要的高度
+        listView.setLayoutParams(params);
+    }
 
-		checkbox_zfb = (CheckBox)findViewById(R.id.checkbox_zfb);
-		checkbox_wx = (CheckBox)findViewById(R.id.checkbox_wx);
-		checkbox_zfb.setOnCheckedChangeListener(this);
-		checkbox_wx.setOnCheckedChangeListener(this);
-		//暂不支持微信
-		checkbox_wx.setEnabled(false);
+    private void deletCartItem() {
+        //支付成功后删除购物车里购买的商品
+        _dbad.open();
+        _dbad.deleteSelectedItem();
+        _dbad.close();
+    }
 
-		IntentFilter filter = new IntentFilter();
-		filter.addAction(SampleConnection.MYPAY_RECEIVER);
-		registerReceiver(myReceiver, filter);
-	}
+    private void payFailure() {
+        AlertDialog alert = new AlertDialog.Builder(ConfirmOrderActivity.this)
+                .setMessage("订单支付失败！")
+                .setPositiveButton("确定",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
 
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		if (mSafoneConnection != null) {
-			mSafoneConnection.close();
-		}
-		unregisterReceiver(myReceiver);
-	}
+                            }
+                        })
+                .create();
+        alert.show();
+    }
 
-	private void initData(){
-		lv_list.Bulid();
-		Bundle bundle = this.getIntent().getExtras();
-		if(bundle != null)
-			isCart = bundle.getInt("iscart");
-		StringBuffer buf = new StringBuffer();
-		if(isCart == 0){
-			id = bundle.getString("id");
-			name = bundle.getString("name");
-			descript = bundle.getString("describe");
-			String logourl = bundle.getString("logourl");
-			String price = bundle.getString("price");
-			int amount = bundle.getInt("amount");
-			float fl = Float.parseFloat(price);
-			fl_total = fl * amount;
-			tv_totalmoney.setText(String.valueOf(fl_total));
-			buf.append(id);
-			buf.append(":");
-			buf.append(amount);
-			lv_list.addItem(id,name, price,amount,logourl);
-		}else{
-			_dbad.open();
-			Cursor cursor = _dbad.selectConversationList();
-			if(cursor.moveToNext())
-			{
-				if(cursor.getInt(6) == 1){
-					lv_list.addItem(cursor.getString(0),cursor.getString(1),cursor.getString(3),cursor.getInt(4),cursor.getString(5));
-					buf.append(cursor.getString(0));
-					buf.append(":");
-					buf.append(cursor.getInt(4));
+    private void payOrderCancel() {
+        new AlertDialog.Builder(ConfirmOrderActivity.this)
+                .setMessage("订单支付取消！")
+                .setPositiveButton("确定",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
 
-					id = cursor.getString(0);
-					name = cursor.getString(1);
-					descript = cursor.getString(2);
-				}
-			}
-			while(cursor.moveToNext())
-			{
-				if(cursor.getInt(6) == 1){
-					lv_list.addItem(cursor.getString(0),cursor.getString(1),cursor.getString(3),cursor.getInt(4),cursor.getString(5));
-					buf.append(",");
-					buf.append(cursor.getString(0));
-					buf.append(":");
-					buf.append(cursor.getInt(4));
-				}
-			}
-			fl_total = _dbad.getTotalPrice();
-			tv_totalmoney.setText(String.valueOf(fl_total));
-			_dbad.close();
-		}
-		goods_str = buf.toString();
-		lv_list.listItemAdapter.notifyDataSetInvalidated();
-		setListViewHeightBasedOnChildren(lv_list);
-	}
+                            }
+                        })
+                .create().show();
+    }
 
-	public void setListViewHeightBasedOnChildren(ConfirmOrderListView listView) {
-		// 获取ListView对应的Adapter
-		ListAdapter listAdapter = listView.getAdapter();
-		if (listAdapter == null) {
-			return;
-		}
+    @Event({R.id.btn_back, R.id.ll_addaddress, R.id.btn_ok})
+    private void onClicks(View v) {
+        switch (v.getId()) {
+            case R.id.btn_back:
+                finish();
+                break;
+            case R.id.ll_addaddress:
+                Intent intent2 = new Intent();
+                intent2.putExtra("status", 1);
+                intent2.setClass(ConfirmOrderActivity.this, AllAddressActivity.class);
+                startActivityForResult(intent2, 1);
+                break;
+            case R.id.btn_ok:
+                if (StringUtils.isEmpty(tvShow.getText().toString()) || tvShow.getText().toString().equals("选择地址")) {
+                    Toast.makeText(ConfirmOrderActivity.this, "请选择收货地址", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (payway == 1) {
+                    v.setEnabled(false);
+                    RequestParams params = new RequestParams(App.CMDURL);
+                    params.addParameter("cmd", "77");
+                    x.http().post(params, new Callback.CommonCallback<String>() {
+                        @Override
+                        public void onSuccess(String result) {
+                            if (JsonSyncUtils.getJsonValue(result, "cw").equals("0")) {
+                                ParameterConfig.alipay_RSA_PRIVATE = JsonSyncUtils.getJsonValue(result, "data");
+                                if (!StringUtils.isEmpty(ParameterConfig.alipay_RSA_PRIVATE)) {
+                                    alipay();
+                                }
+                            }
+                        }
 
-		int totalHeight = 0;
-		for (int i = 0, len = listAdapter.getCount(); i < len; i++) {
-			// listAdapter.getCount()返回数据项的数目
-			View listItem = listAdapter.getView(i, null, listView);
-			// 计算子项View 的宽高
-			listItem.measure(0, 0);
-			// 统计所有子项的总高度
-			totalHeight += listItem.getMeasuredHeight();
-		}
-		ViewGroup.LayoutParams params = listView.getLayoutParams();
-		params.height = totalHeight+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-		// listView.getDividerHeight()获取子项间分隔符占用的高度
-		// params.height最后得到整个ListView完整显示需要的高度
-		listView.setLayoutParams(params);
-	}
+                        @Override
+                        public void onError(Throwable ex, boolean isOnCallback) {
+                            Toast.makeText(ConfirmOrderActivity.this, "启动支付失败，请重试", Toast.LENGTH_LONG).show();
+                        }
 
-	private void setList(){
-		lv_list.Bulid();
-		for(int i=0;i<4;i++){
-			//lv_list.addItem("双百上等大米", "2016年新米上等东北大米农家蟹田绿色种植10kg20斤","￥50.8");
-		}
-		//  if(mImageViewArray.length>0){
-		//lv_carlist.listItemAdapter.setSelectItem(1);
-		lv_list.listItemAdapter.notifyDataSetInvalidated();
-		//  }
-		//setListViewHeightBasedOnChildren(lv_list);
-	}
-	private void accountPay(){
-		menuWindow = new PayPopupWindow(mcontext, this);
-		menuWindow.showAtLocation(findViewById(R.id.mainLayout),
-				Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
-	}
+                        @Override
+                        public void onCancelled(CancelledException cex) {
+                            Toast.makeText(ConfirmOrderActivity.this, "启动支付失败，请重试", Toast.LENGTH_LONG).show();
+                        }
 
-	@Override
-	public void OnPayMoney(String name, String phone, String address,
-						   int payment) {
-		// TODO Auto-generated method stub
-		Log.e("hu","*****pay*****name="+name+" phone="+phone+" address="+address+" payment="+payment);
-	}
+                        @Override
+                        public void onFinished() {
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		switch (resultCode) {
-			case RESULT_OK:
-				break;
-			case 30:   //选择地址返回
-				Log.i("hu","******选择地址返回");
-				Bundle bundle = data.getExtras();
-				if(bundle != null){
-					int id = bundle.getInt("id");
-					_dbad.open();
-					Cursor cur = _dbad.getAddressItem(id);
-					if(cur != null){
-						cur.moveToNext();
-						Log.i("hu","***777*****cursor.getString(1)="+cur.getString(1)+" cursor.getString(2)="+cur.getString(2)
-								+" cursor.getString(3)="+cur.getString(3)+" cursor.getString(4)="+cur.getString(4));
-						tv_person.setText(cur.getString(1));
-						tv_phone.setText(cur.getString(2));
-						tv_address.setText(cur.getString(4));
-					}
-					_dbad.close();
-				}
-				break;
-			case 21:  //登录返回
-				break;
-			case 121: //选择地址返回
-				String str = data.getStringExtra("address");
-				tvShow.setText(str);
-				break;
-		}
-	}
-
-	@Override
-	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		// TODO Auto-generated method stub
-		switch (buttonView.getId())
-		{
-			case R.id.checkbox_zfb:
-				if(isChecked){
-					checkbox_wx.setChecked(false);
-				}
-				break;
-			case R.id.checkbox_wx:
-				if(isChecked){
-					checkbox_zfb.setChecked(false);
-				}
-				break;
-		}
-	}
-
-	private void uploadTradeNO(){
-		Log.i("hu","*******uploadTradeNO()");
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("cmd", "21");
-		String str = mSettingPref.getString("UserId", "");
-		map.put("uid", str);  //下订单用户ID
-		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String timeStr=sdf.format(new Date());
-
-		map.put("time", timeStr);
-		map.put("zjje", String.valueOf(fl_total));  //支付金额
-		map.put("zffs", String.valueOf(payway));	//支付方式（1支付宝，2微信）
-		map.put("user", tv_person.getText().toString().trim());  //收货人姓名
-		map.put("dh", tv_phone.getText().toString().trim()); //收货人手机号
-		map.put("ldh", tv_address.getText().toString().trim());  //详细地址
-		map.put("ddh", orderNum);   //订单号
-		map.put("qid", "1");   //小区ID号
-		map.put("goods", goods_str);    //商品
-
-		if(mSafoneConnection == null)
-			mSafoneConnection = new SampleConnection(ConfirmOrderActivity.this, 0);
-		mSafoneConnection.connectService1(map);
-	}
-
-	/** * 调用支付宝支付 * @param handler * @param order */
-	private void payByzfb(Handler handler) {
-		OrderInfo order = initOrderInfo();
-		//if (!isZfbAvilible(this)) {
-		//	Toast.makeText(this, "请先安装支付宝", Toast.LENGTH_SHORT).show();
-		//	return;
-		//}
-		//uploadTradeNO();
-		//支付宝支付
-		//AlipayUtil alipay=new AlipayUtil(this,order,handler);
-		payV2();
-	}
-
-	public void payV2() {
-		if (TextUtils.isEmpty(ParameterConfig.APPID) || (TextUtils.isEmpty(ParameterConfig.RSA2_PRIVATE) && TextUtils.isEmpty(ParameterConfig.RSA_PRIVATE))) {
-			new AlertDialog.Builder(this).setTitle("警告").setMessage("需要配置APPID | RSA_PRIVATE")
-					.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialoginterface, int i) {
-							finish();
-						}
-					}).show();
-			return;
-		}
-
-		/**
-		 * 这里只是为了方便直接向商户展示支付宝的整个支付流程；所以Demo中加签过程直接放在客户端完成；
-		 * 真实App里，privateKey等数据严禁放在客户端，加签过程务必要放在服务端完成；
-		 * 防止商户私密数据泄露，造成不必要的资金损失，及面临各种安全风险；
-		 *
-		 * orderInfo的获取必须来自服务端；
-		 */
-		boolean rsa2 = (ParameterConfig.RSA2_PRIVATE.length() > 0);
-		Map<String, String> params = OrderInfoUtil2_0.buildOrderParamMap(ParameterConfig.APPID, rsa2);
-		String orderParam = OrderInfoUtil2_0.buildOrderParam(params);
-
-		String privateKey = rsa2 ? ParameterConfig.RSA2_PRIVATE : ParameterConfig.RSA_PRIVATE;
-		String sign = OrderInfoUtil2_0.getSign(params, privateKey, rsa2);
-		final String orderInfo = orderParam + "&" + sign;
-
-		Runnable payRunnable = new Runnable() {
-
-			@Override
-			public void run() {
-				PayTask alipay = new PayTask(ConfirmOrderActivity.this);
-				Map<String, String> result = alipay.payV2(orderInfo, true);
-				Log.i("msp", result.toString());
-
-				//	Message msg = new Message();
-				//	msg.what = SDK_PAY_FLAG;
-				//	msg.obj = result;
-				//	mHandler.sendMessage(msg);
+                        }
+                    });
+                } else if (payway == 2) {
+                    v.setEnabled(false);
+                } else {
+                    Toast.makeText(ConfirmOrderActivity.this, "请先选择支付方式", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
+    }
 
 
-				PayResult payResult = new PayResult((Map<String, String>) result);
-				/**
-				 对于支付结果，请商户依赖服务端的异步通知结果。同步通知结果，仅作为支付结束的通知。
-				 */
-				String resultInfo = payResult.getResult();// 同步返回需要验证的信息
-				String resultStatus = payResult.getResultStatus();
-				// 判断resultStatus 为9000则代表支付成功
-				if (TextUtils.equals(resultStatus, "9000")) {
-					// 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
-					zfb_handler.sendEmptyMessage(9000);
-					//Toast.makeText(PayDemoActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
-				} else {
-					// 该笔订单真实的支付结果，需要依赖服务端的异步通知。
-					zfb_handler.sendEmptyMessage(8000);
-					//Toast.makeText(PayDemoActivity.this, "支付失败", Toast.LENGTH_SHORT).show();
-				}
-			}
-		};
+    @Event(value = {R.id.checkbox_zfb, R.id.checkbox_wx}, type = CompoundButton.OnCheckedChangeListener.class)
+    private void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        // TODO Auto-generated method stub
+        switch (buttonView.getId()) {
+            case R.id.checkbox_zfb:
+                if (isChecked) {
+                    checkbox_wx.setChecked(false);
+                    payway = 1;
+                } else payway = 0;
+                break;
+            case R.id.checkbox_wx:
+                if (isChecked) {
+                    checkbox_zfb.setChecked(false);
+                    payway = 2;
+                } else payway = 0;
+                break;
+        }
+    }
 
-		Thread payThread = new Thread(payRunnable);
-		payThread.start();
-	}
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode) {
+            case RESULT_OK:
+                break;
+            case 30:   //选择地址返回
+//                Log.i("hu", "******选择地址返回");
+//                Bundle bundle = data.getExtras();
+//                if (bundle != null) {
+//                    int id = bundle.getInt("id");
+//                    _dbad.open();
+//                    Cursor cur = _dbad.getAddressItem(id);
+//                    if (cur != null) {
+//                        cur.moveToNext();
+//                        Log.i("hu", "***777*****cursor.getString(1)=" + cur.getString(1) + " cursor.getString(2)=" + cur.getString(2)
+//                                + " cursor.getString(3)=" + cur.getString(3) + " cursor.getString(4)=" + cur.getString(4));
+//                        tv_person.setText(cur.getString(1));
+//                        tv_phone.setText(cur.getString(2));
+//                        tv_address.setText(cur.getString(4));
+//                    }
+//                    _dbad.close();
+//                }
+                break;
+            case 21:  //登录返回
+                break;
+            case 121: //选择地址返回
+                addr = data.getStringExtra("address");
+                user = data.getStringExtra("name");
+                phone = data.getStringExtra("phone");
+                addrid = data.getStringExtra("addrId");
+                tvShow.setText(addr);
+                break;
+        }
+    }
 
-	/** * 调用微信支付 * @param handler * @param orderInfo2 */
-	private void payByWX() {
-		OrderInfo order = initOrderInfo();
-		WXpayUtil wxpay=new WXpayUtil(this,order);
-	}
+    public String getOrderInfo() {
+        String orderInfo = null;
+//        try {
+//            orderInfo = "app_id=" + URLEncoder.encode(ParameterConfig.alipay_APPID, "UTF-8");
+//            orderInfo += "&method=" + URLEncoder.encode("alipay.trade.app.pay", "UTF-8");
+//            orderInfo += "&charset=" + URLEncoder.encode("utf-8", "UTF-8");
+//            orderInfo += "&sign_type=" + URLEncoder.encode("RSA2", "UTF-8");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String timeStr = sdf.format(new Date());
+//            orderInfo += "&timestamp=" + URLEncoder.encode(timeStr, "UTF-8");
+//            orderInfo += "&version=" + URLEncoder.encode("1.0", "UTF-8");
+//            orderInfo += "&notify_url=" + URLEncoder.encode(ParameterConfig.alipay_SERVICE_CALLBACK, "UTF-8");
+//            orderInfo += "&biz_content=" + URLEncoder.encode(getGoodsContent(), "UTF-8");
+//            orderInfo += "&sign=" + URLEncoder.encode(ParameterConfig.alipay_RSA_PRIVATE, "UTF-8");
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
+        Map<String, String> keyValues = new HashMap<String, String>();
+        keyValues.put("app_id", ParameterConfig.alipay_APPID);
+        keyValues.put("biz_content", getGoodsContent());
+        keyValues.put("charset", "utf-8");
+        keyValues.put("method", "alipay.trade.app.pay");
+        keyValues.put("notify_url", ParameterConfig.alipay_SERVICE_CALLBACK);
+        keyValues.put("sign_type", "RSA2");
+        keyValues.put("timestamp", timeStr);
+        keyValues.put("version", "1.0");
 
-	private OrderInfo initOrderInfo() {
-		OrderInfo order = new OrderInfo();
-		order.outtradeno = getOutTradeNo();
-		order.productname = name;
-		order.desccontext = descript;
-		//order.totalamount = String.valueOf(fl_total);
-		order.totalamount = "0.01";
-		return order;
-	}
+        Log.e("alipaytest", "info: " + orderInfo);
 
-	/** * 检查支付包是否存在 * @param context * @return */
-	private boolean isZfbAvilible(Context context) {
-		PackageManager packageManager = context.getPackageManager();// 获取packagemanager
-		List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);
-		// 获取所有已安装程序的包信息
-		if (pinfo != null) {
-			for (int i = 0; i < pinfo.size(); i++) {
-				String pn = pinfo.get(i).packageName;
-				//System.out.println(pinfo.get(i).packageName);
-				if (pn.equals("com.alipay.android.app")) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
+        orderInfo = buildOrderParam(keyValues);
+        String sign = getSign(keyValues, ParameterConfig.alipay_RSA_PRIVATE, true);
+        orderInfo += "&" + sign;
+        return orderInfo;
+    }
 
-	/** * 检查微信是否存在 * @param context * @return */
-	public boolean isWeixinAvilible(Context context) {
-		PackageManager packageManager = context.getPackageManager();// 获取packagemanager
-		List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);
-		// 获取所有已安装程序的包信息
-		if (pinfo != null) {
-			for (int i = 0; i < pinfo.size(); i++) {
-				String pn = pinfo.get(i).packageName;
-				System.out.println(pinfo.get(i).packageName);
-				if (pn.equals("com.tencent.mm")) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
+    public String getGoodsContent() {
+        String content = "{";
+        content += "\"subject\":\"" + name + "\"";//商品的标题/交易标题/订单标题/订单关键字等。
+        content += ",\"body\":\"" + descript + "\"";//商品的描述
+        content += ",\"out_trade_no\":\"" + getOutTradeNo() + "\"";//商户网站唯一订单号
+        content += ",\"timeout_express\":\"30m\"";//订单超时时间
+//        content += ",\"total_amount\":\"" + fl_total + "\"";//订单总金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]
+        content += ",\"total_amount\":\"" + 0.01 + "\"";
+        content += ",\"product_code\":\"" + "QUICK_MSECURITY_PAY" + "\"";//销售产品码，商家和支付宝签约的产品码，为固定值QUICK_MSECURITY_PAY
+        return content + "}";
+//        "{" +"\"timeout_express\":\"30m\",\"product_code\":\"QUICK_MSECURITY_PAY\",\"total_amount\":\"0.01\",\"subject\":\"1\",\"body\":\"我是测试数据\",\"out_trade_no\":\"" + getOutTradeNo() + "\"}");
+    }
 
-	/**
-	 * get the out_trade_no for an order. 获取外部订单号
-	 *
-	 */
-	public String getOutTradeNo() {
-		//SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss",
-		//		Locale.getDefault());
-		//Date date = new Date();
-		//String key = format.format(date);
+    private static String getOutTradeNo() {
 
-		long t1 = System.currentTimeMillis() / 1000;
-		Log.e("hu","**********t1="+t1);
+        long t1 = System.currentTimeMillis() / 1000;
+        Log.e("hu", "**********t1=" + t1);
 
-		Random r = new Random();
-		String key = String.valueOf(t1);
+        Random r = new Random();
+        String key = String.valueOf(t1);
 
-		key = key + r.nextInt(100000);
-		key = key.substring(0, 15);
-		Log.e("hu","**********订单号:"+key);
-		orderNum = key;
-		return key;
-	}
+        key = key + r.nextInt(100000);
+        key = key.substring(0, 15);
+        Log.e("hu", "**********订单号:" + key);
+        return key;
+    }
 
-	private void deletCartItem(){
-		//支付成功后删除购物车里购买的商品
-		_dbad.open();
-		_dbad.deleteSelectedItem();
-		_dbad.close();
-	}
+    public String buildOrderParam(Map<String, String> map) {
+        List<String> keys = new ArrayList<String>(map.keySet());
 
-	private void saveOrder(){
-		//把订单详情存起来，以便微信支付成功后上传
-		mSettingPref.edit().putString("order_total", String.valueOf(fl_total)).commit();
-		mSettingPref.edit().putString("order_username", tv_person.getText().toString().trim()).commit();
-		mSettingPref.edit().putString("order_userphone", tv_phone.getText().toString().trim()).commit();
-		mSettingPref.edit().putString("order_address", tv_address.getText().toString().trim()).commit();
-		mSettingPref.edit().putString("order_id", orderNum).commit();
-		mSettingPref.edit().putString("order_cellnum", "1").commit();  //小区号
-		mSettingPref.edit().putString("order_goods", goods_str).commit();
-	}
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < keys.size() - 1; i++) {
+            String key = keys.get(i);
+            String value = map.get(key);
+            sb.append(buildKeyValue(key, value, true));
+            sb.append("&");
+        }
 
-	private void paySuccess(){
-		AlertDialog alert = new AlertDialog.Builder(ConfirmOrderActivity.this)
-				.setMessage("订单支付成功！")
-				.setPositiveButton("确定",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int which) {
-								Intent intent = new Intent();
-								ConfirmOrderActivity.this.setResult(51, intent);
-								ConfirmOrderActivity.this.finish();
-							}
-						})
-				.create();
-		alert.show();
-	}
+        String tailKey = keys.get(keys.size() - 1);
+        String tailValue = map.get(tailKey);
+        sb.append(buildKeyValue(tailKey, tailValue, true));
 
-	private void payFailure(){
-		AlertDialog alert = new AlertDialog.Builder(ConfirmOrderActivity.this)
-				.setMessage("订单支付失败！")
-				.setPositiveButton("确定",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int which) {
+        return sb.toString();
+    }
 
-							}
-						})
-				.create();
-		alert.show();
-	}
+    private String buildKeyValue(String key, String value, boolean isEncode) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(key);
+        sb.append("=");
+        if (isEncode) {
+            try {
+                sb.append(URLEncoder.encode(value, "UTF-8"));
+            } catch (UnsupportedEncodingException e) {
+                sb.append(value);
+            }
+        } else {
+            sb.append(value);
+        }
+        return sb.toString();
+    }
 
-	private void payOrderCancel(){
-		AlertDialog alert = new AlertDialog.Builder(ConfirmOrderActivity.this)
-				.setMessage("订单支付取消！")
-				.setPositiveButton("确定",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int which) {
+    public String getSign(Map<String, String> map, String rsaKey, boolean rsa2) {
+        List<String> keys = new ArrayList<String>(map.keySet());
+        // key排序
+        Collections.sort(keys);
 
-							}
-						})
-				.create();
-		alert.show();
-	}
+        StringBuilder authInfo = new StringBuilder();
+        for (int i = 0; i < keys.size() - 1; i++) {
+            String key = keys.get(i);
+            String value = map.get(key);
+            authInfo.append(buildKeyValue(key, value, false));
+            authInfo.append("&");
+        }
+
+        String tailKey = keys.get(keys.size() - 1);
+        String tailValue = map.get(tailKey);
+        authInfo.append(buildKeyValue(tailKey, tailValue, false));
+
+        String oriSign = SignUtils.sign(authInfo.toString(), rsaKey, rsa2);
+        String encodedSign = "";
+
+        try {
+            encodedSign = URLEncoder.encode(oriSign, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return "sign=" + encodedSign;
+    }
+
+    private void uploadTradeNO(String alipay_result) {
+        RequestParams param = new RequestParams(App.CMDURL);
+        param.addParameter("cmd", "21");
+        String str = mSettingPref.getString("UserId", "");
+        param.addParameter("uid", str);  //下订单用户ID
+        param.addParameter("time", JsonSyncUtils.getJsonValue(alipay_result,"timestamp"));
+        param.addParameter("zjje", JsonSyncUtils.getJsonValue(alipay_result,"total_amount"));  //支付金额
+        param.addParameter("zffs", "1");    //支付方式（1支付宝，2微信）
+        param.addParameter("user", user);  //收货人姓名
+        param.addParameter("dh", phone); //收货人手机号
+        param.addParameter("ldh", addr);  //详细地址
+        param.addParameter("ddh", JsonSyncUtils.getJsonValue(alipay_result,"out_trade_no"));   //订单号
+        param.addParameter("qid", mSettingPref.getString("gardenId",""));   //小区ID号
+        param.addParameter("goods", goods_str);    //商品
+        x.http().post(param, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                if (JsonSyncUtils.getJsonValue(result, "cw").equals("0"))
+                    new AlertDialog.Builder(ConfirmOrderActivity.this)
+                            .setMessage("订单支付成功！")
+                            .setPositiveButton("确定",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Intent intent = new Intent();
+                                            ConfirmOrderActivity.this.setResult(51, intent);
+                                            ConfirmOrderActivity.this.finish();
+                                        }
+                                    })
+                            .create().show();
+                else
+                    Toast.makeText(ConfirmOrderActivity.this, "订单提交出错，请联系客服人员", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Toast.makeText(ConfirmOrderActivity.this, "onError订单提交出错，请联系客服人员", Toast.LENGTH_LONG).show();
+                Log.e("alipaytest", "onError订单提交");
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+                Toast.makeText(ConfirmOrderActivity.this, "onCancelled订单提交出错，请联系客服人员", Toast.LENGTH_LONG).show();
+                Log.e("alipaytest", "onCancelled");
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
 }

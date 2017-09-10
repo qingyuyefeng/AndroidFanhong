@@ -41,7 +41,7 @@ public class MyAddressAdapter extends RecyclerView.Adapter<MyAddressAdapter.MyVi
     public interface MyHolderClick{
         void editAddress(String name,String phone,int status,int id);
         void deleteAddress(int id,int pos);
-        void holderItemClick(String string);
+        void holderItemClick(String addr,String name,String phone,int addrid);
     }
 
     public MyAddressAdapter(Context context,List<AddressModel> addressList){
@@ -96,7 +96,10 @@ public class MyAddressAdapter extends RecyclerView.Adapter<MyAddressAdapter.MyVi
             @Override
             public void onClick(View v) {
                 //item的点击
-                myHolderClick.holderItemClick(holder.tvAddress.getText().toString());
+                myHolderClick.holderItemClick(holder.tvAddress.getText().toString(),
+                        holder.tvName.getText().toString(),
+                        holder.tvPhone.getText().toString(),
+                        id);
             }
         });
         //是否可管理

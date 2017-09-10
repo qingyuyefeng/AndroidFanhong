@@ -189,11 +189,14 @@ public class AllAddressActivity extends Activity {
             }
 
             @Override
-            public void holderItemClick(String string) {
+            public void holderItemClick(String addr,String name,String phone,int addrid) {
 //                Toast.makeText(AllAddressActivity.this, "item的点击,", Toast.LENGTH_SHORT).show();
                 if(status == 1){
                     Intent intent = new Intent();
-                    intent.putExtra("address",string);
+                    intent.putExtra("address",addr);
+                    intent.putExtra("name",name);
+                    intent.putExtra("phone",phone);
+                    intent.putExtra("addrId",addrid);
                     setResult(121,intent);
                     finish();
                 }
