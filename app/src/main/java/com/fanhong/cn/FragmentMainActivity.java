@@ -9,11 +9,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -223,7 +225,7 @@ public class FragmentMainActivity extends SampleActivity {
 //                        showFragment(fragmentTransaction,2);
                         if (isLogined() == 1) {
                             mTab02.onResume();
-                            Log.i("xq","门禁list.size()==>"+mTab02.list.size());
+                            Log.i("xq", "门禁list.size()==>" + mTab02.list.size());
                             if (mTab02.list.size() == 0) {
                                 createDialog(2);
                             }
@@ -515,6 +517,15 @@ public class FragmentMainActivity extends SampleActivity {
         listView.setLayoutParams(params);
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 11)
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                mTab01.callManager();
+            } else
+                Toast.makeText(this, "需要通话权限", Toast.LENGTH_SHORT).show();
+    }
 
     private void createDialog(int i) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

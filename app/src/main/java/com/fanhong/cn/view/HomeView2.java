@@ -1,12 +1,18 @@
 package com.fanhong.cn.view;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -81,6 +87,7 @@ public class HomeView2 extends BaseFragment {
     private BannerAdapter bannerAdapter;
     private SharedPreferences mSharedPref;
     private String uid = "";
+    private String managerName = "", managerTel = "";
 
     @Nullable
     @Override
@@ -130,15 +137,15 @@ public class HomeView2 extends BaseFragment {
                 }
             }
         });
-        textViews = new TextView[]{ylgh,xxyl,mydy,hwwl};
-        for (int i=0;i<textViews.length;i++){
+        textViews = new TextView[]{ylgh, xxyl, mydy, hwwl};
+        for (int i = 0; i < textViews.length; i++) {
             final int finalI = i;
             textViews[finalI].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), AgentWebActivity.class);
-                    intent.putExtra("ishome",true);
-                    intent.putExtra("url",urls[finalI]);
+                    intent.putExtra("ishome", true);
+                    intent.putExtra("url", urls[finalI]);
                     startActivity(intent);
                 }
             });
@@ -159,52 +166,105 @@ public class HomeView2 extends BaseFragment {
                 }
                 break;
             case R.id.textView0: //社区公告
-                if(isLogined() ==1){
+                if (isLogined() == 1) {
                     if (!TextUtils.isEmpty(mSharedPref.getString("gardenName", ""))) {
                         getBaseActivity().setRadioButtonsChecked(3);
-                    }else {
+                    } else {
                         createDialog(1);
                     }
-                }else {
-                    Toast.makeText(getActivity(),R.string.pleaselogin,Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), R.string.pleaselogin, Toast.LENGTH_SHORT).show();
                 }
 
                 break;
             case R.id.textView1: //物业之星
+                RequestParams param = new RequestParams(App.CMDURL);
+                param.addParameter("cmd", "81");
+                param.addParameter("id", mSharedPref.getString("gardenId", ""));
+                x.http().post(param, new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        if (JsonSyncUtils.getJsonValue(result, "cw").equals("0")) {
+                            managerTel = JsonSyncUtils.getJsonValue(result, "tel");
+                            managerName = mSharedPref.getString("gardenName", "");
+                            new AlertDialog.Builder(getActivity()).setTitle(managerName).setMessage("联系电话:" + managerTel)
+                                    .setPositiveButton("立即拨打", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            //判断Android版本是否大于23
+                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                                int checkCallPhonePermission = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE);
+
+                                                if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
+                                                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE},
+                                                            11);
+                                                    return;
+                                                }
+                                            }
+                                            callManager();
+                                        }
+                                    }).setNegativeButton("取消", null).create().show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
                 break;
             case R.id.textView2: //招商代理
                 //TODO  判断登录状态是否需要改在下一层
-                if(isLogined()==1){
+                if (isLogined() == 1) {
                     checkIfjoined(uid);
-                }else {
+                } else {
 //                    createDialog(0);
                     startActivity(new Intent(getActivity(), FenXiaoActivity.class));
                 }
                 break;
             case R.id.tv_homestore: //社区卖场
-                intent.setClass(getActivity(),StoreActivity.class);
+                intent.setClass(getActivity(), StoreActivity.class);
                 startActivity(intent);
                 break;
             case R.id.tv_homeexpressage://代发快递
-                intent.setClass(getActivity(),ExpressHomeActivity.class);
+                intent.setClass(getActivity(), ExpressHomeActivity.class);
                 startActivity(intent);
                 break;
             case R.id.tv_homedaiban://代办年审
-                intent.setClass(getActivity(),VerificationCarActivity.class);
+                intent.setClass(getActivity(), VerificationCarActivity.class);
                 startActivity(intent);
                 break;
             case R.id.tv_homerepair://上门维修
-                intent.setClass(getActivity(),RepairActivity.class);
+                intent.setClass(getActivity(), RepairActivity.class);
                 startActivity(intent);
                 break;
             case R.id.tv_homeunlock://紧急开锁
-                intent.putExtra("gardenName",mSharedPref.getString("gardenName", ""));
-                intent.putExtra("gardenId",mSharedPref.getString("gardenId", ""));
-                intent.setClass(getActivity(),EmergencyUnlockActivity.class);
+                intent.putExtra("gardenName", mSharedPref.getString("gardenName", ""));
+                intent.putExtra("gardenId", mSharedPref.getString("gardenId", ""));
+                intent.setClass(getActivity(), EmergencyUnlockActivity.class);
                 startActivity(intent);
                 break;
         }
     }
+
+    public void callManager() {
+        Intent i = new Intent(Intent.ACTION_CALL);
+        Uri uri = Uri.parse("tel:" + managerTel);
+        i.setData(uri);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
+    }
+
     public synchronized void setFragment(int type, String str) {
         switch (type) {
             case 11:
@@ -303,6 +363,7 @@ public class HomeView2 extends BaseFragment {
         }
         return result;
     }
+
     private void checkIfjoined(String str) {
         RequestParams params = new RequestParams(App.CMDURL);
         params.addBodyParameter("cmd", "69");
@@ -311,13 +372,13 @@ public class HomeView2 extends BaseFragment {
             @Override
             public void onSuccess(String s) {
                 String data = JsonSyncUtils.getJsonValue(s, "data");
-                Log.i("xq","data==>"+data);
+                Log.i("xq", "data==>" + data);
                 if (data.equals("0")) {
                     startActivity(new Intent(getActivity(), FenXiaoActivity.class));
                 } else if (data.equals("1")) {
-                   createDialog(2);
+                    createDialog(2);
                 } else {
-                   Toast.makeText(getActivity(),"登录状态异常",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "登录状态异常", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -388,7 +449,7 @@ public class HomeView2 extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        uid = mSharedPref.getString("UserId","");
+        uid = mSharedPref.getString("UserId", "");
         String str = mSharedPref.getString("gardenName", "");
         cellName.setText(str);
     }
