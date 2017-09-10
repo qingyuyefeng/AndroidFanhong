@@ -34,6 +34,7 @@ import com.fanhong.cn.view.FixedViewPager;
 import com.fanhong.cn.view.HomeView1;
 import com.fanhong.cn.view.HomeView2;
 import com.fanhong.cn.view.MineView1;
+import com.fanhong.cn.view.MineView2;
 import com.fanhong.cn.view.ServiceView1;
 
 import org.json.JSONObject;
@@ -52,7 +53,7 @@ public class FragmentMainActivity extends SampleActivity {
     private HomeView2 mTab01;
     private AccesscontrolView1 mTab02;
     private ServiceView1 mTab03;
-    private MineView1 mTab04;
+    private MineView2 mTab04;
     private CommunityIndexFragment mTab05;
 //    private LinearLayout welcome;
     /**
@@ -303,7 +304,7 @@ public class FragmentMainActivity extends SampleActivity {
         mTab01 = new HomeView2();
         mTab02 = new AccesscontrolView1();
         mTab03 = new ServiceView1();
-        mTab04 = new MineView1();
+        mTab04 = new MineView2();
         mTab05 = new CommunityIndexFragment();
 
         fragments.add(mTab01);
