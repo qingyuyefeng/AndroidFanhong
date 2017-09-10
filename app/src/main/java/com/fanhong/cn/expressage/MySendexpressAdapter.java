@@ -1,9 +1,6 @@
 package com.fanhong.cn.expressage;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +62,6 @@ public class MySendexpressAdapter extends BaseAdapter{
             myViewHolder = (MyViewHolder) convertView.getTag();
         }
 //        MysendModel mysendModel = list.get(position);
-//        myViewHolder.tnumber.setText(mysendModel.getTrackingNumber());
 //        myViewHolder.scity.setText(mysendModel.getSendCity());
 //        myViewHolder.sname.setText(mysendModel.getSendName());
 //        myViewHolder.rcity.setText(mysendModel.getReceiveCity());
@@ -74,9 +70,8 @@ public class MySendexpressAdapter extends BaseAdapter{
     }
 
     class MyViewHolder{
-        TextView tnumber,scity,sname,rcity,rname;
+        TextView scity,sname,rcity,rname;
         public MyViewHolder(View itemView) {
-            tnumber = (TextView) itemView.findViewById(R.id.tracking_number);
             scity = (TextView) itemView.findViewById(R.id.send_express_city);
             sname = (TextView) itemView.findViewById(R.id.send_express_name);
             rcity = (TextView) itemView.findViewById(R.id.get_express_city);

@@ -10,29 +10,27 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginTop="20px"
-        android:paddingLeft="50px"
-        android:background="@color/white">
+        android:layout_marginRight="5px"
+        android:layout_marginLeft="10px"
+        android:layout_marginTop="5px"
+        android:background="@drawable/postpicture_biankuang">
         <ImageView
             android:id="@+id/choose_cell"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/dizhi"
             android:padding="20px" />
-        <View
-            android:layout_width="2px"
-            android:layout_height="match_parent"
-            android:background="@color/black"
-            android:layout_marginTop="5px"
-            android:layout_marginBottom="5px"
-            android:layout_marginLeft="10px"
-            android:layout_marginRight="10px"/>
-        <TextView
-            android:id="@+id/show_location"
+
+        <EditText
+            android:id="@+id/default_location"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:text="这里显示定位位置"
+            android:lines="1"
+            android:singleLine="true"
+            android:textSize="28px"
+            android:background="@color/transparent"
             android:layout_marginLeft="20px"
             android:textColor="@color/text_6"
             android:gravity="center_vertical"/>
@@ -42,8 +40,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginTop="20px"
-        android:paddingLeft="50px"
+        android:layout_marginTop="10px"
+        android:layout_marginRight="5px"
+        android:paddingLeft="10px"
         android:background="@color/white">
         <TextView
             android:layout_width="wrap_content"
@@ -61,11 +60,12 @@
             android:layout_marginTop="5px"
             android:layout_marginBottom="5px"/>
         <EditText
+            android:id="@+id/car_hostname"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:layout_marginLeft="20px"
-            android:background="@drawable/postpicture_biankuang"
+            android:background="@color/transparent"
             android:textColor="@color/text_6" />
     </com.zhy.autolayout.AutoLinearLayout>
     <com.zhy.autolayout.AutoLinearLayout
@@ -73,9 +73,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginTop="20px"
-        android:paddingLeft="50px"
-        android:background="@color/white">
+        android:layout_marginTop="10px"
+        android:layout_marginRight="5px"
+        android:paddingLeft="10px"
+        android:background="@drawable/postpicture_biankuang">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -95,23 +96,75 @@
             android:layout_marginTop="5px"
             android:layout_marginBottom="5px"/>
         <EditText
+            android:id="@+id/car_hostphone"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:layout_marginLeft="20px"
-            android:background="@drawable/postpicture_biankuang"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:background="@color/transparent"
             android:textColor="@color/text_6" />
     </com.zhy.autolayout.AutoLinearLayout>
+
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10px"
+        android:background="@color/white"
         android:orientation="horizontal"
-        android:paddingLeft="50px"
-        android:layout_marginTop="20px"
-        android:background="@color/white">
-        <EditText
-            android:layout_width="350px"
+        android:paddingLeft="10px">
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/postpicture_biankuang"/>
+            android:drawableLeft="@drawable/shouji"
+            android:textColor="@color/text_3"
+            android:text="电话"
+            android:drawablePadding="30px"
+            android:gravity="center_vertical"
+            android:paddingLeft="20px"
+            android:paddingBottom="15px"
+            android:paddingTop="15px"
+            android:paddingRight="20px"
+            android:visibility="invisible"/>
+
+        <EditText
+            android:id="@+id/input_code"
+            android:layout_width="200px"
+            android:layout_height="wrap_content"
+            android:padding="15px"
+            android:textSize="30px"
+            android:layout_marginLeft="20px"
+            android:textColor="@color/text_6"
+            android:background="@drawable/postpicture_biankuang" />
+        <TextView
+            android:id="@+id/get_code"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="60px"
+            android:text="@string/randomcode"
+            android:gravity="center"
+            android:textSize="30px"
+            android:textColor="@color/white"
+            android:paddingLeft="20px"
+            android:paddingRight="20px"
+            android:background="@drawable/btncolor_selector"/>
     </com.zhy.autolayout.AutoLinearLayout>
+    <include layout="@layout/agree_sheets"/>
+    <com.amap.api.maps2d.MapView
+        android:id="@+id/gaode_map"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="10px"/>
+    <Button
+        android:id="@+id/submit_caryuyue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="立即预约"
+        android:textColor="@color/white"
+        android:textSize="35px"
+        android:layout_marginLeft="5px"
+        android:layout_marginRight="5px"
+        android:background="@drawable/postbtn_dianji"/>
 </com.zhy.autolayout.AutoLinearLayout>

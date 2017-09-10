@@ -36,22 +36,21 @@ public class CarFormConfirmActivity extends Activity {
     private TextView tv_name;
     @ViewInject(R.id.tv_form_phone)
     private TextView tv_phone;
-    @ViewInject(R.id.tv_form_licence)
-    private TextView tv_licence;
-    @ViewInject(R.id.tv_form_type)
-    private TextView tv_type;
-    @ViewInject(R.id.tv_form_engine)
-    private TextView tv_engine;
-    @ViewInject(R.id.tv_form_idCard)
-    private TextView tv_idCard;
+//    @ViewInject(R.id.tv_form_licence)
+//    private TextView tv_licence;
+//    @ViewInject(R.id.tv_form_type)
+//    private TextView tv_type;
+//    @ViewInject(R.id.tv_form_engine)
+//    private TextView tv_engine;
+//    @ViewInject(R.id.tv_form_idCard)
+//    private TextView tv_idCard;
     @ViewInject(R.id.tv_form_address)
     private TextView tv_addr;
-    @ViewInject(R.id.box_read)
-    private CheckBox cbox_read;
+//    @ViewInject(R.id.box_read)
+//    private CheckBox cbox_read;
     @ViewInject(R.id.btn_commit)
     private Button btn_commit;
 
-    private CarOrderForm form;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,82 +61,25 @@ public class CarFormConfirmActivity extends Activity {
 
     private void init() {
         title.setText("确认信息");
-        form = (CarOrderForm) getIntent().getExtras().getSerializable("model");
-        tv_name.setText(form.getName());
-        tv_phone.setText(StringUtils.replaceString(form.getPhone(), 3, 4, "*"));
-        tv_licence.setText(form.getLicence());
-        tv_type.setText(form.getType());
-        tv_engine.setText(form.getEngine());
-        tv_idCard.setText(StringUtils.replaceString(form.getIdCard(), 8, 2, "*"));
-        tv_addr.setText(form.getAddress());
+        Intent intent = getIntent();
+        tv_name.setText(intent.getStringExtra("name"));
+        tv_phone.setText(StringUtils.replaceString(intent.getStringExtra("phone"), 3, 4, "*"));
+        tv_addr.setText(intent.getStringExtra("address"));
     }
 
-    @Event(value = R.id.box_read, type = CompoundButton.OnCheckedChangeListener.class)
+   /* @Event(value = R.id.box_read, type = CompoundButton.OnCheckedChangeListener.class)
     private void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         btn_commit.setEnabled(isChecked);
-    }
+    }*/
 
-    @Event({R.id.img_back, R.id.tv_read, R.id.btn_commit})
+    @Event({R.id.img_back, R.id.btn_commit})
     private void onClicks(View v) {
         switch (v.getId()) {
             case R.id.img_back:
                 finish();
                 break;
-            case R.id.tv_read:
-                startActivityForResult(new Intent(this, CarVerificationNotice.class), 11);
-                break;
-            case R.id.btn_commit:
-                if (cbox_read.isChecked())
-                    commitForm();
+            case R.id.btn_commit://确认并去付款
                 break;
         }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == 11)
-            if (!cbox_read.isChecked())
-                cbox_read.setChecked(true);
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    private void commitForm() {
-//        Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
-        RequestParams param = new RequestParams(App.CMDURL);
-        param.addParameter("cmd", "75");
-        param.addParameter("name", form.getName());
-        param.addParameter("phone", form.getPhone());
-        param.addParameter("carid", form.getLicence());
-        param.addParameter("type", form.getType());
-        param.addParameter("price", form.getPrice());
-        param.addParameter("four", form.getEngine());
-        param.addParameter("renid", form.getIdCard());
-        param.addParameter("smdz", form.getAddress());
-        x.http().post(param, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String s) {
-                Log.e("CarFormLog",s);
-                if (JsonSyncUtils.getJsonValue(s, "cw").equals("0")) {
-                    Intent intent = new Intent(CarFormConfirmActivity.this, PostSuccessActivity.class);
-                    intent.putExtra("fromVerification", true);
-                    startActivity(intent);
-                }
-            }
-
-            @Override
-            public void onError(Throwable throwable, boolean b) {
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException e) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
     }
 }

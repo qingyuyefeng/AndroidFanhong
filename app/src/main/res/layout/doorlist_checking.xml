@@ -1,28 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<com.zhy.autolayout.AutoLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
-    <LinearLayout
+    <com.zhy.autolayout.AutoLinearLayout
         android:id="@+id/ll_doorchecking_item"
         android:layout_width="fill_parent"
-        android:layout_height="60dp"
+        android:layout_height="120px"
         android:orientation="horizontal"
         android:background="@color/white"
         android:gravity="center_vertical">
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
             <ImageView
                 android:id="@+id/checking_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="20px"
                 android:focusable="false"
                 android:src="@drawable/unpre_mj"/>
-        </FrameLayout>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -69,7 +66,7 @@
                 android:src="@drawable/ico_qj"/>
         </LinearLayout>
 
-    </LinearLayout>
+    </com.zhy.autolayout.AutoLinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_doorchecking_control"
@@ -89,4 +86,4 @@
             android:text="门禁钥匙审核中"
             />
     </LinearLayout>
-</LinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>
