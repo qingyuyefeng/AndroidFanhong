@@ -155,6 +155,8 @@ public class InputYuyueActivity extends Activity implements LocationSource,
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
         agreeSheet = (Button) view.findViewById(R.id.read_and_agree);
+        TextView textView = (TextView) view.findViewById(R.id.tv_content);
+        textView.setText(R.string.carmustknows);
         agreeSheet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

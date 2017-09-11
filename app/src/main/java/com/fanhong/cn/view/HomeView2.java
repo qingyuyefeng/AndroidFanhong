@@ -38,6 +38,7 @@ import com.fanhong.cn.models.BannerModel;
 import com.fanhong.cn.repair.EmergencyUnlockActivity;
 import com.fanhong.cn.repair.RepairActivity;
 import com.fanhong.cn.util.JsonSyncUtils;
+import com.fanhong.cn.verification.InputYuyueActivity;
 import com.fanhong.cn.verification.VerificationCarActivity;
 import com.sivin.Banner;
 import com.sivin.BannerAdapter;
@@ -241,7 +242,7 @@ public class HomeView2 extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.tv_homedaiban://代办年审
-                intent.setClass(getActivity(), VerificationCarActivity.class);
+                intent.setClass(getActivity(), InputYuyueActivity.class);
                 startActivity(intent);
                 break;
             case R.id.tv_homerepair://上门维修
@@ -376,7 +377,9 @@ public class HomeView2 extends BaseFragment {
                 if (data.equals("0")) {
                     startActivity(new Intent(getActivity(), FenXiaoActivity.class));
                 } else if (data.equals("1")) {
-                    createDialog(2);
+//                    createDialog(2);
+                    Intent intent = new Intent(getActivity(), CheckJoinedActivity.class);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(getActivity(), "登录状态异常", Toast.LENGTH_SHORT).show();
                 }
@@ -424,17 +427,17 @@ public class HomeView2 extends BaseFragment {
                     }
                 });
                 break;
-            case 2:
-                builder.setTitle("你已注册过此系统");
-                builder.setMessage("是否立即查询？");
-                builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(getActivity(), CheckJoinedActivity.class);
-                        startActivity(intent);
-                    }
-                });
-                break;
+//            case 2:
+//                builder.setTitle("你已注册过此系统");
+//                builder.setMessage("是否立即查询？");
+//                builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        Intent intent = new Intent(getActivity(), CheckJoinedActivity.class);
+//                        startActivity(intent);
+//                    }
+//                });
+//                break;
         }
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override

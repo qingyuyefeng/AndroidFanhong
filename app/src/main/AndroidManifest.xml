@@ -362,6 +362,8 @@
             android:name=".expressage.FollowOrderActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity android:name=".expressage.NetphoneActivity"
+            android:screenOrientation="portrait"/>
         <!--管线维修-->
         <activity
             android:name=".repair.RepairActivity"

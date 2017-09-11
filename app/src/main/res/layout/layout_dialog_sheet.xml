@@ -9,10 +9,12 @@
     android:padding="15px">
 
     <TextView
+        android:id="@+id/tv_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:lineSpacingExtra="3px"
-        android:text="@string/userknow" />
+        android:text="@string/userknow"
+        android:background="#301ab3ff"/>
     <Button
         android:id="@+id/read_and_agree"
         android:layout_width="wrap_content"

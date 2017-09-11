@@ -1,17 +1,21 @@
 package com.fanhong.cn.view;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fanhong.cn.AboutActivity;
@@ -38,7 +42,7 @@ import org.xutils.x;
 @ContentView(R.layout.fragment_mine1)
 public class MineView2 extends BaseFragment {
     @ViewInject(R.id.mine_photo)
-    private ImageView userPhoto;
+    private CircleImg userPhoto;
     @ViewInject(R.id.user_name)
     private TextView userName;
     @ViewInject(R.id.account_setting)
@@ -96,6 +100,16 @@ public class MineView2 extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.customer_hotline:
+                //判断Android版本是否大于23
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    int checkCallPhonePermission = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE);
+
+                    if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE},
+                                11);
+                        return;
+                    }
+                }
                 String call = hotlineNumber.getText().toString();
                 showDialog(call);
                 break;
@@ -148,7 +162,7 @@ public class MineView2 extends BaseFragment {
             }
         }else{
             userName.setText(getString(R.string.keylogin));
-            userPhoto.setImageResource(R.drawable.ico_tx);
+            userPhoto.setImageResource(R.drawable.mine_photo);
         }
     }
 

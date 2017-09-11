@@ -125,16 +125,17 @@
             android:paddingLeft="20px"
             android:paddingBottom="15px"
             android:paddingTop="15px"
-            android:paddingRight="20px"
             android:visibility="invisible"/>
 
         <EditText
             android:id="@+id/input_code"
-            android:layout_width="200px"
+            android:layout_width="250px"
             android:layout_height="wrap_content"
             android:padding="15px"
-            android:textSize="30px"
+            android:textSize="23px"
             android:layout_marginLeft="20px"
+            android:textColorHint="@color/text_9"
+            android:hint="输入手机验证码"
             android:textColor="@color/text_6"
             android:background="@drawable/postpicture_biankuang" />
         <TextView

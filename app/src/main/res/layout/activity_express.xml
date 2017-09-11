@@ -75,6 +75,10 @@
         </com.zhy.autolayout.AutoLinearLayout>
 
     </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="@color/text_3"/>
 
     <include layout="@layout/agree_sheets" />
 </com.zhy.autolayout.AutoLinearLayout>

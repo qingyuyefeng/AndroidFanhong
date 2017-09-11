@@ -1,9 +1,16 @@
 package com.fanhong.cn.repair;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -44,6 +51,7 @@ public class EmergencyUnlockActivity extends Activity {
     private DoorRecycAdapter adapter;
     private int firstItemPosition, lastItemPosition;
     private String gardenName, gardenId;
+    String tel;
 
     //    private LinearLayoutManager mLayoutManager;
     @Override
@@ -56,9 +64,30 @@ public class EmergencyUnlockActivity extends Activity {
         location.setText(gardenName);
 
         getData();
-        modelList.add(new OpenDoorBean("刘师傅","136xxxx5273","500","20","assets://timg.png"));
+        modelList.add(new OpenDoorBean("刘师傅", "136xxxx5273", "500", "20", "assets://images/kaisuoshifu.png"));
         adapter = new DoorRecycAdapter(this, modelList);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        adapter.setClickListener(new DoorRecycAdapter.OnItemCLickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                tel = modelList.get(position).getPhone();
+                Intent i = new Intent(Intent.ACTION_CALL);
+                //判断Android版本是否大于23
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    int checkCallPhonePermission = ContextCompat.checkSelfPermission(EmergencyUnlockActivity.this, Manifest.permission.CALL_PHONE);
+
+                    if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(EmergencyUnlockActivity.this, new String[]{Manifest.permission.CALL_PHONE},
+                                11);
+                        return;
+                    }
+                }
+                Uri uri = Uri.parse("tel:" + tel);
+                i.setData(uri);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+            }
+        });
         unlockRecyclerView.setLayoutManager(mLayoutManager);
         unlockRecyclerView.setAdapter(adapter);
         unlockRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -90,6 +119,29 @@ public class EmergencyUnlockActivity extends Activity {
                 refreshList();
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 11)
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Intent i = new Intent(Intent.ACTION_CALL);
+                Uri uri = Uri.parse("tel:" + tel);
+                i.setData(uri);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
+                startActivity(i);
+            }
     }
 
     @Event(value = {R.id.img_back, R.id.choose_cell}, type = View.OnClickListener.class)
