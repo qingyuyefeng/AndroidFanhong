@@ -64,7 +64,7 @@ public class EmergencyUnlockActivity extends Activity {
         location.setText(gardenName);
 
         getData();
-        modelList.add(new OpenDoorBean("刘师傅", "136xxxx5273", "500", "20", "assets://images/kaisuoshifu.png"));
+//        modelList.add(new OpenDoorBean("刘师傅", "136xxxx5273", "500", "20", "assets://images/kaisuoshifu.png"));
         adapter = new DoorRecycAdapter(this, modelList);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         adapter.setClickListener(new DoorRecycAdapter.OnItemCLickListener() {

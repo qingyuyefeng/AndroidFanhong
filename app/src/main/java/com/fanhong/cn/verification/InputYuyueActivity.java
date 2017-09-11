@@ -198,8 +198,42 @@ public class InputYuyueActivity extends Activity implements LocationSource,
             }
         });
     }
+    private void submitData(){
+        RequestParams params = new RequestParams(App.CMDURL);
+        params.addBodyParameter("cmd","85");
+        params.addBodyParameter("yzm",editText4.getText().toString());
+//        params.addBodyParameter("mapdz",editText1.getText().toString());
+//        params.addBodyParameter("name",editText2.getText().toString());
+//        params.addBodyParameter("phone",editText3.getText().toString());
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                String cw = JsonSyncUtils.getJsonValue(result,"cw");
+                if(cw.equals("1")){
+                    Toast.makeText(InputYuyueActivity.this,"短信验证码错误",Toast.LENGTH_SHORT).show();
+                }else if(cw.equals("0")){
+                    goNext();
+                }
+            }
 
-    private void submitData() {
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
+    private void goNext() {
         Intent intent = new Intent(this,CarFormConfirmActivity.class);
         intent.putExtra("address",editText1.getText().toString());
         intent.putExtra("name",editText2.getText().toString());

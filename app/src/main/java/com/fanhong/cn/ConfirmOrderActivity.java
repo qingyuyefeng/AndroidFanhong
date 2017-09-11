@@ -439,7 +439,7 @@ public class ConfirmOrderActivity extends Activity {
         content += ",\"body\":\"" + descript + "\"";//商品的描述
         content += ",\"out_trade_no\":\"" + getOutTradeNo() + "\"";//商户网站唯一订单号
         content += ",\"timeout_express\":\"30m\"";//订单超时时间
-//        content += ",\"total_amount\":\"" + fl_total + "\"";//订单总金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]
+        content += ",\"total_amount\":\"" + fl_total + "\"";//订单总金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]
         content += ",\"total_amount\":\"" + 0.01 + "\"";
         content += ",\"product_code\":\"" + "QUICK_MSECURITY_PAY" + "\"";//销售产品码，商家和支付宝签约的产品码，为固定值QUICK_MSECURITY_PAY
         return content + "}";

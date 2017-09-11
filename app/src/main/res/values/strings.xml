@@ -219,6 +219,8 @@
     <string name="dami">大米</string>
     <string name="you">食用油</string>
     <string name="mian">面食</string>
+    <string name="zhifu_success">支付成功！</string>
+    <string name="zhifu_failed">支付失败！</string>
 
     <string name="postgoods">上传卖品</string>
     <string name="starting">即将开通</string>

@@ -115,7 +115,7 @@
         android:layout_height="85px"
         android:layout_marginLeft="40px"
         android:layout_marginRight="40px"
-        android:layout_marginTop="30px"
+        android:layout_marginTop="40px"
         android:background="@drawable/postbtn_dianji"
         android:text="确认并去付款"
         android:textColor="@color/white"
