@@ -178,50 +178,58 @@ public class HomeView2 extends BaseFragment {
 
                 break;
             case R.id.textView1: //物业之星
-                RequestParams param = new RequestParams(App.CMDURL);
-                param.addParameter("cmd", "81");
-                param.addParameter("id", mSharedPref.getString("gardenId", ""));
-                x.http().post(param, new Callback.CommonCallback<String>() {
-                    @Override
-                    public void onSuccess(String result) {
-                        if (JsonSyncUtils.getJsonValue(result, "cw").equals("0")) {
-                            managerTel = JsonSyncUtils.getJsonValue(result, "tel");
-                            managerName = mSharedPref.getString("gardenName", "");
-                            new AlertDialog.Builder(getActivity()).setTitle(managerName).setMessage("联系电话:" + managerTel)
-                                    .setPositiveButton("立即拨打", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            //判断Android版本是否大于23
-                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                                int checkCallPhonePermission = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE);
+                if (isLogined() == 1) {
+                    if (!TextUtils.isEmpty(mSharedPref.getString("gardenName", ""))) {
+                        RequestParams param = new RequestParams(App.CMDURL);
+                        param.addParameter("cmd", "81");
+                        param.addParameter("id", mSharedPref.getString("gardenId", ""));
+                        x.http().post(param, new Callback.CommonCallback<String>() {
+                            @Override
+                            public void onSuccess(String result) {
+                                if (JsonSyncUtils.getJsonValue(result, "cw").equals("0")) {
+                                    managerTel = JsonSyncUtils.getJsonValue(result, "tel");
+                                    managerName = mSharedPref.getString("gardenName", "");
+                                    new AlertDialog.Builder(getActivity()).setTitle(managerName).setMessage("联系电话:" + managerTel)
+                                            .setPositiveButton("立即拨打", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    //判断Android版本是否大于23
+                                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                                        int checkCallPhonePermission = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE);
 
-                                                if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
-                                                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE},
-                                                            11);
-                                                    return;
+                                                        if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
+                                                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE},
+                                                                    11);
+                                                            return;
+                                                        }
+                                                    }
+                                                    callManager();
                                                 }
-                                            }
-                                            callManager();
-                                        }
-                                    }).setNegativeButton("取消", null).create().show();
-                        }
+                                            }).setNegativeButton("取消", null).create().show();
+                                }
+                            }
+
+                            @Override
+                            public void onError(Throwable ex, boolean isOnCallback) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(CancelledException cex) {
+
+                            }
+
+                            @Override
+                            public void onFinished() {
+
+                            }
+                        });
+                    } else {
+                        createDialog(1);
                     }
-
-                    @Override
-                    public void onError(Throwable ex, boolean isOnCallback) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(CancelledException cex) {
-
-                    }
-
-                    @Override
-                    public void onFinished() {
-
-                    }
-                });
+                }else {
+                    createDialog(0);
+                }
                 break;
             case R.id.textView2: //招商代理
                 //TODO  判断登录状态是否需要改在下一层
