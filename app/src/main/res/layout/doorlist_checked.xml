@@ -2,7 +2,7 @@
 <com.zhy.autolayout.AutoLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="120px"
+    android:layout_height="wrap_content"
     android:id="@+id/ll_doorchecked_item"
     android:gravity="center_vertical"
     android:orientation="horizontal">
@@ -11,6 +11,7 @@
         android:id="@+id/passed_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="20px"
         android:focusable="false"
         android:layout_marginLeft="20px"
         android:src="@drawable/pre_mj" />

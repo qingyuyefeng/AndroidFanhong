@@ -13,10 +13,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fanhong.cn.AboutActivity;
 import com.fanhong.cn.AccountSettingsActivity;
@@ -88,8 +90,12 @@ public class MineView2 extends BaseFragment {
             case R.id.user_name:
                 break;
             case R.id.account_setting:
+                if(isLogined()==1){
                 intent.setClass(getActivity(), AccountSettingsActivity.class);
                 startActivityForResult(intent, 0);
+                }else {
+                    Toast.makeText(getActivity(),R.string.pleaselogin,Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.news_notice:
                 intent.setClass(getActivity(), NoticeActivity.class);
@@ -155,10 +161,12 @@ public class MineView2 extends BaseFragment {
             }
             userName.setText(str1);
 
-            if(SampleConnection.LOGO_URL != null && SampleConnection.LOGO_URL.length() > 0){
+            if(!TextUtils.isEmpty(SampleConnection.LOGO_URL)){
                 String ul = SampleConnection.LOGO_URL;
                 //用ImageLoader加载图片
                 ImageLoader.getInstance().displayImage(ul, userPhoto,new ImageLoaderPicture(this.getActivity()).getOptions(),new SimpleImageLoadingListener());
+            }else {
+                userPhoto.setImageResource(R.drawable.default_photo);
             }
         }else{
             userName.setText(getString(R.string.keylogin));
