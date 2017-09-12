@@ -146,8 +146,8 @@ public class CommunityChatAdapter extends BaseAdapter {
 //                    }
 //                });
 
-//                x.image().bind(holderRight.img_head, bean.getHeadUrl(), options);
-                ImageLoader.getInstance().displayImage(SampleConnection.LOGO_URL, holderRight.img_head, new ImageLoaderPicture(context).getOptions(), new SimpleImageLoadingListener());
+                x.image().bind(holderRight.img_head, bean.getHeadUrl(), options);
+//                ImageLoader.getInstance().displayImage(SampleConnection.LOGO_URL, holderRight.img_head, new ImageLoaderPicture(context).getOptions(), new SimpleImageLoadingListener());
             default:
                 break;
         }
@@ -183,6 +183,6 @@ public class CommunityChatAdapter extends BaseAdapter {
         @ViewInject(R.id.tv_chat_msg_right)
         TextView tv_msg;
         @ViewInject(R.id.img_chat_head_right)
-        CircleImg img_head;
+        ImageView img_head;
     }
 }

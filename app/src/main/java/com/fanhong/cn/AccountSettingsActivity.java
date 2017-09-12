@@ -229,6 +229,8 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
     }
 
     private void getToken(String userId) {
+        x.image().clearMemCache();
+        x.image().clearCacheFiles();
         org.xutils.http.RequestParams params = new org.xutils.http.RequestParams(App.CMDURL);
         params.addParameter("cmd", "55");
         params.addParameter("id", userId);

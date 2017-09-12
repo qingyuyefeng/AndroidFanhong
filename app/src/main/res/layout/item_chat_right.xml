@@ -15,7 +15,7 @@
         android:textSize="18px"
         android:visibility="gone" />
 
-    <com.fanhong.cn.view.CircleImg
+    <ImageView
         android:id="@+id/img_chat_head_right"
         android:layout_width="110px"
         android:layout_height="110px"
