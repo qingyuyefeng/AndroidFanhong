@@ -39,26 +39,28 @@
     <com.zhy.autolayout.AutoLinearLayout
         android:id="@+id/layout_chat_edit"
         android:layout_width="match_parent"
-        android:layout_height="100px"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:padding="12px"
         >
         <EditText
             android:id="@+id/edt_chat_input"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:minHeight="76px"
             android:background="@drawable/edt_chat_input_bg"
-            android:maxLines="5"
+            android:maxLines="2"
             />
         <Button
             android:id="@+id/btn_msg_send"
             android:layout_width="146px"
-            android:layout_height="match_parent"
+            android:layout_height="76px"
             android:background="@drawable/chat_send_selector"
             android:layout_marginLeft="12px"
             android:textColor="@color/white"
             android:textSize="30px"
+            android:layout_gravity="bottom"
             android:text="发 送"
             />
     </com.zhy.autolayout.AutoLinearLayout>
