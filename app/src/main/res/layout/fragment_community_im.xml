@@ -87,5 +87,5 @@
         android:id="@+id/framelayout_community"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/layout_title"></com.zhy.autolayout.AutoFrameLayout>
+        android:layout_below="@id/layout_title"/>
 </com.zhy.autolayout.AutoRelativeLayout>

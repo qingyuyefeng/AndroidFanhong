@@ -75,8 +75,8 @@
         <activity
             android:name=".FragmentMainActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar">
+            android:screenOrientation="portrait">
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar">-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -146,40 +146,40 @@
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
             android:name=".StoreActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+
+
         <activity
             android:name=".DescriptionActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".ShoppingCartActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ConfirmOrderActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".MyTradeNoActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".OrderDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
             android:name=".AssessActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
         <activity
             android:name=".GardenSelecterActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
         <activity
             android:name=".AuthorizeOpenDoorActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
 
         <!-- Image Selector Entry -->
         <!-- <activity -->
@@ -188,8 +188,8 @@
         <!-- android:theme="@android:style/Theme.NoTitleBar.Fullscreen" /> -->
         <activity
             android:name=".CommentLargeImageActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
@@ -219,16 +219,16 @@
         <!-- 二手货商场 -->
         <activity
             android:name=".usedmarket.ShopActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
         <activity
             android:name=".usedmarket.GoodspostActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
         <activity
             android:name=".usedmarket.GoodsselectActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
         <!-- 紧急开门 -->
 
         <!-- 添加门禁区域 -->
@@ -260,78 +260,64 @@
         <!-- 地址管理区域 -->
         <activity
             android:name=".shippingaddress.AddNewAddressActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".shippingaddress.EditAddressActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".shippingaddress.AllAddressActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
-
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".community.CommunityChatRoomActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+
         <!--家政区域-->
         <activity
             android:name=".housekeeping.HouseKeepingActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".housekeeping.HouseKeepingClassifyServiceActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".housekeeping.HouseKeepingServiceDetailsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".housekeeping.HouseKeepingOrderActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".housekeeping.HouseKeepingOrderDetailsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait" />
 
         <!--分销-->
         <activity
             android:name=".fenxiao.FenXiaoActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".fenxiao.InformationActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".fenxiao.PostSuccessActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".fenxiao.CheckJoinedActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+
 
 
         <!--代办年审-->
         <activity
             android:name=".verification.VerificationCarActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait" />
         <activity android:name=".verification.InputYuyueActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".verification.CarReferActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".verification.CarOrderFormActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".verification.CarFormConfirmActivity"
             android:screenOrientation="portrait"
@@ -363,16 +349,14 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity android:name=".expressage.NetphoneActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!--管线维修-->
         <activity
             android:name=".repair.RepairActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".repair.RepairSuccessActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait" />
         <!-- alipay sdk end -->
 
         <!-- 紧急开锁 -->

@@ -42,6 +42,7 @@ import com.fanhong.cn.models.HomeNews;
 import com.fanhong.cn.models.Homelife;
 import com.fanhong.cn.repair.RepairActivity;
 import com.fanhong.cn.usedmarket.ShopActivity;
+import com.fanhong.cn.util.TopBarUtil;
 import com.fanhong.cn.verification.VerificationCarActivity;
 import com.sivin.Banner;
 import com.sivin.BannerAdapter;
@@ -513,8 +514,8 @@ public class HomeView1 extends BaseFragment {
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
-            getBaseActivity().setListViewHeight(newsListview);
-            getBaseActivity().setListViewHeight(lifeListview);
+            TopBarUtil.setListViewHeight(newsListview);
+            TopBarUtil.setListViewHeight(lifeListview);
             newsAdapter.notifyDataSetChanged();
             lifeAdapter.notifyDataSetChanged();
             return true;

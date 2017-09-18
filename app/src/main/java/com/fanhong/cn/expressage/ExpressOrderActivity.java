@@ -30,8 +30,7 @@ public class ExpressOrderActivity extends Activity{
     private AutoRelativeLayout checkLayout;
     @ViewInject(R.id.my_send_ex_recyc)
     private ListView sListView;
-    @ViewInject(R.id.if_no_express)
-    private AutoLinearLayout noexpLayhout;
+
 
     private List<MysendModel> mysendModelList = new ArrayList<>();
     private MySendexpressAdapter mySendexpressAdapter;
@@ -40,13 +39,6 @@ public class ExpressOrderActivity extends Activity{
         super.onCreate(savedInstanceState);
         x.view().inject(this);
 //        initDatas();
-        if(mysendModelList.size()>0){
-            sListView.setVisibility(View.VISIBLE);
-            noexpLayhout.setVisibility(View.GONE);
-        }else {
-            sListView.setVisibility(View.GONE);
-            noexpLayhout.setVisibility(View.VISIBLE);
-        }
         initViews();
         mySendexpressAdapter = new MySendexpressAdapter(this,mysendModelList);
         sListView.setAdapter(mySendexpressAdapter);

@@ -167,6 +167,7 @@ public class GeneralSettingsActivity extends SampleActivity implements OnClickLi
 		mSettingPref.edit().putString("gardenId", "").commit();
 		mSettingPref.edit().putString("gardenProperty", "").commit();
 		mSettingPref.edit().putInt("Status", 0).commit();
+		mSettingPref.edit().putString("UserId","").commit();
 		Intent intent = new Intent();
 		setResult(555,intent);
 		GeneralSettingsActivity.this.finish();

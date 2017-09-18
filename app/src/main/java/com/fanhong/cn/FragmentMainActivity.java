@@ -30,6 +30,8 @@ import android.widget.Toast;
 
 import com.fanhong.cn.applydoors.AddGuardActivity;
 import com.fanhong.cn.listviews.MyFragmentPagerAdapter;
+import com.fanhong.cn.util.TopBarUtil;
+import com.fanhong.cn.util.ZYStatusBarUtil;
 import com.fanhong.cn.view.AccesscontrolView1;
 import com.fanhong.cn.community.CommunityIndexFragment;
 import com.fanhong.cn.view.FixedViewPager;
@@ -89,12 +91,11 @@ public class FragmentMainActivity extends SampleActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_main);
-//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//			//透明状态栏
-//	        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//	        //透明导航栏
-//	        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-//		}
+        //状态栏沉浸
+//        ZYStatusBarUtil.setStatusBarColor(this,getResources().getColor(R.color.skyblue));
+//        ZYStatusBarUtil.translucentStatusBar(this,true);
+//        TopBarUtil.initStatusBar(this);
+
         welcome();
         initViews();
 
@@ -498,24 +499,6 @@ public class FragmentMainActivity extends SampleActivity {
                 mTab02.setFragment(21, "");
                 mTab04.setFragment(1, 0);
         }
-    }
-
-    //设定listview的高度
-    public void setListViewHeight(ListView listView) {
-        BaseAdapter listAdapter = (BaseAdapter) listView.getAdapter();
-        if (listAdapter == null) {
-            return;
-        }
-        int totalHeight = 0;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            View listItem = listAdapter.getView(i, null, listView);
-            listItem.measure(0, 0);
-            totalHeight += listItem.getMeasuredHeight();
-        }
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight
-                + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
     }
 
     @Override

@@ -1,85 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/mainLayout"
-    android:orientation="vertical" >    
-    <LinearLayout 
-	    android:layout_width="fill_parent"
-	    android:layout_height="50dp" 
-	    android:layout_alignParentTop="true"
-	    android:background="@color/skyblue">
-    </LinearLayout>
-    <LinearLayout 
-	    android:layout_width="fill_parent"
-	    android:layout_height="50dp" 
-	    android:layout_alignParentBottom="true"
-	    android:background="@color/black">
-	    </LinearLayout>
-	<LinearLayout
-     	android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
-	    android:fitsSystemWindows="true"  
+    android:orientation="vertical">
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:clipToPadding="true"
-	    android:orientation="vertical" > 
-    	<RelativeLayout
-	    	android:layout_width="fill_parent"
-	    	android:layout_height="48dp"    	       
-			android:layout_marginTop="4.0dip" 
-			android:background="@color/skyblue"
-	    	>
-	    	<LinearLayout
-			    android:layout_alignParentLeft="true"
-	     		android:layout_centerInParent="true"
-	     		android:gravity="center"
-	     		android:layout_width="wrap_content"   
-		        android:layout_height="fill_parent">	
-		    	<Button
-					android:id="@+id/btn_back"
-					android:background="@drawable/style_button_back_gray"					
-			        android:layout_width="28dp"   
-			        android:layout_height="28dp" 
-			        android:layout_marginLeft="10dp"
-			        /> 	 
-	        </LinearLayout>	    	   	
-			<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="fill_parent"
-				android:singleLine="true"
-				android:gravity="center"
-				android:text="@string/mytradeno"
-				android:textColor="@color/white"
-				android:textSize="19.0sp" />
-			
-		</RelativeLayout>
-		<RelativeLayout
-    	android:layout_width="fill_parent"
-    	android:layout_height="fill_parent"
-    	android:orientation="vertical"
-    	android:background="@color/bg1">    	
-    	<LinearLayout 
-				android:layout_width="fill_parent" 
-				android:layout_height="wrap_content">
-			    <com.fanhong.cn.listviews.TradeNoListView
-			        android:id="@+id/lv_list"
-        			android:layout_marginTop="0px"					 				
-					android:layout_width="fill_parent" 
-					android:layout_height="wrap_content"
-					android:cacheColorHint="#00000000"
-					android:listSelector="#CCFFFF"
-					android:divider="#00000000"	
-					android:dividerHeight="6dip"		
-				/>
-    		</LinearLayout>
-    	<ProgressBar
-	        android:id="@+id/progressBar"
-	        style="@style/myProgressBarStyleLarge"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_centerHorizontal="true"
-	        android:layout_centerVertical="true"
-	        android:visibility="visible"
-	        android:indeterminateDuration="700" />	
-	</RelativeLayout>
-	</LinearLayout>
-</RelativeLayout>
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
+
+        <include layout="@layout/activity_top" />
+        <RadioGroup
+            android:id="@+id/order_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10px"
+            android:layout_marginTop="10px"
+            android:orientation="horizontal">
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                style="@style/myorder_radiobutton"
+                android:text="全部订单" />
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="待支付"
+                style="@style/myorder_radiobutton"/>
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                style="@style/myorder_radiobutton"
+                android:text="待评价" />
+
+        </RadioGroup>
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="5px"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10px">
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_marginRight="50px"
+                android:background="@color/skyblue"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_marginRight="50px"
+                android:background="@color/skyblue"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_marginRight="50px"
+                android:background="@color/skyblue"/>
+        </com.zhy.autolayout.AutoLinearLayout>
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/bg1"
+            android:orientation="vertical">
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/order_refresh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10px"
+                android:layout_marginTop="5px">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/order_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="@style/myProgressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:indeterminateDuration="700"
+                android:visibility="visible" />
+        </com.zhy.autolayout.AutoRelativeLayout>
+    </com.zhy.autolayout.AutoLinearLayout>
+</com.zhy.autolayout.AutoRelativeLayout>

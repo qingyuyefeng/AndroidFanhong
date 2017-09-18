@@ -23,6 +23,7 @@ import com.fanhong.cn.R;
 import com.fanhong.cn.listviews.SpinerPopWindow;
 import com.fanhong.cn.util.JsonSyncUtils;
 import com.fanhong.cn.util.StringUtils;
+import com.fanhong.cn.util.TopBarUtil;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -66,6 +67,9 @@ public class AddNewAddressActivity extends Activity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
+
+        TopBarUtil.initStatusBar(this);
+
         mSettingPref = getSharedPreferences("Setting", Context.MODE_PRIVATE);
         uid = mSettingPref.getString("UserId", "");
 

@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.fanhong.cn.R;
 import com.fanhong.cn.expressage.CheckExpressActivity;
 import com.fanhong.cn.listviews.SpinerPopWindow;
+import com.fanhong.cn.util.TopBarUtil;
+import com.fanhong.cn.util.ZYStatusBarUtil;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -47,6 +49,9 @@ public class CheckJoinedActivity extends Activity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
+//        ZYStatusBarUtil.setStatusBarColor(this,getColor(R.color.colorPrimary));
+//        ZYStatusBarUtil.translucentStatusBar(this,true);
+//        TopBarUtil.initStatusBar(this);
         title.setText("招募统计");
     }
     @Event({R.id.img_back,R.id.tv_year,R.id.tv_month})

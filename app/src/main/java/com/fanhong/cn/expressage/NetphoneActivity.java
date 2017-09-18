@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.fanhong.cn.App;
 import com.fanhong.cn.R;
@@ -28,6 +29,8 @@ import java.util.List;
  */
 @ContentView(R.layout.activity_net_phone)
 public class NetphoneActivity extends Activity {
+    @ViewInject(R.id.tv_title)
+    private TextView title;
     @ViewInject(R.id.net_phone_rec)
     private RecyclerView recyclerView;
 
@@ -38,6 +41,7 @@ public class NetphoneActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
+        title.setText("网点电话");
         getData();
         adapter = new NetphoneAdapter(this, list);
         recyclerView.setAdapter(adapter);

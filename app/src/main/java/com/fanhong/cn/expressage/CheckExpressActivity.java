@@ -37,8 +37,7 @@ public class CheckExpressActivity extends Activity {
     private TextView title;
     @ViewInject(R.id.input_express_number)
     private EditText edtExpressNumber;
-    @ViewInject(R.id.order_layout)
-    private AutoRelativeLayout orderLayout;
+
 
 
     @Override
@@ -46,7 +45,6 @@ public class CheckExpressActivity extends Activity {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
         title.setText("查快递");
-        orderLayout.setVisibility(View.GONE);
     }
 
     @Event({R.id.img_back, R.id.img_search_express})

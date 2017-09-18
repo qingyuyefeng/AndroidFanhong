@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/dizhi"
-            android:padding="20px" />
+            android:padding="23px" />
 
         <EditText
             android:id="@+id/default_location"
@@ -57,12 +57,13 @@
             android:textColor="@color/text_3"
             android:drawablePadding="20px"
             android:padding="20px" />
+
         <EditText
             android:id="@+id/car_hostname"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
             android:layout_marginLeft="20px"
+            android:layout_weight="1"
             android:background="@color/transparent"
             android:textColor="@color/text_6" />
     </com.zhy.autolayout.AutoLinearLayout>

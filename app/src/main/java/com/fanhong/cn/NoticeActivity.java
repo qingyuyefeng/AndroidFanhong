@@ -19,8 +19,8 @@ import android.widget.AdapterView.OnItemClickListener;
 
 
 public class NoticeActivity extends Activity implements OnClickListener{
-	private final String noticeNameStr[]={"最新活动","最新活动","最新活动"};
-	private final String noticeNameStr1[]={"双11提前狂欢！惊喜不断！","双11提前狂欢！惊喜不断！","双11提前狂欢！惊喜不断！"};
+	private final String noticeNameStr[]={""};
+	private final String noticeNameStr1[]={""};
 	ListViewnoticelist lv_list;
 	Context mcontext;
 	Button btn_back;
