@@ -10,7 +10,7 @@
         android:id="@+id/check_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="40px">
+        android:padding="30px">
 
         <EditText
             android:id="@+id/input_express_number"
@@ -24,17 +24,33 @@
 
         <ImageView
             android:id="@+id/img_search_express"
-            android:layout_width="50px"
-            android:layout_height="50px"
+            android:layout_width="65px"
+            android:layout_height="65px"
+            android:padding="10px"
             android:layout_alignParentRight="true"
             android:layout_alignRight="@id/input_express_number"
             android:layout_centerVertical="true"
             android:layout_marginRight="20px"
             android:src="@drawable/search" />
     </com.zhy.autolayout.AutoRelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/wuliu_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/show_wuliu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    </ScrollView>
 
-
-    <android.support.v7.widget.RecyclerView
+    <ListView
         android:id="@+id/my_send_ex_recyc"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -42,6 +58,7 @@
         android:layout_marginRight="30px"
         android:layout_marginTop="20px"
         android:divider="@color/press_color"
-        android:dividerHeight="5px" />
+        android:dividerHeight="5px"
+        android:visibility="gone"/>
     
 </com.zhy.autolayout.AutoLinearLayout>

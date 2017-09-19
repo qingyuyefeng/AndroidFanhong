@@ -45,7 +45,7 @@
             android:layout_alignLeft="@id/send_express_city"
             android:layout_below="@id/send_express_city"
             android:layout_marginTop="15px"
-            android:text="湛洋"
+            android:text="湛*"
             android:textColor="@color/popular"
             android:textSize="30px" />
 
@@ -77,7 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/send_express_name"
             android:layout_toRightOf="@id/express_status"
-            android:text="徐强"
+            android:text="李*"
             android:textColor="@color/popular"
             android:textSize="30px" />
     </com.zhy.autolayout.AutoRelativeLayout>

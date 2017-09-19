@@ -28,6 +28,8 @@ public class ExpressOrderActivity extends Activity{
     private TextView title;
     @ViewInject(R.id.check_layout)
     private AutoRelativeLayout checkLayout;
+    @ViewInject(R.id.wuliu_layout)
+    private AutoLinearLayout wuliuLayout;
     @ViewInject(R.id.my_send_ex_recyc)
     private ListView sListView;
 
@@ -38,14 +40,16 @@ public class ExpressOrderActivity extends Activity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
-//        initDatas();
+        initDatas();
         initViews();
         mySendexpressAdapter = new MySendexpressAdapter(this,mysendModelList);
         sListView.setAdapter(mySendexpressAdapter);
     }
     private void initViews(){
-        title.setText("我的订单");
+        title.setText("我的运单");
         checkLayout.setVisibility(View.GONE);
+        wuliuLayout.setVisibility(View.GONE);
+        sListView.setVisibility(View.VISIBLE);
     }
     private void initDatas(){
         for(int i=0;i<3;i++){

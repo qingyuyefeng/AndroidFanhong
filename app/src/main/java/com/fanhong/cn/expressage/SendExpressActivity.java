@@ -42,8 +42,12 @@ public class SendExpressActivity extends Activity {
 //    private TextView sDistrict;
     @ViewInject(R.id.send_express_address)
     private EditText sAddress;
+    @ViewInject(R.id.send_express_name)
+    private EditText sName;
     @ViewInject(R.id.get_express_address)
     private EditText gAddress;
+    @ViewInject(R.id.get_express_name)
+    private EditText gName;
     @ViewInject(R.id.tv_ex_time)
     private TextView exTime;
     @ViewInject(R.id.tv_ex_type)
@@ -90,8 +94,12 @@ public class SendExpressActivity extends Activity {
             case R.id.submit_send_express:
                 if(TextUtils.isEmpty(sAddress.getText().toString())){
                     Toast.makeText(this,"请填写寄件人地址",Toast.LENGTH_SHORT).show();
+                }else if(TextUtils.isEmpty(sName.getText().toString())){
+                    Toast.makeText(this,"请填写寄件人姓名",Toast.LENGTH_SHORT).show();
                 }else if(TextUtils.isEmpty(gAddress.getText().toString())){
                     Toast.makeText(this,"请填写收件人地址",Toast.LENGTH_SHORT).show();
+                }else if(TextUtils.isEmpty(gName.getText().toString())){
+                    Toast.makeText(this,"请填写收件人姓名",Toast.LENGTH_SHORT).show();
                 }else {
                     submitMessage();
                 }
@@ -103,7 +111,9 @@ public class SendExpressActivity extends Activity {
         RequestParams params = new RequestParams(App.CMDURL);
         params.addBodyParameter("cmd","73");
         params.addBodyParameter("jdizhi",sAddress.getText().toString());
+        params.addBodyParameter("jmz",sName.getText().toString());
         params.addBodyParameter("sdizhi",gAddress.getText().toString());
+        params.addBodyParameter("smz",gName.getText().toString());
         params.addBodyParameter("smtime",exTime.getText().toString());
         params.addBodyParameter("kdlx",exType.getText().toString());
         x.http().post(params, new Callback.CommonCallback<String>() {

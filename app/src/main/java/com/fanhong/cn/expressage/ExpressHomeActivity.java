@@ -76,7 +76,6 @@ public class ExpressHomeActivity extends Activity{
         }
     }
     private void createDialog() {
-        Log.i("xq","自定义弹出协议框==>"+"onClick");
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = LayoutInflater.from(this);
         View view = inflater.inflate(R.layout.layout_dialog_sheet,null);

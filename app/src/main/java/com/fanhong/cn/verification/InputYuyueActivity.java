@@ -1,13 +1,18 @@
 package com.fanhong.cn.verification;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -83,12 +88,15 @@ public class InputYuyueActivity extends Activity implements LocationSource,
     private static final int STROKE_COLOR = Color.argb(180, 3, 145, 255);
     private static final int FILL_COLOR = Color.argb(10, 0, 0, 180);
     private boolean ifAgree = true;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         x.view().inject(this);
+        title.setText("年审预约");
+        sheetText.setText("《代办年审须知》");
         isAgree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -99,20 +107,53 @@ public class InputYuyueActivity extends Activity implements LocationSource,
                 }
             }
         });
-        mapView.onCreate(savedInstanceState);
-        init();
+        bundle = savedInstanceState;
+        if (Build.VERSION.SDK_INT >= 23) {
+            requestPermission();
+        } else {
+            init(bundle);
+        }
+
     }
 
-    private void init() {
-        title.setText("年审预约");
-        sheetText.setText("《代办年审须知》");
+    private void init(Bundle savedInstanceState) {
+        mapView.onCreate(savedInstanceState);
         if (aMap == null) {
             aMap = mapView.getMap();
             setUpMap();
         }
     }
 
-    @Event({R.id.img_back, R.id.get_code, R.id.sheet_protocol,R.id.submit_caryuyue})
+    private void requestPermission() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(getApplicationContext(), "没有权限,请手动开启定位权限", Toast.LENGTH_SHORT).show();
+            // 申请一个（或多个）权限，并提供用于回调返回的获取码（用户定义）
+            ActivityCompat.requestPermissions(InputYuyueActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE}, 100);
+        } else {
+            init(bundle);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 100) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // 获取到权限，作相应处理（调用定位SDK应当确保相关权限均被授权，否则可能引起定位失败）
+                init(bundle);
+            } else {
+                // 没有获取到权限，做特殊处理
+                Toast.makeText(getApplicationContext(), "获取位置权限失败，请手动开启", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Event({R.id.img_back, R.id.get_code, R.id.sheet_protocol, R.id.submit_caryuyue})
     private void onClick(View v) {
         switch (v.getId()) {
             case R.id.img_back:
@@ -133,7 +174,7 @@ public class InputYuyueActivity extends Activity implements LocationSource,
                     Toast.makeText(this, "请输入地址！", Toast.LENGTH_SHORT).show();
                 } else if (TextUtils.isEmpty(editText2.getText())) {
                     Toast.makeText(this, "请输入姓名！", Toast.LENGTH_SHORT).show();
-                } else if (TextUtils.isEmpty(editText3.getText())|| !StringUtils.validPhoneNum("2", editText3.getText().toString())) {
+                } else if (TextUtils.isEmpty(editText3.getText()) || !StringUtils.validPhoneNum("2", editText3.getText().toString())) {
                     Toast.makeText(this, "请输入正确的手机号！", Toast.LENGTH_SHORT).show();
 //                } else if (!getCode.getText().toString().equals("")) {
 //                    Toast.makeText(this, "验证码错误！", Toast.LENGTH_SHORT).show();
@@ -147,10 +188,9 @@ public class InputYuyueActivity extends Activity implements LocationSource,
     }
 
     private void createDialog() {
-        Log.i("xq","自定义弹出协议框==>"+"onClick");
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = LayoutInflater.from(this);
-        View view = inflater.inflate(R.layout.layout_dialog_sheet,null);
+        View view = inflater.inflate(R.layout.layout_dialog_sheet, null);
         builder.setView(view);
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
@@ -198,20 +238,21 @@ public class InputYuyueActivity extends Activity implements LocationSource,
             }
         });
     }
-    private void submitData(){
+
+    private void submitData() {
         RequestParams params = new RequestParams(App.CMDURL);
-        params.addBodyParameter("cmd","85");
-        params.addBodyParameter("yzm",editText4.getText().toString());
+        params.addBodyParameter("cmd", "85");
+        params.addBodyParameter("yzm", editText4.getText().toString());
 //        params.addBodyParameter("mapdz",editText1.getText().toString());
 //        params.addBodyParameter("name",editText2.getText().toString());
 //        params.addBodyParameter("phone",editText3.getText().toString());
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                String cw = JsonSyncUtils.getJsonValue(result,"cw");
-                if(cw.equals("1")){
-                    Toast.makeText(InputYuyueActivity.this,"短信验证码错误",Toast.LENGTH_SHORT).show();
-                }else if(cw.equals("0")){
+                String cw = JsonSyncUtils.getJsonValue(result, "cw");
+                if (cw.equals("1")) {
+                    Toast.makeText(InputYuyueActivity.this, "短信验证码错误", Toast.LENGTH_SHORT).show();
+                } else if (cw.equals("0")) {
                     goNext();
                 }
             }
@@ -234,10 +275,10 @@ public class InputYuyueActivity extends Activity implements LocationSource,
     }
 
     private void goNext() {
-        Intent intent = new Intent(this,CarFormConfirmActivity.class);
-        intent.putExtra("address",editText1.getText().toString());
-        intent.putExtra("name",editText2.getText().toString());
-        intent.putExtra("phone",editText3.getText().toString());
+        Intent intent = new Intent(this, CarFormConfirmActivity.class);
+        intent.putExtra("address", editText1.getText().toString());
+        intent.putExtra("name", editText2.getText().toString());
+        intent.putExtra("phone", editText3.getText().toString());
         startActivity(intent);
     }
 
@@ -272,6 +313,9 @@ public class InputYuyueActivity extends Activity implements LocationSource,
         public void handleMessage(Message msg) {
             int tt = msg.what;
             switch (tt) {
+                case 65:
+                    mListener = (OnLocationChangedListener) msg.obj;
+                    break;
                 case 80:
                     getCode.setText(msg.arg1 + "秒后可重试");
                     getCode.setEnabled(false);
@@ -304,7 +348,7 @@ public class InputYuyueActivity extends Activity implements LocationSource,
         // 自定义精度范围的圆形边框颜色
         myLocationStyle.strokeColor(STROKE_COLOR);
         //自定义精度范围的圆形边框宽度
-        myLocationStyle.strokeWidth(5);
+        myLocationStyle.strokeWidth(4);
         // 设置圆形的填充颜色
         myLocationStyle.radiusFillColor(FILL_COLOR);
         // 将自定义的 myLocationStyle 对象添加到地图上
@@ -318,6 +362,7 @@ public class InputYuyueActivity extends Activity implements LocationSource,
      */
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
+        handler.sendEmptyMessage(65);
         if (mListener != null && aMapLocation != null) {
             if (aMapLocation != null
                     && aMapLocation.getErrorCode() == 0) {
@@ -343,7 +388,9 @@ public class InputYuyueActivity extends Activity implements LocationSource,
      */
     @Override
     public void activate(OnLocationChangedListener onLocationChangedListener) {
-        mListener = onLocationChangedListener;
+        Message msg = handler.obtainMessage(65);
+        msg.obj = onLocationChangedListener;
+        handler.sendMessage(msg);
         if (mlocationClient == null) {
             mlocationClient = new AMapLocationClient(getApplicationContext());
             mLocationOption = new AMapLocationClientOption();
@@ -351,6 +398,8 @@ public class InputYuyueActivity extends Activity implements LocationSource,
             mlocationClient.setLocationListener(this);
             //设置为高精度定位模式
             mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+            //只定位一次
+            mLocationOption.setOnceLocation(true);
             //设置定位参数
             mlocationClient.setLocationOption(mLocationOption);
             // 此方法为每隔固定时间会发起一次定位请求，为了减少电量消耗或网络流量消耗，
