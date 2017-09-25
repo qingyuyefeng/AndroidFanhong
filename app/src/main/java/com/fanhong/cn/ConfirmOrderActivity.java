@@ -32,13 +32,19 @@ import com.alipay.sdk.app.PayTask;
 import com.alipay.sdk.auth.AlipaySDK;
 import com.fanhong.cn.database.Cartdb;
 import com.fanhong.cn.listviews.ConfirmOrderListView;
+import com.fanhong.cn.pay.OrderInfo;
 import com.fanhong.cn.pay.ParameterConfig;
 import com.fanhong.cn.pay.PayResult;
 import com.fanhong.cn.pay.SignUtils;
+import com.fanhong.cn.pay.WXpayUtil;
 import com.fanhong.cn.shippingaddress.AllAddressActivity;
 import com.fanhong.cn.util.JsonSyncUtils;
 import com.fanhong.cn.util.StringUtils;
+import com.fanhong.cn.util.TopBarUtil;
 import com.fanhong.cn.view.PayMoney;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -120,8 +126,7 @@ public class ConfirmOrderActivity extends Activity {
         });
         _dbad = new Cartdb(this);
         initData();
-        //暂不支持微信
-        checkbox_wx.setEnabled(false);
+
 //        IntentFilter filter = new IntentFilter();
 //        filter.addAction(SampleConnection.MYPAY_RECEIVER);
 //        registerReceiver(myReceiver, filter);
@@ -177,7 +182,7 @@ public class ConfirmOrderActivity extends Activity {
         }
         goods_str = buf.toString();
         lv_list.listItemAdapter.notifyDataSetInvalidated();
-        setListViewHeightBasedOnChildren(lv_list);
+        TopBarUtil.setListViewHeight(lv_list);
     }
 
     public void alipay() {
@@ -210,8 +215,17 @@ public class ConfirmOrderActivity extends Activity {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
+                //微信支付
+                case 0: //支付成功
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+
+                //支付宝
                 case 9000://支付成功
-                    uploadTradeNO(JsonSyncUtils.getJsonValue(msg.obj.toString(),"alipay_trade_app_pay_response"));
+                    uploadTradeNO(JsonSyncUtils.getJsonValue(msg.obj.toString(),"alipay_trade_app_pay_response"),1);
                     if (isCart == 1)
                         deletCartItem();
                     break;
@@ -231,28 +245,7 @@ public class ConfirmOrderActivity extends Activity {
         }
     };
 
-    public void setListViewHeightBasedOnChildren(ConfirmOrderListView listView) {
-        // 获取ListView对应的Adapter
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) {
-            return;
-        }
 
-        int totalHeight = 0;
-        for (int i = 0, len = listAdapter.getCount(); i < len; i++) {
-            // listAdapter.getCount()返回数据项的数目
-            View listItem = listAdapter.getView(i, null, listView);
-            // 计算子项View 的宽高
-            listItem.measure(0, 0);
-            // 统计所有子项的总高度
-            totalHeight += listItem.getMeasuredHeight();
-        }
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        // listView.getDividerHeight()获取子项间分隔符占用的高度
-        // params.height最后得到整个ListView完整显示需要的高度
-        listView.setLayoutParams(params);
-    }
 
     private void deletCartItem() {
         //支付成功后删除购物车里购买的商品
@@ -335,6 +328,8 @@ public class ConfirmOrderActivity extends Activity {
                     });
                 } else if (payway == 2) {
                     v.setEnabled(false);
+                    WXpayUtil wxpay = new WXpayUtil(ConfirmOrderActivity.this);
+                    wxpay.WeixinPay(new OrderInfo(name,descript,fl_total+""));
                 } else {
                     Toast.makeText(ConfirmOrderActivity.this, "请先选择支付方式", Toast.LENGTH_SHORT).show();
                 }
@@ -351,13 +346,15 @@ public class ConfirmOrderActivity extends Activity {
                 if (isChecked) {
                     checkbox_wx.setChecked(false);
                     payway = 1;
-                } else payway = 0;
+                } else
+                    payway = 0;
                 break;
             case R.id.checkbox_wx:
                 if (isChecked) {
                     checkbox_zfb.setChecked(false);
                     payway = 2;
-                } else payway = 0;
+                } else
+                    payway = 0;
                 break;
         }
     }
@@ -398,6 +395,7 @@ public class ConfirmOrderActivity extends Activity {
         }
     }
 
+    //支付宝单号
     public String getOrderInfo() {
         String orderInfo = null;
 //        try {
@@ -425,8 +423,6 @@ public class ConfirmOrderActivity extends Activity {
         keyValues.put("timestamp", timeStr);
         keyValues.put("version", "1.0");
 
-        Log.e("alipaytest", "info: " + orderInfo);
-
         orderInfo = buildOrderParam(keyValues);
         String sign = getSign(keyValues, ParameterConfig.alipay_RSA_PRIVATE, true);
         orderInfo += "&" + sign;
@@ -449,17 +445,16 @@ public class ConfirmOrderActivity extends Activity {
     private static String getOutTradeNo() {
 
         long t1 = System.currentTimeMillis() / 1000;
-        Log.e("hu", "**********t1=" + t1);
 
         Random r = new Random();
         String key = String.valueOf(t1);
 
         key = key + r.nextInt(100000);
         key = key.substring(0, 15);
-        Log.e("hu", "**********订单号:" + key);
+
         return key;
     }
-
+    //将map字符串序列化
     public String buildOrderParam(Map<String, String> map) {
         List<String> keys = new ArrayList<String>(map.keySet());
 
@@ -522,14 +517,14 @@ public class ConfirmOrderActivity extends Activity {
         return "sign=" + encodedSign;
     }
 
-    private void uploadTradeNO(String alipay_result) {
+    private void uploadTradeNO(String alipay_result,int type) {
         RequestParams param = new RequestParams(App.CMDURL);
         param.addParameter("cmd", "21");
         String str = mSettingPref.getString("UserId", "");
         param.addParameter("uid", str);  //下订单用户ID
         param.addParameter("time", JsonSyncUtils.getJsonValue(alipay_result,"timestamp"));
         param.addParameter("zjje", JsonSyncUtils.getJsonValue(alipay_result,"total_amount"));  //支付金额
-        param.addParameter("zffs", "1");    //支付方式（1支付宝，2微信）
+        param.addParameter("zffs", type+"");    //支付方式（1支付宝，2微信）
         param.addParameter("user", user);  //收货人姓名
         param.addParameter("dh", phone); //收货人手机号
         param.addParameter("ldh", addr);  //详细地址

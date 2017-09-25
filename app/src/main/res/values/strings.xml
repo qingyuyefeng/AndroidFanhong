@@ -180,7 +180,7 @@
     <string name="service_store">社区卖场</string>
     <string name="service_lock">紧急开锁</string>
     <string name="service_park">闲时停车</string>
-    <string name="service_fix">管线维修</string>
+    <string name="service_fix">上门维修</string>
     <string name="service_jd">家电维修</string>
     <string name="service_kd">代发快递</string>
     <string name="service_clean">家政服务</string>

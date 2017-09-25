@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="这里显示小区名字"
+            android:text="显示小区"
             android:textSize="40px" />
     </com.zhy.autolayout.AutoRelativeLayout>
 

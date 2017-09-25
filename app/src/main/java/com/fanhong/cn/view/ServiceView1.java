@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,16 +18,21 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fanhong.cn.AgentWebActivity;
 import com.fanhong.cn.LoginActivity;
 import com.fanhong.cn.R;
 import com.fanhong.cn.StoreActivity;
+import com.fanhong.cn.community.CommunityChatRoomActivity;
 import com.fanhong.cn.fenxiao.FenXiaoActivity;
 import com.fanhong.cn.listviews.MyGridView;
+import com.fanhong.cn.repair.EmergencyUnlockActivity;
 import com.fanhong.cn.repair.RepairActivity;
 import com.fanhong.cn.usedmarket.ShopActivity;
-import com.fanhong.cn.verification.VerificationCarActivity;
+import com.fanhong.cn.util.MySharedPrefUtils;
+import com.fanhong.cn.util.TopBarUtil;
+import com.fanhong.cn.verification.InputYuyueActivity;
 
 public class ServiceView1 extends BaseFragment {
     public static final int PAGER_INDEX = 2;
@@ -36,11 +42,12 @@ public class ServiceView1 extends BaseFragment {
             R.drawable.service_store, R.drawable.service_es,
 //			R.drawable.service_pay,
             R.drawable.service_dai,
-            R.drawable.service_distribution
-//			R.drawable.service_lock, R.drawable.service_park
-            , R.drawable.service_fix
+            R.drawable.service_distribution,
+            R.drawable.service_lock,
+//          R.drawable.service_park
+            R.drawable.service_fix,
 //			,R.drawable.service_jd, R.drawable.service_kd, R.drawable.service_clean,
-//			R.drawable.service_talk,
+            R.drawable.service_talk
     };
 
     //定义数组文字
@@ -48,10 +55,12 @@ public class ServiceView1 extends BaseFragment {
             R.string.service_store, R.string.service_es,
 //			R.string.service_pay,
             R.string.service_dai,
-            R.string.service_zsdl
-//			R.string.service_lock, R.string.service_park
-            , R.string.service_fix
-//			,R.string.service_jd, R.string.service_kd, R.string.service_clean,R.string.service_talk,
+            R.string.service_zsdl,
+            R.string.service_lock,
+//          R.string.service_park
+            R.string.service_fix,
+//			,R.string.service_jd, R.string.service_kd, R.string.service_clean,
+            R.string.service_talk
     };
 
     private int mImageViewArray2[] = {R.drawable.service_mt, R.drawable.service_dz, R.drawable.service_tb,
@@ -75,8 +84,7 @@ public class ServiceView1 extends BaseFragment {
             R.string.url_gongwuyuan, R.string.url_zhichen, R.string.url_muying};
     MyGridView opergridview1, opergridview2, opergridview3;
     ImageAdapter typeAdapter1, typeAdapter2, typeAdapter3;
-    //	private LinearLayout ll_choosegarden;
-//	private TextView tv_choosecell;
+
     private SharedPreferences mSettingPref;
     private View serView;
 
@@ -311,18 +319,27 @@ public class ServiceView1 extends BaseFragment {
             case 1:
                 startActivity(new Intent(ServiceView1.this.getActivity(), ShopActivity.class));
                 break;
-            //二手货市场
             case 2:
-//				Toast.makeText(ServiceView1.this.getActivity(),R.string.starting,Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(ServiceView1.this.getActivity(), VerificationCarActivity.class));
+                startActivity(new Intent(ServiceView1.this.getActivity(), InputYuyueActivity.class));
                 break;
             case 3:
                 startActivity(new Intent(ServiceView1.this.getActivity(), FenXiaoActivity.class));
                 break;
-			//管线维修
-			case 4:
-				startActivity(new Intent(ServiceView1.this.getActivity(), RepairActivity.class));
-				break;
+            //管线维修
+            case 4:
+                startActivity(new Intent(ServiceView1.this.getActivity(), EmergencyUnlockActivity.class));
+                break;
+            case 5:
+                startActivity(new Intent(ServiceView1.this.getActivity(), RepairActivity.class));
+                break;
+            case 6:
+                if(MySharedPrefUtils.getStatus(getActivity())!=1){
+                    TopBarUtil.createDialog(getActivity(),0);
+                }else if(TextUtils.isEmpty(MySharedPrefUtils.getGardenName(getActivity()))){
+                    TopBarUtil.createDialog(getActivity(),1);
+                }else
+                    startActivity(new Intent(ServiceView1.this.getActivity(), CommunityChatRoomActivity.class));
+                break;
         }
     }
 

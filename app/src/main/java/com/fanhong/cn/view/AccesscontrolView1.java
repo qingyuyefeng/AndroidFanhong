@@ -81,6 +81,7 @@ public class AccesscontrolView1 extends BaseFragment {
     public void onResume() {
         super.onResume();
         AccesscontrolView1.this.getBaseActivity().getAccessControl();
+
         doorapplyListview = (ListView) accView.findViewById(R.id.applydoors_listview);
         doorApplyAdapter = new DoorApplyAdapter(getActivity(), list);
         doorApplyAdapter.setOpenDoor(new DoorApplyAdapter.OpenDoor() {
@@ -111,9 +112,9 @@ public class AccesscontrolView1 extends BaseFragment {
         try {
             JSONObject jsonObject = new JSONObject(string);
             String data = jsonObject.optString("data", "");
-//            Log.i("xq",data);
+
             String data1 = jsonObject.optString("data1", "");
-//            Log.i("xq",data1);
+
             if (!data.equals("0")) {
                 String[] array1 = data.split(",");
                 for (int i = 0; i < array1.length; i++) {
@@ -164,7 +165,9 @@ public class AccesscontrolView1 extends BaseFragment {
     Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
-            doorApplyAdapter.notifyDataSetChanged();
+            if (doorApplyAdapter != null) {
+                doorApplyAdapter.notifyDataSetChanged();
+            }
             return true;
         }
     });

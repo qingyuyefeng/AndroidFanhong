@@ -165,7 +165,7 @@ public class StoreActivity extends SampleActivity implements LoadData{
 
 		mViewPager = (ViewPager) findViewById(R.id.viewPager);
 		mViewPager.setOnPageChangeListener(new MyPagerOnPageChangeListener());
-		mViewPager.setOffscreenPageLimit(1); //设置向左和向右都缓存limit个页面
+		mViewPager.setOffscreenPageLimit(2); //设置向左和向右都缓存limit个页面
 		mViewPager.setCurrentItem(0);
 		mCurrentCheckedRadioLeft = getCurrentCheckedRadioLeft(header_ll);
 		initData();

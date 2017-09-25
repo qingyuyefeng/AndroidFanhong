@@ -1,5 +1,23 @@
 package com.fanhong.cn.pay;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.os.AsyncTask;
+import android.text.TextUtils;
+import android.util.Log;
+import android.util.Xml;
+
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
+import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.xmlpull.v1.XmlPullParser;
+import org.xutils.http.RequestParams;
+
 import java.io.IOException;
 import java.io.StringReader;
 import java.net.Socket;
@@ -12,8 +30,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.X509Certificate;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -21,53 +37,27 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import org.apache.http.conn.ssl.SSLSocketFactory;
-import org.apache.http.params.HttpParams;
-import org.xmlpull.v1.XmlPullParser;
-
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.os.AsyncTask;
-import android.text.TextUtils;
-import android.util.Log;
-import android.util.Xml;
-
-import com.fanhong.cn.ConfirmOrderActivity;
-import com.tencent.mm.opensdk.modelpay.PayReq;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-
 public class WXpayUtil {
     private IWXAPI api;
-    private OrderInfo order;
     private Context context;
     private PayReq req;
     private Map<String, String> resultunifiedorder;
-    private static final String TAG = "ewuye.online.SelectPayTypeActivity";
+    private static final String TAG = "WX_PAY_TAG";
 
-    public WXpayUtil(Context mcontext,OrderInfo order){
+    public WXpayUtil(Context context){
         //初始化微信支付
-        this.order=order;
-        this.context=mcontext;
-        if (TextUtils.isEmpty(ParameterConfig.WX_APP_ID) || TextUtils.isEmpty(ParameterConfig.WX_MCH_ID) || TextUtils.isEmpty(ParameterConfig.WX_API_KEY)) {
-            new AlertDialog.Builder(context).setTitle("警告").setMessage("需要配置WX_APP_ID | WX_MCH_ID| WX_API_KEY\n请到ParameterConfig.java里配置")
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialoginterface, int i) {
-                            //
-                            ((Activity)context).finish();
-                        }
-                    }).show();
-            return;
-        }
-
-        api = WXAPIFactory.createWXAPI(context, null);
+        this.context=context;
+        api = WXAPIFactory.createWXAPI(context, ParameterConfig.WX_APPID);
         req = new PayReq();
         //生成prepay_id
         GetPrepayIdTask getPrepayId = new GetPrepayIdTask();
         getPrepayId.execute();
+    }
+
+    public void WeixinPay(OrderInfo order){
+        RequestParams params = new RequestParams(ParameterConfig.WX_notifyUrl);
+        params.addBodyParameter("order",order.toString());
+
     }
 
     /**
@@ -126,21 +116,13 @@ public class WXpayUtil {
 
     private void genPayReq() {
 
-        req.appId = ParameterConfig.WX_APP_ID;
+        req.appId = ParameterConfig.WX_APPID;
         req.partnerId = ParameterConfig.WX_MCH_ID;
         req.prepayId = resultunifiedorder.get("prepay_id");
         req.packageValue = "prepay_id="+resultunifiedorder.get("prepay_id");
         req.nonceStr = genNonceStr();
         req.timeStamp = String.valueOf(genTimeStamp());
 
-
-      /*  List<NameValuePair> signParams = new LinkedList<NameValuePair>();
-        signParams.add(new BasicNameValuePair("appid", req.appId));
-        signParams.add(new BasicNameValuePair("noncestr", req.nonceStr));
-        signParams.add(new BasicNameValuePair("package", req.packageValue));
-        signParams.add(new BasicNameValuePair("partnerid", req.partnerId));
-        signParams.add(new BasicNameValuePair("prepayid", req.prepayId));
-        signParams.add(new BasicNameValuePair("timestamp", req.timeStamp));*/
 
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("appid", req.appId);
@@ -155,7 +137,7 @@ public class WXpayUtil {
         // sendPayReq();
     }
     private void sendPayReq() {
-        api.registerApp(ParameterConfig.WX_APP_ID);
+        api.registerApp(ParameterConfig.WX_APPID);
         api.sendReq(req);
 
     }
@@ -372,44 +354,6 @@ public class WXpayUtil {
             return null;
         }
     }
-
-    /**
-     生成签名
-     */
-
-  /*  private String genPackageSign(List<NameValuePair> params) {
-        StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < params.size(); i++) {
-            sb.append(params.get(i).getName());
-            sb.append('=');
-            sb.append(params.get(i).getValue());
-            sb.append('&');
-        }
-        sb.append("key=");
-        sb.append(ParameterConfig.WX_API_KEY);
-
-
-        String packageSign = getMessageDigest(sb.toString().getBytes()).toUpperCase();
-        Log.e("orion",packageSign);
-        return packageSign;
-    }
-
-    private String toXml(List<NameValuePair> params) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("<xml>");
-        for (int i = 0; i < params.size(); i++) {
-            sb.append("<"+params.get(i).getName()+">");
-
-
-            sb.append(params.get(i).getValue());
-            sb.append("</"+params.get(i).getName()+">");
-        }
-        sb.append("</xml>");
-
-        Log.e("orion",">>>>"+sb.toString());
-        return sb.toString();
-    }*/
 
     private void showDialog(String msg){
         AlertDialog alert = new AlertDialog.Builder(context)

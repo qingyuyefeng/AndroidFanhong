@@ -43,7 +43,7 @@ import com.fanhong.cn.models.Homelife;
 import com.fanhong.cn.repair.RepairActivity;
 import com.fanhong.cn.usedmarket.ShopActivity;
 import com.fanhong.cn.util.TopBarUtil;
-import com.fanhong.cn.verification.VerificationCarActivity;
+import com.fanhong.cn.verification.InputYuyueActivity;
 import com.sivin.Banner;
 import com.sivin.BannerAdapter;
 
@@ -349,7 +349,7 @@ public class HomeView1 extends BaseFragment {
                     break;
                 case R.id.daiban_layout:
 //                    Toast.makeText(getActivity(), R.string.starting, Toast.LENGTH_SHORT).show();
-                    intent.setClass(HomeView1.this.getActivity(), VerificationCarActivity.class);
+                    intent.setClass(HomeView1.this.getActivity(), InputYuyueActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.more_esgoods:

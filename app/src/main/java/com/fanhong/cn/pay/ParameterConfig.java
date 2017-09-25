@@ -8,12 +8,14 @@ public class ParameterConfig {
     /**
      * 微信
      */
-    //appid 微信分配的公众账号ID
-    public static final String WX_APP_ID = "wx14af47ab474a0991";
-    //商户号 微信分配的公众账号ID
-    public static final String WX_MCH_ID = "141567530";
+    //appid 微信分配的app应用ID
+    public static final String WX_APPID = "wxea49e10e35c4b1ea";
+    //商户号——微信分配的公众账号ID
+    public static final String WX_MCH_ID = "1488497082";
+    //根据包名生成的签名
+    public static final String WX_SIGN = "80891e400e0c3619df730ebef548a9e3";
     //  API密钥，在商户平台设置
-    public static final String WX_API_KEY = "ganzhoualpha112114115WXZHOUALPHA";
+    public static final String WX_API_KEY = "qiangxu15123073170QIANGXU1234567";
     //服务器回调接口
     public static final String WX_notifyUrl = "http://m.nongjia7.com/Home/Pay/returnurl";// 用于微信支付成功的回调（按自己需求填写）
 

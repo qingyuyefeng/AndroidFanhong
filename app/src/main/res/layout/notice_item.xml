@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+    android:id="@+id/notice_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:layout_marginBottom="5px">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ico_tz"
+        android:padding="15px"
+        android:layout_marginLeft="10px" />
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/notice_title"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="暂无国庆活动~"
+            android:textSize="30px"
+            android:textColor="@color/text_6"
+            android:paddingLeft="10px"
+            android:gravity="center_vertical"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/bg1"/>
+        <TextView
+            android:id="@+id/notice_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="暂无中秋活动~"
+            android:textColor="@color/text_9"
+            android:textSize="26px"
+            android:paddingLeft="10px"
+            android:gravity="center_vertical"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <ImageView
+        android:layout_width="50px"
+        android:layout_height="50px"
+        android:src="@drawable/ico_next"
+        android:tint="@color/bg2"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="10px"/>
+</com.zhy.autolayout.AutoLinearLayout>

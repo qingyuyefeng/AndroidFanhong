@@ -131,7 +131,7 @@ public class FenXiaoActivity extends Activity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(FenXiaoActivity.this, LoginActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,10);
             }
         });
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -149,7 +149,7 @@ public class FenXiaoActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (resultCode){
             case 21://登录成功返回
-//                Toast.makeText(this,"登录成功！",Toast.LENGTH_SHORT).show();
+                finish();
                 break;
             case 22://未登录直接返回
                 break;

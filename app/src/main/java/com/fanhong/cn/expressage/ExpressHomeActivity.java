@@ -2,6 +2,7 @@ package com.fanhong.cn.expressage;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,8 +13,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fanhong.cn.R;
+import com.fanhong.cn.util.MySharedPrefUtils;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -59,7 +62,11 @@ public class ExpressHomeActivity extends Activity{
                 finish();
                 break;
             case R.id.send_expressage:
-                startActivity(new Intent(this,SendExpressActivity.class));
+                if(ifLogined()==1){
+                    startActivity(new Intent(this,SendExpressActivity.class));
+                }else {
+                    Toast.makeText(this,"请先登录！",Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.check_expressage:
                 startActivity(new Intent(this,CheckExpressActivity.class));
@@ -92,5 +99,8 @@ public class ExpressHomeActivity extends Activity{
                 agreeBox.setChecked(true);
             }
         });
+    }
+    private int ifLogined(){
+        return MySharedPrefUtils.getStatus(this);
     }
 }

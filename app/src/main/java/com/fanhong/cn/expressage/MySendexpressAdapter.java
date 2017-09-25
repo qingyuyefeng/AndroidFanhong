@@ -21,15 +21,6 @@ public class MySendexpressAdapter extends BaseAdapter{
     private List<MysendModel> list;
     private LayoutInflater inflater;
 
-//    FollowClick followClick;
-
-//    public void setFollowClick(FollowClick followClick) {
-//        this.followClick = followClick;
-//    }
-//
-//    public interface FollowClick{
-//        void btnClick();
-//    }
     public MySendexpressAdapter(Context context,List<MysendModel> list){
         this.context = context;
         this.list = list;
@@ -61,11 +52,11 @@ public class MySendexpressAdapter extends BaseAdapter{
         }else {
             myViewHolder = (MyViewHolder) convertView.getTag();
         }
-//        MysendModel mysendModel = list.get(position);
-//        myViewHolder.scity.setText(mysendModel.getSendCity());
-//        myViewHolder.sname.setText(mysendModel.getSendName());
-//        myViewHolder.rcity.setText(mysendModel.getReceiveCity());
-//        myViewHolder.rname.setText(mysendModel.getReceiveName());
+        MysendModel mysendModel = list.get(position);
+        myViewHolder.scity.setText(mysendModel.getSendCity());
+        myViewHolder.sname.setText(mysendModel.getSendName());
+        myViewHolder.rcity.setText(mysendModel.getReceiveCity());
+        myViewHolder.rname.setText(mysendModel.getReceiveName());
         return convertView;
     }
 

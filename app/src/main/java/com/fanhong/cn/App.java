@@ -20,6 +20,7 @@ import io.rong.imlib.RongIMClient;
  * @author: Qiao He (hexianqiao3755@gmail.com)
  */
 public class App extends Application {
+
     public int whichImg;
 
     public int getWhichImg() {

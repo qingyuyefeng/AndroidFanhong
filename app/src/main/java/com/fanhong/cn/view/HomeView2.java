@@ -2,7 +2,6 @@ package com.fanhong.cn.view;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -38,8 +37,8 @@ import com.fanhong.cn.models.BannerModel;
 import com.fanhong.cn.repair.EmergencyUnlockActivity;
 import com.fanhong.cn.repair.RepairActivity;
 import com.fanhong.cn.util.JsonSyncUtils;
+import com.fanhong.cn.util.MySharedPrefUtils;
 import com.fanhong.cn.verification.InputYuyueActivity;
-import com.fanhong.cn.verification.VerificationCarActivity;
 import com.sivin.Banner;
 import com.sivin.BannerAdapter;
 
@@ -94,7 +93,7 @@ public class HomeView2 extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = x.view().inject(this, inflater, container);
-        mSharedPref = this.getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+        mSharedPref = MySharedPrefUtils.getSharedPref(getActivity());
         getGonggaoData();
         return view;
     }
@@ -228,7 +227,7 @@ public class HomeView2 extends BaseFragment {
                     } else {
                         createDialog(1);
                     }
-                }else {
+                } else {
                     createDialog(0);
                 }
                 break;
@@ -420,7 +419,7 @@ public class HomeView2 extends BaseFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(getActivity(), LoginActivity.class);
-                        startActivity(intent);
+                        startActivityForResult(intent,100);
                     }
                 });
                 break;

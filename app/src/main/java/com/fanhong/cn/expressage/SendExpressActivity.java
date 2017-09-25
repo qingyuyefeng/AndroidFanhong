@@ -18,6 +18,7 @@ import com.fanhong.cn.App;
 import com.fanhong.cn.R;
 import com.fanhong.cn.fenxiao.PostSuccessActivity;
 import com.fanhong.cn.util.JsonSyncUtils;
+import com.fanhong.cn.util.MySharedPrefUtils;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -53,7 +54,7 @@ public class SendExpressActivity extends Activity {
     @ViewInject(R.id.tv_ex_type)
     private TextView exType;
 
-//    private AMapLocationClient client;
+    private AMapLocationClient client;
 
 
     @Override
@@ -62,18 +63,16 @@ public class SendExpressActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         x.view().inject(this);
         title.setText("寄快递");
-//        client = new AMapLocationClient(getApplicationContext());
-//        getLocation();
+        client = new AMapLocationClient(getApplicationContext());
+        getLocation();
     }
 
-//    private void getLocation(){
-//        AMapLocation location = client.getLastKnownLocation();
-//        if(location!=null && location.getErrorCode()==0){
-//            sProvince.setText(location.getProvince());
-//            sCity.setText(location.getCity());
-//            sDistrict.setText(location.getDistrict());
-//        }
-//    }
+    private void getLocation(){
+        AMapLocation location = client.getLastKnownLocation();
+        if(location!=null && location.getErrorCode()==0){
+            sAddress.setText(location.getProvince()+location.getCity()+location.getDistrict());
+        }
+    }
 
     @Event({R.id.img_back, R.id.ll_express_time, R.id.ll_express_type,R.id.submit_send_express})
     private void onClick(View v) {
@@ -110,6 +109,7 @@ public class SendExpressActivity extends Activity {
     private void submitMessage(){
         RequestParams params = new RequestParams(App.CMDURL);
         params.addBodyParameter("cmd","73");
+        params.addBodyParameter("uid", MySharedPrefUtils.getUserId(this));
         params.addBodyParameter("jdizhi",sAddress.getText().toString());
         params.addBodyParameter("jmz",sName.getText().toString());
         params.addBodyParameter("sdizhi",gAddress.getText().toString());

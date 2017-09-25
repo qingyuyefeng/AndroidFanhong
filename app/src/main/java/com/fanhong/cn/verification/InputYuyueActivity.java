@@ -367,7 +367,9 @@ public class InputYuyueActivity extends Activity implements LocationSource,
             if (aMapLocation != null
                     && aMapLocation.getErrorCode() == 0) {
 //                mLocationErrText.setVisibility(View.GONE);
-                editText1.setText(aMapLocation.getAddress());
+                String[] strings = aMapLocation.getAddress().split("靠");
+                editText1.setText(strings[0]);
+                editText1.setFocusable(true);
                 mListener.onLocationChanged(aMapLocation);// 显示系统小蓝点
                 aMap.moveCamera(CameraUpdateFactory.zoomTo(18));
                 //调用停止定位

@@ -20,24 +20,17 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.fanhong.cn.applydoors.AddGuardActivity;
 import com.fanhong.cn.listviews.MyFragmentPagerAdapter;
-import com.fanhong.cn.util.TopBarUtil;
-import com.fanhong.cn.util.ZYStatusBarUtil;
 import com.fanhong.cn.view.AccesscontrolView1;
 import com.fanhong.cn.community.CommunityIndexFragment;
 import com.fanhong.cn.view.FixedViewPager;
-import com.fanhong.cn.view.HomeView1;
 import com.fanhong.cn.view.HomeView2;
-import com.fanhong.cn.view.MineView1;
 import com.fanhong.cn.view.MineView2;
 import com.fanhong.cn.view.ServiceView1;
 
@@ -277,8 +270,7 @@ public class FragmentMainActivity extends SampleActivity {
                                 bottomRadioGroup.check(lastCheckedPage);
                             }
                         } else {
-//                            createDialog(0);
-                            Toast.makeText(FragmentMainActivity.this, R.string.pleaselogin, Toast.LENGTH_SHORT).show();
+                            createDialog(0);
                             bottomRadioGroup.check(lastCheckedPage);
                         }
                         break;

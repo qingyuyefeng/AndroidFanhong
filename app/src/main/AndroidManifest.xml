@@ -137,10 +137,6 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
-            android:name=".update"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
-        <activity
             android:name=".AboutActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
@@ -189,11 +185,11 @@
         <activity
             android:name=".CommentLargeImageActivity"
             android:screenOrientation="portrait"/>
-            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
-        <activity
-            android:name=".wxapi.WXPayEntryActivity"
-            android:exported="true"
-            android:launchMode="singleTop" />
+
+        <!--<activity-->
+            <!--android:name=".wxapi.WXPayEntryActivity"-->
+            <!--android:exported="true"-->
+            <!--android:launchMode="singleTop" />-->
 
         <service android:name=".bluetooth.util.BluetoothClientService" />
 
@@ -307,9 +303,6 @@
 
 
         <!--代办年审-->
-        <activity
-            android:name=".verification.VerificationCarActivity"
-            android:screenOrientation="portrait" />
         <activity android:name=".verification.InputYuyueActivity"
             android:screenOrientation="portrait"/>
         <activity
@@ -344,10 +337,6 @@
             android:name=".expressage.ChooseExpressActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
-        <activity
-            android:name=".expressage.FollowOrderActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity android:name=".expressage.NetphoneActivity"
             android:screenOrientation="portrait" />
         <!--管线维修-->
@@ -362,10 +351,6 @@
         <!-- 紧急开锁 -->
         <activity android:name=".repair.EmergencyUnlockActivity"
             android:screenOrientation="portrait"/>
-
-        <activity android:name=".shippingaddress.TestAmapActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
 
         <!-- imlib config begin -->
         <meta-data
