@@ -154,7 +154,13 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ConfirmOrderActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="wxea49e10e35c4b1ea"/>
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".MyTradeNoActivity"
@@ -216,15 +222,15 @@
         <activity
             android:name=".usedmarket.ShopActivity"
             android:screenOrientation="portrait"/>
-            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
+
         <activity
             android:name=".usedmarket.GoodspostActivity"
             android:screenOrientation="portrait"/>
-            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
+
         <activity
             android:name=".usedmarket.GoodsselectActivity"
             android:screenOrientation="portrait"/>
-            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
+
         <!-- 紧急开门 -->
 
         <!-- 添加门禁区域 -->
@@ -313,12 +319,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".verification.CarFormConfirmActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".verification.CarVerificationNotice"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait" />
         <!--快递服务-->
         <activity
             android:name=".expressage.ExpressHomeActivity"
@@ -327,16 +331,13 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".expressage.SendExpressActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".expressage.CheckExpressActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".expressage.ChooseExpressActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait" />
         <activity android:name=".expressage.NetphoneActivity"
             android:screenOrientation="portrait" />
         <!--管线维修-->
@@ -352,6 +353,10 @@
         <activity android:name=".repair.EmergencyUnlockActivity"
             android:screenOrientation="portrait"/>
 
+        <!--微信支付回调入口-->
+        <activity android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"/>
         <!-- imlib config begin -->
         <meta-data
             android:name="RONG_CLOUD_APP_KEY"

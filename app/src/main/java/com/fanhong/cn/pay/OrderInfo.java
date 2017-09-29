@@ -7,9 +7,17 @@ public class OrderInfo {
 	public String desccontext;    // 商品详情
 	public String totalamount;    // 商品金额
 
-	public OrderInfo(String productname, String desccontext, String totalamount) {
+
+	public OrderInfo(String productname, String desccontext) {
 		this.productname = productname;
 		this.desccontext = desccontext;
+	}
+
+	public String getTotalamount() {
+		return totalamount;
+	}
+
+	public void setTotalamount(String totalamount) {
 		this.totalamount = totalamount;
 	}
 
@@ -26,7 +34,6 @@ public class OrderInfo {
 		return "OrderInfo{" +
 				", productname='" + productname + '\'' +
 				", desccontext='" + desccontext + '\'' +
-				", totalamount='" + totalamount + '\'' +
 				'}';
 	}
 }

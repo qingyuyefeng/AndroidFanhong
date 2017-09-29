@@ -9,43 +9,37 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
-import com.alipay.sdk.auth.AlipaySDK;
 import com.fanhong.cn.database.Cartdb;
 import com.fanhong.cn.listviews.ConfirmOrderListView;
 import com.fanhong.cn.pay.OrderInfo;
 import com.fanhong.cn.pay.ParameterConfig;
 import com.fanhong.cn.pay.PayResult;
 import com.fanhong.cn.pay.SignUtils;
-import com.fanhong.cn.pay.WXpayUtil;
 import com.fanhong.cn.shippingaddress.AllAddressActivity;
 import com.fanhong.cn.util.JsonSyncUtils;
 import com.fanhong.cn.util.StringUtils;
 import com.fanhong.cn.util.TopBarUtil;
-import com.fanhong.cn.view.PayMoney;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.view.annotation.ContentView;
@@ -55,9 +49,6 @@ import org.xutils.x;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.security.KeyFactory;
-import java.security.PrivateKey;
-import java.security.spec.PKCS8EncodedKeySpec;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -65,12 +56,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
-
-import static com.fanhong.cn.R.id.btn_ok;
-import static com.fanhong.cn.R.id.tv_address;
-import static com.fanhong.cn.R.id.tv_person;
-import static com.fanhong.cn.R.id.tv_phone;
 
 @ContentView(R.layout.activity_confirmorder)
 public class ConfirmOrderActivity extends Activity {
@@ -105,16 +90,51 @@ public class ConfirmOrderActivity extends Activity {
     private int payway = 0;   //支付方式    1支付宝，2微信
     private String goods_str = null;
 
+    private IWXAPI api;
+    private MyBroadcastReceiver myReceiver;//微信支付广播回调
+    private String WXorderNumber;
+
+    private class MyBroadcastReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(SampleConnection.MYPAY_RECEIVER)) {
+                int reCode = intent.getIntExtra("status", 1); //0成功，-1签名错误等异常，-2用户取消支付操作
+                String msg = intent.getStringExtra("msg");
+                switch (reCode) {
+                    case 0:
+                        new AlertDialog.Builder(ConfirmOrderActivity.this)
+                                .setMessage(R.string.pay_success)
+                                .setPositiveButton("确定",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+
+                                            }
+                                        })
+                                .create().show();
+                        if (isCart == 1) {
+                            deletCartItem();
+                        }
+                        postWXOrder();
+                        break;
+                    case -1:
+                        payFailure();
+                        break;
+                    case -2:
+                        payOrderCancel();
+                        break;
+                }
+                ConfirmOrderActivity.this.unregisterReceiver(myReceiver);
+                btn_ok.setEnabled(true);
+            }
+        }
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            //透明状态栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            //透明导航栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        }
+        TopBarUtil.initStatusBar(this);
         mSettingPref = getSharedPreferences("Setting", Context.MODE_PRIVATE);
         lv_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -127,9 +147,15 @@ public class ConfirmOrderActivity extends Activity {
         _dbad = new Cartdb(this);
         initData();
 
-//        IntentFilter filter = new IntentFilter();
-//        filter.addAction(SampleConnection.MYPAY_RECEIVER);
-//        registerReceiver(myReceiver, filter);
+        registerReceiver();
+    }
+
+    //动态注册广播
+    public void registerReceiver() {
+        myReceiver = new MyBroadcastReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(SampleConnection.MYPAY_RECEIVER); //设置动作
+        this.registerReceiver(myReceiver, intentFilter);
     }
 
     private void initData() {
@@ -203,7 +229,7 @@ public class ConfirmOrderActivity extends Activity {
                     Message msg = new Message();
                     msg.obj = resultInfo;
                     Log.e("alipaytest", "resultInfo:" + resultInfo + "\nresultstatus:" + resultStatus);
-                    msg.what=Integer.parseInt(resultStatus);
+                    msg.what = Integer.parseInt(resultStatus);
                     alipayHandler.sendMessage(msg);
                 }
             };
@@ -215,17 +241,9 @@ public class ConfirmOrderActivity extends Activity {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                //微信支付
-                case 0: //支付成功
-                    break;
-                case 1:
-                    break;
-                case 2:
-                    break;
-
                 //支付宝
                 case 9000://支付成功
-                    uploadTradeNO(JsonSyncUtils.getJsonValue(msg.obj.toString(),"alipay_trade_app_pay_response"),1);
+                    uploadTradeNO(JsonSyncUtils.getJsonValue(msg.obj.toString(), "alipay_trade_app_pay_response"), 1);
                     if (isCart == 1)
                         deletCartItem();
                     break;
@@ -244,7 +262,6 @@ public class ConfirmOrderActivity extends Activity {
             btn_ok.setEnabled(true);
         }
     };
-
 
 
     private void deletCartItem() {
@@ -328,13 +345,73 @@ public class ConfirmOrderActivity extends Activity {
                     });
                 } else if (payway == 2) {
                     v.setEnabled(false);
-                    WXpayUtil wxpay = new WXpayUtil(ConfirmOrderActivity.this);
-                    wxpay.WeixinPay(new OrderInfo(name,descript,fl_total+""));
+                    api = WXAPIFactory.createWXAPI(this, ParameterConfig.WX_APPID);
+                    WeixinPay(new OrderInfo(name, descript), 0);
+//                    Toast.makeText(ConfirmOrderActivity.this, "微信支付正在开通中..", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(ConfirmOrderActivity.this, "请先选择支付方式", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
+    }
+
+
+    public void WeixinPay(OrderInfo order, int type) {
+        WXorderNumber = TopBarUtil.getRandomString();
+        RequestParams params = new RequestParams(ParameterConfig.WX_notifyUrl);
+        params.addBodyParameter("body", ParameterConfig.descript[type]);
+//        params.addBodyParameter("detail",order.toString());
+        params.addBodyParameter("total_fee", fl_total+"");
+//        params.addBodyParameter("total_fee", "0.01");
+        params.addBodyParameter("ddh",WXorderNumber);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                try {
+                    JSONObject json = new JSONObject(result);
+//                    Log.i("xqWXPay", json.toString());
+                    if (null != json && !json.has("retcode")) {
+                        PayReq req = new PayReq();
+                        req.appId = ParameterConfig.WX_APPID;
+                        req.partnerId = ParameterConfig.WX_MCH_ID;
+                        req.prepayId = json.getString("prepay_id");
+                        req.nonceStr = json.getString("nonce_str");
+                        req.timeStamp = json.getString("timestamp");
+                        req.packageValue = "Sign=WXPay";
+//                        String content = "appid=" + req.appId + "&noncestr=" + req.nonceStr + "&package=" +
+//                                req.packageValue + "&partnerid=" + req.partnerId + "&prepayid=" + req.prepayId +
+//                                "&timestamp" + req.timeStamp + "&key=" + ParameterConfig.WX_API_KEY;
+                        req.sign = json.getString("xsign");
+//                        req.sign = MD5Util.MD5Encode(content, "").toUpperCase();
+//                        Log.i("xqWXPay", " sign==>" + req.sign);
+
+
+                        Toast.makeText(ConfirmOrderActivity.this, "正在调起支付...", Toast.LENGTH_SHORT).show();
+                        api.registerApp(ParameterConfig.WX_APPID);//注册到微信
+                        api.sendReq(req);//调起支付
+                    } else {
+                        Toast.makeText(ConfirmOrderActivity.this, "返回错误" + json.getString("return_msg"), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Toast.makeText(ConfirmOrderActivity.this, "服务器请求错误", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+                Toast.makeText(ConfirmOrderActivity.this, "发起支付失败", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 
 
@@ -364,24 +441,6 @@ public class ConfirmOrderActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         switch (resultCode) {
             case RESULT_OK:
-                break;
-            case 30:   //选择地址返回
-//                Log.i("hu", "******选择地址返回");
-//                Bundle bundle = data.getExtras();
-//                if (bundle != null) {
-//                    int id = bundle.getInt("id");
-//                    _dbad.open();
-//                    Cursor cur = _dbad.getAddressItem(id);
-//                    if (cur != null) {
-//                        cur.moveToNext();
-//                        Log.i("hu", "***777*****cursor.getString(1)=" + cur.getString(1) + " cursor.getString(2)=" + cur.getString(2)
-//                                + " cursor.getString(3)=" + cur.getString(3) + " cursor.getString(4)=" + cur.getString(4));
-//                        tv_person.setText(cur.getString(1));
-//                        tv_phone.setText(cur.getString(2));
-//                        tv_address.setText(cur.getString(4));
-//                    }
-//                    _dbad.close();
-//                }
                 break;
             case 21:  //登录返回
                 break;
@@ -433,27 +492,28 @@ public class ConfirmOrderActivity extends Activity {
         String content = "{";
         content += "\"subject\":\"" + name + "\"";//商品的标题/交易标题/订单标题/订单关键字等。
         content += ",\"body\":\"" + descript + "\"";//商品的描述
-        content += ",\"out_trade_no\":\"" + getOutTradeNo() + "\"";//商户网站唯一订单号
+        content += ",\"out_trade_no\":\"" + TopBarUtil.getRandomString() + "\"";//商户网站唯一订单号
         content += ",\"timeout_express\":\"30m\"";//订单超时时间
         content += ",\"total_amount\":\"" + fl_total + "\"";//订单总金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]
-        content += ",\"total_amount\":\"" + 0.01 + "\"";
+//        content += ",\"total_amount\":\"" + 0.01 + "\"";
         content += ",\"product_code\":\"" + "QUICK_MSECURITY_PAY" + "\"";//销售产品码，商家和支付宝签约的产品码，为固定值QUICK_MSECURITY_PAY
         return content + "}";
 //        "{" +"\"timeout_express\":\"30m\",\"product_code\":\"QUICK_MSECURITY_PAY\",\"total_amount\":\"0.01\",\"subject\":\"1\",\"body\":\"我是测试数据\",\"out_trade_no\":\"" + getOutTradeNo() + "\"}");
     }
 
-    private static String getOutTradeNo() {
+//    private static String getOutTradeNo() {
+//
+//        long t1 = System.currentTimeMillis() / 1000;
+//
+//        Random r = new Random();
+//        String key = String.valueOf(t1);
+//
+//        key = key + (r.nextInt(899999) + 100000);
+//        key = key.substring(0, 15);
+//
+//        return key;
+//    }
 
-        long t1 = System.currentTimeMillis() / 1000;
-
-        Random r = new Random();
-        String key = String.valueOf(t1);
-
-        key = key + r.nextInt(100000);
-        key = key.substring(0, 15);
-
-        return key;
-    }
     //将map字符串序列化
     public String buildOrderParam(Map<String, String> map) {
         List<String> keys = new ArrayList<String>(map.keySet());
@@ -517,19 +577,19 @@ public class ConfirmOrderActivity extends Activity {
         return "sign=" + encodedSign;
     }
 
-    private void uploadTradeNO(String alipay_result,int type) {
+    private void uploadTradeNO(String alipay_result, int type) {
         RequestParams param = new RequestParams(App.CMDURL);
         param.addParameter("cmd", "21");
         String str = mSettingPref.getString("UserId", "");
         param.addParameter("uid", str);  //下订单用户ID
-        param.addParameter("time", JsonSyncUtils.getJsonValue(alipay_result,"timestamp"));
-        param.addParameter("zjje", JsonSyncUtils.getJsonValue(alipay_result,"total_amount"));  //支付金额
-        param.addParameter("zffs", type+"");    //支付方式（1支付宝，2微信）
+        param.addParameter("time", JsonSyncUtils.getJsonValue(alipay_result, "timestamp"));
+        param.addParameter("zjje", JsonSyncUtils.getJsonValue(alipay_result, "total_amount"));  //支付金额
+        param.addParameter("zffs", type + "");    //支付方式（1支付宝，2微信）
         param.addParameter("user", user);  //收货人姓名
         param.addParameter("dh", phone); //收货人手机号
         param.addParameter("ldh", addr);  //详细地址
-        param.addParameter("ddh", JsonSyncUtils.getJsonValue(alipay_result,"out_trade_no"));   //订单号
-        param.addParameter("qid", mSettingPref.getString("gardenId",""));   //小区ID号
+        param.addParameter("ddh", JsonSyncUtils.getJsonValue(alipay_result, "out_trade_no"));   //订单号
+        param.addParameter("qid", mSettingPref.getString("gardenId", ""));   //小区ID号
         param.addParameter("goods", goods_str);    //商品
         x.http().post(param, new Callback.CommonCallback<String>() {
             @Override
@@ -560,6 +620,45 @@ public class ConfirmOrderActivity extends Activity {
             public void onCancelled(CancelledException cex) {
                 Toast.makeText(ConfirmOrderActivity.this, "onCancelled订单提交出错，请联系客服人员", Toast.LENGTH_LONG).show();
                 Log.e("alipaytest", "onCancelled");
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+    private void postWXOrder(){
+        String ddh1 = WXorderNumber.substring(5,15);
+
+        RequestParams param = new RequestParams(App.CMDURL);
+        param.addParameter("cmd", "21");
+        param.addParameter("uid",  mSettingPref.getString("UserId", ""));  //下订单用户ID
+        param.addParameter("time", new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Long.parseLong(ddh1)*1000));
+        param.addParameter("zjje", fl_total);  //支付金额
+        param.addParameter("zffs", "2");    //支付方式（1支付宝，2微信）
+        param.addParameter("user", user);  //收货人姓名
+        param.addParameter("dh", phone); //收货人手机号
+        param.addParameter("ldh", addr);  //详细地址
+        param.addParameter("ddh", WXorderNumber);   //订单号
+        param.addParameter("qid", mSettingPref.getString("gardenId", ""));   //小区ID号
+        param.addParameter("goods", goods_str);    //商品
+        x.http().post(param, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                if(JsonSyncUtils.getJsonValue(result,"cw").equals("0")){
+                    ConfirmOrderActivity.this.finish();
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
             }
 
             @Override

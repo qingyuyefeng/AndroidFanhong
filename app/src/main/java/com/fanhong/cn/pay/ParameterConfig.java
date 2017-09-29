@@ -2,6 +2,8 @@ package com.fanhong.cn.pay;
 
 public class ParameterConfig {
 
+    public static final String[] descript = {"社区卖场购买商品消费","汽车代办年审消费"};
+
     // public static final String  GANHOST = "http://101.226.197.11"; //服务器地址ip（根据自己替换）
     public static final String  GANHOST = "http://m.wuyebest.com"; //服务器地址ip（根据自己替换）
 
@@ -12,12 +14,16 @@ public class ParameterConfig {
     public static final String WX_APPID = "wxea49e10e35c4b1ea";
     //商户号——微信分配的公众账号ID
     public static final String WX_MCH_ID = "1488497082";
+    //需要生成的10位时间戳
+    public static final String TIME_STAMP = System.currentTimeMillis()/1000 + "";
     //根据包名生成的签名
     public static final String WX_SIGN = "80891e400e0c3619df730ebef548a9e3";
     //  API密钥，在商户平台设置
-    public static final String WX_API_KEY = "qiangxu15123073170QIANGXU1234567";
+    public static final String WX_API_KEY = "qiangxu15123073170QIANGXU1234567";//传到后台存入
     //服务器回调接口
-    public static final String WX_notifyUrl = "http://m.nongjia7.com/Home/Pay/returnurl";// 用于微信支付成功的回调（按自己需求填写）
+    public static final String WX_notifyUrl = "http://m.wuyebest.com/public/WeiPay/index.php";// 用于微信支付成功的回调（按自己需求填写）
+    //服务端统一下单接口
+    public static final String WX_getOrderUrl = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 
 
     /**

@@ -107,10 +107,6 @@ public class HomeView1 extends BaseFragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        //webView = (WebView)view.findViewById(R.id.WebView);
-        // 启动activity时不自动弹出软键盘
-//        this.getActivity().getWindow().setSoftInputMode(
-//                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         mSharedPref = this.getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
         chooseCell = (ImageView) view.findViewById(R.id.image_choosecell);

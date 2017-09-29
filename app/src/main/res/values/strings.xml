@@ -147,6 +147,8 @@
     <string name="systemupgrade">系统更新</string>
     <string name="inputgoods">输入你需要的商品...</string>
     <string name="choosepay">请选择支付方式</string>
+    <string name="wx_pay_result">微信支付结果</string>
+    <string name="pay_success">支付成功！</string>
     <string name="cart">购物车</string>
     <string name="pull_to_load_next_page"></string>
     <string name="current_page_note">当前第%d页</string>
@@ -219,6 +221,7 @@
     <string name="dami">大米</string>
     <string name="you">食用油</string>
     <string name="mian">面食</string>
+    <string name="jiu">酒水</string>
     <string name="zhifu_success">支付成功！</string>
     <string name="zhifu_failed">支付失败！</string>
 

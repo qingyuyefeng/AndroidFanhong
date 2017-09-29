@@ -68,7 +68,7 @@ public class AddNewAddressActivity extends Activity{
         super.onCreate(savedInstanceState);
         x.view().inject(this);
 
-        TopBarUtil.initStatusBar(this);
+//        TopBarUtil.initStatusBar(this);
 
         mSettingPref = getSharedPreferences("Setting", Context.MODE_PRIVATE);
         uid = mSettingPref.getString("UserId", "");

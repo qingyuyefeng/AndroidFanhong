@@ -102,8 +102,12 @@ public class MineView2 extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.my_order:
-                intent.setClass(getActivity(), MyTradeNoActivity.class);
-                startActivity(intent);
+                if(isLogined()==1){
+                    intent.setClass(getActivity(), MyTradeNoActivity.class);
+                    startActivity(intent);
+                }else {
+                    Toast.makeText(getActivity(),R.string.pleaselogin,Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.customer_hotline:
                 //判断Android版本是否大于23

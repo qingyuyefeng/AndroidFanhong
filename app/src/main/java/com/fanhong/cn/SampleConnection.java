@@ -84,8 +84,8 @@ public class SampleConnection extends Application{
 	public static final String OPEN_LOCKED_URL = "http://m.wuyebest.com/index.php/App/index/yjkm";
 
 	public static boolean terminal_reboot = false;
-	//支付成功广播
-	public static final String MYPAY_RECEIVER = "com.fanhong.cn.payresult";
+	//支付回调广播
+	public static final String MYPAY_RECEIVER = "com.fanhong.cn.wxapi.PAY_RESULT";
 	private Context mcontext;
 	//构造器type..
 	public SampleConnection(SampleActivity context, int type) {

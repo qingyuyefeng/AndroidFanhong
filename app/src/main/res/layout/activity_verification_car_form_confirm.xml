@@ -107,7 +107,58 @@
             </com.zhy.autolayout.AutoLinearLayout>
         </com.zhy.autolayout.AutoLinearLayout>
     </com.zhy.autolayout.AutoLinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:focusable="false"
+            android:text="支付方式："
+            android:textColor="@color/textgray2"
+            android:textSize="15sp" />
+
+        <CheckBox
+            android:id="@+id/checkbox_zfb"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginLeft="10.0dip"
+            android:layout_marginRight="10.0dip"
+            android:background="@drawable/btn_check"
+            android:button="@null" />
+
+        <ImageView
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/zfb"
+            android:focusable="false" />
+
+        <CheckBox
+            android:id="@+id/checkbox_wx"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginLeft="10.0dip"
+            android:layout_marginRight="10.0dip"
+            android:background="@drawable/btn_check"
+            android:button="@null" />
+
+        <ImageView
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginRight="2dp"
+            android:background="@drawable/wx"
+            android:focusable="false" />
+
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_commit"

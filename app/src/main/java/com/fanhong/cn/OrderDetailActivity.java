@@ -56,7 +56,6 @@ public class OrderDetailActivity extends SampleActivity implements PayMoney,OnCh
 	private String goods_str = null;
 
 	public synchronized void connectFail(int type) {
-		Log.i("hu","*******connectFail");
 		SampleConnection.USER = "";
 		SampleConnection.USER_STATE = 0;
 
@@ -137,7 +136,6 @@ public class OrderDetailActivity extends SampleActivity implements PayMoney,OnCh
 	}
 
 	private void getOrderDetails(){
-		Log.i("hu","*******getOrderDetails()");
 		String userid = "";
 		Bundle bundle = this.getIntent().getExtras();
 		if(bundle != null){
@@ -153,30 +151,6 @@ public class OrderDetailActivity extends SampleActivity implements PayMoney,OnCh
 		if(mSafoneConnection == null)
 			mSafoneConnection = new SampleConnection(OrderDetailActivity.this, 0);
 		mSafoneConnection.connectService1(map);
-	}
-
-
-	public void setListViewHeightBasedOnChildren(ConfirmOrderListView listView) {
-		// 获取ListView对应的Adapter
-		ListAdapter listAdapter = listView.getAdapter();
-		if (listAdapter == null) {
-			return;
-		}
-
-		int totalHeight = 0;
-		for (int i = 0, len = listAdapter.getCount(); i < len; i++) {
-			// listAdapter.getCount()返回数据项的数目
-			View listItem = listAdapter.getView(i, null, listView);
-			// 计算子项View 的宽高
-			listItem.measure(0, 0);
-			// 统计所有子项的总高度
-			totalHeight += listItem.getMeasuredHeight();
-		}
-		ViewGroup.LayoutParams params = listView.getLayoutParams();
-		params.height = totalHeight+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-		// listView.getDividerHeight()获取子项间分隔符占用的高度
-		// params.height最后得到整个ListView完整显示需要的高度
-		listView.setLayoutParams(params);
 	}
 
 	private void setData(JSONObject json){
@@ -206,7 +180,6 @@ public class OrderDetailActivity extends SampleActivity implements PayMoney,OnCh
 			}
 
 			str = json.getString("goods");
-			Log.e("hu","****goods="+str);
 			lv_list.Bulid(orderid1,this);
 			String[] goods = str.split(",");
 			for(int i=0;i<goods.length;i++){
@@ -224,7 +197,6 @@ public class OrderDetailActivity extends SampleActivity implements PayMoney,OnCh
 				// item = str1.split(":");
 				// String name = item[0];
 				//String isassess = item[1];
-				Log.i("hu","********name1="+name1+" num="+num+ " iid="+iid+" isassess="+isassess);
 				lv_list.addItem(name1,num,iid,isassess);
 			}
 			lv_list.listItemAdapter.notifyDataSetInvalidated();
@@ -243,7 +215,7 @@ public class OrderDetailActivity extends SampleActivity implements PayMoney,OnCh
 	public void OnPayMoney(String name, String phone, String address,
 						   int payment) {
 		// TODO Auto-generated method stub
-		Log.e("hu","*****pay*****name="+name+" phone="+phone+" address="+address+" payment="+payment);
+
 	}
 
 	@Override
@@ -255,7 +227,6 @@ public class OrderDetailActivity extends SampleActivity implements PayMoney,OnCh
 			case 21:  //登录返回
 				break;
 			case 26:  //评价返回
-				Log.e("hu","***返回2222*****");
 				Bundle bundle = data.getExtras();
 				if(bundle != null) {
 					String iid = bundle.getString("iid");  //物品id
@@ -266,7 +237,6 @@ public class OrderDetailActivity extends SampleActivity implements PayMoney,OnCh
 	}
 
 	public void updateAssessDate(String iid){
-		Log.e("hu","updateAssessDate***iid="+iid);
 		int len = lv_list.listItems.size();
 		for(int i=0;i<len;i++){
 			Map<String, Object> map = lv_list.listItems.get(i);
@@ -298,7 +268,6 @@ public class OrderDetailActivity extends SampleActivity implements PayMoney,OnCh
 	}
 
 	private void uploadTradeNO(){
-		Log.i("hu","*******uploadTradeNO()");
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("cmd", "21");
 		String str = mSettingPref.getString("UserId", "");

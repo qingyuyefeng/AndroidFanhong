@@ -22,7 +22,8 @@ import com.fanhong.cn.R;
 
 /**
  * StatusBarUtil
- * Created by LangSanJie on 2017/2/7.
+ * Created by LangSanJie on 2017/5/7.
+ * 状态栏沉浸效果
  */
 public class ZYStatusBarUtil {
 

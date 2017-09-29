@@ -102,6 +102,7 @@
     <style name="myorder_radiobutton">
         <item name="android:paddingTop">7dp</item>
         <item name="android:paddingBottom">7dp</item>
+        <item name="android:paddingLeft">10dp</item>
         <item name="android:textSize">15sp</item>
         <item name="android:button">@null</item>
         <item name="android:textColor">@color/text_6</item>

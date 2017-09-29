@@ -15,6 +15,8 @@ import android.widget.ListView;
 import com.fanhong.cn.GardenSelecterActivity;
 import com.fanhong.cn.LoginActivity;
 
+import java.util.Random;
+
 /**
  * Created by Administrator on 2017/9/14.
  */
@@ -55,17 +57,17 @@ public class TopBarUtil {
                 });
                 break;
         }
-            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
-        }
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
 
-        //设定listview的高度
+    //设定listview的高度
 
     public static void setListViewHeight(ListView listView) {
         BaseAdapter listAdapter = (BaseAdapter) listView.getAdapter();
@@ -82,5 +84,18 @@ public class TopBarUtil {
         params.height = totalHeight
                 + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
+    }
+
+    //生成15位的随机字符串
+    public static String getRandomString() {
+        String s = "";
+        CharSequence cs = "abcdefghijklmnopqrstuvwxyz";
+        Random random = new Random();
+        int j = cs.length();
+        for (int i = 0; i < 5; i++) {
+            s += cs.charAt(random.nextInt(j));
+        }
+        s += System.currentTimeMillis() / 1000;
+        return s;
     }
 }

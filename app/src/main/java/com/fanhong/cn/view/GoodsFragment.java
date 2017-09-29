@@ -1,18 +1,5 @@
 package com.fanhong.cn.view;
 
-import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-
-import com.fanhong.cn.DescriptionActivity;
-import com.fanhong.cn.PullToLoadPageListView.OnLoadingPageListener;
-import com.fanhong.cn.R;
-import com.fanhong.cn.listviews.ListViewgoodslist;
-import com.fanhong.cn.listviews.PullToLoadPage;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,16 +7,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListAdapter;
-import android.widget.ProgressBar;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ProgressBar;
+
+import com.fanhong.cn.DescriptionActivity;
+import com.fanhong.cn.PullToLoadPageListView.OnLoadingPageListener;
+import com.fanhong.cn.R;
+import com.fanhong.cn.listviews.ListViewgoodslist;
+import com.fanhong.cn.listviews.PullToLoadPage;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Map;
 
 public class GoodsFragment extends BaseFragment implements OnItemClickListener, OnLoadingPageListener{
-	private final String cellNameStr[]={"双百上等东北大米","金龙鱼优质东北大米","双百上等东北大米","金龙鱼优质东北大米"};
-	private final String cellDetailStr[]={"2016新米 十月稻田长粒香大米5kg 东北大米 香米","金龙鱼 大米 优质东北大米 5kg/包 三江平原贡米 长粒香醇","2016新米 十月稻田长粒香大米5kg 东北大米 香米","金龙鱼 大米 优质东北大米 5kg/包 三江平原贡米 长粒香醇"};
-	private final String cellPriceStr[]={"￥50.8","￥61.5","￥50.8","￥61.7"};
+//	private final String cellNameStr[]={"双百上等东北大米","金龙鱼优质东北大米","双百上等东北大米","金龙鱼优质东北大米"};
+//	private final String cellDetailStr[]={"2016新米 十月稻田长粒香大米5kg 东北大米 香米","金龙鱼 大米 优质东北大米 5kg/包 三江平原贡米 长粒香醇","2016新米 十月稻田长粒香大米5kg 东北大米 香米","金龙鱼 大米 优质东北大米 5kg/包 三江平原贡米 长粒香醇"};
+//	private final String cellPriceStr[]={"￥50.8","￥61.5","￥50.8","￥61.7"};
 	ListViewgoodslist lv_carlist;
-	int type = 0;     //1：米，2：油，3：面
+	int type = 0;     //1：米，2：油，3：面，4：酒
 	private ProgressBar mProgressBar;
 	private int mEndPageNum = 0;
 	private LoadData interface_loaddata;  //interface
@@ -109,30 +107,6 @@ public class GoodsFragment extends BaseFragment implements OnItemClickListener, 
 
       //  setListViewHeightBasedOnChildren(lv_carlist);
     }*/
-
-	public void setListViewHeightBasedOnChildren(ListViewgoodslist listView) {
-		// 获取ListView对应的Adapter
-		ListAdapter listAdapter = listView.getAdapter();
-		if (listAdapter == null) {
-			return;
-		}
-
-		int totalHeight = 0;
-		for (int i = 0, len = listAdapter.getCount(); i < len; i++) {
-			// listAdapter.getCount()返回数据项的数目
-			View listItem = listAdapter.getView(i, null, listView);
-			// 计算子项View 的宽高
-			listItem.measure(0, 0);
-			// 统计所有子项的总高度
-			totalHeight += listItem.getMeasuredHeight();
-		}
-
-		ViewGroup.LayoutParams params = listView.getLayoutParams();
-		params.height = totalHeight+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-		// listView.getDividerHeight()获取子项间分隔符占用的高度
-		// params.height最后得到整个ListView完整显示需要的高度
-		listView.setLayoutParams(params);
-	}
 
 	public synchronized void connectResult(int cmd,String str,int cout,int page) {
 		switch(cmd)

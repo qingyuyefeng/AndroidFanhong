@@ -156,5 +156,4 @@ public class simpleListView  extends  android.widget.ListView{
 		public Button btn_assess;
 	}
 
-
 }

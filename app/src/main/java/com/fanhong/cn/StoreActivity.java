@@ -46,9 +46,9 @@ public class StoreActivity extends SampleActivity implements LoadData{
 	private ImageView iv_horizontal;
 	HorizontalScrollView h_scrollview;
 	//定义数组来存放按钮图片
-	private int mImageViewArray1[] = {R.drawable.icon_rice, R.drawable.icon_oil,R.drawable.icon_nol};
+	private int mImageViewArray1[] = {R.drawable.icon_rice, R.drawable.icon_oil,R.drawable.icon_nol,R.drawable.winner};
 	//定义数组文字
-	private int mTextviewArray1[] = {R.string.dami, R.string.you, R.string.mian};
+	private int mTextviewArray1[] = {R.string.dami, R.string.you, R.string.mian,R.string.jiu};
 	private int mCurrentChecked = 0;
 	private ViewPager mViewPager;
 	private MyFragmentPagerAdapter adapter;
@@ -165,7 +165,7 @@ public class StoreActivity extends SampleActivity implements LoadData{
 
 		mViewPager = (ViewPager) findViewById(R.id.viewPager);
 		mViewPager.setOnPageChangeListener(new MyPagerOnPageChangeListener());
-		mViewPager.setOffscreenPageLimit(2); //设置向左和向右都缓存limit个页面
+		mViewPager.setOffscreenPageLimit(3); //设置向左和向右都缓存limit个页面
 		mViewPager.setCurrentItem(0);
 		mCurrentCheckedRadioLeft = getCurrentCheckedRadioLeft(header_ll);
 		initData();
@@ -290,7 +290,7 @@ public class StoreActivity extends SampleActivity implements LoadData{
 	private Map<String, Object> genGoods(int type, int page) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("cmd", "15");
-		map.put("lx", String.valueOf(type));  //1：米，2：油，3：面
+		map.put("lx", String.valueOf(type));  //1：米，2：油，3：面，4：酒
 		map.put("page", String.valueOf(page));
 		return map;
 	}

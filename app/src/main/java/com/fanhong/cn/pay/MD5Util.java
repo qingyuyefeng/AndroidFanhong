@@ -3,7 +3,11 @@ package com.fanhong.cn.pay;
 import java.security.MessageDigest;
 
 public class MD5Util {
-
+	/**
+	 * 转换字节数组为16进制字串
+	 * @param b 字节数组
+	 * @return 16进制字串
+	 */
 	private static String byteArrayToHexString(byte b[]) {
 		StringBuffer resultSb = new StringBuffer();
 		for (int i = 0; i < b.length; i++)
@@ -11,7 +15,11 @@ public class MD5Util {
 
 		return resultSb.toString();
 	}
-
+	/**
+	 * 转换byte到16进制
+	 * @param b 要转换的byte
+	 * @return 16进制格式
+	 */
 	private static String byteToHexString(byte b) {
 		int n = b;
 		if (n < 0)
@@ -20,11 +28,15 @@ public class MD5Util {
 		int d2 = n % 16;
 		return hexDigits[d1] + hexDigits[d2];
 	}
-
+	/**
+	 * MD5编码
+	 * @param origin 原始字符串
+	 * @return 经过MD5加密之后的结果
+	 */
 	public static String MD5Encode(String origin, String charsetname) {
 		String resultString = null;
 		try {
-			resultString = new String(origin);
+			resultString = origin;
 			MessageDigest md = MessageDigest.getInstance("MD5");
 			if (charsetname == null || "".equals(charsetname))
 				resultString = byteArrayToHexString(md.digest(resultString
@@ -32,7 +44,8 @@ public class MD5Util {
 			else
 				resultString = byteArrayToHexString(md.digest(resultString
 						.getBytes(charsetname)));
-		} catch (Exception exception) {
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return resultString;
 	}
