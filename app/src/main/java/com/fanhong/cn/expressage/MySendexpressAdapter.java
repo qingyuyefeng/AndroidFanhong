@@ -60,7 +60,7 @@ public class MySendexpressAdapter extends BaseAdapter{
         return convertView;
     }
 
-    class MyViewHolder{
+    private class MyViewHolder{
         TextView scity,sname,rcity,rname;
         public MyViewHolder(View itemView) {
             scity = (TextView) itemView.findViewById(R.id.send_express_city);

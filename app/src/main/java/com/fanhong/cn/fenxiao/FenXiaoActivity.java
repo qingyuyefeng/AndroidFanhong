@@ -70,7 +70,7 @@ public class FenXiaoActivity extends Activity {
                     case MotionEvent.ACTION_DOWN:
                         oldy = event.getY();
                         flag = true;
-                        Log.i("scroltest", "down:" + y + "," + flag + "," + oldy);
+//                        Log.i("scroltest", "down:" + y + "," + flag + "," + oldy);
                         break;
                     case MotionEvent.ACTION_UP:
                         y = event.getY();
@@ -80,11 +80,11 @@ public class FenXiaoActivity extends Activity {
                                 new Handler().post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        scrollView.smoothScrollTo(0, distribution2.getTop());
+                                        scrollView.smoothScrollTo(0, joinIn.getTop());
                                     }
                                 });
                                 flag = false;
-                                Log.i("scroltest", "up:" + y + "," + flag + "," + oldy);
+//                                Log.i("scroltest", "up:" + y + "," + flag + "," + oldy);
                             }
                         }
                         break;

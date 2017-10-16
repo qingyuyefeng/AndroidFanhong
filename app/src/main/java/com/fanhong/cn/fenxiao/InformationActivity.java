@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.maps2d.AMapOptions;
 import com.fanhong.cn.App;
 import com.fanhong.cn.R;
 import com.fanhong.cn.util.JsonSyncUtils;
@@ -43,12 +46,22 @@ public class InformationActivity extends Activity {
     private SharedPreferences mSettingPref;
     private String uid;
 
+    private AMapLocationClient client;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
         mSettingPref = getSharedPreferences("Setting", Context.MODE_PRIVATE);
         uid = mSettingPref.getString("UserId", "");
+
+        if (client == null) {
+            client = new AMapLocationClient(getApplicationContext());
+        }
+        AMapLocation location = client.getLastKnownLocation();
+        if (location != null && location.getErrorCode() == 0) {
+            fAddress.setText(location.getAddress().split("靠近")[0]);
+        }
     }
 
     @Event(value = {R.id.back_bn, R.id.tv_post_information})

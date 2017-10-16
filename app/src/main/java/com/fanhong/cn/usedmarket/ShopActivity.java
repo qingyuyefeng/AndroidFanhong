@@ -44,6 +44,7 @@ import com.fanhong.cn.R;
 import com.fanhong.cn.SampleActivity;
 import com.fanhong.cn.SampleConnection;
 import com.fanhong.cn.util.FileUtil;
+import com.fanhong.cn.util.GetImagePath;
 import com.fanhong.cn.util.JsonSyncUtils;
 import com.fanhong.cn.util.StringUtils;
 import com.fanhong.cn.view.SelectPicPopupWindow;
@@ -139,7 +140,7 @@ public class ShopActivity extends SampleActivity {
     private static final int REQUESTCODE_PICK = 60;        //相册选择
     private static final int REQUESTCODE_TAKE = 61;        //拍照
     private static final int REQUESTCODE_CUTTING = 62;    // 剪切
-    private File file;//拍照指定保存
+    private File file,cropFile;//拍照指定保存 cropFile:剪切的文件
     private String urlpath;//图片的路径
     private String picmsg; //resultStr中的图片名
     private String uid;//登录时的id
@@ -714,8 +715,32 @@ public class ShopActivity extends SampleActivity {
      * @param uri
      */
     public void startPhotoZoom(Uri uri) {
+        cropFile = new File(Environment.getExternalStorageDirectory() + "/crop" + getPhotoFileName());
+        if (!cropFile.getParentFile().exists()) {
+            cropFile.getParentFile().mkdirs();
+            try {
+                cropFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        Uri outputUri = fromFile(cropFile);
         Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(uri, "image/*");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
+            intent.setDataAndType(uri, "image/*");
+            intent.putExtra("noFaceDetection", false);//去除默认的人脸识别，否则和剪裁匡重叠
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                String url = GetImagePath.getPath(this, uri);//这个方法是处理4.4以上图片返回的Uri对象不同的处理方法
+                intent.setDataAndType(Uri.fromFile(new File(url)), "image/*");
+            } else {
+                intent.setDataAndType(uri, "image/*");
+            }
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
+        }
         intent.putExtra("crop", "true");
         intent.putExtra("aspectX", 1);
         intent.putExtra("aspectY", 1);

@@ -314,9 +314,9 @@
 				       android:layout_marginRight="10dp"
 				       android:gravity="center"
 					   android:drawableLeft="@drawable/rmb"
-				       android:text="100.8"
-				       android:textColor="@color/textred"
-				       android:textStyle="bold"
+					   android:drawablePadding="2dp"
+				       android:text=""
+				       android:textColor="@color/warnred"
 				       android:textSize="18.0sp" />
 			   </LinearLayout>		   
 		    </LinearLayout>

@@ -11,7 +11,9 @@
         android:ellipsize="marquee"
         android:maxLines="1"
         android:focusableInTouchMode="true"
-        android:padding="4px"
+        android:gravity="center_horizontal"
+        android:paddingTop="7px"
+        android:paddingBottom="7px"
         android:text="2017年"
         android:textColor="@color/popular"
         android:textSize="28px"/>

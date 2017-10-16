@@ -89,13 +89,13 @@ public class TopBarUtil {
     //生成15位的随机字符串
     public static String getRandomString() {
         String s = "";
-        CharSequence cs = "abcdefghijklmnopqrstuvwxyz";
+        CharSequence cs = "1234567890";
         Random random = new Random();
         int j = cs.length();
         for (int i = 0; i < 5; i++) {
             s += cs.charAt(random.nextInt(j));
         }
-        s += System.currentTimeMillis() / 1000;
+        s = System.currentTimeMillis() / 1000 + s;
         return s;
     }
 }

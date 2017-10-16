@@ -69,9 +69,9 @@ public class ExpressOrderActivity extends Activity {
                                 JSONObject object = jsonArray.optJSONObject(i);
                                 MysendModel mysendModel = new MysendModel();
                                 mysendModel.setSendName(object.optString("jmz"));
-                                mysendModel.setSendCity(object.optString("jdizhi"));
+                                mysendModel.setSendCity(object.optString("jsf","null"));
                                 mysendModel.setReceiveName(object.optString("smz"));
-                                mysendModel.setReceiveCity(object.optString("sdizhi"));
+                                mysendModel.setReceiveCity(object.optString("ssf","null"));
                                 mysendModelList.add(mysendModel);
                             }
                             handler.sendEmptyMessage(1);

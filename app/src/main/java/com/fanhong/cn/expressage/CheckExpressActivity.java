@@ -1,11 +1,15 @@
 package com.fanhong.cn.expressage;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -51,6 +55,18 @@ public class CheckExpressActivity extends Activity {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
         title.setText("查快递");
+        edtExpressNumber.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_ACTION_SEARCH){
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(edtExpressNumber.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    checkexpressage();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Event({R.id.img_back, R.id.img_search_express})

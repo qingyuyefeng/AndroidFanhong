@@ -39,6 +39,7 @@ import com.fanhong.cn.repair.RepairActivity;
 import com.fanhong.cn.util.JsonSyncUtils;
 import com.fanhong.cn.util.MySharedPrefUtils;
 import com.fanhong.cn.verification.InputYuyueActivity;
+import com.fanhong.cn.verification.TestAMap3d;
 import com.sivin.Banner;
 import com.sivin.BannerAdapter;
 
@@ -250,6 +251,7 @@ public class HomeView2 extends BaseFragment {
                 break;
             case R.id.tv_homedaiban://代办年审
                 intent.setClass(getActivity(), InputYuyueActivity.class);
+//                intent.setClass(getActivity(), TestAMap3d.class);
                 startActivity(intent);
                 break;
             case R.id.tv_homerepair://上门维修

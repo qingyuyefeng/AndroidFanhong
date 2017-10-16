@@ -1,7 +1,6 @@
 package com.fanhong.cn.applydoors;
 
 import android.Manifest;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,6 +15,7 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
@@ -30,34 +30,42 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fanhong.cn.AccountSettingsActivity;
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.CoordinateConverter;
+import com.amap.api.location.DPoint;
 import com.fanhong.cn.App;
 import com.fanhong.cn.GardenSelecterActivity;
 import com.fanhong.cn.R;
 import com.fanhong.cn.SampleActivity;
 import com.fanhong.cn.SampleConnection;
 import com.fanhong.cn.util.FileUtil;
-import com.fanhong.cn.util.HttpUtil;
+import com.fanhong.cn.util.GetImagePath;
+import com.fanhong.cn.util.JsonSyncUtils;
 import com.fanhong.cn.view.SelectPicPopupWindow;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
+import static android.net.Uri.fromFile;
 
 /**
  * Created by Administrator on 2017/6/9.
@@ -80,7 +88,7 @@ public class AddGuardActivity extends SampleActivity {
     private SelectPicPopupWindow pictureWindow; // 自定义的popupWindow
     private Button submit;
     private SharedPreferences mSharedPref;
-    private File file;
+    private File file, cropFile;//cropFile:剪切的图片文件
     private Uri picUri;
     private String urlsfzbm, urlfdfr, urlhpc; //3张照片的路径
     private Context context;
@@ -99,6 +107,8 @@ public class AddGuardActivity extends SampleActivity {
     private String lastCellId;
     private String louId;//楼栋的id
     private int checked = -1;
+
+    private AMapLocationClient client;
 
     @Override
     public synchronized void connectFail(int type) {
@@ -173,8 +183,15 @@ public class AddGuardActivity extends SampleActivity {
         String str = mSharedPref.getString("gardenName", "");
         if (!TextUtils.isEmpty(str))
             chooseCell.setText(str);
-        else
-            chooseCell.setText(getString(R.string.choosecell));
+        else {
+            if (Build.VERSION.SDK_INT >= 23) {
+                requestPermission();
+            } else {
+                getLocation();
+            }
+        }
+
+//            chooseCell.setText(getString(R.string.choosecell));
         chooseLou = (TextView) findViewById(R.id.fangdong_iuputhouse);
 
 
@@ -191,6 +208,122 @@ public class AddGuardActivity extends SampleActivity {
         photoFront.setOnClickListener(onClickListener);
         housePropertyCard.setOnClickListener(onClickListener);
         submit.setOnClickListener(onClickListener);
+    }
+
+    private void getLocation() {
+        client = new AMapLocationClient(getApplicationContext());
+        AMapLocation location = client.getLastKnownLocation();
+        if (null != location) {
+            Log.i("xq", "定位结果==>" + location.getErrorCode());
+            if (location.getErrorCode() == 0) {
+                double x = location.getLongitude();
+                double y = location.getLatitude();
+                Log.i("xq", "定位的纬度==>" + y + "--经度==>" + x);
+                Log.i("xq", "定位位置==>" + location.getAddress());
+                commandCell(x, y);
+            }
+        }else {
+            Log.i("xq","无法定位==>location为null");
+        }
+    }
+
+    private void requestPermission() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(getApplicationContext(), "没有权限,请手动开启定位权限", Toast.LENGTH_SHORT).show();
+            // 申请一个（或多个）权限，并提供用于回调返回的获取码（用户定义）
+            ActivityCompat.requestPermissions(AddGuardActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE}, 130);
+        } else {
+            getLocation();
+        }
+    }
+
+    private void commandCell(double lng, double lat) {
+        final DPoint point0 = new DPoint(lat, lng);
+        RequestParams params = new RequestParams(App.CMDURL);
+        params.addBodyParameter("cmd", "29");
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            class A {
+                int id;
+                String name;
+                float far;
+
+                public A(int id, String name, float far) {
+                    this.id = id;
+                    this.name = name;
+                    this.far = far;
+                }
+            }
+
+            @Override
+            public void onSuccess(String result) {
+                final List<A> ds = new ArrayList<>();
+                try {
+                    JSONArray array = new JSONObject(result).getJSONArray("data");
+                    for (int i = 0; i < array.length(); i++) {
+                        try {
+                            DPoint point1 = new DPoint(array.getJSONObject(i).getDouble("y"), array.getJSONObject(i).getDouble("y"));
+                            float far = CoordinateConverter.calculateLineDistance(point0, point1);
+                            String name = array.getJSONObject(i).getString("name");
+                            int id = array.getJSONObject(i).getInt("id");
+                            ds.add(new A(id, name, far));
+                        } catch (JSONException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                    if (ds.size() > 0) {
+                        Collections.sort(ds, new Comparator<A>() {
+                            @Override
+                            public int compare(A o1, A o2) {
+                                if (o1.far < o2.far) {
+                                    return -1;
+                                } else {
+                                    return 1;
+                                }
+                            }
+                        });
+//                        ds.sort(new Comparator<A>() {
+//                            @Override
+//                            public int compare(A o1, A o2) {
+//                                if (o1.far < o2.far)
+//                                    return -1;//按返回负数的指向规则排序
+//                                else
+//                                    return 1;
+//                            }
+//                        });
+                        AddGuardActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                chooseCell.setText(ds.get(0).name);
+                                cellId = ds.get(0).id + "";
+                                Log.i("xq", "最近的小区==>" + ds.get(0).name + "--id==>" + ds.get(0).id);
+                            }
+                        });
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -301,6 +434,7 @@ public class AddGuardActivity extends SampleActivity {
         pictureWindow.showAtLocation(findViewById(R.id.mainLayout),
                 Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
@@ -309,11 +443,20 @@ public class AddGuardActivity extends SampleActivity {
             useCamera();
         } else if (requestCode == 2 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             choosePhoto();
+        } else if (requestCode == 130) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // 获取到权限，作相应处理（调用定位SDK应当确保相关权限均被授权，否则可能引起定位失败）
+                getLocation();
+            } else {
+                // 没有获取到权限，做特殊处理
+                Toast.makeText(getApplicationContext(), "获取位置权限失败，请手动开启", Toast.LENGTH_SHORT).show();
+            }
         } else {
             // 没有获取 到权限，从新请求，或者关闭app
             Toast.makeText(this, "需要存储权限", Toast.LENGTH_SHORT).show();
         }
     }
+
     /**
      * 使用相机
      */
@@ -342,6 +485,7 @@ public class AddGuardActivity extends SampleActivity {
         startActivityForResult(intent, TAKE_PHOTO);
 
     }
+
     /**
      * 相册选择
      */
@@ -350,14 +494,39 @@ public class AddGuardActivity extends SampleActivity {
         intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
         startActivityForResult(intent1, CHOOSE_PHOTO);
     }
+
     /**
      * 照片剪切
      *
      * @param uri
      */
     public void startPhotoZoom(Uri uri) {
+        cropFile = new File(Environment.getExternalStorageDirectory() + "/crop" + getPhotoFileName());
+        if (!cropFile.getParentFile().exists()) {
+            cropFile.getParentFile().mkdirs();
+            try {
+                cropFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        Uri outputUri = fromFile(cropFile);
         Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(uri, "image/*");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
+            intent.setDataAndType(uri, "image/*");
+            intent.putExtra("noFaceDetection", false);//去除默认的人脸识别，否则和剪裁匡重叠
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                String url = GetImagePath.getPath(this, uri);//这个方法是处理4.4以上图片返回的Uri对象不同的处理方法
+                intent.setDataAndType(Uri.fromFile(new File(url)), "image/*");
+            } else {
+                intent.setDataAndType(uri, "image/*");
+            }
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
+        }
         intent.putExtra("crop", "true");
         //宽高比例
         intent.putExtra("aspectX", 1);
@@ -475,40 +644,68 @@ public class AddGuardActivity extends SampleActivity {
             files.add(file2);
             files.add(file3);
             for (File f : files) {
-                asynchttpUpload(ImageUrl, f);
+                postPictures(ImageUrl, f);
             }
             submitMessage();
         }
     }
 
-    private void asynchttpUpload(String url, File myFile) {
-        RequestParams params = new RequestParams();
-        try {
-            params.put("xinxi", myFile);
-            HttpUtil.post(url, params, new AsyncHttpResponseHandler() {
-                //              int i = 1;
-                @Override
-                public void onSuccess(int statusCode, String content) {
-                    Log.i("xq", "statueCode==>" + statusCode + "content==>" + content);
-                    try {
-                        JSONObject json = new JSONObject(content);
-                        String status = json.getString("status");
-                        if (status.equals("true")) {
-//                            String str = json.getString("msg");
-//                            Message msg1 = Message.obtain();
-//                            msg1.what = i;
-//                            msg1.obj = str;
-//                            handler.sendMessage(msg1);
-                        }
-                    } catch (Exception e) {
-                    }
+    private void postPictures(String url, File myFile) {
+        RequestParams params = new RequestParams(url);
+        params.addBodyParameter("xinxi", myFile);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                if (JsonSyncUtils.getJsonValue(result, "status").equals("true")) {
+
                 }
-//              i++;
-            });
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
+
+//    private void asynchttpUpload(String url, File myFile) {
+//        RequestParams params = new RequestParams();
+//        try {
+//            params.put("xinxi", myFile);
+//            HttpUtil.post(url, params, new AsyncHttpResponseHandler() {
+//                //              int i = 1;
+//                @Override
+//                public void onSuccess(int statusCode, String content) {
+//                    Log.i("xq", "statueCode==>" + statusCode + "content==>" + content);
+//                    try {
+//                        JSONObject json = new JSONObject(content);
+//                        String status = json.getString("status");
+//                        if (status.equals("true")) {
+////                            String str = json.getString("msg");
+////                            Message msg1 = Message.obtain();
+////                            msg1.what = i;
+////                            msg1.obj = str;
+////                            handler.sendMessage(msg1);
+//                        }
+//                    } catch (Exception e) {
+//                    }
+//                }
+////              i++;
+//            });
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
     //提交所有信息

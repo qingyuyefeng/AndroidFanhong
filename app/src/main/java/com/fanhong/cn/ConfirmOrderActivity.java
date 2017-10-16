@@ -634,7 +634,7 @@ public class ConfirmOrderActivity extends Activity {
         RequestParams param = new RequestParams(App.CMDURL);
         param.addParameter("cmd", "21");
         param.addParameter("uid",  mSettingPref.getString("UserId", ""));  //下订单用户ID
-        param.addParameter("time", new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Long.parseLong(ddh1)*1000));
+        param.addParameter("time", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Long.parseLong(ddh1)*1000));
         param.addParameter("zjje", fl_total);  //支付金额
         param.addParameter("zffs", "2");    //支付方式（1支付宝，2微信）
         param.addParameter("user", user);  //收货人姓名

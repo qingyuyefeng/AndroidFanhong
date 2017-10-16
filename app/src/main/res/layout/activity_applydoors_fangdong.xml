@@ -94,7 +94,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:layout_toRightOf="@id/xze"
-                        android:text="春风与湖"
+                        android:text="选择小区"
                         android:textColor="#999"
                         android:paddingLeft="3dp"
                         android:paddingRight="3dp"

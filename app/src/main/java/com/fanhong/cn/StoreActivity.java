@@ -71,7 +71,7 @@ public class StoreActivity extends SampleActivity implements LoadData{
 		int result=-1;
 		String str;
 		String name = "";
-		Log.i("xq","StoreActivity.java json="+json.toString());
+//		Log.i("xq","StoreActivity.java json="+json.toString());
 		try {
 			str = json.getString("cmd");
 			cmd = Integer.parseInt(str);
