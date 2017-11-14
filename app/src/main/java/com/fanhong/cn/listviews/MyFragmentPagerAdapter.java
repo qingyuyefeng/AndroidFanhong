@@ -1,5 +1,6 @@
 package com.fanhong.cn.listviews;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Fragment;
@@ -13,7 +14,7 @@ import android.app.FragmentManager;
  */
 public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
-	private List<Fragment> fragments;
+	private List<Fragment> fragments = new ArrayList<>();
 	
 	public MyFragmentPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
 		super(fm);

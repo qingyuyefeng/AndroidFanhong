@@ -354,6 +354,12 @@
         <activity android:name=".repair.EmergencyUnlockActivity"
             android:screenOrientation="portrait"/>
 
+        <!-- 党功能 -->
+        <activity android:name=".party.ViewPagerActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".party.PersonalMessageActivity"
+            android:screenOrientation="portrait"/>
+
         <!--微信支付回调入口-->
         <activity android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"

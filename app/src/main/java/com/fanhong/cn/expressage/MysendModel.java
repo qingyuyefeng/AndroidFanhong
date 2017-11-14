@@ -9,7 +9,15 @@ public class MysendModel {
             receiveCity,
             sendName,
             receiveName;
+    int id;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getSendCity() {
         return sendCity;
@@ -46,10 +54,11 @@ public class MysendModel {
     @Override
     public String toString() {
         return "MysendModel{" +
-                ", sendCity='" + sendCity + '\'' +
+                "sendCity='" + sendCity + '\'' +
                 ", receiveCity='" + receiveCity + '\'' +
                 ", sendName='" + sendName + '\'' +
                 ", receiveName='" + receiveName + '\'' +
+                ", id=" + id +
                 '}';
     }
 }

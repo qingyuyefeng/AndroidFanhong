@@ -21,4 +21,11 @@ public class MySharedPrefUtils {
     public static String getGardenName(Context c){
         return getSharedPref(c).getString("gardenName", "");
     }
+    public static String getNick(Context c){
+        return getSharedPref(c).getString("Nick", "");
+    }
+
+    public static String getPhone(Context c){
+        return getSharedPref(c).getString("Name", "");
+    }
 }

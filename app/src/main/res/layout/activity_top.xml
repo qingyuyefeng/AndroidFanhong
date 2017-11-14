@@ -27,4 +27,16 @@
         android:textColor="@color/white"
         android:textSize="40px" />
 
+    <TextView
+        android:id="@+id/top_extra"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:textSize="36px"
+        android:textColor="@color/white"
+        android:padding="10px"
+        android:layout_alignParentRight="true"
+        android:text="签到"
+        android:visibility="invisible"/>
+
 </com.zhy.autolayout.AutoRelativeLayout>

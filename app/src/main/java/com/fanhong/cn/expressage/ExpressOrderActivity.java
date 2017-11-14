@@ -1,6 +1,8 @@
 package com.fanhong.cn.expressage;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -9,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fanhong.cn.App;
 import com.fanhong.cn.R;
@@ -68,6 +71,7 @@ public class ExpressOrderActivity extends Activity {
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject object = jsonArray.optJSONObject(i);
                                 MysendModel mysendModel = new MysendModel();
+                                mysendModel.setId(object.optInt("id",0));
                                 mysendModel.setSendName(object.optString("jmz"));
                                 mysendModel.setSendCity(object.optString("jsf","null"));
                                 mysendModel.setReceiveName(object.optString("smz"));
@@ -112,6 +116,57 @@ public class ExpressOrderActivity extends Activity {
         mysendModelList.clear();
         initDatas();
         mySendexpressAdapter = new MySendexpressAdapter(this, mysendModelList);
+        mySendexpressAdapter.setItemClick(new MySendexpressAdapter.ItemClick() {
+            @Override
+            public void Click(final int id, final int position) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ExpressOrderActivity.this);
+                builder.setTitle("删除此条数据！");
+                builder.setMessage("确定删除此条运单吗？");
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        RequestParams params = new RequestParams(App.CMDURL);
+                        params.addBodyParameter("cmd","91");
+                        params.addBodyParameter("id",id+"");
+                        x.http().post(params, new Callback.CommonCallback<String>() {
+                            @Override
+                            public void onSuccess(String result) {
+                                if(JsonSyncUtils.getJsonValue(result,"cw").equals("0")){
+                                    Toast.makeText(ExpressOrderActivity.this,R.string.delete_success,Toast.LENGTH_SHORT).show();
+                                    mysendModelList.remove(position);
+                                    handler.sendEmptyMessage(1);
+                                }else {
+                                    Toast.makeText(ExpressOrderActivity.this,R.string.delete_failed,Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onError(Throwable ex, boolean isOnCallback) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(CancelledException cex) {
+
+                            }
+
+                            @Override
+                            public void onFinished() {
+
+                            }
+                        });
+                    }
+                });
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
         sListView.setAdapter(mySendexpressAdapter);
 
         //TODO 这里一直打印的长度为0

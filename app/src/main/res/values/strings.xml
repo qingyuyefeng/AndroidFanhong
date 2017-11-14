@@ -16,6 +16,8 @@
     <string name="login_verificationcode">请输入验证码</string>
     <string name="phoneiswrong">请输入正确的电话号码！</string>
     <string name="delete">删除</string>
+    <string name="delete_success">删除成功！</string>
+    <string name="delete_failed">删除失败！</string>
     <string name="editor">编辑</string>
     <string name="whetherset">是否设置为默认地址</string>
 
@@ -40,6 +42,11 @@
     <string name="cancel">取消</string>
     <string name="refuse">拒绝</string>
     <string name="receive">接受</string>
+
+    <string name="fx">分享</string>
+    <string name="lt">论坛</string>
+    <string name="cy">参与</string>
+    <string name="wd">我的</string>
 
     <string name="shequgonggao">社区公告</string>
     <string name="wuyezhixing">物业之星</string>
@@ -83,8 +90,8 @@
     <string name="userregister">用户注册</string>
     <string name="registering">注册中……</string>
     <string name="readandagree">我已阅读并同意</string>
-    <string name="protocol">《物业百事通用户协议》</string>
-    <string name="protocol1">物业百事通用户协议</string>
+    <string name="protocol">《帆社区用户协议》</string>
+    <string name="protocol1">帆社区用户协议</string>
     <string name="register">注册</string>
     <string name="register_success">注册成功！</string>
     <string name="code_wrong">验证码错误！</string>
@@ -189,6 +196,7 @@
     <string name="service_talk">社区互动</string>
     <string name="service_es">二手市场</string>
     <string name="service_zsdl">招商代理</string>
+    <string name="service_dang">党功能</string>
 
     <string name="shunfeng">顺丰快递</string>
     <string name="yunda">韵达快递</string>

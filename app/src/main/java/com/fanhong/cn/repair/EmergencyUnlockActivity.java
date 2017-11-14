@@ -173,36 +173,6 @@ public class EmergencyUnlockActivity extends Activity {
     }
 
     private void getData() {
-        RequestParams params = new RequestParams(App.CMDURL);
-        params.addParameter("cmd", "");
-        x.http().post(params, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                if (JsonSyncUtils.getJsonValue(result, "cw").equals("0")) {
 
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            adapter.notifyDataSetChanged();
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-                swipRefresh.setRefreshing(false);
-            }
-        });
     }
 }

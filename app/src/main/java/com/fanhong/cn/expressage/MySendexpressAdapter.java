@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.fanhong.cn.R;
+import com.zhy.autolayout.AutoRelativeLayout;
 import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.List;
@@ -16,12 +17,22 @@ import java.util.List;
  * Created by Administrator on 2017/8/10.
  */
 
-public class MySendexpressAdapter extends BaseAdapter{
+public class MySendexpressAdapter extends BaseAdapter {
     private Context context;
     private List<MysendModel> list;
     private LayoutInflater inflater;
 
-    public MySendexpressAdapter(Context context,List<MysendModel> list){
+    ItemClick itemClick;
+
+    public void setItemClick(ItemClick itemClick) {
+        this.itemClick = itemClick;
+    }
+
+    public interface ItemClick {
+        void Click(int id,int position);
+    }
+
+    public MySendexpressAdapter(Context context, List<MysendModel> list) {
         this.context = context;
         this.list = list;
         inflater = LayoutInflater.from(context);
@@ -43,13 +54,13 @@ public class MySendexpressAdapter extends BaseAdapter{
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         MyViewHolder myViewHolder;
-        if(convertView == null){
-            convertView = inflater.inflate(R.layout.sendexpress_item,null);
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.sendexpress_item, null);
             myViewHolder = new MyViewHolder(convertView);
             convertView.setTag(myViewHolder);
-        }else {
+        } else {
             myViewHolder = (MyViewHolder) convertView.getTag();
         }
         MysendModel mysendModel = list.get(position);
@@ -57,12 +68,22 @@ public class MySendexpressAdapter extends BaseAdapter{
         myViewHolder.sname.setText(mysendModel.getSendName());
         myViewHolder.rcity.setText(mysendModel.getReceiveCity());
         myViewHolder.rname.setText(mysendModel.getReceiveName());
+        final int id = mysendModel.getId();
+        myViewHolder.itemLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                itemClick.Click(id,position);
+            }
+        });
         return convertView;
     }
 
-    private class MyViewHolder{
-        TextView scity,sname,rcity,rname;
+    private class MyViewHolder {
+        AutoRelativeLayout itemLayout;
+        TextView scity, sname, rcity, rname;
+
         public MyViewHolder(View itemView) {
+            itemLayout = (AutoRelativeLayout) itemView.findViewById(R.id.item_layout);
             scity = (TextView) itemView.findViewById(R.id.send_express_city);
             sname = (TextView) itemView.findViewById(R.id.send_express_name);
             rcity = (TextView) itemView.findViewById(R.id.get_express_city);

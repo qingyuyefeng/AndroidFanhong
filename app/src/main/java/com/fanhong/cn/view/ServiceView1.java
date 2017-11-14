@@ -18,7 +18,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fanhong.cn.AgentWebActivity;
 import com.fanhong.cn.LoginActivity;
@@ -27,6 +26,7 @@ import com.fanhong.cn.StoreActivity;
 import com.fanhong.cn.community.CommunityChatRoomActivity;
 import com.fanhong.cn.fenxiao.FenXiaoActivity;
 import com.fanhong.cn.listviews.MyGridView;
+import com.fanhong.cn.party.ViewPagerActivity;
 import com.fanhong.cn.repair.EmergencyUnlockActivity;
 import com.fanhong.cn.repair.RepairActivity;
 import com.fanhong.cn.usedmarket.ShopActivity;
@@ -47,7 +47,8 @@ public class ServiceView1 extends BaseFragment {
 //          R.drawable.service_park
             R.drawable.service_fix,
 //			,R.drawable.service_jd, R.drawable.service_kd, R.drawable.service_clean,
-            R.drawable.service_talk
+            R.drawable.service_talk,
+            R.drawable.service_dang_1
     };
 
     //定义数组文字
@@ -60,7 +61,8 @@ public class ServiceView1 extends BaseFragment {
 //          R.string.service_park
             R.string.service_fix,
 //			,R.string.service_jd, R.string.service_kd, R.string.service_clean,
-            R.string.service_talk
+            R.string.service_talk,
+            R.string.service_dang
     };
 
     private int mImageViewArray2[] = {R.drawable.service_mt, R.drawable.service_dz, R.drawable.service_tb,
@@ -339,6 +341,9 @@ public class ServiceView1 extends BaseFragment {
                     TopBarUtil.createDialog(getActivity(),1);
                 }else
                     startActivity(new Intent(ServiceView1.this.getActivity(), CommunityChatRoomActivity.class));
+                break;
+            case 7:
+                startActivity(new Intent(ServiceView1.this.getActivity(), ViewPagerActivity.class));
                 break;
         }
     }
