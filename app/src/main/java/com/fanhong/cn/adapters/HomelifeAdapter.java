@@ -78,13 +78,11 @@ public class HomelifeAdapter extends BaseAdapter {
                 case TYPE1:
                     convertView = inflater.inflate(R.layout.item_home_news_life_, null);
                     viewHolder1 = new ViewHolder1(convertView);
-                    AutoUtils.autoSize(convertView);
                     convertView.setTag(viewHolder1);
                     break;
                 case TYPE2:
                     convertView = inflater.inflate(R.layout.item_home_news_life, null);
                     viewHolder2 = new ViewHolder2(convertView);
-                    AutoUtils.autoSize(convertView);
                     convertView.setTag(viewHolder2);
                     break;
             }
@@ -133,6 +131,7 @@ public class HomelifeAdapter extends BaseAdapter {
             title = (TextView) view.findViewById(R.id.tv_news_title);
             place = (TextView) view.findViewById(R.id.tv_news_author);
             time = (TextView) view.findViewById(R.id.tv_news_time);
+            AutoUtils.autoSize(view);
         }
     }
 
@@ -145,6 +144,7 @@ public class HomelifeAdapter extends BaseAdapter {
             title = (TextView) view.findViewById(R.id.tv_news_title1);
             place = (TextView) view.findViewById(R.id.tv_news_author1);
             time = (TextView) view.findViewById(R.id.tv_news_time1);
+            AutoUtils.autoSize(view);
         }
     }
 }

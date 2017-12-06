@@ -96,33 +96,33 @@
             android:src="@drawable/ico_qj"
             android:layout_marginRight="20px"/>
     </com.zhy.autolayout.AutoLinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2px"
-        android:background="#e5e5e5"/>
-    <com.zhy.autolayout.AutoLinearLayout
-        android:id="@+id/user_notification"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:background="@color/white">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="消息通知"
-            android:drawableLeft="@drawable/ilon_xx"
-            android:paddingLeft="30px"
-            android:paddingTop="25px"
-            android:paddingBottom="25px"
-            android:drawablePadding="25px"/>
-        <ImageView
-            android:layout_width="45px"
-            android:layout_height="45px"
-            android:src="@drawable/ico_qj"
-            android:layout_marginRight="20px"/>
-    </com.zhy.autolayout.AutoLinearLayout>
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="2px"-->
+        <!--android:background="#e5e5e5"/>-->
+    <!--<com.zhy.autolayout.AutoLinearLayout-->
+        <!--android:id="@+id/user_notification"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:background="@color/white">-->
+        <!--<TextView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="消息通知"-->
+            <!--android:drawableLeft="@drawable/ilon_xx"-->
+            <!--android:paddingLeft="30px"-->
+            <!--android:paddingTop="25px"-->
+            <!--android:paddingBottom="25px"-->
+            <!--android:drawablePadding="25px"/>-->
+        <!--<ImageView-->
+            <!--android:layout_width="45px"-->
+            <!--android:layout_height="45px"-->
+            <!--android:src="@drawable/ico_qj"-->
+            <!--android:layout_marginRight="20px"/>-->
+    <!--</com.zhy.autolayout.AutoLinearLayout>-->
     <View
         android:layout_width="match_parent"
         android:layout_height="2px"

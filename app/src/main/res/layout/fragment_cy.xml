@@ -9,11 +9,11 @@
         android:layout_height="wrap_content"
         android:src="@drawable/cy_top"
         android:scaleType="centerCrop"/>
-    <ImageView
-        android:id="@+id/join_test"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3px"
-        android:src="@drawable/join_test"
-        android:scaleType="centerCrop"/>
+    <!--<ImageView-->
+        <!--android:id="@+id/join_test"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="3px"-->
+        <!--android:src="@drawable/join_test"-->
+        <!--android:scaleType="centerCrop"/>-->
 </com.zhy.autolayout.AutoLinearLayout>

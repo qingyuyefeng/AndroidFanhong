@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="210px"
+    android:background="@color/white"
+    android:padding="5px"
+    android:id="@+id/fx_layout">
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="市政府召开第187次亚太峰会"
+        android:textColor="@color/text_3"
+        android:textSize="35px"
+        android:layout_marginLeft="20px" />
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:text="11.11日，市长张国清主持了第187次亚太峰会..."
+        android:layout_margin="20px"/>
+    <com.fanhong.cn.view.CircleImg
+        android:id="@+id/author_photo"
+        android:layout_width="40px"
+        android:layout_height="40px"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20px"
+        android:src="@drawable/default_photo"
+        android:scaleType="centerInside"/>
+    <TextView
+        android:id="@+id/author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10px"
+        android:layout_toRightOf="@id/author_photo"
+        android:text="系统消息"/>
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test-time"
+        android:layout_alignBottom="@id/author"
+        android:layout_toRightOf="@id/author"
+        android:layout_marginLeft="15px"/>
+
+    <!--<TextView-->
+        <!--android:id="@+id/comment"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_marginRight="80px"-->
+        <!--android:drawableLeft="@drawable/ilon_xx"-->
+        <!--android:drawablePadding="5px"-->
+        <!--android:text="评论" />-->
+</com.zhy.autolayout.AutoRelativeLayout>

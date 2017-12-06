@@ -12,9 +12,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fanhong.cn.App;
 import com.fanhong.cn.R;
 import com.fanhong.cn.listviews.MyFragmentPagerAdapter;
+import com.fanhong.cn.util.JsonSyncUtils;
+import com.fanhong.cn.util.MySharedPrefUtils;
 
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
@@ -36,7 +41,7 @@ public class ViewPagerActivity extends FragmentActivity {
     @ViewInject(R.id.party_viewpager)
     private ViewPager viewPager;
 
-    private List<Fragment> fragmentList = new ArrayList<>();
+    private List<Fragment> fragmentList;
 
     /**
      * 四个Fragment
@@ -134,6 +139,8 @@ public class ViewPagerActivity extends FragmentActivity {
         viewPager.setOffscreenPageLimit(3);
     }
     private List<Fragment> getFragList(){
+        fragmentList =  new ArrayList<>();
+
         fragmentfx = new Fragmentfx();
         fragmentList.add(fragmentfx);
         fragmentlt = new Fragmentlt();
@@ -152,8 +159,40 @@ public class ViewPagerActivity extends FragmentActivity {
                 finish();
                 break;
             case R.id.top_extra:
-                Toast.makeText(this,"签到成功!",Toast.LENGTH_SHORT).show();
+                qiandao(MySharedPrefUtils.getUserId(this));
                 break;
         }
+    }
+    private void qiandao(String uid){
+        RequestParams params = new RequestParams(App.CMDURL);
+        params.addBodyParameter("cmd","103");
+        params.addBodyParameter("uid",uid);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                if(JsonSyncUtils.getJsonValue(result,"cw").equals("0")){
+                    Toast.makeText(ViewPagerActivity.this,"签到成功!",Toast.LENGTH_SHORT).show();
+                }else if(JsonSyncUtils.getJsonValue(result,"cw").equals("1")){
+                    Toast.makeText(ViewPagerActivity.this,"今天已经签到过了~",Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(ViewPagerActivity.this,"签到失败!",Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 }

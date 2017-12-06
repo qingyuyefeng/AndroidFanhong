@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include layout="@layout/activity_top"/>
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="姓名"
+            android:textSize="33px"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:paddingTop="5px"
+            android:paddingBottom="5px"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="职位"
+            android:textSize="33px"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:paddingTop="5px"
+            android:paddingBottom="5px"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="手机号"
+            android:textSize="33px"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:paddingTop="5px"
+            android:paddingBottom="5px"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/member_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10px"/>
+</com.zhy.autolayout.AutoLinearLayout>

@@ -359,6 +359,18 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".party.PersonalMessageActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".party.activities.AddFxActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".party.activities.PartyMemberInfoActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".party.activities.PartyScoreActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".party.activities.PartyMembersActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".party.activities.DetailsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".party.activities.PartyDuesActivity"
+            android:screenOrientation="portrait"/>
 
         <!--微信支付回调入口-->
         <activity android:name=".wxapi.WXPayEntryActivity"
@@ -441,9 +453,15 @@
 
 
         <!-- android7.0拍照权限调取 -->
+        <!--<provider-->
+            <!--android:name="android.support.v4.content.FileProvider"-->
+            <!--android:authorities="applicationId.fileprovider"-->
+            <!--android:exported="false"-->
+            <!--android:grantUriPermissions="true"-->
+            <!--&gt;-->
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="applicationId.fileprovider"
+            android:authorities="${applicationId}.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true"
             >

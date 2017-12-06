@@ -33,6 +33,9 @@ public class App extends Application {
 
     public static String CMDURL = "http://m.wuyebest.com/index.php/App/index";
 
+    //开门禁所需访问的路径
+    public static final String OPEN_URL = "http://m.wuyebest.com/index.php/App/index/yjkm";
+
     public static Set<Long> old_msg_times=new HashSet<>();
 //    public static List<Long> old_msg_times=new ArrayList<>();
 

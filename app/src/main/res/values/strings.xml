@@ -87,6 +87,11 @@
     <string name="nonetwork">网络连接失败，部分数据无法显示</string>
     <string name="nowife">当前为数据流量连接，请小心流量</string>
 
+    <string name="party_zero">海棠晓月社区党委成员</string>
+    <string name="party_one">海棠晓月社区党委一支部成员</string>
+    <string name="party_two">海棠晓月社区党委二支部成员</string>
+    <string name="party_three">海棠晓月社区党委三支部成员</string>
+
     <string name="userregister">用户注册</string>
     <string name="registering">注册中……</string>
     <string name="readandagree">我已阅读并同意</string>

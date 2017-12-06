@@ -13,19 +13,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fanhong.cn.App;
 import com.fanhong.cn.R;
-import com.fanhong.cn.SampleConnection;
+import com.fanhong.cn.util.JsonSyncUtils;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 /**
  * Created by Administrator on 2017/7/5.
@@ -72,13 +66,9 @@ public class OpenDoorActivity extends Activity{
                     finish();
                     break;
                 case R.id.open_door:
-//                    new Thread(){
-//                        @Override
-//                        public void run() {
-//                            openDoor(miyue);
-//                        }
-//                    }.start();
-                    Toast.makeText(OpenDoorActivity.this,R.string.opendoor,Toast.LENGTH_SHORT).show();
+                    openDoor(miyue);
+//                    openDoor("b6dcdeb66926fd8850096e99d3bdb2c5");
+//                    Toast.makeText(OpenDoorActivity.this,R.string.opendoor,Toast.LENGTH_SHORT).show();
                     break;
             }
         }
@@ -106,48 +96,74 @@ public class OpenDoorActivity extends Activity{
 
     //访问接口开门
     public synchronized void openDoor(String str){
-        String string = SampleConnection.OPEN_LOCKED_URL;
-        Log.i("xq","开门***url====>"+string);
-        OutputStream os = null;
-        try {
-            URL url = new URL(string);
-            HttpURLConnection http = (HttpURLConnection) url.openConnection();
-            http.setReadTimeout(5000);
-            http.setConnectTimeout(5000);
-            http.setRequestMethod("POST");
-            http.setDoOutput(true);
-            http.setDoInput(true);
-            http.setUseCaches(false);
-            String content = str;
-            os = http.getOutputStream();
-            os.write(content.getBytes());
-            int res = http.getResponseCode();
-            Log.i("xq","返回码***res======>"+res);
-            if(res == 200){
-                BufferedReader br = new BufferedReader(new InputStreamReader(http.getInputStream(),"utf-8"));
-                StringBuffer sb = new StringBuffer();
-                String s;
-                while((s = br.readLine())!=null){
-                    sb.append(s);
-                }
-                JSONObject jsonObject = new JSONObject(sb.toString());
-                String status = jsonObject.optString("data");
-                if(status.equals("ok")){
-                    //开门提示
+        String openUrl = App.OPEN_URL;
+        Log.i("xq","开门***url====>"+openUrl);
+//        OutputStream os = null;
+//        try {
+//            URL url = new URL(string);
+//            HttpURLConnection http = (HttpURLConnection) url.openConnection();
+//            http.setReadTimeout(5000);
+//            http.setConnectTimeout(5000);
+//            http.setRequestMethod("POST");
+//            http.setDoOutput(true);
+//            http.setDoInput(true);
+//            http.setUseCaches(false);
+//            String content = str;
+//            os = http.getOutputStream();
+//            os.write(content.getBytes());
+//            int res = http.getResponseCode();
+//            Log.i("xq","返回码***res======>"+res);
+//            if(res == 200){
+//                BufferedReader br = new BufferedReader(new InputStreamReader(http.getInputStream(),"utf-8"));
+//                StringBuffer sb = new StringBuffer();
+//                String s;
+//                while((s = br.readLine())!=null){
+//                    sb.append(s);
+//                }
+//                JSONObject jsonObject = new JSONObject(sb.toString());
+//                String status = jsonObject.optString("data");
+//                if(status.equals("ok")){
+//                    //开门提示
+//                }
+//            }
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }finally {
+//            try {
+//                os.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+
+        RequestParams params=new RequestParams(openUrl);
+        params.addParameter("key",str);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                if(JsonSyncUtils.getJsonValue(result,"error").equals("succ")){
+                    Toast.makeText(OpenDoorActivity.this,"开门成功！",Toast.LENGTH_SHORT).show();
                 }
             }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }finally {
-            try {
-                os.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
             }
-        }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 }

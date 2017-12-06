@@ -18,8 +18,10 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fanhong.cn.AgentWebActivity;
+import com.fanhong.cn.App;
 import com.fanhong.cn.LoginActivity;
 import com.fanhong.cn.R;
 import com.fanhong.cn.StoreActivity;
@@ -30,9 +32,14 @@ import com.fanhong.cn.party.ViewPagerActivity;
 import com.fanhong.cn.repair.EmergencyUnlockActivity;
 import com.fanhong.cn.repair.RepairActivity;
 import com.fanhong.cn.usedmarket.ShopActivity;
+import com.fanhong.cn.util.JsonSyncUtils;
 import com.fanhong.cn.util.MySharedPrefUtils;
 import com.fanhong.cn.util.TopBarUtil;
 import com.fanhong.cn.verification.InputYuyueActivity;
+
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 public class ServiceView1 extends BaseFragment {
     public static final int PAGER_INDEX = 2;
@@ -343,7 +350,38 @@ public class ServiceView1 extends BaseFragment {
                     startActivity(new Intent(ServiceView1.this.getActivity(), CommunityChatRoomActivity.class));
                 break;
             case 7:
-                startActivity(new Intent(ServiceView1.this.getActivity(), ViewPagerActivity.class));
+                if(MySharedPrefUtils.getStatus(getActivity())==1){
+                    RequestParams params = new RequestParams(App.CMDURL);
+                    params.addParameter("cmd","93");
+                    params.addParameter("tel",MySharedPrefUtils.getPhone(getActivity()));
+                    x.http().post(params, new Callback.CommonCallback<String>() {
+                        @Override
+                        public void onSuccess(String result) {
+                            if(JsonSyncUtils.getJsonValue(result,"cw").equals("0")){
+                                startActivity(new Intent(ServiceView1.this.getActivity(), ViewPagerActivity.class));
+                            }else {
+                                Toast.makeText(getActivity(),"暂无进入权限...",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable ex, boolean isOnCallback) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(CancelledException cex) {
+
+                        }
+
+                        @Override
+                        public void onFinished() {
+
+                        }
+                    });
+                }else {
+                    TopBarUtil.createDialog(getActivity(),0);
+                }
                 break;
         }
     }

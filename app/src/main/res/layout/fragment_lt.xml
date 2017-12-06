@@ -40,6 +40,7 @@
                 android:visibility="gone"
                 android:drawablePadding="15px"/>
             <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/add_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"

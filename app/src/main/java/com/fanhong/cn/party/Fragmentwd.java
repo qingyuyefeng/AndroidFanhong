@@ -13,6 +13,9 @@ import android.widget.TextView;
 import com.fanhong.cn.ImageLoaderPicture;
 import com.fanhong.cn.R;
 import com.fanhong.cn.SampleConnection;
+import com.fanhong.cn.party.activities.PartyDuesActivity;
+import com.fanhong.cn.party.activities.PartyMemberInfoActivity;
+import com.fanhong.cn.party.activities.PartyScoreActivity;
 import com.fanhong.cn.util.MySharedPrefUtils;
 import com.fanhong.cn.view.CircleImg;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -36,15 +39,15 @@ public class Fragmentwd extends Fragment {
     @ViewInject(R.id.user_phone)
     private TextView userPhone;
     @ViewInject(R.id.user_message)
-    private AutoLinearLayout userMessage;  //个人信息
+    private AutoLinearLayout userMessage;
     @ViewInject(R.id.user_score)
-    private AutoLinearLayout userScore;  //积分
-    @ViewInject(R.id.user_notification)
-    private AutoLinearLayout userNotice;  //消息通知
+    private AutoLinearLayout userScore;
+//    @ViewInject(R.id.user_notification)
+//    private AutoLinearLayout userNotice;
     @ViewInject(R.id.party_person_info)
-    private AutoLinearLayout userInfo;  //党员信息
+    private AutoLinearLayout userInfo;
     @ViewInject(R.id.dues_message)
-    private AutoLinearLayout userDues;  //党费信息
+    private AutoLinearLayout userDues;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -60,11 +63,22 @@ public class Fragmentwd extends Fragment {
         userPhone.setText(MySharedPrefUtils.getPhone(getActivity()));
         return view;
     }
-    @Event({R.id.user_message,R.id.user_score})
+    @Event({R.id.user_message,R.id.user_score,/*R.id.user_notification,*/R.id.party_person_info,R.id.dues_message})
     private void onClick(View v){
         switch (v.getId()){
-            case R.id.user_message:
+            case R.id.user_message: //个人信息
                 startActivity(new Intent(getActivity(),PersonalMessageActivity.class));
+                break;
+//            case R.id.user_notification: //消息通知
+//                break;
+            case R.id.user_score:  //积分
+                startActivity(new Intent(getActivity(), PartyScoreActivity.class));
+                break;
+            case R.id.party_person_info:  //党员信息
+                startActivity(new Intent(getActivity(), PartyMemberInfoActivity.class));
+                break;
+            case R.id.dues_message: //党费信息
+                startActivity(new Intent(getActivity(), PartyDuesActivity.class));
                 break;
         }
     }
