@@ -418,6 +418,7 @@
                         android:background="@color/white"
                         android:gravity="center_vertical"
                         android:hint="物品出售价格"
+                        android:inputType="number"
                         android:textColor="@color/textblack"
                         android:textColorHint="@color/texthint"
                         android:textSize="26px" />
