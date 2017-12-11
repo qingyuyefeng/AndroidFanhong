@@ -52,10 +52,9 @@
 
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100px"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingTop="20px">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -63,20 +62,24 @@
                     android:layout_marginLeft="20px"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
+                    android:layout_gravity="center_vertical"
                     android:text="姓名："
                     android:textSize="27px" />
 
                 <EditText
                     android:id="@+id/fenxiao_name"
-                    android:layout_width="290px"
+                    android:layout_width="310px"
                     android:layout_height="70px"
                     android:layout_marginLeft="10px"
-                    android:background="@drawable/postpicture_biankuang" />
+                    android:paddingLeft="5px"
+                    android:background="@drawable/postpicture_biankuang"
+                    android:textColor="@color/text_3"
+                    android:textSize="27px"/>
             </com.zhy.autolayout.AutoLinearLayout>
 
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100px"
                 android:layout_marginTop="20px"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -90,13 +93,16 @@
 
                 <EditText
                     android:id="@+id/fenxiao_phone"
-                    android:layout_width="290px"
+                    android:layout_width="310px"
                     android:layout_height="70px"
                     android:layout_marginLeft="10px"
                     android:background="@drawable/postpicture_biankuang"
                     android:inputType="phone"
                     android:maxLength="11"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:paddingLeft="5px"
+                    android:textSize="27px"
+                    android:textColor="@color/text_3"/>
             </com.zhy.autolayout.AutoLinearLayout>
 
             <TextView
@@ -114,9 +120,12 @@
                 android:layout_marginLeft="20px"
                 android:layout_marginTop="20px"
                 android:hint="请详细到街道门牌信息"
+                android:background="@drawable/postpicture_biankuang"
+                android:paddingLeft="5px"
+                android:textColor="@color/text_3"
                 android:maxLines="2"
                 android:textColorHint="@color/alpha_black"
-                android:textSize="25px" />
+                android:textSize="26px" />
 
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
@@ -134,10 +143,9 @@
 
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100px"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingTop="20px">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -148,21 +156,24 @@
 
                 <EditText
                     android:id="@+id/bank_card"
-                    android:layout_width="450px"
+                    android:layout_width="470px"
                     android:layout_height="70px"
                     android:layout_marginLeft="10px"
                     android:background="@drawable/postpicture_biankuang"
                     android:inputType="number"
-                    android:maxLines="1" />
+                    android:textColor="@color/text_3"
+                    android:paddingLeft="5px"
+                    android:textSize="26px"
+                    android:maxLines="1"
+                    android:ellipsize="end"/>
             </com.zhy.autolayout.AutoLinearLayout>
 
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100px"
                 android:layout_marginTop="20px"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingBottom="20px">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -173,10 +184,13 @@
 
                 <EditText
                     android:id="@+id/bank_type"
-                    android:layout_width="450px"
+                    android:layout_width="470px"
                     android:layout_height="70px"
                     android:layout_marginLeft="10px"
                     android:background="@drawable/postpicture_biankuang"
+                    android:textColor="@color/text_3"
+                    android:textSize="27px"
+                    android:paddingLeft="5px"
                     android:maxLines="2" />
             </com.zhy.autolayout.AutoLinearLayout>
 

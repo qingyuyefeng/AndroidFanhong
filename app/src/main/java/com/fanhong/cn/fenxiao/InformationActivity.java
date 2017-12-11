@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,6 +18,7 @@ import com.amap.api.maps2d.AMapOptions;
 import com.fanhong.cn.App;
 import com.fanhong.cn.R;
 import com.fanhong.cn.util.JsonSyncUtils;
+import com.fanhong.cn.util.StringUtils;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -47,6 +50,7 @@ public class InformationActivity extends Activity {
     private String uid;
 
     private AMapLocationClient client;
+    private boolean isinput = true;//拦截非用户输入的更改，防止死锁
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,6 +66,28 @@ public class InformationActivity extends Activity {
         if (location != null && location.getErrorCode() == 0) {
             fAddress.setText(location.getAddress().split("靠近")[0]);
         }
+        fBankNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (isinput) {
+                    isinput = false;
+                    String str = StringUtils.addChar(fBankNumber.getText().toString(), ' ');
+                    fBankNumber.setText(str);
+                    fBankNumber.setSelection(str.length());
+                }else
+                    isinput = true;
+            }
+        });
     }
 
     @Event(value = {R.id.back_bn, R.id.tv_post_information})
@@ -74,7 +100,7 @@ public class InformationActivity extends Activity {
                 postInformation(fName.getText().toString(),
                         fPhone.getText().toString(),
                         fAddress.getText().toString(),
-                        fBankNumber.getText().toString(),
+                        fBankNumber.getText().toString().trim(),
                         fBankType.getText().toString());
                 break;
         }

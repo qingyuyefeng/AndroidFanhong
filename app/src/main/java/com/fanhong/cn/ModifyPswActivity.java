@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -160,6 +161,10 @@ public class ModifyPswActivity extends SampleActivity implements OnClickListener
 				Toast.makeText(this, getString(R.string.initalpswwrong), Toast.LENGTH_SHORT).show();
 				return;
 			}else{
+				if(TextUtils.isEmpty(str2)){
+					Toast.makeText(this, "密码不能为空!", Toast.LENGTH_SHORT).show();
+					return;
+				}
 				if(!str2.equals(str3)){
 					Toast.makeText(this, getString(R.string.newpswwrong), Toast.LENGTH_SHORT).show();
 					return;

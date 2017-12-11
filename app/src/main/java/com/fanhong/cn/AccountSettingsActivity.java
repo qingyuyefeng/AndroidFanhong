@@ -274,6 +274,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
                 tv_nickname.setText("");
                 tv_account.setText("");
                 avatarImg.setImageResource(R.drawable.ico_tx);
+                this.finish();
                 break;
         }
 

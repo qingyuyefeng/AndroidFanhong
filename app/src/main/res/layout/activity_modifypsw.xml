@@ -101,6 +101,7 @@
 				android:background="@null"
 				android:textColorHint="@color/texthint"
 				android:inputType="textPassword"
+
 		 	/>				
 		</LinearLayout>
 		<LinearLayout
