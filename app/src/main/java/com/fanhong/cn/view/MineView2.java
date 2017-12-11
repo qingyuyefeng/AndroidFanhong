@@ -88,6 +88,10 @@ public class MineView2 extends BaseFragment {
                 }
                 break;
             case R.id.user_name:
+                if (isLogined() == 0) {
+                    intent.setClass(getActivity(), LoginActivity.class);
+                    startActivityForResult(intent, 0);
+                }
                 break;
             case R.id.account_setting:
                 if(isLogined()==1){

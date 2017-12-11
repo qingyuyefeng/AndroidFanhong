@@ -339,28 +339,31 @@ public class ServiceView1 extends BaseFragment {
                 startActivity(new Intent(ServiceView1.this.getActivity(), EmergencyUnlockActivity.class));
                 break;
             case 5:
-                startActivity(new Intent(ServiceView1.this.getActivity(), RepairActivity.class));
+                if (MySharedPrefUtils.getStatus(getActivity()) != 1) {
+                    TopBarUtil.createDialog(getActivity(), 0);
+                } else
+                    startActivity(new Intent(ServiceView1.this.getActivity(), RepairActivity.class));
                 break;
             case 6:
-                if(MySharedPrefUtils.getStatus(getActivity())!=1){
-                    TopBarUtil.createDialog(getActivity(),0);
-                }else if(TextUtils.isEmpty(MySharedPrefUtils.getGardenName(getActivity()))){
-                    TopBarUtil.createDialog(getActivity(),1);
-                }else
+                if (MySharedPrefUtils.getStatus(getActivity()) != 1) {
+                    TopBarUtil.createDialog(getActivity(), 0);
+                } else if (TextUtils.isEmpty(MySharedPrefUtils.getGardenName(getActivity()))) {
+                    TopBarUtil.createDialog(getActivity(), 1);
+                } else
                     startActivity(new Intent(ServiceView1.this.getActivity(), CommunityChatRoomActivity.class));
                 break;
             case 7:
-                if(MySharedPrefUtils.getStatus(getActivity())==1){
+                if (MySharedPrefUtils.getStatus(getActivity()) == 1) {
                     RequestParams params = new RequestParams(App.CMDURL);
-                    params.addParameter("cmd","93");
-                    params.addParameter("tel",MySharedPrefUtils.getPhone(getActivity()));
+                    params.addParameter("cmd", "93");
+                    params.addParameter("tel", MySharedPrefUtils.getPhone(getActivity()));
                     x.http().post(params, new Callback.CommonCallback<String>() {
                         @Override
                         public void onSuccess(String result) {
-                            if(JsonSyncUtils.getJsonValue(result,"cw").equals("0")){
+                            if (JsonSyncUtils.getJsonValue(result, "cw").equals("0")) {
                                 startActivity(new Intent(ServiceView1.this.getActivity(), ViewPagerActivity.class));
-                            }else {
-                                Toast.makeText(getActivity(),"暂无进入权限...",Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getActivity(), "暂无进入权限...", Toast.LENGTH_SHORT).show();
                             }
                         }
 
@@ -379,8 +382,8 @@ public class ServiceView1 extends BaseFragment {
 
                         }
                     });
-                }else {
-                    TopBarUtil.createDialog(getActivity(),0);
+                } else {
+                    TopBarUtil.createDialog(getActivity(), 0);
                 }
                 break;
         }

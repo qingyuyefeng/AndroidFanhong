@@ -44,19 +44,19 @@ public class ViewPagerActivity extends FragmentActivity {
     private List<Fragment> fragmentList;
 
     /**
-     * 四个Fragment
+     * 3个Fragment
      */
     private Fragmentfx fragmentfx; //分享
     private Fragmentlt fragmentlt; //论坛
-    private Fragmentcy fragmentcy; //参与
+//    private Fragmentcy fragmentcy; //参与
     private Fragmentwd fragmentwd; //我的
 
     /**
      * 底部四个radiobutton
      */
     private RadioGroup radioGroup;
-    private RadioButton[] radioButtons = new RadioButton[4];
-    private TextView[] textViews = new TextView[4];
+    private RadioButton[] radioButtons = new RadioButton[3];
+    private TextView[] textViews = new TextView[3];
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,12 +71,12 @@ public class ViewPagerActivity extends FragmentActivity {
         radioGroup = findViewById(R.id.bottom_group);
         radioButtons[0] = findViewById(R.id.radiogroup_fx);
         radioButtons[1] = findViewById(R.id.radiogroup_lt);
-        radioButtons[2] = findViewById(R.id.radiogroup_cy);
-        radioButtons[3] = findViewById(R.id.radiogroup_wd);
+//        radioButtons[2] = findViewById(R.id.radiogroup_cy);
+        radioButtons[2] = findViewById(R.id.radiogroup_wd);
         textViews[0] = findViewById(R.id.bottom_fx);
         textViews[1] = findViewById(R.id.bottom_lt);
-        textViews[2] = findViewById(R.id.bottom_cy);
-        textViews[3] = findViewById(R.id.bottom_wd);
+//        textViews[2] = findViewById(R.id.bottom_cy);
+        textViews[2] = findViewById(R.id.bottom_wd);
         radioButtons[0].setChecked(true);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -84,8 +84,8 @@ public class ViewPagerActivity extends FragmentActivity {
                 extra.setVisibility(View.INVISIBLE);
                 textViews[0].setBackgroundColor(getResources().getColor(R.color.white));
                 textViews[1].setBackgroundColor(getResources().getColor(R.color.white));
+//                textViews[2].setBackgroundColor(getResources().getColor(R.color.white));
                 textViews[2].setBackgroundColor(getResources().getColor(R.color.white));
-                textViews[3].setBackgroundColor(getResources().getColor(R.color.white));
                 switch (checkedId){
                     case R.id.radiogroup_fx:
                         extra.setVisibility(View.VISIBLE);
@@ -95,18 +95,19 @@ public class ViewPagerActivity extends FragmentActivity {
                         break;
                     case R.id.radiogroup_lt:
                         title.setText(R.string.lt);
+                        fragmentlt.onResume();
                         textViews[1].setBackgroundColor(getResources().getColor(R.color.skyblue));
                         viewPager.setCurrentItem(1);
                         break;
-                    case R.id.radiogroup_cy:
-                        title.setText(R.string.cy);
-                        textViews[2].setBackgroundColor(getResources().getColor(R.color.skyblue));
-                        viewPager.setCurrentItem(2);
-                        break;
+//                    case R.id.radiogroup_cy:
+//                        title.setText(R.string.cy);
+//                        textViews[2].setBackgroundColor(getResources().getColor(R.color.skyblue));
+//                        viewPager.setCurrentItem(2);
+//                        break;
                     case R.id.radiogroup_wd:
                         title.setText(R.string.wd);
-                        textViews[3].setBackgroundColor(getResources().getColor(R.color.skyblue));
-                        viewPager.setCurrentItem(3);
+                        textViews[2].setBackgroundColor(getResources().getColor(R.color.skyblue));
+                        viewPager.setCurrentItem(2);
                         break;
                 }
             }
@@ -145,8 +146,8 @@ public class ViewPagerActivity extends FragmentActivity {
         fragmentList.add(fragmentfx);
         fragmentlt = new Fragmentlt();
         fragmentList.add(fragmentlt);
-        fragmentcy = new Fragmentcy();
-        fragmentList.add(fragmentcy);
+//        fragmentcy = new Fragmentcy();
+//        fragmentList.add(fragmentcy);
         fragmentwd = new Fragmentwd();
         fragmentList.add(fragmentwd);
 

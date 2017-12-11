@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.TextView;
@@ -34,6 +35,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import me.nereo.multi_image_selector.bean.Image;
 
 public class OrderDetailActivity extends SampleActivity implements PayMoney,OnCheckedChangeListener{
 	private SharedPreferences mSettingPref;
@@ -97,6 +100,8 @@ public class OrderDetailActivity extends SampleActivity implements PayMoney,OnCh
 		mcontext = getApplicationContext();
 		mSettingPref = getSharedPreferences("Setting", Context.MODE_PRIVATE);
 
+
+
 		tv_person = (TextView)findViewById(R.id.tv_person);
 		tv_phone = (TextView)findViewById(R.id.tv_phone);
 		tv_address = (TextView)findViewById(R.id.tv_address);
@@ -106,13 +111,15 @@ public class OrderDetailActivity extends SampleActivity implements PayMoney,OnCh
 		checkbox_wx = (CheckBox)findViewById(R.id.checkbox_wx);
 
 
-		Button titleBackImageBtn = (Button)findViewById(R.id.btn_back);
+		ImageView titleBackImageBtn = findViewById(R.id.img_back);
 		titleBackImageBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				finish();
 			}
 		});
+		TextView title = findViewById(R.id.tv_title);
+		title.setText("订单详情");
 		tv_totalmoney = (TextView)findViewById(R.id.tv_totalmoney);
 
 		lv_list = (simpleListView) findViewById(R.id.lv_list);

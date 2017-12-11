@@ -174,7 +174,7 @@ public class HomeView2 extends BaseFragment {
                         createDialog(1);
                     }
                 } else {
-                    Toast.makeText(getActivity(), R.string.pleaselogin, Toast.LENGTH_SHORT).show();
+                    createDialog(0);
                 }
 
                 break;
@@ -255,8 +255,12 @@ public class HomeView2 extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.tv_homerepair://上门维修
-                intent.setClass(getActivity(), RepairActivity.class);
-                startActivity(intent);
+                if (isLogined() == 1) {
+                    intent.setClass(getActivity(), RepairActivity.class);
+                    startActivity(intent);
+                } else {
+                    createDialog(0);
+                }
                 break;
             case R.id.tv_homeunlock://紧急开锁
                 intent.putExtra("gardenName", mSharedPref.getString("gardenName", ""));
@@ -421,7 +425,7 @@ public class HomeView2 extends BaseFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(getActivity(), LoginActivity.class);
-                        startActivityForResult(intent,100);
+                        startActivityForResult(intent, 100);
                     }
                 });
                 break;

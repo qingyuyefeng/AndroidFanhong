@@ -1,6 +1,7 @@
 package com.fanhong.cn.party;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,7 +22,6 @@ import com.fanhong.cn.App;
 import com.fanhong.cn.R;
 import com.fanhong.cn.party.adapters.LtAdapter;
 import com.fanhong.cn.party.models.LtItemModel;
-import com.fanhong.cn.party.models.ScoreModel;
 import com.fanhong.cn.util.JsonSyncUtils;
 import com.fanhong.cn.util.MySharedPrefUtils;
 import com.zhy.autolayout.AutoLinearLayout;
@@ -55,6 +56,8 @@ public class Fragmentlt extends Fragment {
     private AutoLinearLayout addLayout;
     @ViewInject(R.id.lt_edit)
     private EditText ltEdit;
+    @ViewInject(R.id.lt_submit)
+    private TextView submit;
 
     private List<LtItemModel> list = new ArrayList<>();
     private LtAdapter adapter;
@@ -121,6 +124,8 @@ public class Fragmentlt extends Fragment {
                     public void onSuccess(String result) {
                         if(JsonSyncUtils.getJsonValue(result,"cw").equals("0")){
                             Toast.makeText(getActivity(),"发表成功！",Toast.LENGTH_SHORT).show();
+                            ltEdit.setText("");
+                            hideSoftinputyer(submit);
                             list.clear();
                             getDatas();
                         }else {
@@ -145,6 +150,12 @@ public class Fragmentlt extends Fragment {
                 });
                 break;
         }
+    }
+
+    //隐藏软键盘的方法
+    private void hideSoftinputyer(View view) {
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     //展示3条数据
@@ -192,6 +203,8 @@ public class Fragmentlt extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        getMore.setVisibility(View.VISIBLE);
+        addLayout.setVisibility(View.VISIBLE);
         list.clear();
         getDatas();
         adapter = new LtAdapter(getActivity(), list);

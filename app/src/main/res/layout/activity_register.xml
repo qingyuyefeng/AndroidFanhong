@@ -163,6 +163,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:layout_marginLeft="20px"
+                    android:checked="true"
                     android:text="@string/readandagree"
                     android:textColor="@color/texthint"
                     android:textSize="28px" />
