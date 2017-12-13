@@ -311,6 +311,7 @@
                         android:layout_height="72px"
                         android:background="@color/white"
                         android:gravity="center_vertical"
+                        android:paddingLeft="8px"
                         android:hint="发布物品的名字(8个字以内)"
                         android:maxLength="8"
                         android:textColor="@color/textblack"
@@ -418,6 +419,7 @@
                         android:background="@color/white"
                         android:gravity="center_vertical"
                         android:hint="物品出售价格"
+                        android:paddingLeft="8px"
                         android:inputType="number"
                         android:textColor="@color/textblack"
                         android:textColorHint="@color/texthint"
@@ -583,6 +585,7 @@
                         android:gravity="center_vertical"
                         android:hint="发布人称呼（如：张先生）"
                         android:textColor="@color/textblack"
+                        android:paddingLeft="8px"
                         android:textColorHint="@color/texthint"
                         android:textSize="26px" />
                 </com.zhy.autolayout.AutoLinearLayout>
@@ -608,6 +611,7 @@
                         android:background="@color/white"
                         android:gravity="center_vertical"
                         android:hint="输入联系号码"
+                        android:paddingLeft="8px"
                         android:inputType="phone"
                         android:maxLength="11"
                         android:textColor="@color/textblack"

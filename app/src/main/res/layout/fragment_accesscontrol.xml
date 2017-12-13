@@ -35,15 +35,18 @@
             android:textColor="@color/white"
             android:textSize="40px" />
 
-        <Button
+        <TextView
             android:id="@+id/btn_add"
-            android:layout_width="52px"
-            android:layout_height="52px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:layout_marginRight="20px"
-            android:background="@drawable/btn_add_style" />
+            android:text="添加"
+            android:padding="6px"
+            android:textSize="30px"
+            android:textColor="@color/white"/>
     </com.zhy.autolayout.AutoRelativeLayout>
 
 

@@ -1,7 +1,9 @@
 package com.fanhong.cn.shippingaddress;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -58,15 +60,15 @@ public class AllAddressActivity extends Activity {
         uid = mSettingPref.getString("UserId", "");
 //        Log.i("xq","我的用户id===>"+uid);//uid===>4
 
-        status = getIntent().getIntExtra("status",0);
+        status = getIntent().getIntExtra("status", 0);
         mControl.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     mControl.setText("完成");
                     myAddressAdapter.setControlable(true);
                     myAddressAdapter.notifyDataSetChanged();
-                }else {
+                } else {
                     mControl.setText("管理");
                     myAddressAdapter.setControlable(false);
                     myAddressAdapter.notifyDataSetChanged();
@@ -76,7 +78,7 @@ public class AllAddressActivity extends Activity {
     }
 
     @Event({R.id.back_img_b, R.id.control_address, R.id.add_new_address})
-    private void onClick(View v){
+    private void onClick(View v) {
         switch (v.getId()) {
             case R.id.back_img_b:
                 AllAddressActivity.this.finish();
@@ -145,58 +147,39 @@ public class AllAddressActivity extends Activity {
         myAddressAdapter = new MyAddressAdapter(this, addressModelList);
         myAddressAdapter.setMyHolderClick(new MyAddressAdapter.MyHolderClick() {
             @Override
-            public void editAddress(String name, String phone, int status,int id) {
+            public void editAddress(String name, String phone, int status, int id) {
                 Intent intent = new Intent(AllAddressActivity.this, EditAddressActivity.class);
-                intent.putExtra("adName",name);
-                intent.putExtra("adPhone",phone);
-                intent.putExtra("adStatus",status);
-                intent.putExtra("adrId",id);
+                intent.putExtra("adName", name);
+                intent.putExtra("adPhone", phone);
+                intent.putExtra("adStatus", status);
+                intent.putExtra("adrId", id);
                 startActivity(intent);
             }
 
             @Override
-            public void deleteAddress(int id, final int pos) {
-                RequestParams params = new RequestParams(App.CMDURL);
-                params.addBodyParameter("cmd","63");
-                params.addBodyParameter("id",id+"");
-                x.http().post(params, new Callback.CommonCallback<String>() {
-                    @Override
-                    public void onSuccess(String s) {
-                        if(JsonSyncUtils.getJsonValue(s,"cw").equals("0")){
-                            addressModelList.remove(pos);
-//                            myAddressAdapter.notifyDataSetChanged();
-                            myAddressAdapter.notifyItemRemoved(pos);
-                            Toast.makeText(AllAddressActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable throwable, boolean b) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(CancelledException e) {
-
-                    }
-
-                    @Override
-                    public void onFinished() {
-
-                    }
-                });
+            public void deleteAddress(final int id, final int pos) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(AllAddressActivity.this);
+                builder.setMessage("是否确认删除？")
+                        .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                deleteAddr(id, pos);
+                            }
+                        })
+                        .setNegativeButton("取消", null)
+                        .show();
             }
 
             @Override
-            public void holderItemClick(String addr,String name,String phone,int addrid) {
+            public void holderItemClick(String addr, String name, String phone, int addrid) {
 //                Toast.makeText(AllAddressActivity.this, "item的点击,", Toast.LENGTH_SHORT).show();
-                if(status == 1){
+                if (status == 1) {
                     Intent intent = new Intent();
-                    intent.putExtra("address",addr);
-                    intent.putExtra("name",name);
-                    intent.putExtra("phone",phone);
-                    intent.putExtra("addrId",addrid);
-                    setResult(121,intent);
+                    intent.putExtra("address", addr);
+                    intent.putExtra("name", name);
+                    intent.putExtra("phone", phone);
+                    intent.putExtra("addrId", addrid);
+                    setResult(121, intent);
                     finish();
                 }
             }
@@ -205,6 +188,7 @@ public class AllAddressActivity extends Activity {
         addressRecyclerView.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false));//是否翻转，false
     }
+
     Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
@@ -212,4 +196,36 @@ public class AllAddressActivity extends Activity {
             return true;
         }
     });
+
+    private void deleteAddr(int id, final int pos) {
+        RequestParams params = new RequestParams(App.CMDURL);
+        params.addBodyParameter("cmd", "63");
+        params.addBodyParameter("id", id + "");
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String s) {
+                if (JsonSyncUtils.getJsonValue(s, "cw").equals("0")) {
+                    addressModelList.remove(pos);
+//                            myAddressAdapter.notifyDataSetChanged();
+                    myAddressAdapter.notifyItemRemoved(pos);
+                    Toast.makeText(AllAddressActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onError(Throwable throwable, boolean b) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException e) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
 }

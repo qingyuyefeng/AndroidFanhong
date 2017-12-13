@@ -130,7 +130,6 @@ public class Fragmentfx extends Fragment {
         });
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
-        recyclerView.addItemDecoration(new MyDecoration());
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -154,12 +153,5 @@ public class Fragmentfx extends Fragment {
             adapter.notifyDataSetChanged();
         }
     };
-    class MyDecoration extends RecyclerView.ItemDecoration{
-        @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-            super.getItemOffsets(outRect, view, parent, state);
-            int d = getResources().getDimensionPixelSize(R.dimen.item_decoration);
-            outRect.set(0,d,0,d);
-        }
-    }
+
 }

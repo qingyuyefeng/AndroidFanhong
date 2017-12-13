@@ -85,11 +85,11 @@ public class ServiceView1 extends BaseFragment {
             R.string.url_xiecheng, R.string.url_quna, R.string.url_tuniu,
             R.string.url_tongcheng};
 
-    private int mImageViewArray3[] = {R.drawable.service_hj, R.drawable.service_funhos, R.drawable.service_ks,
+    private int mImageViewArray3[] = {R.drawable.service_hj, R.drawable.service_funhos, /*R.drawable.service_ks,*/
             R.drawable.service_gwy, R.drawable.service_zc, R.drawable.service_my};
-    private int mTextviewArray3[] = {R.string.service_hj, R.string.service_funhos, R.string.service_ks,
+    private int mTextviewArray3[] = {R.string.service_hj, R.string.service_funhos, /*R.string.service_ks,*/
             R.string.service_gwy, R.string.service_zc, R.string.service_my};
-    private int mUrlArray3[] = {R.string.url_huzhang, R.string.url_quyy, R.string.url_teacher,
+    private int mUrlArray3[] = {R.string.url_huzhang, R.string.url_quyy, /*R.string.url_teacher,*/
             R.string.url_gongwuyuan, R.string.url_zhichen, R.string.url_muying};
     MyGridView opergridview1, opergridview2, opergridview3;
     ImageAdapter typeAdapter1, typeAdapter2, typeAdapter3;

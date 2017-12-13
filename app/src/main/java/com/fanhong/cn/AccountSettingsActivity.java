@@ -292,7 +292,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
                 }
                 break;
             case REQUESTCODE_TAKE: // 调用相机拍照
-                Uri uri = fromFile(file);
+                Uri uri = Uri.fromFile(file);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", file);
 //                    ContentValues contentValues = new ContentValues(1);
@@ -485,25 +485,24 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
             intent.putExtra("noFaceDetection", false);//去除默认的人脸识别，否则和剪裁匡重叠
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                String url = GetImagePath.getPath(this, uri);//这个方法是处理4.4以上图片返回的Uri对象不同的处理方法
+                String url = GetImagePath.getPath(this, uri);
                 intent.setDataAndType(Uri.fromFile(new File(url)), "image/*");
             } else {
                 intent.setDataAndType(uri, "image/*");
             }
             intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
         }
-        // crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
         intent.putExtra("crop", "true");
-        // aspectX aspectY 是宽高的比例
+        //宽高比例
         intent.putExtra("aspectX", 1);
         intent.putExtra("aspectY", 1);
-        // outputX outputY 是裁剪图片宽高
+        //裁剪照片的宽高
         intent.putExtra("outputX", 300);
         intent.putExtra("outputY", 300);
-         intent.putExtra("return-data", true);
-//        intent.putExtra("return-data", false);
-//        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());// 图片格式
+        intent.putExtra("return-data", true);
+
         startActivityForResult(intent, REQUESTCODE_CUTTING);
+
     }
 
     /**
@@ -531,7 +530,6 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
     }
 
     public void asynchttpUpload(String path, File myFile) {
-        Log.e("hu", "*****path=" + path + " myFile=" + myFile);
         RequestParams params = new RequestParams();
         try {
             params.put("touxiang", myFile);
@@ -587,41 +585,41 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
         mSafoneConnection.connectService1(map);
     }
 
-    Handler handler = new Handler(new Handler.Callback() {
-
-        @Override
-        public boolean handleMessage(Message msg) {
-            switch (msg.what) {
-                case 0:
-                    pd.dismiss();
-                    try {
-                        // 返回数据示例，根据需求和后台数据灵活处理
-                        // {"status":"1","statusMessage":"上传成功","imageUrl":"http://120.24.219.49/726287_temphead.jpg"}
-                        JSONObject jsonObject = new JSONObject(resultStr);
-                        Log.i("hu", "*****8***resultStr=" + resultStr);
-                        // 服务端以字符串“1”作为操作成功标记
-                        if (jsonObject.optString("status").equals("1")) {
-                            BitmapFactory.Options option = new BitmapFactory.Options();
-                            // 压缩图片:表示缩略图大小为原始图片大小的几分之一，1为原图，3为三分之一
-                            option.inSampleSize = 1;
-
-                            // 服务端返回的JsonObject对象中提取到图片的网络URL路径
-                            String imageUrl = jsonObject.optString("imageUrl");
-                            Toast.makeText(context, imageUrl, Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(context, jsonObject.optString("statusMessage"), Toast.LENGTH_SHORT).show();
-                        }
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                    break;
-
-                default:
-                    break;
-            }
-            return false;
-        }
-    });
+//    Handler handler = new Handler(new Handler.Callback() {
+//
+//        @Override
+//        public boolean handleMessage(Message msg) {
+//            switch (msg.what) {
+//                case 0:
+//                    pd.dismiss();
+//                    try {
+//                        // 返回数据示例，根据需求和后台数据灵活处理
+//                        // {"status":"1","statusMessage":"上传成功","imageUrl":"http://120.24.219.49/726287_temphead.jpg"}
+//                        JSONObject jsonObject = new JSONObject(resultStr);
+//                        Log.i("hu", "*****8***resultStr=" + resultStr);
+//                        // 服务端以字符串“1”作为操作成功标记
+//                        if (jsonObject.optString("status").equals("1")) {
+//                            BitmapFactory.Options option = new BitmapFactory.Options();
+//                            // 压缩图片:表示缩略图大小为原始图片大小的几分之一，1为原图，3为三分之一
+//                            option.inSampleSize = 1;
+//
+//                            // 服务端返回的JsonObject对象中提取到图片的网络URL路径
+//                            String imageUrl = jsonObject.optString("imageUrl");
+//                            Toast.makeText(context, imageUrl, Toast.LENGTH_SHORT).show();
+//                        } else {
+//                            Toast.makeText(context, jsonObject.optString("statusMessage"), Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                    break;
+//
+//                default:
+//                    break;
+//            }
+//            return false;
+//        }
+//    });
 }

@@ -9,11 +9,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="visible"
+                android:background="@color/white">
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/lt_recyclerview"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    />
                 <TextView
                     android:id="@+id/jiange_1"
                     android:layout_width="match_parent"
@@ -43,8 +45,8 @@
                 android:id="@+id/add_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/lt_layout"
-                android:layout_marginTop="100px"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="50px"
                 android:orientation="vertical">
 
                 <TextView
@@ -61,6 +63,7 @@
                     android:layout_margin="10px"
                     android:background="@drawable/postpicture_biankuang"
                     android:gravity="top"
+                    android:maxLength="60"
                     android:hint="发表你的留言..."
                     android:padding="15px"
                     android:textSize="25px" />

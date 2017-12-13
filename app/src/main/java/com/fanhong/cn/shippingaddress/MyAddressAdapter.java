@@ -76,7 +76,8 @@ public class MyAddressAdapter extends RecyclerView.Adapter<MyAddressAdapter.MyVi
             public void onClick(View v) {
                 /*
                 接编辑地址接口
-                传入姓名、电话、是否默认
+                传入姓名、电话、
+                小区id、楼栋id、地址、是否默认
                  */
                 myHolderClick.editAddress(holder.tvName.getText().toString(),
                         holder.tvPhone.getText().toString(),

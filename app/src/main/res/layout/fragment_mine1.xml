@@ -60,7 +60,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:visibility="gone">
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -83,7 +84,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginTop="7px"
+        android:layout_marginTop="5px"
         android:background="@color/white">
         <TextView
             android:layout_width="0dp"
@@ -141,6 +142,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:layout_marginTop="5px"
         android:background="@color/white">
         <TextView
             android:layout_width="0dp"

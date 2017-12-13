@@ -212,7 +212,6 @@ public class Fragmentlt extends Fragment {
 //        adapter.setLtInterface();
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
-        recyclerView.addItemDecoration(new MyDecoration());
 //        if (list.size() > 0) {
 //            handler.sendEmptyMessage(2);
 //        } else
@@ -244,12 +243,4 @@ public class Fragmentlt extends Fragment {
         }
     });
 
-    class MyDecoration extends RecyclerView.ItemDecoration{
-        @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-            super.getItemOffsets(outRect, view, parent, state);
-            int d = getResources().getDimensionPixelSize(R.dimen.item_decoration);
-            outRect.set(0,d,0,d);
-        }
-    }
 }

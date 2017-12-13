@@ -41,8 +41,10 @@ import com.fanhong.cn.SampleActivity;
 import com.fanhong.cn.SampleConnection;
 import com.fanhong.cn.util.FileUtil;
 import com.fanhong.cn.util.GetImagePath;
+import com.fanhong.cn.util.HttpUtil;
 import com.fanhong.cn.util.JsonSyncUtils;
 import com.fanhong.cn.view.SelectPicPopupWindow;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,6 +56,7 @@ import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -512,7 +515,7 @@ public class AddGuardActivity extends SampleActivity {
         }
         Uri outputUri = fromFile(cropFile);
         Intent intent = new Intent("com.android.camera.action.CROP");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
                     | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
@@ -520,7 +523,7 @@ public class AddGuardActivity extends SampleActivity {
             intent.putExtra("noFaceDetection", false);//去除默认的人脸识别，否则和剪裁匡重叠
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                String url = GetImagePath.getPath(this, uri);//这个方法是处理4.4以上图片返回的Uri对象不同的处理方法
+                String url = GetImagePath.getPath(this, uri);
                 intent.setDataAndType(Uri.fromFile(new File(url)), "image/*");
             } else {
                 intent.setDataAndType(uri, "image/*");
@@ -644,68 +647,69 @@ public class AddGuardActivity extends SampleActivity {
             files.add(file2);
             files.add(file3);
             for (File f : files) {
-                postPictures(ImageUrl, f);
+//                postPictures(ImageUrl, f);
+                asynchttpUpload(ImageUrl, f);
             }
             submitMessage();
         }
     }
 
-    private void postPictures(String url, File myFile) {
-        RequestParams params = new RequestParams(url);
-        params.addBodyParameter("xinxi", myFile);
-        x.http().post(params, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                if (JsonSyncUtils.getJsonValue(result, "status").equals("true")) {
-
-                }
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
-    }
-
-//    private void asynchttpUpload(String url, File myFile) {
-//        RequestParams params = new RequestParams();
-//        try {
-//            params.put("xinxi", myFile);
-//            HttpUtil.post(url, params, new AsyncHttpResponseHandler() {
-//                //              int i = 1;
-//                @Override
-//                public void onSuccess(int statusCode, String content) {
-//                    Log.i("xq", "statueCode==>" + statusCode + "content==>" + content);
-//                    try {
-//                        JSONObject json = new JSONObject(content);
-//                        String status = json.getString("status");
-//                        if (status.equals("true")) {
-////                            String str = json.getString("msg");
-////                            Message msg1 = Message.obtain();
-////                            msg1.what = i;
-////                            msg1.obj = str;
-////                            handler.sendMessage(msg1);
-//                        }
-//                    } catch (Exception e) {
-//                    }
+//    private void postPictures(String url, File myFile) {
+//        RequestParams params = new RequestParams(url);
+//        params.addBodyParameter("xinxi", myFile);
+//        x.http().post(params, new Callback.CommonCallback<String>() {
+//            @Override
+//            public void onSuccess(String result) {
+//                if (JsonSyncUtils.getJsonValue(result, "status").equals("true")) {
+//
 //                }
-////              i++;
-//            });
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
+//            }
+//
+//            @Override
+//            public void onError(Throwable ex, boolean isOnCallback) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(CancelledException cex) {
+//
+//            }
+//
+//            @Override
+//            public void onFinished() {
+//
+//            }
+//        });
 //    }
+
+    private void asynchttpUpload(String url, File myFile) {
+        com.loopj.android.http.RequestParams params = new com.loopj.android.http.RequestParams();
+        try {
+            params.put("xinxi", myFile);
+            HttpUtil.post(url, params, new AsyncHttpResponseHandler() {
+                //              int i = 1;
+                @Override
+                public void onSuccess(int statusCode, String content) {
+                    Log.i("xq", "statueCode==>" + statusCode + "content==>" + content);
+                    try {
+                        JSONObject json = new JSONObject(content);
+                        String status = json.getString("status");
+                        if (status.equals("true")) {
+//                            String str = json.getString("msg");
+//                            Message msg1 = Message.obtain();
+//                            msg1.what = i;
+//                            msg1.obj = str;
+//                            handler.sendMessage(msg1);
+                        }
+                    } catch (Exception e) {
+                    }
+                }
+//              i++;
+            });
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     //提交所有信息

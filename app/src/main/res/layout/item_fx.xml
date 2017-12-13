@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhy.autolayout.AutoRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="210px"
+    android:layout_height="wrap_content"
     android:background="@color/white"
     android:padding="5px"
     android:id="@+id/fx_layout">
@@ -24,7 +24,8 @@
         android:id="@+id/author_photo"
         android:layout_width="40px"
         android:layout_height="40px"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@id/content"
+        android:layout_marginTop="10px"
         android:layout_marginLeft="20px"
         android:src="@drawable/default_photo"
         android:scaleType="centerInside"/>
@@ -32,7 +33,7 @@
         android:id="@+id/author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_alignBottom="@id/author_photo"
         android:layout_marginLeft="10px"
         android:layout_toRightOf="@id/author_photo"
         android:text="系统消息"/>
@@ -55,4 +56,10 @@
         <!--android:drawableLeft="@drawable/ilon_xx"-->
         <!--android:drawablePadding="5px"-->
         <!--android:text="评论" />-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3px"
+        android:background="#dedede"
+        android:layout_below="@id/time"
+        android:layout_marginTop="3px" />
 </com.zhy.autolayout.AutoRelativeLayout>

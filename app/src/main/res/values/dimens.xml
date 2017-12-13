@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="item_decoration">2dip</dimen>
+    <dimen name="item_decoration">1dip</dimen>
 </resources>

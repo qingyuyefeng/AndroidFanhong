@@ -1,5 +1,6 @@
 package com.fanhong.cn.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,15 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fanhong.cn.R;
-import com.fanhong.cn.applydoors.DoorApplyAdapter;
 import com.fanhong.cn.applydoors.AddGuardActivity;
+import com.fanhong.cn.applydoors.DoorApplyAdapter;
 import com.fanhong.cn.applydoors.OpenDoorActivity;
 import com.fanhong.cn.models.DoorcheckModel;
 
@@ -38,7 +38,7 @@ public class AccesscontrolView1 extends BaseFragment {
     private TextView noControl;
 
     private ImageView btn_reflush;
-    private Button btn_add;
+    private TextView btn_add;
     private SharedPreferences mSettingPref;
 
     @Override
@@ -47,6 +47,7 @@ public class AccesscontrolView1 extends BaseFragment {
         return accView;
     }
 
+    @SuppressLint("WrongViewCast")
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
@@ -54,7 +55,7 @@ public class AccesscontrolView1 extends BaseFragment {
 
         noControl = (TextView) view.findViewById(R.id.no_accesscontrol);
 
-        btn_add = (Button) view.findViewById(R.id.btn_add);
+        btn_add =  view.findViewById(R.id.btn_add);
         btn_add.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +67,7 @@ public class AccesscontrolView1 extends BaseFragment {
                 }
             }
         });
-        btn_reflush = (ImageView) view.findViewById(R.id.btn_reflush);
+        btn_reflush =  view.findViewById(R.id.btn_reflush);
         btn_reflush.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
