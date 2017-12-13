@@ -83,6 +83,7 @@ public class FaceRecognitionIntroductionActivity extends Activity {
 
                 break;
             case 1://app_name
+                tv_introduce.setVisibility(View.GONE);
                 tv_title.setText("人脸识别");
                 x.image().loadDrawable("assets://images/face_recognition_introduce.png",
                         options, new Callback.CommonCallback<Drawable>() {
