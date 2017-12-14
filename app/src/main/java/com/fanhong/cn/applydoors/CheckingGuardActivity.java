@@ -1,16 +1,12 @@
 package com.fanhong.cn.applydoors;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 
-import com.fanhong.cn.FragmentMainActivity;
 import com.fanhong.cn.R;
-import com.fanhong.cn.view.AccesscontrolView1;
 
 /**
  * Created by Administrator on 2017/6/12.
