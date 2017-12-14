@@ -493,16 +493,6 @@ public class FragmentMainActivity extends SampleActivity {
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 11)
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                mTab01.callManager();
-            } else
-                Toast.makeText(this, "需要通话权限", Toast.LENGTH_SHORT).show();
-    }
-
     private void createDialog(int i) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         switch (i) {
