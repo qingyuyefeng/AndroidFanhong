@@ -55,27 +55,27 @@
 
         <activity
             android:name=".LogoActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" />
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" />-->
         <activity
             android:name=".LoginActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
         <activity
             android:name=".RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ResetPswActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
         <activity
             android:name=".AgreeSheet"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
         <activity
             android:name=".StarManagerActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
         <activity
             android:name=".FragmentMainActivity"
             android:launchMode="singleTask"
@@ -89,40 +89,40 @@
         </activity>
         <activity
             android:name=".CommStoreDetailsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
             android:name=".NoticeActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
         <activity
             android:name=".AccountSettingsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
         <activity
             android:name=".ModifyNickNameActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
         <activity
             android:name=".ModifyPswActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
         <activity
             android:name=".ModifyAccountActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
         <activity
             android:name=".GeneralSettingsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
         <activity
             android:name=".AgentWebActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar">
+            android:screenOrientation="portrait">
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar">-->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" /> <!-- 显示数据 -->
                 <category android:name="android.intent.category.DEFAULT" />
@@ -138,12 +138,12 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".FaceRecognitionIntroductionActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
         <activity
             android:name=".AboutActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
         <activity
             android:name=".StoreActivity"
             android:screenOrientation="portrait"/>
@@ -172,8 +172,8 @@
 
         <activity
             android:name=".OrderDetailActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
         <activity
             android:name=".AssessActivity"
             android:screenOrientation="portrait"/>
@@ -245,24 +245,24 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".applydoors.CheckingGuardActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
         <activity
             android:name=".applydoors.ChooseLouActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
         <activity
             android:name=".applydoors.OpenDoorActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
         <activity
             android:name=".community.NewsDetailsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
         <activity
             android:name=".HomeNewsALLActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
         <!-- 地址管理区域 -->
         <activity
             android:name=".shippingaddress.AddNewAddressActivity"
@@ -471,8 +471,7 @@
             <!--&gt;-->
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/filepaths"
-                />
+                android:resource="@xml/filepaths" />
         </provider>
         <!-- end -->
     </application>
