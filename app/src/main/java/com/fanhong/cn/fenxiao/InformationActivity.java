@@ -100,7 +100,7 @@ public class InformationActivity extends Activity {
                 postInformation(fName.getText().toString(),
                         fPhone.getText().toString(),
                         fAddress.getText().toString(),
-                        fBankNumber.getText().toString().trim(),
+                        fBankNumber.getText().toString().replace(" ",""),
                         fBankType.getText().toString());
                 break;
         }
