@@ -29,6 +29,7 @@ import com.fanhong.cn.FaceRecognitionIntroductionActivity;
 import com.fanhong.cn.GardenSelecterActivity;
 import com.fanhong.cn.LoginActivity;
 import com.fanhong.cn.R;
+import com.fanhong.cn.StarManagerActivity;
 import com.fanhong.cn.StoreActivity;
 import com.fanhong.cn.expressage.ExpressHomeActivity;
 import com.fanhong.cn.fenxiao.CheckJoinedActivity;
@@ -88,7 +89,7 @@ public class HomeView2 extends BaseFragment {
     private BannerAdapter bannerAdapter;
     private SharedPreferences mSharedPref;
     private String uid = "";
-    private String managerName = "", managerTel = "";
+    private String managerName = "";
 
     @Nullable
     @Override
@@ -181,50 +182,11 @@ public class HomeView2 extends BaseFragment {
             case R.id.textView1: //物业之星
                 if (isLogined() == 1) {
                     if (!TextUtils.isEmpty(mSharedPref.getString("gardenName", ""))) {
-                        RequestParams param = new RequestParams(App.CMDURL);
-                        param.addParameter("cmd", "81");
-                        param.addParameter("id", mSharedPref.getString("gardenId", ""));
-                        x.http().post(param, new Callback.CommonCallback<String>() {
-                            @Override
-                            public void onSuccess(String result) {
-                                if (JsonSyncUtils.getJsonValue(result, "cw").equals("0")) {
-                                    managerTel = JsonSyncUtils.getJsonValue(result, "tel");
-                                    managerName = mSharedPref.getString("gardenName", "");
-                                    new AlertDialog.Builder(getActivity()).setTitle(managerName).setMessage("联系电话:" + managerTel)
-                                            .setPositiveButton("立即拨打", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    //判断Android版本是否大于23
-                                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                                        int checkCallPhonePermission = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE);
+                        Intent i=new Intent(getActivity(),StarManagerActivity.class);
+                        i.putExtra("id",mSharedPref.getString("gardenId", ""));
+                        i.putExtra("name",mSharedPref.getString("gardenName", ""));
+                        startActivity(i);
 
-                                                        if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
-                                                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE},
-                                                                    11);
-                                                            return;
-                                                        }
-                                                    }
-                                                    callManager();
-                                                }
-                                            }).setNegativeButton("取消", null).create().show();
-                                }
-                            }
-
-                            @Override
-                            public void onError(Throwable ex, boolean isOnCallback) {
-
-                            }
-
-                            @Override
-                            public void onCancelled(CancelledException cex) {
-
-                            }
-
-                            @Override
-                            public void onFinished() {
-
-                            }
-                        });
                     } else {
                         createDialog(1);
                     }
@@ -269,14 +231,6 @@ public class HomeView2 extends BaseFragment {
                 startActivity(intent);
                 break;
         }
-    }
-
-    public void callManager() {
-        Intent i = new Intent(Intent.ACTION_CALL);
-        Uri uri = Uri.parse("tel:" + managerTel);
-        i.setData(uri);
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(i);
     }
 
     public synchronized void setFragment(int type, String str) {

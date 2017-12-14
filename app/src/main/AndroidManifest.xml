@@ -73,6 +73,10 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
+            android:name=".StarManagerActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity
             android:name=".FragmentMainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
