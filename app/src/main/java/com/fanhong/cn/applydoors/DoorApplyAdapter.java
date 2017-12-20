@@ -36,6 +36,7 @@ public class DoorApplyAdapter extends BaseAdapter{
 
     public interface OpenDoor{
         void openBtnClick(String str1,String str2,String str3);
+//        void showkeys();
     }
 
     public DoorApplyAdapter(Context context,List<DoorcheckModel> list){
@@ -72,9 +73,9 @@ public class DoorApplyAdapter extends BaseAdapter{
     @Override
     public int getItemViewType(int position) {
         if(list.get(position).getStatus() == 0){
-           return TYPE1;
+            return TYPE1;
         }else {
-           return TYPE2;
+            return TYPE2;
         }
     }
 
@@ -98,6 +99,7 @@ public class DoorApplyAdapter extends BaseAdapter{
                         public void onClick(View v) {
                             //自定义接口中的方法
                             openDoor.openBtnClick(str1,str2,str3);
+//                            openDoor.showkeys();
                         }
                     });
                     viewHolder1.cellname.setText(str1+str2);
@@ -119,7 +121,7 @@ public class DoorApplyAdapter extends BaseAdapter{
                             }
                         }
                     });
-                    viewHolder2.cellname1.setText(list.get(position).getCellName());
+                    viewHolder2.cellname1.setText(list.get(position).getCellName()+list.get(position).getLouNumber());
                     convertView.setTag(viewHolder2);
                     break;
                 default:
@@ -138,6 +140,7 @@ public class DoorApplyAdapter extends BaseAdapter{
                         public void onClick(View v) {
                             //自定义接口中的方法
                             openDoor.openBtnClick(str1,str2,str3);
+//                            openDoor.showkeys();
                         }
                     });
                     viewHolder1.cellname.setText(str1+str2);
@@ -169,7 +172,7 @@ public class DoorApplyAdapter extends BaseAdapter{
     private class ViewHolder1{
         LinearLayout layoutItem;
         TextView cellname;
-//        ImageView ivArrow;
+        //        ImageView ivArrow;
 //        Button openBtn;
         ViewHolder1(View convertView){
             layoutItem = (LinearLayout) convertView.findViewById(R.id.ll_doorchecked_item);

@@ -135,7 +135,8 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
                 Toast.makeText(this, getString(R.string.resetpassword_fail), Toast.LENGTH_SHORT).show();
             }
         } else if (cmd == 14) {
-            if (result == 1) {
+            //第一次上传头像返回0为成功，后面修改头像返回1为成功。。（服务器bug）
+            if (result == 0) {
                 pd.dismiss();
                 Toast.makeText(AccountSettingsActivity.this, "头像上传成功！", Toast.LENGTH_LONG).show();
                 getToken(mSettingPref.getString("UserId", ""));
@@ -281,7 +282,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
         switch (requestCode) {
             case REQUESTCODE_PICK:// 直接从相册获取
                 try {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (Build.VERSION.SDK_INT >= 23) {
                         File imgUri = new File(GetImagePath.getPath(this, data.getData()));
                         Uri uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", imgUri);
                         startPhotoZoom(uri);
@@ -293,7 +294,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
                 break;
             case REQUESTCODE_TAKE: // 调用相机拍照
                 Uri uri = Uri.fromFile(file);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (Build.VERSION.SDK_INT >= 23) {
                     uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", file);
 //                    ContentValues contentValues = new ContentValues(1);
 //                    contentValues.put(MediaStore.Images.Media.DATA, file.getAbsolutePath());
@@ -367,7 +368,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
                 // 拍照
                 case R.id.takePhotoBtn:
                     String[] permissions = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (Build.VERSION.SDK_INT >= 23) {
                         int check = ContextCompat.checkSelfPermission(AccountSettingsActivity.this, permissions[0]);
                         // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
                         if (check == PackageManager.PERMISSION_GRANTED) {
@@ -387,7 +388,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
 //                    pickIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
 //                    startActivityForResult(pickIntent, REQUESTCODE_PICK);
                     String[] permissions1 = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (Build.VERSION.SDK_INT >= 23) {
                         int check = ContextCompat.checkSelfPermission(AccountSettingsActivity.this, permissions1[0]);
                         // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
                         if (check == PackageManager.PERMISSION_GRANTED) {
@@ -427,7 +428,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
     private void useCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         Uri uri = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= 23) {
 //            ContentValues contentValues = new ContentValues(1);
 //            contentValues.put(MediaStore.Images.Media.DATA, file.getAbsolutePath());
 //            uri = getApplication().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
@@ -451,7 +452,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("image/*");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= 23) {
             Uri uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", file);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
             intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
@@ -477,7 +478,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
         }
         Uri outputUri = fromFile(cropFile);
         Intent intent = new Intent("com.android.camera.action.CROP");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= 23) {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
                     | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);

@@ -117,7 +117,7 @@ public class GardenSelecterActivity extends SampleActivity {
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         mSettingPref = getSharedPreferences("Setting", Context.MODE_PRIVATE);
-        Button titleBackImageBtn = (Button) findViewById(R.id.btn_back);
+        titleBackImageBtn = (Button) findViewById(R.id.btn_back);
         titleBackImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

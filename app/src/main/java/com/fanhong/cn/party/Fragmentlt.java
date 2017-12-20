@@ -9,6 +9,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,21 +46,19 @@ import java.util.List;
 @ContentView(R.layout.fragment_lt)
 public class Fragmentlt extends Fragment {
     @ViewInject(R.id.lt_layout)
-    private AutoLinearLayout ltlayout;
+    public AutoLinearLayout ltlayout;
     @ViewInject(R.id.lt_recyclerview)
     private RecyclerView recyclerView;
     @ViewInject(R.id.lt_get_more)
     private ImageView getMore;
     @ViewInject(R.id.lt_empty)
-    private TextView ltEmpty;
-    @ViewInject(R.id.add_layout)
-    private AutoLinearLayout addLayout;
+    public TextView ltEmpty;
     @ViewInject(R.id.lt_edit)
     private EditText ltEdit;
     @ViewInject(R.id.lt_submit)
     private TextView submit;
 
-    private List<LtItemModel> list = new ArrayList<>();
+    public List<LtItemModel> list = new ArrayList<>();
     private LtAdapter adapter;
 
     @Nullable
@@ -75,11 +74,11 @@ public class Fragmentlt extends Fragment {
             case R.id.lt_get_more:
                 list.clear();
                 RequestParams params1 = new RequestParams(App.CMDURL);
-                params1.addBodyParameter("cmd","117");
+                params1.addBodyParameter("cmd", "117");
                 x.http().post(params1, new Callback.CommonCallback<String>() {
                     @Override
                     public void onSuccess(String result) {
-                        if(JsonSyncUtils.getJsonValue(result,"cmd").equals("118")){
+                        if (JsonSyncUtils.getJsonValue(result, "cmd").equals("118")) {
                             try {
                                 JSONArray jsonArray = new JSONObject(result).getJSONArray("data");
                                 for (int i = 0; i < jsonArray.length(); i++) {
@@ -115,21 +114,29 @@ public class Fragmentlt extends Fragment {
                 });
                 break;
             case R.id.lt_submit:
+                if (TextUtils.isEmpty(ltEdit.getText().toString().trim())) {
+                    Toast.makeText(getActivity(), "请输入发表内容！", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 RequestParams params = new RequestParams(App.CMDURL);
-                params.addBodyParameter("cmd","113");
+                params.addBodyParameter("cmd", "113");
                 params.addBodyParameter("uid", MySharedPrefUtils.getUserId(getActivity()));
-                params.addBodyParameter("content",ltEdit.getText().toString());
+                params.addBodyParameter("content", ltEdit.getText().toString());
                 x.http().post(params, new Callback.CommonCallback<String>() {
                     @Override
                     public void onSuccess(String result) {
-                        if(JsonSyncUtils.getJsonValue(result,"cw").equals("0")){
-                            Toast.makeText(getActivity(),"发表成功！",Toast.LENGTH_SHORT).show();
+                        if (JsonSyncUtils.getJsonValue(result, "cw").equals("0")) {
+                            Toast.makeText(getActivity(), "发表成功！", Toast.LENGTH_SHORT).show();
                             ltEdit.setText("");
-                            hideSoftinputyer(submit);
+                            if (isSoftShowing()) {
+                                hideSoftinputyer(submit);
+                            }
                             list.clear();
                             getDatas();
-                        }else {
-                            Toast.makeText(getActivity(),"发表失败！",Toast.LENGTH_SHORT).show();
+                            handler.sendEmptyMessage(3);
+                            handler.sendEmptyMessage(4);
+                        } else {
+                            Toast.makeText(getActivity(), "发表失败！", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -161,22 +168,25 @@ public class Fragmentlt extends Fragment {
     //展示3条数据
     private void getDatas() {
         RequestParams params = new RequestParams(App.CMDURL);
-        params.addBodyParameter("cmd","115");
+        params.addBodyParameter("cmd", "115");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                if(JsonSyncUtils.getJsonValue(result,"cmd").equals("116")){
+                if (JsonSyncUtils.getJsonValue(result, "cmd").equals("116")) {
                     try {
                         JSONArray jsonArray = new JSONObject(result).getJSONArray("data");
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject object = jsonArray.getJSONObject(i);
-                            LtItemModel model = new LtItemModel();
-                            model.setPhoto(object.optString("logo", ""));
-                            model.setName(object.optString("name", ""));
-                            model.setContent(object.optString("content", ""));
-                            list.add(model);
-                        }
-                        handler.sendEmptyMessage(3);
+                        if (jsonArray.length() > 0) {
+                            handler.sendEmptyMessage(2);
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject object = jsonArray.getJSONObject(i);
+                                LtItemModel model = new LtItemModel();
+                                model.setPhoto(object.optString("logo", ""));
+                                model.setName(object.optString("name", ""));
+                                model.setContent(object.optString("content", ""));
+                                list.add(model);
+                            }
+                        } else
+                            handler.sendEmptyMessage(1);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -204,21 +214,22 @@ public class Fragmentlt extends Fragment {
     public void onResume() {
         super.onResume();
         getMore.setVisibility(View.VISIBLE);
-        addLayout.setVisibility(View.VISIBLE);
         list.clear();
         getDatas();
         adapter = new LtAdapter(getActivity(), list);
+        handler.sendEmptyMessage(3);
         //留回复接口和详情页面接口
 //        adapter.setLtInterface();
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
-//        if (list.size() > 0) {
-//            handler.sendEmptyMessage(2);
-//        } else
-//            handler.sendEmptyMessage(1);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        if (list.size() > 0) {
+            handler.sendEmptyMessage(2);
+        } else {
+            handler.sendEmptyMessage(1);
+        }
     }
 
-    private  Handler handler = new Handler(new Handler.Callback() {
+    private Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
             switch (msg.what) {
@@ -235,12 +246,25 @@ public class Fragmentlt extends Fragment {
                     adapter.notifyDataSetChanged();
                     break;
                 case 4:
-                    getMore.setVisibility(View.GONE);
-                    addLayout.setVisibility(View.GONE);
+                    if (list.size() > 3) {
+                        getMore.setVisibility(View.GONE);
+                    } else {
+                        getMore.setVisibility(View.VISIBLE);
+                    }
                     break;
             }
             return true;
         }
     });
+
+    private boolean isSoftShowing() {
+        //获取当前屏幕内容的高度
+        int screenHeight = getActivity().getWindow().getDecorView().getHeight();
+        //获取View可见区域的bottom
+        Rect rect = new Rect();
+        getActivity().getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
+
+        return screenHeight - rect.bottom != 0;
+    }
 
 }

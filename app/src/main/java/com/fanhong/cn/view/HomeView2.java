@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fanhong.cn.AgentWebActivity;
+import com.fanhong.cn.AmapChooseGardenActivity;
 import com.fanhong.cn.App;
 import com.fanhong.cn.FaceRecognitionIntroductionActivity;
 import com.fanhong.cn.GardenSelecterActivity;
@@ -67,7 +68,7 @@ public class HomeView2 extends BaseFragment {
     @ViewInject(R.id.show_notice)
     private TextView showNotice;
     @ViewInject(R.id.home_banner)
-    private Banner banner;
+    private ImageView banner;
     @ViewInject(R.id.ylgh)
     private TextView ylgh;
     @ViewInject(R.id.xxyl)
@@ -102,7 +103,7 @@ public class HomeView2 extends BaseFragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        bannerAdapter = new BannerAdapter<BannerModel>(bannerModelList) {
+/*        bannerAdapter = new BannerAdapter<BannerModel>(bannerModelList) {
 
             @Override
             protected void bindTips(TextView tv, BannerModel bannerModel) {
@@ -138,7 +139,7 @@ public class HomeView2 extends BaseFragment {
                         break;
                 }
             }
-        });
+        });*/
         textViews = new TextView[]{ylgh, xxyl, mydy, hwwl};
         for (int i = 0; i < textViews.length; i++) {
             final int finalI = i;
@@ -154,18 +155,24 @@ public class HomeView2 extends BaseFragment {
         }
     }
 
-    @Event({R.id.image_choosecell, R.id.textView0, R.id.textView1, R.id.textView2,
+    @Event({R.id.image_choosecell, R.id.home_banner,R.id.textView0, R.id.textView1, R.id.textView2,
             R.id.tv_homestore, R.id.tv_homeexpressage, R.id.tv_homedaiban, R.id.tv_homerepair, R.id.tv_homeunlock})
     private void onClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.image_choosecell: //选择小区
                 if (isLogined() == 1) {
-                    intent.setClass(getActivity(), GardenSelecterActivity.class);
+//                    intent.setClass(getActivity(), GardenSelecterActivity.class);
+                    intent.setClass(getActivity(), AmapChooseGardenActivity.class);
                     getActivity().startActivityForResult(intent, 112);
                 } else {
                     createDialog(0);
                 }
+                break;
+            case R.id.home_banner:
+                intent.setClass(getActivity(),FaceRecognitionIntroductionActivity.class);
+                intent.putExtra("position",1);
+                startActivity(intent);
                 break;
             case R.id.textView0: //社区公告
                 if (isLogined() == 1) {
@@ -241,12 +248,12 @@ public class HomeView2 extends BaseFragment {
         }
     }
 
-    private void getBannerImg() {
-        bannerModelList.add(new BannerModel().setImageUrl("assets://images/title3.jpg"));
-        bannerModelList.add(new BannerModel().setImageUrl("assets://images/banner.jpg"));
-        bannerModelList.add(new BannerModel().setImageUrl("assets://images/top_banner.jpg"));
-        banner.notifyDataHasChanged();
-    }
+//    private void getBannerImg() {
+//        bannerModelList.add(new BannerModel().setImageUrl("assets://images/title3.jpg"));
+//        bannerModelList.add(new BannerModel().setImageUrl("assets://images/banner.jpg"));
+//        bannerModelList.add(new BannerModel().setImageUrl("assets://images/top_banner.jpg"));
+//        banner.notifyDataHasChanged();
+//    }
 
     private void getGonggaoData() {
         RequestParams params = new RequestParams(App.CMDURL);

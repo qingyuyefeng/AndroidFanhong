@@ -1,6 +1,7 @@
 package com.fanhong.cn.view;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -172,4 +173,8 @@ public class AccesscontrolView1 extends BaseFragment {
             return true;
         }
     });
+    private void showDialog(int cellId){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+    }
 }

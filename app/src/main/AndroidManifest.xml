@@ -182,6 +182,8 @@
             android:name=".GardenSelecterActivity"
             android:screenOrientation="portrait"/>
             <!--android:theme="@android:style/Theme.Light.NoTitleBar" />-->
+        <activity android:name=".AmapChooseGardenActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".AuthorizeOpenDoorActivity"
             android:screenOrientation="portrait"/>

@@ -7,6 +7,8 @@ package com.fanhong.cn.models;
 public class DoorcheckModel {
     String cellName;
     String louNumber;
+    String miyue;
+    int status;
 
     public String getLouNumber() {
         return louNumber;
@@ -16,8 +18,6 @@ public class DoorcheckModel {
         this.louNumber = louNumber;
     }
 
-    String miyue;
-    int status;
 
     public int getStatus() {
         return status;

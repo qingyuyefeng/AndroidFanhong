@@ -34,6 +34,7 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.CoordinateConverter;
 import com.amap.api.location.DPoint;
+import com.fanhong.cn.AmapChooseGardenActivity;
 import com.fanhong.cn.App;
 import com.fanhong.cn.GardenSelecterActivity;
 import com.fanhong.cn.R;
@@ -109,7 +110,7 @@ public class AddGuardActivity extends SampleActivity {
     private String cellId; //小区的id
     private String lastCellId;
     private String louId;//楼栋的id
-    private int checked = -1;
+    private int checked = 1;
 
     private AMapLocationClient client;
 
@@ -343,7 +344,8 @@ public class AddGuardActivity extends SampleActivity {
                         finish();
                     break;
                 case R.id.fangdong_inputcell:
-                    intent.setClass(AddGuardActivity.this, GardenSelecterActivity.class);
+//                    intent.setClass(AddGuardActivity.this, GardenSelecterActivity.class);
+                    intent.setClass(AddGuardActivity.this, AmapChooseGardenActivity.class);
                     startActivityForResult(intent, 100);
                     break;
                 case R.id.fangdong_iuputhouse:

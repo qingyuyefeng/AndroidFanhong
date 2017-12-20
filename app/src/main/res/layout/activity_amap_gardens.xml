@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/activity_top"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="当前定位城市"
+                android:layout_margin="10px"
+                android:textSize="30px"
+                android:textColor="@color/text_6"/>
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10px">
+                <TextView
+                    android:id="@+id/now_city"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20px"
+                    android:textColor="@color/text_3"
+                    android:textSize="33px"
+                    android:text="null"/>
+                <TextView
+                    android:id="@+id/go_choose_garden"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="定位不对？去小区列表选择"
+                    android:padding="3px"
+                    android:layout_marginRight="10px"
+                    android:textColor="@color/skyblue"/>
+            </com.zhy.autolayout.AutoLinearLayout>
+            <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/amap_gardens"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="5px"
+                android:gravity="center_horizontal"/>
+        </com.zhy.autolayout.AutoLinearLayout>
+    </ScrollView>
+</com.zhy.autolayout.AutoLinearLayout>

@@ -2,11 +2,13 @@ package com.fanhong.cn.party;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -81,6 +83,7 @@ public class ViewPagerActivity extends FragmentActivity {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                hideSoftinputyer(radioGroup);
                 extra.setVisibility(View.INVISIBLE);
                 textViews[0].setBackgroundColor(getResources().getColor(R.color.white));
                 textViews[1].setBackgroundColor(getResources().getColor(R.color.white));
@@ -127,6 +130,7 @@ public class ViewPagerActivity extends FragmentActivity {
                 /**
                  * 选定页面
                  */
+                hideSoftinputyer(viewPager);
                 radioButtons[position].setChecked(true);
             }
 
@@ -145,6 +149,13 @@ public class ViewPagerActivity extends FragmentActivity {
         fragmentfx = new Fragmentfx();
         fragmentList.add(fragmentfx);
         fragmentlt = new Fragmentlt();
+//        if(fragmentlt.list.size()>0){
+//            fragmentlt.ltlayout.setVisibility(View.VISIBLE);
+//            fragmentlt.ltEmpty.setVisibility(View.GONE);
+//        }else {
+//            fragmentlt.ltlayout.setVisibility(View.GONE);
+//            fragmentlt.ltEmpty.setVisibility(View.VISIBLE);
+//        }
         fragmentList.add(fragmentlt);
 //        fragmentcy = new Fragmentcy();
 //        fragmentList.add(fragmentcy);
@@ -195,5 +206,10 @@ public class ViewPagerActivity extends FragmentActivity {
 
             }
         });
+    }
+    //隐藏软键盘的方法
+    private void hideSoftinputyer(View view) {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 }
