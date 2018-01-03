@@ -1,7 +1,6 @@
 package com.fanhong.cn.view;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -83,7 +82,6 @@ public class AccesscontrolView1 extends BaseFragment {
     public void onResume() {
         super.onResume();
         AccesscontrolView1.this.getBaseActivity().getAccessControl();
-
         doorapplyListview = (ListView) accView.findViewById(R.id.applydoors_listview);
         doorApplyAdapter = new DoorApplyAdapter(getActivity(), list);
         doorApplyAdapter.setOpenDoor(new DoorApplyAdapter.OpenDoor() {
@@ -173,8 +171,4 @@ public class AccesscontrolView1 extends BaseFragment {
             return true;
         }
     });
-    private void showDialog(int cellId){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-    }
 }

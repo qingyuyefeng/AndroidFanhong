@@ -375,8 +375,11 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".party.activities.DetailsActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".party.activities.LtDetailsActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".party.activities.PartyDuesActivity"
             android:screenOrientation="portrait"/>
+
 
         <!--微信支付回调入口-->
         <activity android:name=".wxapi.WXPayEntryActivity"

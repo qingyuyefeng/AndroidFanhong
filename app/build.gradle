@@ -7,9 +7,9 @@ android {
         applicationId "com.fanhong.cn"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 5   //代码的版本区分，只能递增，以高版本覆盖低版本
+        versionCode 7   //代码的版本区分，只能递增，以高版本覆盖低版本
         multiDexEnabled true
-        versionName "1.0.4"  //展示给用户看的
+        versionName "1.0.6"  //展示给用户看的
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {

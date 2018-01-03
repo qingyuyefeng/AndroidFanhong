@@ -206,7 +206,7 @@ public class AddFxActivity extends Activity{
                     // 选择相册
                     case R.id.pickPhotoBtn:
                         String[] permissions1 = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                        if (Build.VERSION.SDK_INT >= 23) {
+                        if (Build.VERSION.SDK_INT >= 24) {
                             int check = ContextCompat.checkSelfPermission(AddFxActivity.this, permissions1[0]);
                             // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
                             if (check == PackageManager.PERMISSION_GRANTED) {
@@ -256,7 +256,7 @@ public class AddFxActivity extends Activity{
             }
         }
         Uri uri = null;
-        if (Build.VERSION.SDK_INT >= 23) {
+        if (Build.VERSION.SDK_INT >= 24) {
             uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", file);
         } else {
             uri = Uri.fromFile(file);
@@ -329,7 +329,7 @@ public class AddFxActivity extends Activity{
         switch (requestCode) {
             case TAKE_PHOTO:
                 Uri uri1 = Uri.fromFile(file);
-                if (Build.VERSION.SDK_INT >= 23) {
+                if (Build.VERSION.SDK_INT >= 24) {
                     uri1 = FileProvider.getUriForFile(this, "applicationId.fileprovider", file);
                 }
                 startPhotoZoom(uri1);

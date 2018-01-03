@@ -39,7 +39,8 @@ public class MyAddressAdapter extends RecyclerView.Adapter<MyAddressAdapter.MyVi
     }
 
     public interface MyHolderClick{
-        void editAddress(String name,String phone,int status,int id);
+        void editAddress(String name, String phone, String cellName,String cellId,
+                         String louName,String louId,String content,int status, int id);
         void deleteAddress(int id,int pos);
         void holderItemClick(String addr,String name,String phone,int addrid);
     }
@@ -64,6 +65,11 @@ public class MyAddressAdapter extends RecyclerView.Adapter<MyAddressAdapter.MyVi
         holder.tvName.setText(addressModel.getName());
         holder.tvPhone.setText(addressModel.getPhone());
         holder.tvAddress.setText(addressModel.getAddress());
+        final String cellName = addressModel.getCellName();
+        final String cellId = addressModel.getCellId();
+        final String louName = addressModel.getLouName();
+        final String louId = addressModel.getLouId();
+        final String content = addressModel.getContent();
         final int id = addressModel.getAdrid();
         final int status = addressModel.getIsDefault();
         if(status == 1){
@@ -77,10 +83,12 @@ public class MyAddressAdapter extends RecyclerView.Adapter<MyAddressAdapter.MyVi
                 /*
                 接编辑地址接口
                 传入姓名、电话、
+                小区名字、楼栋名字、填写的地址、
                 小区id、楼栋id、地址、是否默认
                  */
                 myHolderClick.editAddress(holder.tvName.getText().toString(),
                         holder.tvPhone.getText().toString(),
+                        cellName,cellId,louName,louId,content,
                         status,id);
             }
         });

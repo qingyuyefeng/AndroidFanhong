@@ -67,8 +67,7 @@ public class TopBarUtil {
         alertDialog.show();
     }
 
-    //设定listview的高度
-
+    //设定listview的高度（无返回值）
     public static void setListViewHeight(ListView listView) {
         BaseAdapter listAdapter = (BaseAdapter) listView.getAdapter();
         if (listAdapter == null) {
@@ -84,6 +83,24 @@ public class TopBarUtil {
         params.height = totalHeight
                 + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
+    }
+
+    //设定listview的高度(有返回值)
+    public static int getListViewHeight(ListView listView) {
+        BaseAdapter listAdapter = (BaseAdapter) listView.getAdapter();
+        if (listAdapter == null) {
+            return 0;
+        }
+        int totalHeight = 0;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight
+                + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        return params.height;
     }
 
     //生成15位的随机字符串

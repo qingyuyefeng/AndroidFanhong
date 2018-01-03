@@ -2,6 +2,7 @@ package com.fanhong.cn.party;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import com.fanhong.cn.App;
 import com.fanhong.cn.R;
+import com.fanhong.cn.party.activities.LtDetailsActivity;
 import com.fanhong.cn.party.adapters.LtAdapter;
 import com.fanhong.cn.party.models.LtItemModel;
 import com.fanhong.cn.util.JsonSyncUtils;
@@ -219,7 +221,14 @@ public class Fragmentlt extends Fragment {
         adapter = new LtAdapter(getActivity(), list);
         handler.sendEmptyMessage(3);
         //留回复接口和详情页面接口
-//        adapter.setLtInterface();
+        adapter.setLtInterface(new LtAdapter.LtInterface() {
+            @Override
+            public void details(String content) {
+                Intent intent = new Intent(getActivity(), LtDetailsActivity.class);
+                intent.putExtra("content",content);
+                startActivity(intent);
+            }
+        });
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         if (list.size() > 0) {

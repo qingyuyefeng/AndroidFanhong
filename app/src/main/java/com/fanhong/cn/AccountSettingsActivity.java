@@ -282,7 +282,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
         switch (requestCode) {
             case REQUESTCODE_PICK:// 直接从相册获取
                 try {
-                    if (Build.VERSION.SDK_INT >= 23) {
+                    if (Build.VERSION.SDK_INT >= 24) {
                         File imgUri = new File(GetImagePath.getPath(this, data.getData()));
                         Uri uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", imgUri);
                         startPhotoZoom(uri);
@@ -294,7 +294,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
                 break;
             case REQUESTCODE_TAKE: // 调用相机拍照
                 Uri uri = Uri.fromFile(file);
-                if (Build.VERSION.SDK_INT >= 23) {
+                if (Build.VERSION.SDK_INT >= 24) {
                     uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", file);
 //                    ContentValues contentValues = new ContentValues(1);
 //                    contentValues.put(MediaStore.Images.Media.DATA, file.getAbsolutePath());
@@ -428,7 +428,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
     private void useCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         Uri uri = null;
-        if (Build.VERSION.SDK_INT >= 23) {
+        if (Build.VERSION.SDK_INT >= 24) {
 //            ContentValues contentValues = new ContentValues(1);
 //            contentValues.put(MediaStore.Images.Media.DATA, file.getAbsolutePath());
 //            uri = getApplication().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
@@ -452,7 +452,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("image/*");
-        if (Build.VERSION.SDK_INT >= 23) {
+        if (Build.VERSION.SDK_INT >= 24) {
             Uri uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", file);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
             intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
@@ -478,7 +478,7 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
         }
         Uri outputUri = fromFile(cropFile);
         Intent intent = new Intent("com.android.camera.action.CROP");
-        if (Build.VERSION.SDK_INT >= 23) {
+        if (Build.VERSION.SDK_INT >= 24) {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
                     | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
@@ -573,54 +573,15 @@ public class AccountSettingsActivity extends SampleActivity implements OnClickLi
     }
 
     private void getTouxiang(String logo) {
-        Log.i("hu", "*******getTouxiang()");
         String userid = mSettingPref.getString("UserId", "");
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("cmd", "13");
         map.put("uid", userid);
         map.put("logo", logo);
 
-//        Log.i("xq", "修改头像map===>" + map.toString());
         if (mSafoneConnection == null)
             mSafoneConnection = new SampleConnection(AccountSettingsActivity.this, 0);
         mSafoneConnection.connectService1(map);
     }
 
-//    Handler handler = new Handler(new Handler.Callback() {
-//
-//        @Override
-//        public boolean handleMessage(Message msg) {
-//            switch (msg.what) {
-//                case 0:
-//                    pd.dismiss();
-//                    try {
-//                        // 返回数据示例，根据需求和后台数据灵活处理
-//                        // {"status":"1","statusMessage":"上传成功","imageUrl":"http://120.24.219.49/726287_temphead.jpg"}
-//                        JSONObject jsonObject = new JSONObject(resultStr);
-//                        Log.i("hu", "*****8***resultStr=" + resultStr);
-//                        // 服务端以字符串“1”作为操作成功标记
-//                        if (jsonObject.optString("status").equals("1")) {
-//                            BitmapFactory.Options option = new BitmapFactory.Options();
-//                            // 压缩图片:表示缩略图大小为原始图片大小的几分之一，1为原图，3为三分之一
-//                            option.inSampleSize = 1;
-//
-//                            // 服务端返回的JsonObject对象中提取到图片的网络URL路径
-//                            String imageUrl = jsonObject.optString("imageUrl");
-//                            Toast.makeText(context, imageUrl, Toast.LENGTH_SHORT).show();
-//                        } else {
-//                            Toast.makeText(context, jsonObject.optString("statusMessage"), Toast.LENGTH_SHORT).show();
-//                        }
-//
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                    break;
-//
-//                default:
-//                    break;
-//            }
-//            return false;
-//        }
-//    });
 }

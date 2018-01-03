@@ -73,6 +73,11 @@ public class EditAddressActivity extends Activity{
         Intent intent = getIntent();
         changName.setText(intent.getStringExtra("adName"));
         changPhone.setText(intent.getStringExtra("adPhone"));
+        changecell.setText(intent.getStringExtra("adcellName"));
+        changelou.setText(intent.getStringExtra("adlouName"));
+        cellId = intent.getStringExtra("adcellId");
+        louId = intent.getStringExtra("adlouId");
+        changAddress.setText(intent.getStringExtra("adcontent"));
         addId = intent.getIntExtra("adrId",0);
         Log.i("xq","默认地址选中状态==>"+intent.getIntExtra("adStatus",0));
         if(intent.getIntExtra("adStatus",0) == 1){

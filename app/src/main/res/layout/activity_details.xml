@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="15px"
-        android:text="详情内容"/>
+        android:text="content"/>
    <View
        android:layout_width="match_parent"
        android:layout_height="2px"

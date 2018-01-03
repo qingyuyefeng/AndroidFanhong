@@ -12,3 +12,9 @@
     <!--<cache-path/> //代表的根目录: getCacheDir()-->
 </resources>
 
+<!--<paths xmlns:android="http://schemas.android.com/apk/res/android">-->
+    <!--&lt;!&ndash; /storage/emulated/0/Download/${applicationId}/.beta/apk&ndash;&gt;-->
+    <!--<external-path name="beta_external_path" path="Download/"/>-->
+    <!--&lt;!&ndash;/storage/emulated/0/Android/data/${applicationId}/files/apk/&ndash;&gt;-->
+    <!--<external-path name="beta_external_files_path" path="Android/data/"/>-->
+<!--</paths>-->

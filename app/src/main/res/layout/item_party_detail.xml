@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginTop="15px"
-    android:layout_marginBottom="15px">
+    android:paddingTop="10px"
+    android:paddingBottom="10px">
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,13 +22,13 @@
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8px"
-        android:text="系统消息"
+        android:text="author"
         android:textColor="@color/text_6"/>
         <TextView
             android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2017-12-11"
+            android:text="time"
             android:layout_marginRight="20px"/>
     </com.zhy.autolayout.AutoLinearLayout>
     <TextView
@@ -38,6 +38,6 @@
         android:layout_marginTop="8px"
         android:layout_marginLeft="50px"
         android:layout_marginRight="10px"
-        android:text="嗯，说得不错！"
+        android:text="content"
         android:textColor="@color/text_3"/>
 </com.zhy.autolayout.AutoLinearLayout>

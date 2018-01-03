@@ -596,7 +596,7 @@ public class ShopActivity extends SampleActivity {
 //                        pickIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
 //                        startActivityForResult(pickIntent, REQUESTCODE_PICK);
                         String[] permissions1 = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                        if (Build.VERSION.SDK_INT >= 23) {
+                        if (Build.VERSION.SDK_INT >= 24) {
                             int check = ContextCompat.checkSelfPermission(ShopActivity.this, permissions1[0]);
                             // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
                             if (check == PackageManager.PERMISSION_GRANTED) {
@@ -647,7 +647,7 @@ public class ShopActivity extends SampleActivity {
             }
         }
         Uri uri = null;
-        if (Build.VERSION.SDK_INT >= 23) {
+        if (Build.VERSION.SDK_INT >= 24) {
             uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", file);
         } else {
             uri = Uri.fromFile(file);
@@ -726,7 +726,7 @@ public class ShopActivity extends SampleActivity {
         }
         Uri outputUri = fromFile(cropFile);
         Intent intent = new Intent("com.android.camera.action.CROP");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
                     | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
@@ -764,7 +764,7 @@ public class ShopActivity extends SampleActivity {
             case REQUESTCODE_TAKE://拍照的回调
 //                startPhotoZoom(Uri.fromFile(file), REQUESTCODE_TAKE, data);
                 Uri uri = Uri.fromFile(file);
-                if (Build.VERSION.SDK_INT >= 23) {
+                if (Build.VERSION.SDK_INT >= 24) {
                     uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", file);
                 }
                 startPhotoZoom(uri);

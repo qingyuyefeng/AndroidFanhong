@@ -35,6 +35,8 @@ public class App extends Application {
 
     //开门禁所需访问的路径
     public static final String OPEN_URL = "http://m.wuyebest.com/index.php/App/index/yjkm";
+    //开门禁结果查询路径
+    public static final String CHECK_URL = "http://m.wuyebest.com/index.php/App/index/yjkmcx";
 
     public static Set<Long> old_msg_times=new HashSet<>();
 //    public static List<Long> old_msg_times=new ArrayList<>();

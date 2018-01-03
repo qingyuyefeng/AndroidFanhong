@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.fanhong.cn.R;
 import com.fanhong.cn.party.models.LtItemModel;
+import com.zhy.autolayout.AutoLinearLayout;
 import com.zhy.autolayout.utils.AutoUtils;
 
 import org.xutils.image.ImageOptions;
@@ -31,8 +32,8 @@ public class LtAdapter extends RecyclerView.Adapter<LtAdapter.MyViewHolder> {
     private LayoutInflater inflater;
 
     public interface LtInterface{
-        void details(int position);
-        void reply(int position);
+        void details(String content);  //click to check details
+//        void reply(int position);
     }
     LtInterface ltInterface;
 
@@ -56,13 +57,19 @@ public class LtAdapter extends RecyclerView.Adapter<LtAdapter.MyViewHolder> {
     public void onBindViewHolder(MyViewHolder holder, int position) {
         ImageOptions options1 = new ImageOptions.Builder().setLoadingDrawableId(R.mipmap.pictureloading)
                 .setFailureDrawableId(R.mipmap.picturefailedloading).setCircular(true).setUseMemCache(true).build();
-        LtItemModel model = list.get(position);
+        final LtItemModel model = list.get(position);
         if(TextUtils.isEmpty(model.getPhoto())){
             holder.photo.setImageResource(R.drawable.default_photo);
         }else
             x.image().bind(holder.photo,model.getPhoto(),options1);
         holder.name.setText(model.getName());
         holder.content.setText(model.getContent());
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ltInterface.details(model.getContent());
+            }
+        });
     }
 
     @Override
@@ -74,6 +81,8 @@ public class LtAdapter extends RecyclerView.Adapter<LtAdapter.MyViewHolder> {
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
+        @ViewInject(R.id.item_layout)
+        AutoLinearLayout layout;
         @ViewInject(R.id.lt_photo)
         ImageView photo;
         @ViewInject(R.id.lt_name)

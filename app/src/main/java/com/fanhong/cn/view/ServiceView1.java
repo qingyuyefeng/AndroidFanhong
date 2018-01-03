@@ -50,7 +50,7 @@ public class ServiceView1 extends BaseFragment {
 //			R.drawable.service_pay,
             R.drawable.service_dai,
             R.drawable.service_distribution,
-            R.drawable.service_lock,
+//            R.drawable.service_lock,
 //          R.drawable.service_park
             R.drawable.service_fix,
 //			,R.drawable.service_jd, R.drawable.service_kd, R.drawable.service_clean,
@@ -64,8 +64,8 @@ public class ServiceView1 extends BaseFragment {
 //			R.string.service_pay,
             R.string.service_dai,
             R.string.service_zsdl,
-            R.string.service_lock,
-//          R.string.service_park
+//            R.string.service_lock,
+//            R.string.service_park,
             R.string.service_fix,
 //			,R.string.service_jd, R.string.service_kd, R.string.service_clean,
             R.string.service_talk,

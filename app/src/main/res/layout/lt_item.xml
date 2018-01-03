@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhy.autolayout.AutoLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingBottom="3px"
-    android:layout_marginTop="1px">
+    android:layout_marginTop="1px"
+    android:layout_marginLeft="15px"
+    android:layout_marginRight="15px">
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,7 +40,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2px"
+            android:layout_height="3px"
             android:layout_marginTop="5px"
             android:background="#dedede"/>
         <!--<TextView-->

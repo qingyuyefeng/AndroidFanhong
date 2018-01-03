@@ -7,19 +7,10 @@ package com.fanhong.cn.shippingaddress;
 public class AddressModel {
     String name;
     String phone;
-    String address;
+    String address,cellName,louName,content;
     String cellId;
     String louId;
     int isDefault,adrid;
-//    boolean mControl;
-
-//    public boolean ismControl() {
-//        return mControl;
-//    }
-//
-//    public void setmControl(boolean mControl) {
-//        this.mControl = mControl;
-//    }
 
     public String getCellId() {
         return cellId;
@@ -78,12 +69,41 @@ public class AddressModel {
         this.isDefault = isDefault;
     }
 
+    public String getCellName() {
+        return cellName;
+    }
+
+    public void setCellName(String cellName) {
+        this.cellName = cellName;
+    }
+
+    public String getLouName() {
+        return louName;
+    }
+
+    public void setLouName(String louName) {
+        this.louName = louName;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     @Override
     public String toString() {
         return "AddressModel{" +
                 "name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
+                ", cellName='" + cellName + '\'' +
+                ", louName='" + louName + '\'' +
+                ", content='" + content + '\'' +
+                ", cellId='" + cellId + '\'' +
+                ", louId='" + louId + '\'' +
                 ", isDefault=" + isDefault +
                 ", adrid=" + adrid +
                 '}';

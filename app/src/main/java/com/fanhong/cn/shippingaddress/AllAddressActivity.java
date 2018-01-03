@@ -110,6 +110,9 @@ public class AllAddressActivity extends Activity {
                             addressModel.setIsDefault(object1.optInt("mr"));
                             addressModel.setCellId(object1.optString("xid"));
                             addressModel.setLouId(object1.optString("ldh"));
+                            addressModel.setCellName(object1.optString("xqname"));
+                            addressModel.setLouName(object1.optString("ldname"));
+                            addressModel.setContent(object1.optString("dizhi"));
                             addressModel.setAddress(object1.optString("shdz"));
                             addressModelList.add(addressModel);
                         }
@@ -147,12 +150,18 @@ public class AllAddressActivity extends Activity {
         myAddressAdapter = new MyAddressAdapter(this, addressModelList);
         myAddressAdapter.setMyHolderClick(new MyAddressAdapter.MyHolderClick() {
             @Override
-            public void editAddress(String name, String phone, int status, int id) {
+            public void editAddress(String name, String phone, String cellName,String cellId,
+                                    String louName,String louId,String content,int status, int id) {
                 Intent intent = new Intent(AllAddressActivity.this, EditAddressActivity.class);
                 intent.putExtra("adName", name);
                 intent.putExtra("adPhone", phone);
                 intent.putExtra("adStatus", status);
                 intent.putExtra("adrId", id);
+                intent.putExtra("adcellName",cellName);
+                intent.putExtra("adcellId",cellId);
+                intent.putExtra("adlouName",louName);
+                intent.putExtra("adlouId",louId);
+                intent.putExtra("adcontent",content);
                 startActivity(intent);
             }
 

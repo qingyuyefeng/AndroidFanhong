@@ -9,13 +9,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -27,10 +25,9 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.fanhong.cn.applydoors.AddGuardActivity;
-import com.fanhong.cn.listviews.MyFragmentPagerAdapter;
-import com.fanhong.cn.view.AccesscontrolView1;
 import com.fanhong.cn.community.CommunityIndexFragment;
-import com.fanhong.cn.view.FixedViewPager;
+import com.fanhong.cn.listviews.MyFragmentPagerAdapter;
+import com.fanhong.cn.view.AccesscontrolView2;
 import com.fanhong.cn.view.HomeView2;
 import com.fanhong.cn.view.MineView2;
 import com.fanhong.cn.view.ServiceView1;
@@ -49,7 +46,7 @@ import io.rong.imlib.RongIMClient;
 
 public class FragmentMainActivity extends SampleActivity {
     private HomeView2 mTab01;
-    private AccesscontrolView1 mTab02;
+    private AccesscontrolView2 mTab02;
     private ServiceView1 mTab03;
     private MineView2 mTab04;
     private CommunityIndexFragment mTab05;
@@ -207,105 +204,47 @@ public class FragmentMainActivity extends SampleActivity {
                 switch (position) {
                     case 0:
                         radioButtons[0].setChecked(true);
-                        radioButtons[0].setTextColor(getResources().getColor(R.color.skyblue));
-                        radioButtons[1].setTextColor(getResources().getColor(R.color.notchecked));
-                        radioButtons[2].setTextColor(getResources().getColor(R.color.notchecked));
-                        radioButtons[3].setTextColor(getResources().getColor(R.color.notchecked));
-                        radioButtons[4].setTextColor(getResources().getColor(R.color.notchecked));
-                        imageViews[0].setVisibility(View.VISIBLE);
-                        imageViews[1].setVisibility(View.INVISIBLE);
-                        imageViews[2].setVisibility(View.INVISIBLE);
-                        imageViews[3].setVisibility(View.INVISIBLE);
-                        imageViews[4].setVisibility(View.INVISIBLE);
                         lastCheckedPage = R.id.home_page;
                         FORCE_FRAGMENT = FRAGMENT_HOMEVIEW;
                         break;
                     case 1:
                         radioButtons[1].setChecked(true);
-                        radioButtons[0].setTextColor(getResources().getColor(R.color.notchecked));
-                        radioButtons[1].setTextColor(getResources().getColor(R.color.skyblue));
-                        radioButtons[2].setTextColor(getResources().getColor(R.color.notchecked));
-                        radioButtons[3].setTextColor(getResources().getColor(R.color.notchecked));
-                        radioButtons[4].setTextColor(getResources().getColor(R.color.notchecked));
-                        imageViews[0].setVisibility(View.INVISIBLE);
-                        imageViews[1].setVisibility(View.VISIBLE);
-                        imageViews[2].setVisibility(View.INVISIBLE);
-                        imageViews[3].setVisibility(View.INVISIBLE);
-                        imageViews[4].setVisibility(View.INVISIBLE);
                         lastCheckedPage = R.id.service_page;
                         FORCE_FRAGMENT = FRAGMENT_SERVICE;
                         break;
                     case 2:
                         if (isLogined() == 1) {
-                            mTab02.onResume();
-                            Log.i("xq", "门禁list.size()==>" + mTab02.list.size());
-                            if (mTab02.list.size() == 0) {
+                            if (mTab02.cellList.size() == 0) {
                                 createDialog(2);
                             }
                             radioButtons[2].setChecked(true);
-                            radioButtons[0].setTextColor(getResources().getColor(R.color.notchecked));
-                            radioButtons[1].setTextColor(getResources().getColor(R.color.notchecked));
-                            radioButtons[2].setTextColor(getResources().getColor(R.color.skyblue));
-                            radioButtons[3].setTextColor(getResources().getColor(R.color.notchecked));
-                            radioButtons[4].setTextColor(getResources().getColor(R.color.notchecked));
-                            imageViews[0].setVisibility(View.INVISIBLE);
-                            imageViews[1].setVisibility(View.INVISIBLE);
-                            imageViews[2].setVisibility(View.VISIBLE);
-                            imageViews[3].setVisibility(View.INVISIBLE);
-                            imageViews[4].setVisibility(View.INVISIBLE);
                             lastCheckedPage = R.id.door_page;
                             FORCE_FRAGMENT = FRAGMENT_OPENDOOR;
                         } else {
                             createDialog(0);
-//                            bottomRadioGroup.check(lastCheckedPage);
+                            bottomRadioGroup.check(lastCheckedPage);
                             viewPager.setCurrentItem(getPageId(lastCheckedPage));
                         }
                         break;
                     case 3:
                         if (isLogined() == 1) {
-                            try {
-                                if (!TextUtils.isEmpty(mSettingPref.getString("gardenName", ""))) {
-                                    radioButtons[3].setChecked(true);
-                                    radioButtons[0].setTextColor(getResources().getColor(R.color.notchecked));
-                                    radioButtons[1].setTextColor(getResources().getColor(R.color.notchecked));
-                                    radioButtons[2].setTextColor(getResources().getColor(R.color.notchecked));
-                                    radioButtons[3].setTextColor(getResources().getColor(R.color.skyblue));
-                                    radioButtons[4].setTextColor(getResources().getColor(R.color.notchecked));
-                                    imageViews[0].setVisibility(View.INVISIBLE);
-                                    imageViews[1].setVisibility(View.INVISIBLE);
-                                    imageViews[2].setVisibility(View.INVISIBLE);
-                                    imageViews[3].setVisibility(View.VISIBLE);
-                                    imageViews[4].setVisibility(View.INVISIBLE);
-                                    lastCheckedPage = R.id.interact_page;
-                                    FORCE_FRAGMENT = FRAGMENT_COMMUNITY;
-                                } else {
-                                    createDialog(1);
-//                                    bottomRadioGroup.check(lastCheckedPage);
-                                    viewPager.setCurrentItem(getPageId(lastCheckedPage));
-                                }
-                            } catch (Exception e) {
+                            if (!TextUtils.isEmpty(mSettingPref.getString("gardenName", ""))) {
+                                radioButtons[3].setChecked(true);
+                                lastCheckedPage = R.id.interact_page;
+                                FORCE_FRAGMENT = FRAGMENT_COMMUNITY;
+                            } else {
                                 createDialog(1);
-//                                bottomRadioGroup.check(lastCheckedPage);
+                                bottomRadioGroup.check(lastCheckedPage);
                                 viewPager.setCurrentItem(getPageId(lastCheckedPage));
                             }
                         } else {
                             createDialog(0);
-//                            bottomRadioGroup.check(lastCheckedPage);
+                            bottomRadioGroup.check(lastCheckedPage);
                             viewPager.setCurrentItem(getPageId(lastCheckedPage));
                         }
                         break;
                     case 4:
                         radioButtons[4].setChecked(true);
-                        radioButtons[0].setTextColor(getResources().getColor(R.color.notchecked));
-                        radioButtons[1].setTextColor(getResources().getColor(R.color.notchecked));
-                        radioButtons[2].setTextColor(getResources().getColor(R.color.notchecked));
-                        radioButtons[3].setTextColor(getResources().getColor(R.color.notchecked));
-                        radioButtons[4].setTextColor(getResources().getColor(R.color.skyblue));
-                        imageViews[0].setVisibility(View.INVISIBLE);
-                        imageViews[1].setVisibility(View.INVISIBLE);
-                        imageViews[2].setVisibility(View.INVISIBLE);
-                        imageViews[3].setVisibility(View.INVISIBLE);
-                        imageViews[4].setVisibility(View.VISIBLE);
                         lastCheckedPage = R.id.mine_page;
                         FORCE_FRAGMENT = FRAGMENT_MINEVIEW;
                         break;
@@ -324,7 +263,6 @@ public class FragmentMainActivity extends SampleActivity {
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 switch (checkedId) {
                     case R.id.home_page:
-//                        showFragment(fragmentTransaction,0);
                         viewPager.setCurrentItem(0);
                         radioButtons[0].setTextColor(getResources().getColor(R.color.skyblue));
                         radioButtons[1].setTextColor(getResources().getColor(R.color.notchecked));
@@ -340,7 +278,6 @@ public class FragmentMainActivity extends SampleActivity {
                         FORCE_FRAGMENT = FRAGMENT_HOMEVIEW;
                         break;
                     case R.id.service_page:
-//                        showFragment(fragmentTransaction,1);
                         viewPager.setCurrentItem(1);
                         radioButtons[0].setTextColor(getResources().getColor(R.color.notchecked));
                         radioButtons[1].setTextColor(getResources().getColor(R.color.skyblue));
@@ -356,11 +293,8 @@ public class FragmentMainActivity extends SampleActivity {
                         FORCE_FRAGMENT = FRAGMENT_SERVICE;
                         break;
                     case R.id.door_page:
-//                        showFragment(fragmentTransaction,2);
                         if (isLogined() == 1) {
-                            mTab02.onResume();
-                            Log.i("xq", "门禁list.size()==>" + mTab02.list.size());
-                            if (mTab02.list.size() == 0) {
+                            if (mTab02.cellList.size() == 0) {
                                 createDialog(2);
                             }
                             viewPager.setCurrentItem(2);
@@ -383,7 +317,6 @@ public class FragmentMainActivity extends SampleActivity {
 
                         break;
                     case R.id.interact_page:
-//                        showFragment(fragmentTransaction,3);
                         if (isLogined() == 1) {
                             try {
                                 if (!TextUtils.isEmpty(mSettingPref.getString("gardenName", ""))) {
@@ -436,7 +369,7 @@ public class FragmentMainActivity extends SampleActivity {
 
     private void initData() {
         mTab01 = new HomeView2();
-        mTab02 = new AccesscontrolView1();
+        mTab02 = new AccesscontrolView2();
         mTab03 = new ServiceView1();
         mTab04 = new MineView2();
         mTab05 = new CommunityIndexFragment();
@@ -561,12 +494,13 @@ public class FragmentMainActivity extends SampleActivity {
         if (isLogined() == 1) {
             String userid = mSettingPref.getString("UserId", "");
             RequestParams params = new RequestParams(App.CMDURL);
-            params.addBodyParameter("cmd", "41");
+            params.addBodyParameter("cmd", "125");
             params.addBodyParameter("uid", userid);
             x.http().post(params, new Callback.CommonCallback<String>() {
                 @Override
                 public void onSuccess(String s) {
-                    mTab02.setFragment(21, s);
+//                    mTab02.setFragment(21, s);
+                    mTab02.getKeylist(s);
                 }
 
                 @Override
@@ -652,7 +586,8 @@ public class FragmentMainActivity extends SampleActivity {
                 builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(FragmentMainActivity.this, GardenSelecterActivity.class);
+//                        Intent intent = new Intent(FragmentMainActivity.this, GardenSelecterActivity.class);
+                        Intent intent = new Intent(FragmentMainActivity.this, AmapChooseGardenActivity.class);
                         startActivityForResult(intent, 12);
                     }
                 });

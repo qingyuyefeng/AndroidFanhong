@@ -87,7 +87,8 @@ public class GetImagePath {
                                        String[] selectionArgs) {
 
         Cursor cursor = null;
-        final String column = "_data";
+        final String column = "_data";  //MediaStore.Files.FileColumns.DATA
+
         final String[] projection = {
                 column
         };
