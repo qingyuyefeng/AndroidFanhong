@@ -335,16 +335,16 @@ public class ServiceView1 extends BaseFragment {
                 startActivity(new Intent(ServiceView1.this.getActivity(), FenXiaoActivity.class));
                 break;
             //管线维修
+//            case 4:
+//                startActivity(new Intent(ServiceView1.this.getActivity(), EmergencyUnlockActivity.class));
+//                break;
             case 4:
-                startActivity(new Intent(ServiceView1.this.getActivity(), EmergencyUnlockActivity.class));
-                break;
-            case 5:
                 if (MySharedPrefUtils.getStatus(getActivity()) != 1) {
                     TopBarUtil.createDialog(getActivity(), 0);
                 } else
                     startActivity(new Intent(ServiceView1.this.getActivity(), RepairActivity.class));
                 break;
-            case 6:
+            case 5:
                 if (MySharedPrefUtils.getStatus(getActivity()) != 1) {
                     TopBarUtil.createDialog(getActivity(), 0);
                 } else if (TextUtils.isEmpty(MySharedPrefUtils.getGardenName(getActivity()))) {
@@ -352,7 +352,7 @@ public class ServiceView1 extends BaseFragment {
                 } else
                     startActivity(new Intent(ServiceView1.this.getActivity(), CommunityChatRoomActivity.class));
                 break;
-            case 7:
+            case 6:
                 if (MySharedPrefUtils.getStatus(getActivity()) == 1) {
                     RequestParams params = new RequestParams(App.CMDURL);
                     params.addParameter("cmd", "93");

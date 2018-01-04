@@ -19,12 +19,12 @@ import com.zhy.autolayout.utils.AutoUtils;
 
 
 /**
- * �Զ���PopupWindow  ��Ҫ������ʾListView
+ * create PopupWindow  just like spinner ListView
  *
  * @param <T>
  * @param <T>
  * @author Ansen
- * @create time 2015-11-3
+ * @create time 2016-7-3
  */
 public class SpinerPopWindow<T> extends PopupWindow {
     private LayoutInflater inflater;
