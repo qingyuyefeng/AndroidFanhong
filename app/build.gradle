@@ -56,7 +56,7 @@ android {
         }
     }
 }
-repositories{
+repositories {
     jcenter() // 或者 mavenCentral()
     google()
 }

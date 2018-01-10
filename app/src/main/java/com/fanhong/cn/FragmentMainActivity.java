@@ -214,9 +214,9 @@ public class FragmentMainActivity extends SampleActivity {
                         break;
                     case 2:
                         if (isLogined() == 1) {
-                            if (mTab02.cellList.size() == 0) {
-                                createDialog(2);
-                            }
+//                            if (mTab02.cellList.size() == 0) {
+//                                createDialog(2);
+//                            }
                             radioButtons[2].setChecked(true);
                             lastCheckedPage = R.id.door_page;
                             FORCE_FRAGMENT = FRAGMENT_OPENDOOR;
@@ -294,9 +294,9 @@ public class FragmentMainActivity extends SampleActivity {
                         break;
                     case R.id.door_page:
                         if (isLogined() == 1) {
-                            if (mTab02.cellList.size() == 0) {
-                                createDialog(2);
-                            }
+//                            if (mTab02.cellList.size() == 0) {
+//                                createDialog(2);
+//                            }
                             viewPager.setCurrentItem(2);
                             radioButtons[0].setTextColor(getResources().getColor(R.color.notchecked));
                             radioButtons[1].setTextColor(getResources().getColor(R.color.notchecked));

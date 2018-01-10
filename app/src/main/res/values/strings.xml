@@ -195,7 +195,7 @@
     <string name="service_lock">紧急开锁</string>
     <string name="service_park">闲时停车</string>
     <string name="service_fix">上门维修</string>
-    <string name="service_jd">家电维修</string>
+    <string name="service_door">门禁报修</string>
     <string name="service_kd">代发快递</string>
     <string name="service_clean">家政服务</string>
     <string name="service_talk">社区互动</string>
@@ -306,4 +306,5 @@
 １、 冒用他人身份信息，提供的虚假个人资料。\n\u3000\u3000
 ２、 盗用他人验证码和密码及盗用他人验证码帐户的行为。\n\u3000\u3000
 ３、 您提供任何错误、不实或不完整的资料或者疑似资料为错误、不实或不完整的。\n</string>
+    <string name="title_activity_doorfix">DoorfixActivity</string>
 </resources>

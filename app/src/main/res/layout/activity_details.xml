@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="15px"
+        android:padding="17px"
+        android:lineSpacingExtra="15px"
         android:text="content"/>
    <View
        android:layout_width="match_parent"

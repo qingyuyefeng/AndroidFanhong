@@ -64,8 +64,10 @@ public class ViewPagerActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
         title.setText(R.string.fx);
-        extra.setVisibility(View.VISIBLE);
+//        extra.setVisibility(View.VISIBLE);
         initViews();
+
+        qiandao(MySharedPrefUtils.getUserId(this));
     }
     @SuppressLint("WrongViewCast")
     private void initViews(){
@@ -148,17 +150,10 @@ public class ViewPagerActivity extends FragmentActivity {
 
         fragmentfx = new Fragmentfx();
         fragmentList.add(fragmentfx);
+
         fragmentlt = new Fragmentlt();
-//        if(fragmentlt.list.size()>0){
-//            fragmentlt.ltlayout.setVisibility(View.VISIBLE);
-//            fragmentlt.ltEmpty.setVisibility(View.GONE);
-//        }else {
-//            fragmentlt.ltlayout.setVisibility(View.GONE);
-//            fragmentlt.ltEmpty.setVisibility(View.VISIBLE);
-//        }
         fragmentList.add(fragmentlt);
-//        fragmentcy = new Fragmentcy();
-//        fragmentList.add(fragmentcy);
+
         fragmentwd = new Fragmentwd();
         fragmentList.add(fragmentwd);
 
@@ -171,7 +166,7 @@ public class ViewPagerActivity extends FragmentActivity {
                 finish();
                 break;
             case R.id.top_extra:
-                qiandao(MySharedPrefUtils.getUserId(this));
+
                 break;
         }
     }
@@ -183,11 +178,11 @@ public class ViewPagerActivity extends FragmentActivity {
             @Override
             public void onSuccess(String result) {
                 if(JsonSyncUtils.getJsonValue(result,"cw").equals("0")){
-                    Toast.makeText(ViewPagerActivity.this,"签到成功!",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ViewPagerActivity.this,"签到成功!",Toast.LENGTH_SHORT).show();
                 }else if(JsonSyncUtils.getJsonValue(result,"cw").equals("1")){
-                    Toast.makeText(ViewPagerActivity.this,"今天已经签到过了~",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ViewPagerActivity.this,"今天已经签到过了~",Toast.LENGTH_SHORT).show();
                 }else {
-                    Toast.makeText(ViewPagerActivity.this,"签到失败!",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ViewPagerActivity.this,"签到失败!",Toast.LENGTH_SHORT).show();
                 }
             }
 

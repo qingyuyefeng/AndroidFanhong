@@ -56,6 +56,7 @@
         　　
         <item name="android:indeterminateDrawable">@drawable/progress_large_white</item>
     </style>
+
     <style name="shop_sort_layout_style">
         <item name="android:background">@color/white</item>
         <item name="android:button">@null</item>
@@ -89,6 +90,7 @@
         <item name="android:textColor">@color/housekeepingtitle</item>
         <item name="android:textSize">15sp</item>
     </style>
+
     <style name="housekeeping_classify_radio">
         <item name="android:textColor">@color/housekeepingleft</item>
         <item name="android:background">@drawable/housekeeping_left_radio_selector</item>
@@ -96,9 +98,11 @@
         <item name="android:gravity">center</item>
         <item name="android:button">@null</item>
     </style>
+
     <style name="my_checkbox_selector" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/checkbox_selector</item>
     </style>
+
     <style name="myorder_radiobutton">
         <item name="android:paddingTop">7dp</item>
         <item name="android:paddingBottom">7dp</item>
@@ -107,4 +111,8 @@
         <item name="android:button">@null</item>
         <item name="android:textColor">@color/text_6</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

@@ -91,6 +91,11 @@ public class AccesscontrolView2 extends BaseFragment {
             }
         });
         listView.setAdapter(cellListAdapter);
+        if(cellList.size()>0){
+            handler.sendEmptyMessage(112);
+        }else {
+            handler.sendEmptyMessage(113);
+        }
     }
 
     public void getKeylist(String s) {

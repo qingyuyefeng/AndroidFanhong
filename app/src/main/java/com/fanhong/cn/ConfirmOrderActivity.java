@@ -629,7 +629,7 @@ public class ConfirmOrderActivity extends Activity {
         });
     }
     private void postWXOrder(){
-        String ddh1 = WXorderNumber.substring(5,15);
+        String ddh1 = WXorderNumber.substring(0,10);
 
         RequestParams param = new RequestParams(App.CMDURL);
         param.addParameter("cmd", "21");

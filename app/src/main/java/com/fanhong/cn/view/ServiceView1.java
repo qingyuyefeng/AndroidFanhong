@@ -53,8 +53,9 @@ public class ServiceView1 extends BaseFragment {
 //            R.drawable.service_lock,
 //          R.drawable.service_park
             R.drawable.service_fix,
-//			,R.drawable.service_jd, R.drawable.service_kd, R.drawable.service_clean,
-            R.drawable.service_talk,
+//			R.drawable.ico_doorfix,
+// R.drawable.service_kd, R.drawable.service_clean,
+//            R.drawable.service_talk,
             R.drawable.service_dang_1
     };
 
@@ -67,8 +68,9 @@ public class ServiceView1 extends BaseFragment {
 //            R.string.service_lock,
 //            R.string.service_park,
             R.string.service_fix,
-//			,R.string.service_jd, R.string.service_kd, R.string.service_clean,
-            R.string.service_talk,
+//			R.string.service_door,
+// R.string.service_kd, R.string.service_clean,
+//            R.string.service_talk,
             R.string.service_dang
     };
 
@@ -106,28 +108,6 @@ public class ServiceView1 extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         mSettingPref = this.getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
-
-//		tv_choosecell = (TextView) view.findViewById(R.id.tv_choosecell);
-//		ll_choosegarden = (LinearLayout) view.findViewById(R.id.ll_choosegarden);
-//		ll_choosegarden.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				//判断是否登录才允许跳转
-//				if(isLogined() == 1){
-//					Intent intent2 = new Intent(ServiceView1.this.getActivity(), GardenSelecterActivity.class);
-//					ServiceView1.this.getBaseActivity().startActivityForResult(intent2,12);
-//				}else {
-//					createDialog();
-//				}
-//			}
-//		});
-//		try{
-//			String str = mSettingPref.getString("gardenName", "");
-//			if(str.length() > 0)
-//				tv_choosecell.setText(str);
-//			else
-//				tv_choosecell.setText(getString(R.string.choosecell));
-//		}catch (Exception e) {}
 
         opergridview1 = (MyGridView) view.findViewById(R.id.opergridview1);
         opergridview2 = (MyGridView) view.findViewById(R.id.opergridview2);
@@ -334,25 +314,27 @@ public class ServiceView1 extends BaseFragment {
             case 3:
                 startActivity(new Intent(ServiceView1.this.getActivity(), FenXiaoActivity.class));
                 break;
-            //管线维修
 //            case 4:
 //                startActivity(new Intent(ServiceView1.this.getActivity(), EmergencyUnlockActivity.class));
 //                break;
-            case 4:
+            case 4://上门维修
                 if (MySharedPrefUtils.getStatus(getActivity()) != 1) {
                     TopBarUtil.createDialog(getActivity(), 0);
                 } else
                     startActivity(new Intent(ServiceView1.this.getActivity(), RepairActivity.class));
                 break;
-            case 5:
-                if (MySharedPrefUtils.getStatus(getActivity()) != 1) {
-                    TopBarUtil.createDialog(getActivity(), 0);
-                } else if (TextUtils.isEmpty(MySharedPrefUtils.getGardenName(getActivity()))) {
-                    TopBarUtil.createDialog(getActivity(), 1);
-                } else
-                    startActivity(new Intent(ServiceView1.this.getActivity(), CommunityChatRoomActivity.class));
-                break;
-            case 6:
+//            case 5://门禁报修
+//
+//                break;
+//            case 6: //社区互动
+//                if (MySharedPrefUtils.getStatus(getActivity()) != 1) {
+//                    TopBarUtil.createDialog(getActivity(), 0);
+//                } else if (TextUtils.isEmpty(MySharedPrefUtils.getGardenName(getActivity()))) {
+//                    TopBarUtil.createDialog(getActivity(), 1);
+//                } else
+//                    startActivity(new Intent(ServiceView1.this.getActivity(), CommunityChatRoomActivity.class));
+//                break;
+            case 5: //政务系统
                 if (MySharedPrefUtils.getStatus(getActivity()) == 1) {
                     RequestParams params = new RequestParams(App.CMDURL);
                     params.addParameter("cmd", "93");

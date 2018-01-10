@@ -74,6 +74,10 @@ public class Fragmentlt extends Fragment {
     private void onClick(View v) {
         switch (v.getId()) {
             case R.id.lt_get_more:
+                if(list.size()<=3){
+                    Toast.makeText(getActivity(),"没有更多了",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 list.clear();
                 RequestParams params1 = new RequestParams(App.CMDURL);
                 params1.addBodyParameter("cmd", "117");
@@ -225,7 +229,7 @@ public class Fragmentlt extends Fragment {
             @Override
             public void details(String content) {
                 Intent intent = new Intent(getActivity(), LtDetailsActivity.class);
-                intent.putExtra("content",content);
+                intent.putExtra("content", content);
                 startActivity(intent);
             }
         });
@@ -233,6 +237,9 @@ public class Fragmentlt extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         if (list.size() > 0) {
             handler.sendEmptyMessage(2);
+//            if (list.size() <= 3){
+//                getMore.setVisibility(View.GONE);
+//            }
         } else {
             handler.sendEmptyMessage(1);
         }

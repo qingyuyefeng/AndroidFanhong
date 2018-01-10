@@ -95,7 +95,8 @@
                 android:paddingBottom="5px"
                 android:paddingTop="5px"
                 android:text="@string/tab_mine"
-                android:textColor="@color/textgray2" />
+                android:textColor="@color/textgray2"
+                android:textSize="28px"/>
         </RadioGroup>
     </com.zhy.autolayout.AutoLinearLayout>
 

@@ -226,9 +226,7 @@ public class AssessActivity extends SampleActivity implements OnClickListener,Te
 
 			case R.id.iv_choose_goods_pic:
 				//选择晒单图片, 调出图片选择界面
-				Log.i("hu","******3333");
 				MultiImageSelector.create().count(MAX_PIC - imageUrls.size()).start(this, REQUEST_CODE_PICTURE);
-				Log.i("hu","******3333  1");
 				break;
 		}
 	}
