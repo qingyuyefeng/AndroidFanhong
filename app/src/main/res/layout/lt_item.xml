@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingBottom="3px"
-    android:layout_marginTop="1px"
+    android:layout_marginTop="10px"
     android:layout_marginLeft="15px"
     android:layout_marginRight="15px">
     <com.zhy.autolayout.AutoLinearLayout
@@ -32,16 +32,16 @@
         android:id="@+id/lt_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5px"
+        android:lineSpacingExtra="12px"
         android:text="@string/daifaxuzhi"
-        android:maxLines="3"
-        android:ellipsize="end"
         android:paddingLeft="30px"
         android:paddingRight="20px"/>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="3px"
-            android:layout_marginTop="5px"
+            android:layout_height="2px"
+            android:layout_marginTop="8px"
             android:background="#dedede"/>
         <!--<TextView-->
             <!--android:id="@+id/lt_text_back"-->

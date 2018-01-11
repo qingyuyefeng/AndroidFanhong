@@ -26,13 +26,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <TextView
-                    android:id="@+id/jiange_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="2px"
-                    android:layout_marginTop="30px"
-                    android:background="@color/text_9"/>
-
                 <ImageView
                     android:id="@+id/lt_get_more"
                     android:layout_width="wrap_content"

@@ -31,16 +31,6 @@ public class LtAdapter extends RecyclerView.Adapter<LtAdapter.MyViewHolder> {
     private Context context;
     private LayoutInflater inflater;
 
-    public interface LtInterface{
-        void details(String content);  //click to check details
-//        void reply(int position);
-    }
-    LtInterface ltInterface;
-
-    public void setLtInterface(LtInterface ltInterface) {
-        this.ltInterface = ltInterface;
-    }
-
     public LtAdapter(Context context, List<LtItemModel> list){
         this.context = context;
         this.list = list;
@@ -64,12 +54,6 @@ public class LtAdapter extends RecyclerView.Adapter<LtAdapter.MyViewHolder> {
             x.image().bind(holder.photo,model.getPhoto(),options1);
         holder.name.setText(model.getName());
         holder.content.setText(model.getContent());
-        holder.layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ltInterface.details(model.getContent());
-            }
-        });
     }
 
     @Override

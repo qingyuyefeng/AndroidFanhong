@@ -74,11 +74,6 @@ public class Fragmentlt extends Fragment {
     private void onClick(View v) {
         switch (v.getId()) {
             case R.id.lt_get_more:
-                if(list.size()<=3){
-                    Toast.makeText(getActivity(),"没有更多了",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                list.clear();
                 RequestParams params1 = new RequestParams(App.CMDURL);
                 params1.addBodyParameter("cmd", "117");
                 x.http().post(params1, new Callback.CommonCallback<String>() {
@@ -87,6 +82,11 @@ public class Fragmentlt extends Fragment {
                         if (JsonSyncUtils.getJsonValue(result, "cmd").equals("118")) {
                             try {
                                 JSONArray jsonArray = new JSONObject(result).getJSONArray("data");
+                                if (jsonArray.length() <= 3) {
+                                    Toast.makeText(getActivity(), "没有更多了", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                                list.clear();
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject object = jsonArray.getJSONObject(i);
                                     LtItemModel model = new LtItemModel();
@@ -137,10 +137,7 @@ public class Fragmentlt extends Fragment {
                             if (isSoftShowing()) {
                                 hideSoftinputyer(submit);
                             }
-                            list.clear();
-                            getDatas();
-                            handler.sendEmptyMessage(3);
-                            handler.sendEmptyMessage(4);
+                            Fragmentlt.this.onResume();
                         } else {
                             Toast.makeText(getActivity(), "发表失败！", Toast.LENGTH_SHORT).show();
                         }
@@ -224,22 +221,10 @@ public class Fragmentlt extends Fragment {
         getDatas();
         adapter = new LtAdapter(getActivity(), list);
         handler.sendEmptyMessage(3);
-        //留回复接口和详情页面接口
-        adapter.setLtInterface(new LtAdapter.LtInterface() {
-            @Override
-            public void details(String content) {
-                Intent intent = new Intent(getActivity(), LtDetailsActivity.class);
-                intent.putExtra("content", content);
-                startActivity(intent);
-            }
-        });
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         if (list.size() > 0) {
             handler.sendEmptyMessage(2);
-//            if (list.size() <= 3){
-//                getMore.setVisibility(View.GONE);
-//            }
         } else {
             handler.sendEmptyMessage(1);
         }
