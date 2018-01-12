@@ -93,7 +93,7 @@ public class ViewPagerActivity extends FragmentActivity {
                 textViews[2].setBackgroundColor(getResources().getColor(R.color.white));
                 switch (checkedId){
                     case R.id.radiogroup_fx:
-                        extra.setVisibility(View.VISIBLE);
+//                        extra.setVisibility(View.VISIBLE);
                         title.setText(R.string.fx);
                         textViews[0].setBackgroundColor(getResources().getColor(R.color.skyblue));
                         viewPager.setCurrentItem(0);
