@@ -41,12 +41,9 @@
                     android:id="@+id/party_user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="null"
                     android:textColor="@color/text_3"
                     android:textSize="28px"
-                    android:drawableRight="@drawable/ico_next"
-                    android:padding="25px"
-                    android:drawablePadding="25px"/>
+                    android:padding="25px"/>
             </com.zhy.autolayout.AutoLinearLayout>
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
@@ -74,12 +71,9 @@
                     android:id="@+id/party_user_sex"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="null"
                     android:textSize="28px"
                     android:textColor="@color/text_3"
-                    android:drawableRight="@drawable/ico_next"
-                    android:padding="25px"
-                    android:drawablePadding="25px"/>
+                    android:padding="25px"/>
             </com.zhy.autolayout.AutoLinearLayout>
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
@@ -108,12 +102,9 @@
                     android:id="@+id/party_user_nationality"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="null"
                     android:textSize="28px"
                     android:textColor="@color/text_3"
-                    android:drawableRight="@drawable/ico_next"
-                    android:padding="25px"
-                    android:drawablePadding="25px"/>
+                    android:padding="25px"/>
             </com.zhy.autolayout.AutoLinearLayout>
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
@@ -139,12 +130,9 @@
                     android:id="@+id/party_user_age"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="null"
                     android:textSize="28px"
                     android:textColor="@color/text_3"
-                    android:drawableRight="@drawable/ico_next"
-                    android:padding="25px"
-                    android:drawablePadding="25px"/>
+                    android:padding="25px"/>
             </com.zhy.autolayout.AutoLinearLayout>
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
@@ -170,12 +158,9 @@
                     android:id="@+id/party_user_birthday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="null"
                     android:textSize="28px"
                     android:textColor="@color/text_3"
-                    android:drawableRight="@drawable/ico_next"
-                    android:padding="25px"
-                    android:drawablePadding="25px"/>
+                    android:padding="25px"/>
             </com.zhy.autolayout.AutoLinearLayout>
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
@@ -201,12 +186,9 @@
                     android:id="@+id/party_user_idcardnumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="null"
                     android:textSize="28px"
                     android:textColor="@color/text_3"
-                    android:drawableRight="@drawable/ico_next"
-                    android:padding="25px"
-                    android:drawablePadding="25px"/>
+                    android:padding="25px"/>
             </com.zhy.autolayout.AutoLinearLayout>
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
@@ -235,12 +217,9 @@
                     android:id="@+id/party_user_phonenumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="null"
                     android:textSize="28px"
                     android:textColor="@color/text_3"
-                    android:drawableRight="@drawable/ico_next"
-                    android:padding="25px"
-                    android:drawablePadding="25px"/>
+                    android:padding="25px"/>
             </com.zhy.autolayout.AutoLinearLayout>
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
@@ -269,12 +248,9 @@
                     android:id="@+id/party_user_position"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="null"
                     android:textSize="28px"
                     android:textColor="@color/text_3"
-                    android:drawableRight="@drawable/ico_next"
-                    android:padding="25px"
-                    android:drawablePadding="25px"/>
+                    android:padding="25px"/>
             </com.zhy.autolayout.AutoLinearLayout>
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
@@ -300,12 +276,9 @@
                     android:id="@+id/party_user_education"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="null"
                     android:textSize="28px"
                     android:textColor="@color/text_3"
-                    android:drawableRight="@drawable/ico_next"
-                    android:padding="25px"
-                    android:drawablePadding="25px"/>
+                    android:padding="25px"/>
             </com.zhy.autolayout.AutoLinearLayout>
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
@@ -331,12 +304,12 @@
                     android:id="@+id/party_user_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="null"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:maxLength="20"
                     android:textSize="28px"
                     android:textColor="@color/text_3"
-                    android:drawableRight="@drawable/ico_next"
-                    android:padding="25px"
-                    android:drawablePadding="25px"/>
+                    android:padding="25px"/>
             </com.zhy.autolayout.AutoLinearLayout>
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
@@ -362,12 +335,9 @@
                     android:id="@+id/party_user_jointime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="null"
                     android:textSize="28px"
                     android:textColor="@color/text_3"
-                    android:drawableRight="@drawable/ico_next"
-                    android:padding="25px"
-                    android:drawablePadding="25px"/>
+                    android:padding="25px"/>
             </com.zhy.autolayout.AutoLinearLayout>
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
@@ -393,12 +363,9 @@
                     android:id="@+id/party_user_positivetime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="null"
                     android:textSize="28px"
                     android:textColor="@color/text_3"
-                    android:drawableRight="@drawable/ico_next"
-                    android:padding="25px"
-                    android:drawablePadding="25px"/>
+                    android:padding="25px"/>
             </com.zhy.autolayout.AutoLinearLayout>
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
@@ -424,12 +391,9 @@
                     android:id="@+id/party_user_whichbranch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="null"
                     android:textSize="28px"
                     android:textColor="@color/text_3"
-                    android:drawableRight="@drawable/ico_next"
-                    android:padding="25px"
-                    android:drawablePadding="25px"/>
+                    android:padding="25px"/>
             </com.zhy.autolayout.AutoLinearLayout>
         </com.zhy.autolayout.AutoLinearLayout>
     </ScrollView>
