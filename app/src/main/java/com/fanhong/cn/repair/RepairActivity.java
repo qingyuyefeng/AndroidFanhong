@@ -6,17 +6,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fanhong.cn.App;
 import com.fanhong.cn.R;
-import com.fanhong.cn.fenxiao.PostSuccessActivity;
 import com.fanhong.cn.util.JsonSyncUtils;
 import com.fanhong.cn.util.StringUtils;
 

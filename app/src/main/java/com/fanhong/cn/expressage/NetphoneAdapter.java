@@ -1,6 +1,7 @@
 package com.fanhong.cn.expressage;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,15 @@ public class NetphoneAdapter extends RecyclerView.Adapter<NetphoneAdapter.ViewHo
     private List<NetphoneModel> list;
     private LayoutInflater inflater;
 
+    CallPhone callPhone;
+    public interface CallPhone{
+        void callout(String phone);
+    }
+
+    public void setCallPhone(CallPhone callPhone) {
+        this.callPhone = callPhone;
+    }
+
     public NetphoneAdapter(Context context, List<NetphoneModel> list) {
         this.context = context;
         this.list = list;
@@ -35,10 +45,17 @@ public class NetphoneAdapter extends RecyclerView.Adapter<NetphoneAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         NetphoneModel model = list.get(position);
         holder.name.setText(model.getName());
         holder.phone.setText(model.getPhone());
+        holder.phone.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+        holder.phone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callPhone.callout(holder.phone.getText().toString());
+            }
+        });
     }
 
     @Override

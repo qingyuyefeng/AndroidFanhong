@@ -49,7 +49,7 @@ public class FxAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     }
 
     public interface ItemClick{
-        void itemclick(int id,String content);
+        void itemclick(int id,String content,String imgurl);
     }
 
     public FxAdapter(Context context,List<FxItemModel> list){
@@ -114,7 +114,7 @@ public class FxAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 myViewHolder1.layout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        click.itemclick(id,str);
+                        click.itemclick(id,str,"");
                     }
                 });
                 break;
@@ -136,11 +136,12 @@ public class FxAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 myViewHolder2.author1.setText(model.getAuthor());
                 myViewHolder2.time1.setText(model.getTime());
                 x.image().bind(myViewHolder2.fxImage,model.getPicUrl(),options);
+                final String imgurl = model.getPicUrl();
                 final int id1 = model.getId();
                 myViewHolder2.layout1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        click.itemclick(id1,str1);
+                        click.itemclick(id1,str1,imgurl);
                     }
                 });
                 break;

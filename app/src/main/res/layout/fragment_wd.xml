@@ -90,10 +90,14 @@
             android:paddingTop="25px"
             android:paddingBottom="25px"
             android:drawablePadding="25px"/>
-        <ImageView
-            android:layout_width="45px"
-            android:layout_height="45px"
-            android:src="@drawable/ico_qj"
+        <TextView
+            android:id="@+id/tv_score"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text=""
+            android:gravity="center_vertical"
+            android:drawableRight="@drawable/ico_qj"
+            android:drawablePadding="10px"
             android:layout_marginRight="20px"/>
     </com.zhy.autolayout.AutoLinearLayout>
     <View
@@ -107,6 +111,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:visibility="gone"
         android:background="@color/white">
         <TextView
             android:layout_width="0dp"

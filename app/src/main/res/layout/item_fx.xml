@@ -19,6 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
         android:text="11.11日，市长张国清主持了第187次亚太峰会..."
+        android:singleLine="true"
+        android:ellipsize="end"
         android:layout_margin="20px"/>
     <com.fanhong.cn.view.CircleImg
         android:id="@+id/author_photo"

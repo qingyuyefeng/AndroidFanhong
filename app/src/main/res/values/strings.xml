@@ -118,7 +118,7 @@
     <string name="usersettings">账号设置</string>
     <string name="newsnotice">消息通知</string>
     <string name="mytradeno">我的订单</string>
-    <string name="kehurexian">客户热线</string>
+    <string name="kehurexian">客服热线</string>
     <string name="tongyongsz">通用设置</string>
     <string name="aboutour">关于我们</string>
     <string name="noticepost">通知公告</string>
@@ -127,7 +127,7 @@
     <string name="action">活动</string>
     <string name="post">公告</string>
     <string name="pwsh">品味生活</string>
-    <string name="keylogin">点击头像登录</string>
+    <string name="keylogin">点击登录</string>
     <string name="headportrait">头像</string>
     <string name="nickname">昵称</string>
     <string name="account">账号</string>

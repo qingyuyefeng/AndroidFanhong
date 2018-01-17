@@ -117,14 +117,14 @@ public class Fragmentfx extends Fragment {
         super.onResume();
         list.clear();
         getDatas();
-        Log.i("xq","list.size()==>"+list.size());
         adapter = new FxAdapter(getActivity(),list);
         adapter.setClick(new FxAdapter.ItemClick() {
             @Override
-            public void itemclick(int id, String content) {
+            public void itemclick(int id, String content,String imgurl) {
                 Intent intent = new Intent(getActivity(), DetailsActivity.class);
                 intent.putExtra("id",id);
                 intent.putExtra("content",content);
+                intent.putExtra("url",imgurl);
                 startActivity(intent);
             }
         });

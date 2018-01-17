@@ -1,8 +1,15 @@
 package com.fanhong.cn.expressage;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -46,13 +53,48 @@ public class NetphoneActivity extends Activity {
         title.setText("网点电话");
         getData();
         adapter = new NetphoneAdapter(this, list);
+        adapter.setCallPhone(new NetphoneAdapter.CallPhone() {
+            @Override
+            public void callout(final String phone) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(NetphoneActivity.this);
+                builder.setTitle("将要拨打" + phone);
+                builder.setMessage("是否立即拨打？");
+                builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        callNumber(phone);
+                    }
+                });
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            }
+        });
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
     }
+
     @Event({R.id.img_back})
     private void onClick(View v){
         finish();
     }
+
+    private void callNumber(String phone){
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_CALL);
+        intent.setData(Uri.parse("tel:"+phone));
+//        if(ActivityCompat.checkSelfPermission(NetphoneActivity.this, Manifest.permission.CALL_PHONE)!= PackageManager.PERMISSION_GRANTED){
+//            return;
+//        }
+        startActivity(intent);
+
+    }
+
     private void getData() {
         RequestParams params = new RequestParams(App.CMDURL);
         params.addBodyParameter("cmd", "83");

@@ -36,7 +36,7 @@
         android:textColor="@color/white"
         android:padding="10px"
         android:layout_alignParentRight="true"
-        android:text="签到"
+        android:text=""
         android:visibility="invisible"/>
 
 </com.zhy.autolayout.AutoRelativeLayout>

@@ -71,7 +71,6 @@ public class LoginActivity extends SampleActivity {
         String nick = "";
         String userid = "";
         String logo = "";
-        Log.i("xq", "LoginAcivity.java json=" + json.toString());
         try {
             str = json.getString("cmd");
             cmd = Integer.parseInt(str);

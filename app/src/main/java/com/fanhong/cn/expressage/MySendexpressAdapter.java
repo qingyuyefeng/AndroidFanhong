@@ -69,10 +69,11 @@ public class MySendexpressAdapter extends BaseAdapter {
         myViewHolder.rcity.setText(mysendModel.getReceiveCity());
         myViewHolder.rname.setText(mysendModel.getReceiveName());
         final int id = mysendModel.getId();
-        myViewHolder.itemLayout.setOnClickListener(new View.OnClickListener() {
+        myViewHolder.itemLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onLongClick(View v) {
                 itemClick.Click(id,position);
+                return true;
             }
         });
         return convertView;

@@ -48,6 +48,8 @@ public class Fragmentwd extends Fragment {
     private AutoLinearLayout userMessage;
     @ViewInject(R.id.user_score)
     private AutoLinearLayout userScore;
+    @ViewInject(R.id.tv_score)
+    private TextView tvscore;
 //    @ViewInject(R.id.user_notification)
 //    private AutoLinearLayout userNotice;
     @ViewInject(R.id.view_devider)
@@ -69,10 +71,11 @@ public class Fragmentwd extends Fragment {
         }
         userName.setText(MySharedPrefUtils.getNick(getActivity()));
         userPhone.setText(MySharedPrefUtils.getPhone(getActivity()));
-        checkmember(MySharedPrefUtils.getPhone(getActivity()));
+        getScore(MySharedPrefUtils.getUserId(getActivity()));
+//        checkmember(MySharedPrefUtils.getPhone(getActivity()));
         return view;
     }
-    @Event({R.id.user_message,R.id.user_score,/*R.id.user_notification,*/R.id.party_person_info,R.id.dues_message})
+    @Event({R.id.user_message,/*R.id.user_score,R.id.user_notification,*/R.id.party_person_info,R.id.dues_message})
     private void onClick(View v){
         switch (v.getId()){
             case R.id.user_message: //个人信息
@@ -80,9 +83,9 @@ public class Fragmentwd extends Fragment {
                 break;
 //            case R.id.user_notification: //消息通知
 //                break;
-            case R.id.user_score:  //积分
-                startActivity(new Intent(getActivity(), PartyScoreActivity.class));
-                break;
+//            case R.id.user_score:  //积分
+//                startActivity(new Intent(getActivity(), PartyScoreActivity.class));
+//                break;
             case R.id.party_person_info:  //党员信息
                 startActivity(new Intent(getActivity(), PartyMemberInfoActivity.class));
                 break;
@@ -91,6 +94,37 @@ public class Fragmentwd extends Fragment {
                 break;
         }
     }
+
+    private void getScore(String uid){
+        RequestParams params = new RequestParams(App.CMDURL);
+        params.addBodyParameter("cmd","105");
+        params.addBodyParameter("uid",uid);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                if(JsonSyncUtils.getJsonValue(result,"cmd").equals("106")){
+                    String score = JsonSyncUtils.getJsonValue(result,"fen");
+                    handler.sendMessage(handler.obtainMessage(13,score));
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
     private void checkmember(String phonenumber){
         RequestParams params = new RequestParams(App.CMDURL);
         params.addBodyParameter("cmd","135");
@@ -135,6 +169,10 @@ public class Fragmentwd extends Fragment {
                 case 12:
                     devider.setVisibility(View.GONE);
                     userInfo.setVisibility(View.GONE);
+                    break;
+                case 13:
+                    String s = (String) msg.obj;
+                    tvscore.setText(s);
                     break;
             }
         }
