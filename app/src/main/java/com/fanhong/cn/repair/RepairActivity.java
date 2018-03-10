@@ -1,27 +1,47 @@
 package com.fanhong.cn.repair;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fanhong.cn.App;
 import com.fanhong.cn.R;
+import com.fanhong.cn.util.FileUtil;
 import com.fanhong.cn.util.JsonSyncUtils;
 import com.fanhong.cn.util.StringUtils;
+import com.zhy.autolayout.AutoLinearLayout;
 
 import org.xutils.common.Callback;
+import org.xutils.common.util.KeyValue;
 import org.xutils.http.RequestParams;
+import org.xutils.http.body.MultipartBody;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.finalteam.galleryfinal.FunctionConfig;
+import cn.finalteam.galleryfinal.GalleryFinal;
+import cn.finalteam.galleryfinal.model.PhotoInfo;
 
 /**
  * Created by Administrator on 2017/8/21.
@@ -44,9 +64,20 @@ public class RepairActivity extends Activity {
     private EditText edtAddr;
     @ViewInject(R.id.edt_input_details)
     private EditText edtDetails;
+    @ViewInject(R.id.layout_chosen)
+    private AutoLinearLayout layout_img;
+    @ViewInject(R.id.img_1)
+    private ImageView img_1;
+    @ViewInject(R.id.img_2)
+    private ImageView img_2;
+    @ViewInject(R.id.img_3)
+    private ImageView img_3;
+    @ViewInject(R.id.img_Add)
+    private ImageView img_add;
 
     private boolean isinput = true;
     private Bundle bundle;
+    private ArrayList<String> picPaths = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,7 +115,7 @@ public class RepairActivity extends Activity {
         });
     }
 
-    @Event({R.id.img_back, R.id.ctv_province, R.id.ctv_city, R.id.ctv_area, R.id.btn_confirm})
+    @Event({R.id.img_back, R.id.ctv_province, R.id.ctv_city, R.id.ctv_area, R.id.btn_confirm, R.id.img_Add})
     private void onCLicks(View v) {
         switch (v.getId()) {
             case R.id.img_back:
@@ -99,15 +130,24 @@ public class RepairActivity extends Activity {
             case R.id.btn_confirm:
                 if (getForms()) {
                     RequestParams params = new RequestParams(App.CMDURL);
-                    params.addParameter("cmd","71");
-                    params.addParameter("name", bundle.getString("name"));
-                    params.addParameter("phone", bundle.getString("phone"));
-                    params.addParameter("dizhi", bundle.getString("addr"));
-                    params.addParameter("concent", bundle.getString("details"));
+                    List<KeyValue> body = new ArrayList<>();
+                    body.add(new KeyValue("cmd", "1014"));
+                    body.add(new KeyValue("name", bundle.getString("name")));
+                    body.add(new KeyValue("phone", bundle.getString("phone")));
+                    body.add(new KeyValue("dizhi", bundle.getString("addr")));
+                    body.add(new KeyValue("concent", bundle.getString("details")));
+                    for (int i = 0; i < picPaths.size(); i++) {
+                        File file = new File(picPaths.get(i));
+                        body.add(new KeyValue("file" + (i + 1), file));
+                        body.add(new KeyValue("tupian" + (i + 1), file.getName()));
+                    }
+                    params.setRequestBody(new MultipartBody(body, "UTF-8"));
+                    params.setMultipart(true);
                     x.http().post(params, new Callback.CommonCallback<String>() {
                         @Override
                         public void onSuccess(String s) {
-                            if (JsonSyncUtils.getJsonValue(s, "cw").equals("0")) {
+//                            Log.e("TestLog", s);
+                            if (JsonSyncUtils.getJsonValue(s, "state").equals("200")) {
                                 Intent intent = new Intent(RepairActivity.this, RepairSuccessActivity.class);
                                 intent.putExtras(bundle);
                                 startActivity(intent);
@@ -116,10 +156,12 @@ public class RepairActivity extends Activity {
 
                         @Override
                         public void onError(Throwable throwable, boolean b) {
+                            Log.e("TestLog","err");
                         }
 
                         @Override
                         public void onCancelled(CancelledException e) {
+                            Log.e("TestLog","cancel");
                         }
 
                         @Override
@@ -129,7 +171,65 @@ public class RepairActivity extends Activity {
                 } else
                     Toast.makeText(this, "您的输入有误，请检查！", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.img_Add:
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+                    int checkCamera = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+                    int checkSD = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                    if (checkCamera + checkSD != 0) {
+                        requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 102);
+                        return;
+                    }
+                }
+                openPicture();
+                break;
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 102) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED)
+                openPicture();
+        }
+    }
+
+    private void openPicture() {
+        FunctionConfig cfg = new FunctionConfig.Builder()
+                .setMutiSelectMaxSize(3/* - chosenSize*/)
+                .setSelected(picPaths)
+                .setEnableCamera(true)
+                .build();
+        GalleryFinal.openGalleryMuti(103, cfg, new GalleryFinal.OnHanlderResultCallback() {
+            @Override
+            public void onHanlderSuccess(int reqeustCode, List<PhotoInfo> resultList) {
+                if (reqeustCode == 103) {
+                    picPaths.clear();
+                    if (resultList.size() > 0) {
+                        layout_img.setVisibility(View.VISIBLE);
+                        for (PhotoInfo i : resultList) {
+                            picPaths.add(i.getPhotoPath());
+                            if (resultList.indexOf(i) == 0) {
+                                img_1.setImageURI(Uri.fromFile(new File(i.getPhotoPath())));
+                                img_2.setVisibility(View.GONE);
+                                img_3.setVisibility(View.GONE);
+                            } else if (resultList.indexOf(i) == 1) {
+                                img_2.setImageURI(Uri.fromFile(new File(i.getPhotoPath())));
+                                img_2.setVisibility(View.VISIBLE);
+                            } else if (resultList.indexOf(i) == 2) {
+                                img_3.setImageURI(Uri.fromFile(new File(i.getPhotoPath())));
+                                img_3.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    } else layout_img.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onHanlderFailure(int requestCode, String errorMsg) {
+
+            }
+        });
     }
 
     private boolean getForms() {

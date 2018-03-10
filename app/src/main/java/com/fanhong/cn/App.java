@@ -5,12 +5,17 @@ import android.app.Application;
 import android.content.Context;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.fanhong.cn.util.XImageLoader;
 
 import org.xutils.x;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import cn.finalteam.galleryfinal.CoreConfig;
+import cn.finalteam.galleryfinal.FunctionConfig;
+import cn.finalteam.galleryfinal.GalleryFinal;
+import cn.finalteam.galleryfinal.ThemeConfig;
 import io.rong.imlib.RongIMClient;
 
 /**
@@ -59,6 +64,22 @@ public class App extends Application {
                 "io.rong.push".equals(getCurProcessName(getApplicationContext()))) {
             RongIMClient.init(this);
         }
+
+
+        ThemeConfig theme = new ThemeConfig.Builder().build();
+        FunctionConfig functionCfg = new FunctionConfig.Builder()
+                .setEnableCamera(true)
+                .setEnableEdit(true)
+                .setEnableCrop(true)
+                .setEnableRotate(true)
+                .setCropSquare(true)
+                .setEnablePreview(true)
+                .build();
+        XImageLoader imgLoader = new XImageLoader();
+        CoreConfig coreCfg = new CoreConfig.Builder(this, imgLoader, theme)
+                .setFunctionConfig(functionCfg)
+                .build();
+        GalleryFinal.init(coreCfg);
     }
 
     public static String getCurProcessName(Context context) {
